@@ -241,7 +241,7 @@ body {
 .telegram-window {
     display: none;
     position: absolute;
-    top: 100px; /* Розташування під вікном налаштувань */
+    top: 100px; /* Розташування під вікном налштувань */
     right: 10px;
     width: 300px; /* Задаємо ширину */
     height: 200px; /* Задаємо висоту */
