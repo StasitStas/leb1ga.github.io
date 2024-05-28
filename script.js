@@ -23,6 +23,8 @@ document.addEventListener('DOMContentLoaded', function() {
     let settingsWindowOpen = false;
     let telegramWindowOpen = false;
 
+    let lastClickTime = 0;
+
     settingsIcon.addEventListener('click', function(event) {
         event.stopPropagation();
         settingsWindow.style.display = settingsWindowOpen ? 'none' : 'block';
@@ -122,7 +124,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const clickEffect = document.createElement('div');
             clickEffect.className = 'click-effect';
             clickEffect.style.left = `${x}px`;
-            clickEffect.style.top = `${y + 70}px`; // Додаємо 10 пікселів до y
+            clickEffect.style.top = `${y + 10}px`; // Додаємо 10 пікселів до y
             clickEffect.textContent = '+1'; // Додаємо текстовий ефект
             clickEffectContainer.appendChild(clickEffect);
 
@@ -132,7 +134,13 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    button.addEventListener('click', function(event) {
+    function handleClick(event) {
+        const currentTime = new Date().getTime();
+        if (currentTime - lastClickTime < 300) { // Встановлюємо ліміт в 300 мілісекунд
+            return;
+        }
+        lastClickTime = currentTime;
+
         if (username) {
             clickCount++;
             countDisplay.textContent = clickCount;
@@ -153,9 +161,15 @@ document.addEventListener('DOMContentLoaded', function() {
         } else {
             alert('Помилка: Ім\'я користувача не вказане.');
         }
-    });
+    }
 
-    button.addEventListener('touchstart', function(event) {
+    function handleTouch(event) {
+        const currentTime = new Date().getTime();
+        if (currentTime - lastClickTime < 300) { // Встановлюємо ліміт в 300 мілісекунд
+            return;
+        }
+        lastClickTime = currentTime;
+
         if (username) {
             clickCount++;
             countDisplay.textContent = clickCount;
@@ -179,7 +193,10 @@ document.addEventListener('DOMContentLoaded', function() {
         } else {
             alert('Помилка: Ім\'я користувача не вказане.');
         }
-    });
+    }
+
+    button.addEventListener('click', handleClick);
+    button.addEventListener('touchstart', handleTouch);
 
     function updateLeaderboard() {
         db.collection("clicks").orderBy("clickCount", "desc").limit(5).get().then(querySnapshot => {
