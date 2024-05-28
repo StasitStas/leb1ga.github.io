@@ -83,6 +83,7 @@ document.addEventListener('DOMContentLoaded', function() {
             getUserFirstName(username).then(firstNameFromDb => {
                 firstName = firstNameFromDb;
                 usernameDisplay.textContent = firstName;
+                currentUser = username;
                 db.collection("clicks").doc(username).get().then(doc => {
                     if (doc.exists) {
                         clickCount = doc.data().clickCount || 0;
@@ -96,11 +97,10 @@ document.addEventListener('DOMContentLoaded', function() {
                     }
                     updateLeaderboard();
                 }).catch(error => {
-                    console.error("Error getting document:", error);
+                    console.error("Помилка отримання документа:", error);
                 });
             }).catch(error => {
-                console.error("Error getting first name:", error);
-                alert('Помилка: Не вдалося отримати ім\'я користувача.');
+                console.error("Помилка отримання first name:", error);
             });
         } else {
             alert('Помилка: Ім\'я користувача не вказане.');
