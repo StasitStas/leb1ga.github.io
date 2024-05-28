@@ -122,7 +122,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const clickEffect = document.createElement('div');
             clickEffect.className = 'click-effect';
             clickEffect.style.left = `${x}px`;
-            clickEffect.style.top = `${y}px`;
+            clickEffect.style.top = `${y + 30}px`; // Додаємо 10 пікселів до y
             clickEffect.textContent = '+1'; // Додаємо текстовий ефект
             clickEffectContainer.appendChild(clickEffect);
 
