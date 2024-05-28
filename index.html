@@ -49,6 +49,22 @@
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-analytics.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+    <script>
+        // Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyApLBsJ9AOXu7i38Rm_t4cGuEgxpZRDaeE",
+            authDomain: "leb1gabot.firebaseapp.com",
+            projectId: "leb1gabot",
+            storageBucket: "leb1gabot.appspot.com",
+            messagingSenderId: "1096597237881",
+            appId: "1:1096597237881:web:29b0383c26ed9acfcaa4a8",
+            measurementId: "G-Z1KFE8C0ML"
+        };
+
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
+    </script>
     <script src="script.js"></script>
 </body>
 </html>
