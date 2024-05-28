@@ -20,7 +20,8 @@ body {
 
 .bottom-nav {
     position: fixed;
-    bottom: 20px; /* Змінив значення bottom */
+    bottom: 0;
+    left: 0; /* Додано left: 0 */
     width: 100%;
     height: 60px;
     background-color: #333;
@@ -31,6 +32,7 @@ body {
 }
 
 
+
 .nav-button i {
     font-size: 24px;
     margin-bottom: 4px;
@@ -38,7 +40,7 @@ body {
 
 .nav-button {
     color: #FFF; /* Колір тексту кнопок */
-    background-color: #808080; /* Колір фону кнопок за замовчуванням */
+    background-color: #222222; /* Колір фону кнопок за замовчуванням */
     border: none;
 }
 
