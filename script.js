@@ -123,6 +123,7 @@ document.addEventListener('DOMContentLoaded', function() {
             clickEffect.className = 'click-effect';
             clickEffect.style.left = `${x}px`;
             clickEffect.style.top = `${y}px`;
+            clickEffect.textContent = '+1'; // Додаємо текстовий ефект
             clickEffectContainer.appendChild(clickEffect);
 
             setTimeout(() => {
