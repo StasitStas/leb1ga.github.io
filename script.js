@@ -165,7 +165,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function handleTouch(event) {
         const currentTime = new Date().getTime();
-        if (currentTime - lastClickTime < 300) { // Встановлюємо ліміт в 300 мілісекунд
+        if (currentTime - lastClickTime < 100) { // Встановлюємо ліміт в 300 мілісекунд
             return;
         }
         lastClickTime = currentTime;
