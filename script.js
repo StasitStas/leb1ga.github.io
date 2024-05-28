@@ -83,7 +83,6 @@ document.addEventListener('DOMContentLoaded', function() {
             getUserFirstName(username).then(firstNameFromDb => {
                 firstName = firstNameFromDb;
                 usernameDisplay.textContent = firstName;
-                currentUser = username;
                 db.collection("clicks").doc(username).get().then(doc => {
                     if (doc.exists) {
                         clickCount = doc.data().clickCount || 0;
@@ -97,10 +96,11 @@ document.addEventListener('DOMContentLoaded', function() {
                     }
                     updateLeaderboard();
                 }).catch(error => {
-                    console.error("Помилка отримання документа:", error);
+                    console.error("Error getting document:", error);
                 });
             }).catch(error => {
-                console.error("Помилка отримання first name:", error);
+                console.error("Error getting first name:", error);
+                alert('Помилка: Не вдалося отримати ім\'я користувача.');
             });
         } else {
             alert('Помилка: Ім\'я користувача не вказане.');
@@ -187,18 +187,13 @@ document.addEventListener('DOMContentLoaded', function() {
             querySnapshot.forEach(doc => {
                 index++;
                 const listItem = document.createElement('li');
-                const username = doc.id;
-                const firstName = doc.data().first_name;
-                const displayName = (username === currentUser) ? firstName : username;
-                listItem.textContent = `${index}. ${displayName}: ${doc.data().clickCount}`;
+                listItem.textContent = `${index}. ${doc.id}: ${doc.data().clickCount}`;
                 leaderboardList.appendChild(listItem);
             });
         }).catch(error => {
             console.error("Помилка отримання документів: ", error);
         });
     }
-
-
 
     function subscribeToChannel() {
         const telegramLink = "https://t.me/leb1gaa";
