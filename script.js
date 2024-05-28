@@ -165,13 +165,13 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function handleTouch(event) {
         const currentTime = new Date().getTime();
-        if (currentTime - lastClickTime < 100) { // Встановлюємо ліміт в 300 мілісекунд
+        if (currentTime - lastClickTime < 50) { // Встановлюємо ліміт в 50 мілісекунд
             return;
         }
         lastClickTime = currentTime;
 
         if (username) {
-            clickCount++;
+            clickCount += event.touches.length; // Додаємо кількість дотиків до лічильника кліків
             countDisplay.textContent = clickCount;
             db.collection("clicks").doc(username).set({ clickCount, bonusClaimed })
                 .then(() => {
