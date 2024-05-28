@@ -84,10 +84,11 @@ body {
     transition: opacity 0.3s ease-out, background-color 0.3s ease-out; /* Додаємо анімацію зміни колірного фону */
 }
 
-.circle-button:active::after {
-    opacity: 1;
-    background-color: transparent; /* Змінюємо колір фону на прозорий при кліці */
+.circle-button:active {
+    outline: none; /* Прибираємо рамку підсвічування */
+    box-shadow: none; /* Прибираємо тінь підсвічування */
 }
+
 
 
 .circle-button img {
