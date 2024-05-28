@@ -35,9 +35,18 @@ body {
     margin-bottom: 4px;
 }
 
+.nav-button {
+    color: #FFF; /* Колір тексту кнопок */
+    background-color: #808080; /* Колір фону кнопок за замовчуванням */
+    border: none;
+}
+
 .nav-button:hover {
-    background-color: #444;
-    cursor: pointer;
+    background-color: #A9A9A9; /* Колір фону кнопок при наведенні */
+}
+
+.nav-button:active {
+    background-color: #696969; /* Колір фону кнопок при натисканні */
 }
 
 .header {
