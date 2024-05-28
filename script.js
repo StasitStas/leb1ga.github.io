@@ -187,13 +187,14 @@ document.addEventListener('DOMContentLoaded', function() {
             querySnapshot.forEach(doc => {
                 index++;
                 const listItem = document.createElement('li');
-                listItem.textContent = `${index}. ${doc.id}: ${doc.data().clickCount}`;
+                listItem.textContent = `${index}. ${doc.data().first_name}: ${doc.data().clickCount}`;
                 leaderboardList.appendChild(listItem);
             });
         }).catch(error => {
             console.error("Помилка отримання документів: ", error);
         });
     }
+
 
     function subscribeToChannel() {
         const telegramLink = "https://t.me/leb1gaa";
