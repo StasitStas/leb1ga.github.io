@@ -187,13 +187,17 @@ document.addEventListener('DOMContentLoaded', function() {
             querySnapshot.forEach(doc => {
                 index++;
                 const listItem = document.createElement('li');
-                listItem.textContent = `${index}. ${doc.data().first_name}: ${doc.data().clickCount}`;
+                const username = doc.id;
+                const firstName = doc.data().first_name;
+                const displayName = (username === currentUser) ? firstName : username;
+                listItem.textContent = `${index}. ${displayName}: ${doc.data().clickCount}`;
                 leaderboardList.appendChild(listItem);
             });
         }).catch(error => {
             console.error("Помилка отримання документів: ", error);
         });
     }
+
 
 
     function subscribeToChannel() {
