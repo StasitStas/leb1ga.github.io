@@ -30,9 +30,6 @@ body {
     border-top: 1px solid #444;
 }
 
-
-
-
 .nav-button i {
     font-size: 24px;
     margin-bottom: 4px;
@@ -45,7 +42,7 @@ body {
 }
 
 .nav-button:active {
-    background-color: #696969; /* Колір фону кнопок при натисканні */
+    background-color: #222222; /* Колір фону кнопок при натисканні */
 }
 
 .header {
