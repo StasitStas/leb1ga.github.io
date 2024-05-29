@@ -1,8 +1,4 @@
 document.addEventListener('DOMContentLoaded', function() {
-    const settingsIcon = document.getElementById('settingsIcon');
-    const settingsWindow = document.getElementById('settingsWindow');
-    const animationToggle = document.getElementById('animationToggle');
-    const vibrationToggle = document.getElementById('vibrationToggle');
     const exchangeButton = document.getElementById('exchangeButton');
     const mineButton = document.getElementById('mineButton');
     const friendsButton = document.getElementById('friendsButton');
@@ -11,59 +7,12 @@ document.addEventListener('DOMContentLoaded', function() {
     const usernameDisplay = document.getElementById('usernameDisplay');
     const navButtons = document.querySelectorAll('.nav-button');
 
-    let username = '';
-    let firstName = '';
-    let enableAnimation = true;
-    let enableVibration = true;
     let linkMain = '';
     let linkAbout = '';
     let linkFriends = '';
     let linkEarn = '';
     let linkDrop = '';
 
-    let settingsWindowOpen = false;
-
-    settingsIcon.addEventListener('click', function(event) {
-        event.stopPropagation();
-        settingsWindow.style.display = settingsWindowOpen ? 'none' : 'block';
-        settingsWindowOpen = !settingsWindowOpen;
-    });
-
-    document.addEventListener('click', function() {
-        if (settingsWindowOpen) {
-            settingsWindow.style.display = 'none';
-            settingsWindowOpen = false;
-        }
-    });
-
-    settingsWindow.addEventListener('click', function(event) {
-        event.stopPropagation();
-    });
-
-    animationToggle.addEventListener('change', function() {
-        enableAnimation = animationToggle.checked;
-        saveSettings();
-    });
-
-    vibrationToggle.addEventListener('change', function() {
-        enableVibration = vibrationToggle.checked;
-        saveSettings();
-    });
-
-    function getUsernameFromUrl() {
-        const urlParams = new URLSearchParams(window.location.search);
-        return urlParams.get('username');
-    }
-
-    function getUserData(username) {
-        return db.collection("users").doc(username).get().then(doc => {
-            if (doc.exists) {
-                return doc.data();
-            } else {
-                throw new Error('Документ не знайдено');
-            }
-        });
-    }
 
     function initialize() {
         username = getUsernameFromUrl();
@@ -98,14 +47,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    function saveSettings() {
-        db.collection("clicks").doc(username).set({
-            enableAnimation,
-            enableVibration
-        }).catch(error => {
-            console.error("Помилка оновлення документа:", error);
-        });
-    }
 
     navButtons.forEach(button => {
         button.addEventListener('click', function() {
