@@ -1,184 +1,60 @@
+/* drop_styles.css */
 
+/* Основні стилі для сторінки */
 body {
     font-family: Arial, sans-serif;
-    text-align: center;
+    background-color: #333;
+    color: #fff;
     margin: 0;
-    padding: 0;
-    user-select: none;
-    background-color: #222222;
-}
-
-.container {
-    text-align: center;
     display: flex;
-    flex-direction: column;
     justify-content: center;
     align-items: center;
     height: 100vh;
-    position: relative;
-    padding-bottom: 60px; /* Простір для нижньої навігації */
 }
 
-.bottom-nav {
-    position: fixed;
-    bottom: 20px; /* Змінив значення bottom на 20px */
-    width: 100%;
-    height: 60px;
-    background-color: #333;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    border-top: 1px solid #444;
-}
-
-.nav-button i {
-    font-size: 24px;
-    margin-bottom: 4px;
-}
-
-.nav-button {
-    color: #FFF; /* Колір тексту кнопок */
-    background-color: #333; /* Колір фону кнопок за замовчуванням */
-    border: none;
-}
-
-.nav-button:active {
-    background-color: #222222; /* Колір фону кнопок при натисканні */
+.container {
+    width: 80%;
+    max-width: 400px;
+    background-color: #444;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    text-align: center;
 }
 
 .header {
-    position: absolute;
-    top: 10px;
-    left: 10px;
-}
-
-.golden-text {
-    color: #ffcc00;
-    font-weight: bold;
-    font-size: 1.2em;
-    background-color: #333;
-    padding: 5px 10px;
-    border-radius: 15px;
-    z-index: 1;
-}
-
-.coin-container {
     display: flex;
+    justify-content: space-between;
     align-items: center;
-    justify-content: center;
     margin-bottom: 20px;
 }
 
-.coin-image {
-    width: 40px;
-    height: 40px;
-    margin-right: 10px;
-}
-
-.click-count {
-    font-size: 3em;
+.golden-text {
+    color: gold;
     font-weight: bold;
-    color: white;
-}
-
-.circle-button {
-    width: 250px;
-    height: 250px;
-    border: 5px solid #3E6B70;
-    border-radius: 50%;
-    padding: 0;
-    cursor: pointer;
-    background: radial-gradient(circle, #5F9EA0 50%, #2e6f72 70%);
-    position: relative;
-    outline: none;
-    overflow: hidden;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    user-select: none;
-    transition: transform 0.1s ease-out, box-shadow 0.5s;
-    box-shadow: 0 0 10px 5px #333;
-}
-
-.circle-button::after {
-    content: '';
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    border-radius: 50%;
-    background-color: #DDA0DD;
-    opacity: 0;
-    transition: opacity 0.3s ease-out, background-color 0.3s ease-out; /* Додаємо анімацію зміни колірного фону */
-}
-
-.circle-button:active {
-    outline: none; /* Прибираємо рамку підсвічування */
-    box-shadow: none; /* Прибираємо тінь підсвічування */
-}
-
-
-
-.circle-button img {
-    width: 100%;
-    height: 100%;
-    border-radius: 50%;
-    display: block;
-    user-select: none;
-    -webkit-user-drag: none;
-}
-
-.circle-button:active {
-    transform: scale(0.99);
-    box-shadow: 0 0 10px 5px rgba(0, 123, 255, 0.5);
 }
 
 .cog-icon {
-    position: fixed;
-    top: 10px;
-    right: 10px;
-    font-size: 38px;
-    color: white;
-    z-index: 999;
+    font-size: 1.5em;
     cursor: pointer;
 }
 
-.la-telegram {
-    position: fixed;
-    top: 60px;
-    right: 10px;
-    font-size: 38px;
-    color: white;
-    z-index: 999;
-    cursor: pointer;
-}
-
-.globe-icon {
-    position: fixed;
-    top: 110px;
-    right: 10px;
-    font-size: 38px;
-    color: white;
-    z-index: 999;
-    cursor: pointer;
+.settings-window {
+    display: none;
+    background-color: #555;
+    border-radius: 10px;
+    padding: 10px;
+    margin-bottom: 20px;
 }
 
 #leaderboard {
-    margin-top: 20px;
-    text-align: left;
-    border: 2px solid #000;
+    background-color: #ccc;
     border-radius: 10px;
-    padding: 15px;
-    background: rgba(255, 255, 255, 0.8);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 10px;
 }
 
 #leaderboard h2 {
-    font-size: 1.5em;
     margin-top: 0;
-    text-align: center;
 }
 
 #leaderboardList {
@@ -188,128 +64,70 @@ body {
 }
 
 #leaderboardList li {
-    margin: 5px 0;
+    background-color: #e0e0e0;
+    border-radius: 5px;
+    padding: 5px;
+    margin-bottom: 5px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 5px 10px;
-    border-radius: 5px;
 }
 
-#leaderboardList li:nth-child(1) {
+.rank {
+    font-weight: bold;
+}
+
+.username {
+    margin-right: auto;
+    margin-left: 10px;
+}
+
+.click-count {
+    font-size: 1.5em;
+    font-weight: bold;
+}
+
+/* Стилі для кольорових позицій */
+.gold {
     background-color: #ffd700;
 }
 
-#leaderboardList li:nth-child(2) {
+.silver {
     background-color: #c0c0c0;
 }
 
-#leaderboardList li:nth-child(3) {
+.bronze {
     background-color: #cd7f32;
 }
 
-#leaderboardList li:nth-child(odd) {
-    background-color: #f0f0f0;
+/* Навігаційна панель внизу */
+.bottom-nav {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
 }
 
-#leaderboardList li:nth-child(even) {
-    background-color: #e0e0e0;
-}
-
-@media (max-width: 600px) {
-    .circle-button {
-        width: 200px;
-        height: 200px;
-    }
-
-    h1 {
-        font-size: 1.5em;
-    }
-
-    .click-count {
-        font-size: 2.5em;
-    }
-}
-
-.click-effect {
-    position: absolute;
-    font-size: 2em;
-    color: #FFFFFF;
-    animation: riseAndFade 1s ease-out;
-    pointer-events: none;
-    user-select: none;
-    touch-action: manipulation;
-}
-
-@keyframes riseAndFade {
-    0% {
-        transform: translateY(0);
-        opacity: 1;
-    }
-    100% {
-        transform: translateY(-30px);
-        opacity: 0;
-    }
-}
-
-.settings-window {
-    display: none;
-    position: absolute;
-    top: 50px;
-    right: 10px;
-    background-color: #333;
-    padding: 10px;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    color: white;
-    z-index: 1000;
-}
-
-.settings-window label {
-    display: block;
-    margin-bottom: 10px;
-}
-
-/* Додаємо стилі для нового вікна Telegram */
-.telegram-window {
-    display: none;
-    position: absolute;
-    top: 100px; /* Розташування під вікном налштувань */
-    right: 10px;
-    width: 300px; /* Задаємо ширину */
-    height: 200px; /* Задаємо висоту */
-    background-color: #333;
-    padding: 10px;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    color: white;
-    z-index: 1000;
-}
-
-.telegram-window button {
-    display: block;
-    width: 100%;
-    margin: 10px 0;
-    padding: 10px;
-    background-color: #0088cc; /* Колір для кнопок */
-    color: white;
+.nav-button {
+    flex: 1;
+    background-color: #555;
     border: none;
-    border-radius: 5px;
+    color: white;
+    padding: 10px;
     cursor: pointer;
     text-align: center;
-}
-
-
-#subscribeButton, #bonusButton {
-    margin-top: 10px;
-    padding: 10px 20px;
-    border: none;
+    font-size: 1em;
     border-radius: 5px;
-    background-color: #3E6B70;
-    color: white;
-    cursor: pointer;
+    margin: 0 5px;
+    transition: background-color 0.3s ease;
 }
 
-#subscribeButton:hover, #bonusButton:hover {
-    background-color: #5F9EA0;
+.nav-button.active,
+.nav-button:hover {
+    background-color: #777;
+}
+
+/* Власні іконки Line Awesome */
+.nav-button i {
+    display: block;
+    font-size: 1.5em;
 }
