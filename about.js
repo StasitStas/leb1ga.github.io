@@ -19,6 +19,7 @@ document.addEventListener('DOMContentLoaded', function() {
     let linkAbout = '';
     let linkFriends = '';
     let linkEarn = '';
+    let linkDrop = '';
 
     let settingsWindowOpen = false;
 
@@ -73,6 +74,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 linkAbout = userData.link_about;
                 linkFriends = userData.link_friends;
                 linkEarn = userData.link_earn;
+                linkDrop = userData.link_drop;
                 usernameDisplay.textContent = firstName;
                 db.collection("clicks").doc(username).get().then(doc => {
                     if (doc.exists) {
@@ -139,6 +141,14 @@ document.addEventListener('DOMContentLoaded', function() {
     earnButton.addEventListener('click', function() {
         if (linkEarn) {
             window.location.href = linkEarn;
+        } else {
+            alert('Помилка: Посилання не знайдено.');
+        }
+    });
+
+    airdropButton.addEventListener('click', function() {
+        if (linkDrop) {
+            window.location.href = linkDrop;
         } else {
             alert('Помилка: Посилання не знайдено.');
         }
