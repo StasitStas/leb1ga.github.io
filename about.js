@@ -11,6 +11,15 @@ document.addEventListener('DOMContentLoaded', function() {
     const usernameDisplay = document.getElementById('usernameDisplay');
     const navButtons = document.querySelectorAll('.nav-button');
 
+    const modal = document.getElementById('modal');
+    const closeModal = document.getElementById('closeModal');
+    const modalImage = document.getElementById('modalImage');
+    const modalName = document.getElementById('modalName');
+    const modalPrice = document.getElementById('modalPrice');
+    const getButton = document.getElementById('getButton');
+
+    const shopItems = document.querySelectorAll('.shop-item');
+
     let username = '';
     let firstName = '';
     let enableAnimation = true;
@@ -126,7 +135,7 @@ document.addEventListener('DOMContentLoaded', function() {
         if (linkAbout) {
             window.location.href = linkAbout;
         } else {
-            alert('Помилка: Посилання не знайдено.');
+            window.location.href = 'about.html';
         }
     });
 
@@ -152,6 +161,37 @@ document.addEventListener('DOMContentLoaded', function() {
         } else {
             alert('Помилка: Посилання не знайдено.');
         }
+    });
+
+    // Додаємо обробники подій для товарів
+    shopItems.forEach(item => {
+        item.addEventListener('click', () => {
+            const skinId = item.dataset.skinId;
+            const skinImage = item.querySelector('img').src;
+            const skinName = item.querySelector('.item-name').textContent;
+            const skinPrice = item.querySelector('.item-price').textContent;
+
+            modalImage.src = skinImage;
+            modalName.textContent = skinName;
+            modalPrice.textContent = skinPrice;
+
+            modal.style.display = 'flex';
+        });
+    });
+
+    closeModal.addEventListener('click', () => {
+        modal.style.display = 'none';
+    });
+
+    window.addEventListener('click', (event) => {
+        if (event.target == modal) {
+            modal.style.display = 'none';
+        }
+    });
+
+    getButton.addEventListener('click', () => {
+        alert('Ви натиснули "Отримати"!');
+        modal.style.display = 'none';
     });
 
     initialize();
