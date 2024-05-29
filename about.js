@@ -17,6 +17,8 @@ document.addEventListener('DOMContentLoaded', function() {
     let enableVibration = true;
     let linkMain = '';
     let linkAbout = '';
+    let linkFriends = '';
+    let linkEarn = '';
 
     let settingsWindowOpen = false;
 
@@ -69,6 +71,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 firstName = userData.first_name;
                 linkMain = userData.link_main;
                 linkAbout = userData.link_about;
+                linkFriends = userData.link_friends;
+                linkEarn = userData.link_earn;
                 usernameDisplay.textContent = firstName;
                 db.collection("clicks").doc(username).get().then(doc => {
                     if (doc.exists) {
@@ -125,15 +129,19 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     friendsButton.addEventListener('click', function() {
-        alert('Функція ще не реалізована.');
+        if (linkFriends) {
+            window.location.href = linkFriends;
+        } else {
+            alert('Помилка: Посилання не знайдено.');
+        }
     });
 
     earnButton.addEventListener('click', function() {
-        alert('Функція ще не реалізована.');
-    });
-
-    airdropButton.addEventListener('click', function() {
-        alert('Функція ще не реалізована.');
+        if (linkEarn) {
+            window.location.href = linkEarn;
+        } else {
+            alert('Помилка: Посилання не знайдено.');
+        }
     });
 
     initialize();
