@@ -42,6 +42,17 @@
                 </div>
             </div>
         </div>
+        <div id="modal" class="modal">
+            <div class="modal-content">
+                <span class="close-button" id="closeModal">&times;</span>
+                <img id="modalImage" src="" alt="Skin Image">
+                <div class="modal-details">
+                    <span id="modalName" class="modal-name"></span>
+                    <span id="modalPrice" class="modal-price"></span>
+                </div>
+                <button id="getButton" class="get-button">Получити</button>
+            </div>
+        </div>
         <div id="bottomNav" class="bottom-nav">
             <button id="exchangeButton" class="nav-button">
                 <i class="las la-exchange-alt"></i>
@@ -64,18 +75,6 @@
                 Airdrop
             </button>
         </div>
-    </div>
-    <div id="modal" class="modal">
-        <div class="modal-content">
-            <span class="close-button" id="closeModal">&times;</span>
-            <img id="modalImage" src="" alt="Skin Image">
-            <div class="modal-details">
-                <span id="modalName" class="modal-name"></span>
-                <span id="modalPrice" class="modal-price"></span>
-            </div>
-            <button id="getButton" class="get-button">Получити</button>
-        </div>
-    </div>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-analytics.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
