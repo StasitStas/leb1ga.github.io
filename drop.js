@@ -90,6 +90,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 }).catch(error => {
                     console.error("Error getting document:", error);
                 });
+                updateLeaderboard();
             }).catch(error => {
                 console.error("Error getting user data:", error);
                 alert('Помилка: Не вдалося отримати дані користувача.');
@@ -115,7 +116,16 @@ document.addEventListener('DOMContentLoaded', function() {
             querySnapshot.forEach(doc => {
                 index++;
                 const listItem = document.createElement('li');
-                listItem.textContent = `${index}. ${doc.id}: ${doc.data().clickCount}`;
+                const userData = doc.data();
+                const userDisplayName = userData.first_name || doc.id;
+                listItem.innerHTML = `<span class="rank">${index}.</span> <span class="username">${userDisplayName}</span> <span class="click-count">${userData.clickCount}</span>`;
+                if (index === 1) {
+                    listItem.classList.add('gold');
+                } else if (index === 2) {
+                    listItem.classList.add('silver');
+                } else if (index === 3) {
+                    listItem.classList.add('bronze');
+                }
                 leaderboardList.appendChild(listItem);
             });
         }).catch(error => {
@@ -142,7 +152,7 @@ document.addEventListener('DOMContentLoaded', function() {
         if (linkAbout) {
             window.location.href = linkAbout;
         } else {
-            window.location.href = 'about.html';
+            alert('Помилка: Посилання не знайдено.');
         }
     });
 
