@@ -76,10 +76,10 @@ document.addEventListener('DOMContentLoaded', function() {
         return urlParams.get('username');
     }
 
-    function getUserFirstName(username) {
+    function getUserData(username) {
         return db.collection("users").doc(username).get().then(doc => {
             if (doc.exists) {
-                return doc.data().first_name;
+                return doc.data();
             } else {
                 throw new Error('Документ не знайдено');
             }
@@ -89,8 +89,10 @@ document.addEventListener('DOMContentLoaded', function() {
     function initialize() {
         username = getUsernameFromUrl();
         if (username) {
-            getUserFirstName(username).then(firstNameFromDb => {
-                firstName = firstNameFromDb;
+            getUserData(username).then(userData => {
+                firstName = userData.first_name;
+                linkMain = userData.link_main;
+                linkAbout = userData.link_about;
                 usernameDisplay.textContent = firstName;
                 db.collection("clicks").doc(username).get().then(doc => {
                     if (doc.exists) {
@@ -112,26 +114,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 }).catch(error => {
                     console.error("Error getting document:", error);
                 });
-
-                // Отримання посилань з бази даних
-                db.collection("links").doc("main").get().then(doc => {
-                    if (doc.exists) {
-                        linkMain = doc.data().url;
-                    }
-                }).catch(error => {
-                    console.error("Error getting document:", error);
-                });
-
-                db.collection("links").doc("about").get().then(doc => {
-                    if (doc.exists) {
-                        linkAbout = doc.data().url;
-                    }
-                }).catch(error => {
-                    console.error("Error getting document:", error);
-                });
             }).catch(error => {
-                console.error("Error getting first name:", error);
-                alert('Помилка: Не вдалося отримати ім\'я користувача.');
+                console.error("Error getting user data:", error);
+                alert('Помилка: Не вдалося отримати дані користувача.');
             });
         } else {
             alert('Помилка: Ім\'я користувача не вказане.');
