@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Friends</title>
+    <link rel="stylesheet" href="about_styeles.css">
+    <!-- Посилання на бібліотеку Line Awesome -->
+    <link href="https://cdn.jsdelivr.net/npm/line-awesome/dist/line-awesome/css/line-awesome.min.css" rel="stylesheet">
+<body>
+    <div class="container">
+        <div class="header">
+            <span id="usernameDisplay" class="golden-text"></span>
+            <i class="las la-cog cog-icon" id="settingsIcon"></i>
+        </div>
+        <div class="settings-window" id="settingsWindow">
+            <label>
+                <input type="checkbox" id="animationToggle" checked>
+                Анімація
+            </label>
+            <label>
+                <input type="checkbox" id="vibrationToggle" checked>
+                Вібрація
+            </label>
+        </div>
+        <div id="bottomNav" class="bottom-nav">
+            <button id="exchangeButton" class="nav-button">
+                <i class="las la-exchange-alt"></i>
+                Exchange
+            </button>
+            <button id="mineButton" class="nav-button">
+                <i class="las la-hammer"></i>
+                Mine
+            </button>
+            <button id="friendsButton" class="nav-button">
+                <i class="las la-user-friends"></i>
+                Friends
+            </button>
+            <button id="earnButton" class="nav-button">
+                <i class="las la-dollar-sign"></i>
+                Earn
+            </button>
+            <button id="airdropButton" class="nav-button">
+                <i class="las la-gift"></i>
+                Airdrop
+            </button>
+        </div>
+    </div>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-analytics.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+    <script>
+        // Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyApLBsJ9AOXu7i38Rm_t4cGuEgxpZRDaeE",
+            authDomain: "leb1gabot.firebaseapp.com",
+            projectId: "leb1gabot",
+            storageBucket: "leb1gabot.appspot.com",
+            messagingSenderId: "1096597237881",
+            appId: "1:1096597237881:web:29b0383c26ed9acfcaa4a8",
+            measurementId: "G-Z1KFE8C0ML"
+        };
+
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
+    </script>
+    <script src="friends.js"></script>
+</body>
+</html>
