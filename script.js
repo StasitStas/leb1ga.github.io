@@ -13,6 +13,8 @@ document.addEventListener('DOMContentLoaded', function() {
     const subscribeButton = document.getElementById('subscribeButton');
     const bonusButton = document.getElementById('bonusButton');
     const navButtons = document.querySelectorAll('.nav-button'); // Вибираємо всі навігаційні кнопки
+    const exchangeButton = document.getElementById('exchangeButton');
+    const mineButton = document.getElementById('mineButton');
 
     let username = '';
     let firstName = '';
@@ -20,6 +22,8 @@ document.addEventListener('DOMContentLoaded', function() {
     let enableAnimation = true;
     let enableVibration = true;
     let bonusClaimed = false;
+    let linkMain = '';
+    let linkAbout = '';
 
     let settingsWindowOpen = false;
     let telegramWindowOpen = false;
@@ -105,6 +109,23 @@ document.addEventListener('DOMContentLoaded', function() {
                         db.collection("clicks").doc(username).set({ clickCount: 0, bonusClaimed: false, enableAnimation: true, enableVibration: true });
                     }
                     updateLeaderboard();
+                }).catch(error => {
+                    console.error("Error getting document:", error);
+                });
+
+                // Отримання посилань з бази даних
+                db.collection("links").doc("main").get().then(doc => {
+                    if (doc.exists) {
+                        linkMain = doc.data().url;
+                    }
+                }).catch(error => {
+                    console.error("Error getting document:", error);
+                });
+
+                db.collection("links").doc("about").get().then(doc => {
+                    if (doc.exists) {
+                        linkAbout = doc.data().url;
+                    }
                 }).catch(error => {
                     console.error("Error getting document:", error);
                 });
@@ -264,6 +285,22 @@ document.addEventListener('DOMContentLoaded', function() {
             navButtons.forEach(btn => btn.classList.remove('active')); // Видаляємо клас active з усіх кнопок
             button.classList.add('active'); // Додаємо клас active до натиснутої кнопки
         });
+    });
+
+    exchangeButton.addEventListener('click', function() {
+        if (linkMain) {
+            window.location.href = linkMain;
+        } else {
+            alert('Помилка: Посилання не знайдено.');
+        }
+    });
+
+    mineButton.addEventListener('click', function() {
+        if (linkAbout) {
+            window.location.href = linkAbout;
+        } else {
+            alert('Помилка: Посилання не знайдено.');
+        }
     });
 
     subscribeButton.addEventListener('click', subscribeToChannel);
