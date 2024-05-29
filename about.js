@@ -126,7 +126,7 @@ document.addEventListener('DOMContentLoaded', function() {
         if (linkAbout) {
             window.location.href = linkAbout;
         } else {
-            window.location.href = 'about.html';
+            alert('Помилка: Посилання не знайдено.');
         }
     });
 
