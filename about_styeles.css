@@ -45,11 +45,7 @@ body {
     background-color: #222222; /* Колір фону кнопок при натисканні */
 }
 
-.header {
-    position: absolute;
-    top: 10px;
-    left: 10px;
-}
+
 
 .back-icon {
     position: fixed;
@@ -59,32 +55,4 @@ body {
     color: black; /* Колір іконки */
     z-index: 999; /* Забезпечення відображення поверх інших елементів */
     cursor: pointer; /* Змінення вигляду курсору при наведенні */
-}
-
-.cog-icon {
-    position: fixed;
-    top: 10px;
-    right: 10px;
-    font-size: 38px;
-    color: white;
-    z-index: 999;
-    cursor: pointer;
-}
-
-.settings-window {
-    display: none;
-    position: absolute;
-    top: 50px;
-    right: 10px;
-    background-color: #333;
-    padding: 10px;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    color: white;
-    z-index: 1000;
-}
-
-.settings-window label {
-    display: block;
-    margin-bottom: 10px;
 }
