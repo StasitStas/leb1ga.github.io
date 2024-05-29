@@ -1,4 +1,5 @@
 document.addEventListener('DOMContentLoaded', function() {
+    const leaderboardList = document.getElementById('leaderboardList');
     const settingsIcon = document.getElementById('settingsIcon');
     const settingsWindow = document.getElementById('settingsWindow');
     const animationToggle = document.getElementById('animationToggle');
@@ -104,6 +105,21 @@ document.addEventListener('DOMContentLoaded', function() {
             enableVibration
         }).catch(error => {
             console.error("Помилка оновлення документа:", error);
+        });
+    }
+
+    function updateLeaderboard() {
+        db.collection("clicks").orderBy("clickCount", "desc").limit(5).get().then(querySnapshot => {
+            leaderboardList.innerHTML = '';
+            let index = 0;
+            querySnapshot.forEach(doc => {
+                index++;
+                const listItem = document.createElement('li');
+                listItem.textContent = `${index}. ${doc.id}: ${doc.data().clickCount}`;
+                leaderboardList.appendChild(listItem);
+            });
+        }).catch(error => {
+            console.error("Помилка отримання документів: ", error);
         });
     }
 
