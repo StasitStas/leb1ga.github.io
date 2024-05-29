@@ -40,12 +40,8 @@ body {
 
 .nav-button {
     color: #FFF; /* Колір тексту кнопок */
-    background-color: #222222; /* Колір фону кнопок за замовчуванням */
+    background-color: #333; /* Колір фону кнопок за замовчуванням */
     border: none;
-}
-
-.nav-button:hover {
-    background-color: #A9A9A9; /* Колір фону кнопок при наведенні */
 }
 
 .nav-button:active {
