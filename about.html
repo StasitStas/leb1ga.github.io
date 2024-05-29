@@ -10,18 +10,37 @@
 <body>
     <div class="container">
         <div class="header">
-            <span id="usernameDisplay" class="golden-text"></span>
-            <i class="las la-cog cog-icon" id="settingsIcon"></i>
+            <span id="clickCount" class="golden-text"></span>
         </div>
-        <div class="settings-window" id="settingsWindow">
-            <label>
-                <input type="checkbox" id="animationToggle" checked>
-                Анімація
-            </label>
-            <label>
-                <input type="checkbox" id="vibrationToggle" checked>
-                Вібрація
-            </label>
+        <div class="shop-section">
+            <div class="shop-item" data-skin-id="1">
+                <img src="skin_1.png" alt="Fan tokens">
+                <div class="item-details">
+                    <span class="item-name">Fan tokens</span>
+                    <span class="item-price">807.3K</span>
+                </div>
+            </div>
+            <div class="shop-item" data-skin-id="2">
+                <img src="skin_2.png" alt="Staking">
+                <div class="item-details">
+                    <span class="item-name">Staking</span>
+                    <span class="item-price">282.55K</span>
+                </div>
+            </div>
+            <div class="shop-item" data-skin-id="3">
+                <img src="skin_3.png" alt="BTC pairs">
+                <div class="item-details">
+                    <span class="item-name">BTC pairs</span>
+                    <span class="item-price">10.7K</span>
+                </div>
+            </div>
+            <div class="shop-item" data-skin-id="4">
+                <img src="skin_4.png" alt="ETH pairs">
+                <div class="item-details">
+                    <span class="item-name">ETH pairs</span>
+                    <span class="item-price">7.15K</span>
+                </div>
+            </div>
         </div>
         <div id="bottomNav" class="bottom-nav">
             <button id="exchangeButton" class="nav-button">
@@ -44,6 +63,17 @@
                 <i class="las la-gift"></i>
                 Airdrop
             </button>
+        </div>
+    </div>
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <span class="close-button" id="closeModal">&times;</span>
+            <img id="modalImage" src="" alt="Skin Image">
+            <div class="modal-details">
+                <span id="modalName" class="modal-name"></span>
+                <span id="modalPrice" class="modal-price"></span>
+            </div>
+            <button id="getButton" class="get-button">Получити</button>
         </div>
     </div>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
