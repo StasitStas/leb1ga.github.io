@@ -12,6 +12,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const vibrationToggle = document.getElementById('vibrationToggle');
     const subscribeButton = document.getElementById('subscribeButton');
     const bonusButton = document.getElementById('bonusButton');
+    const navButtons = document.querySelectorAll('.nav-button'); // Вибираємо всі навігаційні кнопки
 
     let username = '';
     let firstName = '';
@@ -257,6 +258,13 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         }
     }
+
+    navButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            navButtons.forEach(btn => btn.classList.remove('active')); // Видаляємо клас active з усіх кнопок
+            button.classList.add('active'); // Додаємо клас active до натиснутої кнопки
+        });
+    });
 
     subscribeButton.addEventListener('click', subscribeToChannel);
     bonusButton.addEventListener('click', claimBonus);
