@@ -58,10 +58,12 @@ document.addEventListener('DOMContentLoaded', function() {
 
     animationToggle.addEventListener('change', function() {
         enableAnimation = animationToggle.checked;
+        saveSettings();
     });
 
     vibrationToggle.addEventListener('change', function() {
         enableVibration = vibrationToggle.checked;
+        saveSettings();
     });
 
     function getUsernameFromUrl() {
@@ -87,14 +89,19 @@ document.addEventListener('DOMContentLoaded', function() {
                 usernameDisplay.textContent = firstName;
                 db.collection("clicks").doc(username).get().then(doc => {
                     if (doc.exists) {
-                        clickCount = doc.data().clickCount || 0;
-                        bonusClaimed = doc.data().bonusClaimed || false;
+                        const data = doc.data();
+                        clickCount = data.clickCount || 0;
+                        bonusClaimed = data.bonusClaimed || false;
+                        enableAnimation = data.enableAnimation !== undefined ? data.enableAnimation : true;
+                        enableVibration = data.enableVibration !== undefined ? data.enableVibration : true;
                         countDisplay.textContent = clickCount;
+                        animationToggle.checked = enableAnimation;
+                        vibrationToggle.checked = enableVibration;
                         if (bonusClaimed) {
                             bonusButton.disabled = true;
                         }
                     } else {
-                        db.collection("clicks").doc(username).set({ clickCount: 0, bonusClaimed: false });
+                        db.collection("clicks").doc(username).set({ clickCount: 0, bonusClaimed: false, enableAnimation: true, enableVibration: true });
                     }
                     updateLeaderboard();
                 }).catch(error => {
@@ -107,6 +114,17 @@ document.addEventListener('DOMContentLoaded', function() {
         } else {
             alert('Помилка: Ім\'я користувача не вказане.');
         }
+    }
+
+    function saveSettings() {
+        db.collection("clicks").doc(username).set({
+            clickCount,
+            bonusClaimed,
+            enableAnimation,
+            enableVibration
+        }).catch(error => {
+            console.error("Помилка оновлення документа:", error);
+        });
     }
 
     function vibrate() {
@@ -124,8 +142,8 @@ document.addEventListener('DOMContentLoaded', function() {
             const clickEffect = document.createElement('div');
             clickEffect.className = 'click-effect';
             clickEffect.style.left = `${x}px`;
-            clickEffect.style.top = `${y + 10}px`; // Додаємо 10 пікселів до y
-            clickEffect.textContent = '+1'; // Додаємо текстовий ефект
+            clickEffect.style.top = `${y + 10}px`;
+            clickEffect.textContent = '+1';
             clickEffectContainer.appendChild(clickEffect);
 
             setTimeout(() => {
@@ -136,7 +154,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function handleClick(event) {
         const currentTime = new Date().getTime();
-        if (currentTime - lastClickTime < 300) { // Встановлюємо ліміт в 300 мілісекунд
+        if (currentTime - lastClickTime < 300) {
             return;
         }
         lastClickTime = currentTime;
@@ -144,7 +162,7 @@ document.addEventListener('DOMContentLoaded', function() {
         if (username) {
             clickCount++;
             countDisplay.textContent = clickCount;
-            db.collection("clicks").doc(username).set({ clickCount, bonusClaimed })
+            db.collection("clicks").doc(username).set({ clickCount, bonusClaimed, enableAnimation, enableVibration })
                 .then(() => {
                     updateLeaderboard();
                 })
@@ -165,15 +183,15 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function handleTouch(event) {
         const currentTime = new Date().getTime();
-        if (currentTime - lastClickTime < 50) { // Встановлюємо ліміт в 50 мілісекунд
+        if (currentTime - lastClickTime < 50) {
             return;
         }
         lastClickTime = currentTime;
 
         if (username) {
-            clickCount += event.touches.length; // Додаємо кількість дотиків до лічильника кліків
+            clickCount += event.touches.length;
             countDisplay.textContent = clickCount;
-            db.collection("clicks").doc(username).set({ clickCount, bonusClaimed })
+            db.collection("clicks").doc(username).set({ clickCount, bonusClaimed, enableAnimation, enableVibration })
                 .then(() => {
                     updateLeaderboard();
                 })
@@ -226,7 +244,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     bonusClaimed = true;
                     countDisplay.textContent = clickCount;
                     bonusButton.disabled = true;
-                    db.collection("clicks").doc(username).set({ clickCount, bonusClaimed })
+                    db.collection("clicks").doc(username).set({ clickCount, bonusClaimed, enableAnimation, enableVibration })
                         .then(() => {
                             updateLeaderboard();
                         })
