@@ -15,35 +15,26 @@ document.addEventListener('DOMContentLoaded', function() {
     firebase.initializeApp(firebaseConfig);
     const db = firebase.firestore();
 
-    exchangeButton.addEventListener('click', function() {
-        // Отримання посилання на обмін з бази даних Firebase
-        db.collection("users").doc("YOUR_USER_ID").get().then(doc => {
-            if (doc.exists) {
-                const linkMain = doc.data().link_main;
-                window.location.href = linkMain; // Перенаправлення на посилання linkMain
-            } else {
-                console.error("Document not found");
-                alert('Посилання на обмін не знайдено.');
-            }
-        }).catch(error => {
-            console.error("Error getting document:", error);
-            alert('Сталася помилка під час отримання посилання на обмін.');
+    navButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            navButtons.forEach(btn => btn.classList.remove('active')); // Видаляємо клас active з усіх кнопок
+            button.classList.add('active'); // Додаємо клас active до натиснутої кнопки
         });
     });
 
+    exchangeButton.addEventListener('click', function() {
+        if (linkMain) {
+            window.location.href = linkMain;
+        } else {
+            alert('Помилка: Посилання не знайдено.');
+        }
+    });
+
     mineButton.addEventListener('click', function() {
-        // Отримання посилання на майнінг з бази даних Firebase
-        db.collection("users").doc("YOUR_USER_ID").get().then(doc => {
-            if (doc.exists) {
-                const linkAbout = doc.data().link_about;
-                window.location.href = linkAbout; // Перенаправлення на посилання linkAbout
-            } else {
-                console.error("Document not found");
-                alert('Посилання на майнінг не знайдено.');
-            }
-        }).catch(error => {
-            console.error("Error getting document:", error);
-            alert('Сталася помилка під час отримання посилання на майнінг.');
-        });
+        if (linkAbout) {
+            window.location.href = linkAbout;
+        } else {
+            alert('Помилка: Посилання не знайдено.');
+        }
     });
 });
