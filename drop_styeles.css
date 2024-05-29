@@ -1,3 +1,4 @@
+
 body {
     font-family: Arial, sans-serif;
     text-align: center;
@@ -51,14 +52,87 @@ body {
     left: 10px;
 }
 
-.back-icon {
-    position: fixed;
-    top: 5px;
-    right: 10px;
-    font-size: 24px; /* Розмір іконки */
-    color: black; /* Колір іконки */
-    z-index: 999; /* Забезпечення відображення поверх інших елементів */
-    cursor: pointer; /* Змінення вигляду курсору при наведенні */
+.golden-text {
+    color: #ffcc00;
+    font-weight: bold;
+    font-size: 1.2em;
+    background-color: #333;
+    padding: 5px 10px;
+    border-radius: 15px;
+    z-index: 1;
+}
+
+.coin-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.coin-image {
+    width: 40px;
+    height: 40px;
+    margin-right: 10px;
+}
+
+.click-count {
+    font-size: 3em;
+    font-weight: bold;
+    color: white;
+}
+
+.circle-button {
+    width: 250px;
+    height: 250px;
+    border: 5px solid #3E6B70;
+    border-radius: 50%;
+    padding: 0;
+    cursor: pointer;
+    background: radial-gradient(circle, #5F9EA0 50%, #2e6f72 70%);
+    position: relative;
+    outline: none;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    user-select: none;
+    transition: transform 0.1s ease-out, box-shadow 0.5s;
+    box-shadow: 0 0 10px 5px #333;
+}
+
+.circle-button::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    background-color: #DDA0DD;
+    opacity: 0;
+    transition: opacity 0.3s ease-out, background-color 0.3s ease-out; /* Додаємо анімацію зміни колірного фону */
+}
+
+.circle-button:active {
+    outline: none; /* Прибираємо рамку підсвічування */
+    box-shadow: none; /* Прибираємо тінь підсвічування */
+}
+
+
+
+.circle-button img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    display: block;
+    user-select: none;
+    -webkit-user-drag: none;
+}
+
+.circle-button:active {
+    transform: scale(0.99);
+    box-shadow: 0 0 10px 5px rgba(0, 123, 255, 0.5);
 }
 
 .cog-icon {
@@ -71,22 +145,24 @@ body {
     cursor: pointer;
 }
 
-.settings-window {
-    display: none;
-    position: absolute;
-    top: 50px;
+.la-telegram {
+    position: fixed;
+    top: 60px;
     right: 10px;
-    background-color: #333;
-    padding: 10px;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    font-size: 38px;
     color: white;
-    z-index: 1000;
+    z-index: 999;
+    cursor: pointer;
 }
 
-.settings-window label {
-    display: block;
-    margin-bottom: 10px;
+.globe-icon {
+    position: fixed;
+    top: 110px;
+    right: 10px;
+    font-size: 38px;
+    color: white;
+    z-index: 999;
+    cursor: pointer;
 }
 
 #leaderboard {
@@ -138,4 +214,102 @@ body {
 
 #leaderboardList li:nth-child(even) {
     background-color: #e0e0e0;
+}
+
+@media (max-width: 600px) {
+    .circle-button {
+        width: 200px;
+        height: 200px;
+    }
+
+    h1 {
+        font-size: 1.5em;
+    }
+
+    .click-count {
+        font-size: 2.5em;
+    }
+}
+
+.click-effect {
+    position: absolute;
+    font-size: 2em;
+    color: #FFFFFF;
+    animation: riseAndFade 1s ease-out;
+    pointer-events: none;
+    user-select: none;
+    touch-action: manipulation;
+}
+
+@keyframes riseAndFade {
+    0% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(-30px);
+        opacity: 0;
+    }
+}
+
+.settings-window {
+    display: none;
+    position: absolute;
+    top: 50px;
+    right: 10px;
+    background-color: #333;
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    color: white;
+    z-index: 1000;
+}
+
+.settings-window label {
+    display: block;
+    margin-bottom: 10px;
+}
+
+/* Додаємо стилі для нового вікна Telegram */
+.telegram-window {
+    display: none;
+    position: absolute;
+    top: 100px; /* Розташування під вікном налштувань */
+    right: 10px;
+    width: 300px; /* Задаємо ширину */
+    height: 200px; /* Задаємо висоту */
+    background-color: #333;
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    color: white;
+    z-index: 1000;
+}
+
+.telegram-window button {
+    display: block;
+    width: 100%;
+    margin: 10px 0;
+    padding: 10px;
+    background-color: #0088cc; /* Колір для кнопок */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: center;
+}
+
+
+#subscribeButton, #bonusButton {
+    margin-top: 10px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    background-color: #3E6B70;
+    color: white;
+    cursor: pointer;
+}
+
+#subscribeButton:hover, #bonusButton:hover {
+    background-color: #5F9EA0;
 }
