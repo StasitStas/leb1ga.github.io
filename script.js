@@ -15,6 +15,8 @@ document.addEventListener('DOMContentLoaded', function() {
     const navButtons = document.querySelectorAll('.nav-button'); // Вибираємо всі навігаційні кнопки
     const exchangeButton = document.getElementById('exchangeButton');
     const mineButton = document.getElementById('mineButton');
+    const friendsButton = document.getElementById('friendsButton');
+    const earnButton = document.getElementById('earnButton');
 
     let username = '';
     let firstName = '';
@@ -24,6 +26,8 @@ document.addEventListener('DOMContentLoaded', function() {
     let bonusClaimed = false;
     let linkMain = '';
     let linkAbout = '';
+    let linkFriends = '';
+    let linkEarn = '';
 
     let settingsWindowOpen = false;
     let telegramWindowOpen = false;
@@ -93,6 +97,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 firstName = userData.first_name;
                 linkMain = userData.link_main;
                 linkAbout = userData.link_about;
+                linkFriends = userData.link_friends;
+                linkEarn = userData.link_earn;
                 usernameDisplay.textContent = firstName;
                 db.collection("clicks").doc(username).get().then(doc => {
                     if (doc.exists) {
@@ -283,6 +289,22 @@ document.addEventListener('DOMContentLoaded', function() {
     mineButton.addEventListener('click', function() {
         if (linkAbout) {
             window.location.href = linkAbout;
+        } else {
+            alert('Помилка: Посилання не знайдено.');
+        }
+    });
+
+    friendsButton.addEventListener('click', function() {
+        if (linkFriends) {
+            window.location.href = linkFriends;
+        } else {
+            alert('Помилка: Посилання не знайдено.');
+        }
+    });
+
+    earnButton.addEventListener('click', function() {
+        if (linkEarn) {
+            window.location.href = linkEarn;
         } else {
             alert('Помилка: Посилання не знайдено.');
         }
