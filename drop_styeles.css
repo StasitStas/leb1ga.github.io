@@ -1,93 +1,31 @@
-/* drop_styles.css */
-
-/* Основні стилі для сторінки */
 body {
     font-family: Arial, sans-serif;
-    background-color: #333;
-    color: #fff;
+    text-align: center;
     margin: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
+    padding: 0;
+    user-select: none;
+    background-color: #222222;
 }
 
 .container {
-    width: 80%;
-    max-width: 400px;
-    background-color: #444;
-    border-radius: 10px;
-    padding: 20px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
     text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    position: relative;
+    padding-bottom: 60px; /* Простір для нижньої навігації */
 }
 
 .header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
-}
-
-.golden-text {
+    position: absolute;
+    top: 10px;
+    left: 10px;
     color: gold;
-    font-weight: bold;
+    font-size: 24px;
 }
 
-#leaderboard {
-    background-color: #ccc;
-    border-radius: 10px;
-    padding: 10px;
-}
-
-#leaderboard h2 {
-    margin-top: 0;
-}
-
-#leaderboardList {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-
-#leaderboardList li {
-    background-color: #938439;
-    border-radius: 5px;
-    padding: 5px;
-    margin-bottom: 5px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.rank {
-    font-weight: bold;
-}
-
-.username {
-    margin-right: auto;
-    margin-left: 10px;
-}
-
-.click-count {
-    font-size: 1.5em;
-    font-weight: bold;
-}
-
-/* Стилі для кольорових позицій */
-.gold {
-    background-color: #ffd700;
-}
-
-.silver {
-    background-color: #c0c0c0;
-}
-
-.bronze {
-    background-color: #cd7f32;
-}
-
-/* Навігаційна панель внизу */
 .bottom-nav {
     position: fixed;
     bottom: 20px; /* Змінив значення bottom на 20px */
