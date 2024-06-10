@@ -62,11 +62,6 @@ body {
     display: block;
 }
 
-.item-price {
-    color: #FFD700;
-    font-size: 14px;
-}
-
 .bottom-nav {
     position: fixed;
     bottom: 20px; /* Змінив значення bottom на 20px */
