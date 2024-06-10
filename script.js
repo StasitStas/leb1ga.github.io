@@ -1,7 +1,6 @@
 document.addEventListener('DOMContentLoaded', function() {
     const button = document.getElementById('clickButton');
     const countDisplay = document.getElementById('count');
-    const leaderboardList = document.getElementById('leaderboardList');
     const usernameDisplay = document.getElementById('usernameDisplay');
     const clickEffectContainer = document.getElementById('clickEffectContainer');
     const settingsIcon = document.querySelector('.cog-icon');
@@ -119,7 +118,6 @@ document.addEventListener('DOMContentLoaded', function() {
                     } else {
                         db.collection("clicks").doc(username).set({ clickCount: 0, bonusClaimed: false, enableAnimation: true, enableVibration: true });
                     }
-                    updateLeaderboard();
                 }).catch(error => {
                     console.error("Error getting document:", error);
                 });
@@ -179,9 +177,6 @@ document.addEventListener('DOMContentLoaded', function() {
             clickCount++;
             countDisplay.textContent = clickCount;
             db.collection("clicks").doc(username).set({ clickCount, bonusClaimed, enableAnimation, enableVibration })
-                .then(() => {
-                    updateLeaderboard();
-                })
                 .catch(error => {
                     console.error("Помилка оновлення документа:", error);
                 });
@@ -208,9 +203,6 @@ document.addEventListener('DOMContentLoaded', function() {
             clickCount += event.touches.length;
             countDisplay.textContent = clickCount;
             db.collection("clicks").doc(username).set({ clickCount, bonusClaimed, enableAnimation, enableVibration })
-                .then(() => {
-                    updateLeaderboard();
-                })
                 .catch(error => {
                     console.error("Помилка оновлення документа:", error);
                 });
@@ -232,21 +224,6 @@ document.addEventListener('DOMContentLoaded', function() {
     button.addEventListener('click', handleClick);
     button.addEventListener('touchstart', handleTouch);
 
-    function updateLeaderboard() {
-        db.collection("clicks").orderBy("clickCount", "desc").limit(5).get().then(querySnapshot => {
-            leaderboardList.innerHTML = '';
-            let index = 0;
-            querySnapshot.forEach(doc => {
-                index++;
-                const listItem = document.createElement('li');
-                listItem.textContent = `${index}. ${doc.id}: ${doc.data().clickCount}`;
-                leaderboardList.appendChild(listItem);
-            });
-        }).catch(error => {
-            console.error("Помилка отримання документів: ", error);
-        });
-    }
-
     function subscribeToChannel() {
         const telegramLink = "https://t.me/leb1gaa";
         window.open(telegramLink, "_blank");
@@ -261,9 +238,6 @@ document.addEventListener('DOMContentLoaded', function() {
                     countDisplay.textContent = clickCount;
                     bonusButton.disabled = true;
                     db.collection("clicks").doc(username).set({ clickCount, bonusClaimed, enableAnimation, enableVibration })
-                        .then(() => {
-                            updateLeaderboard();
-                        })
                         .catch(error => {
                             console.error("Помилка оновлення документа:", error);
                         });
