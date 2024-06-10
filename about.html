@@ -37,13 +37,23 @@
         </div>
         <div class="shop-section">
             <!-- Додаємо сундуки -->
-            <div class="shop-item coffer">
+            <div class="shop-item" id="coffer1">
                 <img src="coffer1.png" alt="Простий сундук">
                 <div class="item-details">
                     <span class="item-name">Простий</span>
                 </div>
             </div>
             <!-- Додаємо інші сундуки в майбутньому -->
+        </div>
+        <div id="coffer-modal" class="coffer-modal">
+            <div class="modal-content">
+                <span class="close-modal">&times;</span>
+                <img id="coffer-image" src="" alt="Простий сундук">
+                <div class="modal-details">
+                    <span id="coffer-price">Ціна: 100 кліків</span>
+                    <button id="open-coffer">Відкрити</button>
+                </div>
+            </div>
         </div>
     </div>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
