@@ -15,7 +15,7 @@ body {
     align-items: center;
     height: 100vh;
     position: relative;
-    padding-bottom: 60px; /* Простір для нижньої навігації */
+    padding-bottom: 60px;
 }
 
 .header {
@@ -26,9 +26,14 @@ body {
     font-size: 24px;
 }
 
+.leaderboard {
+    margin-top: 50px;
+    color: white;
+}
+
 .bottom-nav {
     position: fixed;
-    bottom: 20px; /* Змінив значення bottom на 20px */
+    bottom: 20px;
     width: 100%;
     height: 60px;
     background-color: #333;
@@ -44,11 +49,11 @@ body {
 }
 
 .nav-button {
-    color: #FFF; /* Колір тексту кнопок */
-    background-color: #333; /* Колір фону кнопок за замовчуванням */
+    color: #FFF;
+    background-color: #333;
     border: none;
 }
 
 .nav-button:active {
-    background-color: #222222; /* Колір фону кнопок при натисканні */
+    background-color: #222222;
 }
