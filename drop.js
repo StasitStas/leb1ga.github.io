@@ -31,25 +31,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    function getLeaderboardData() {
-        db.collection("clicks")
-            .orderBy("clickCount", "desc")
-            .limit(5)
-            .get()
-            .then(querySnapshot => {
-                leaderboardList.innerHTML = ''; // Clear the leaderboard list
-                querySnapshot.forEach(doc => {
-                    const userData = doc.data();
-                    const listItem = document.createElement('li');
-                    listItem.textContent = `${userData.firstName || 'Unknown'}: ${userData.clickCount} clicks`;
-                    leaderboardList.appendChild(listItem);
-                });
-            })
-            .catch(error => {
-                console.error("Error getting leaderboard data:", error);
-            });
-    }
-
     function initialize() {
         username = getUsernameFromUrl();
         if (username) {
@@ -61,7 +42,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 linkEarn = userData.link_earn;
                 linkDrop = userData.link_drop;
                 usernameDisplay.textContent = firstName;
-                getLeaderboardData(); // Load leaderboard data on initialization
+                updateLeaderboard(); // Оновити рейтинг при завантаженні
             }).catch(error => {
                 console.error("Error getting user data:", error);
                 alert('Помилка: Не вдалося отримати дані користувача.');
@@ -69,6 +50,32 @@ document.addEventListener('DOMContentLoaded', function() {
         } else {
             alert('Помилка: Ім\'я користувача не вказане.');
         }
+    }
+
+    function updateLeaderboard() {
+        db.collection("clicks").orderBy("clickCount", "desc").limit(5).get().then(querySnapshot => {
+            leaderboardList.innerHTML = '';
+            let index = 0;
+            querySnapshot.forEach(doc => {
+                const userId = doc.id;
+                const clickCount = doc.data().clickCount;
+                db.collection("users").doc(userId).get().then(userDoc => {
+                    if (userDoc.exists) {
+                        const userFirstName = userDoc.data().first_name;
+                        index++;
+                        const listItem = document.createElement('li');
+                        listItem.textContent = `${index}. ${userFirstName}: ${clickCount}`;
+                        leaderboardList.appendChild(listItem);
+                    } else {
+                        console.error("Error getting user document for leaderboard: User document not found");
+                    }
+                }).catch(error => {
+                    console.error("Error getting user document for leaderboard:", error);
+                });
+            });
+        }).catch(error => {
+            console.error("Помилка отримання документів: ", error);
+        });
     }
 
     navButtons.forEach(button => {
@@ -120,3 +127,4 @@ document.addEventListener('DOMContentLoaded', function() {
 
     initialize();
 });
+
