@@ -5,6 +5,7 @@ body {
     padding: 0;
     user-select: none;
     background-color: #222222;
+    overflow: hidden; /* Запобігає вертикальній прокрутці */
 }
 
 .container {
@@ -15,7 +16,7 @@ body {
     align-items: center;
     height: 100vh;
     position: relative;
-    padding-bottom: 60px;
+    padding-bottom: 60px; /* Простір для нижньої навігації */
 }
 
 .header {
