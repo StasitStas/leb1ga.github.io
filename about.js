@@ -117,7 +117,6 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     openCofferButton.addEventListener('click', function() {
-        alert("Відкрито сундук!");
         cofferModal.style.display = 'none';
     });
 
