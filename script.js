@@ -118,6 +118,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     } else {
                         db.collection("clicks").doc(username).set({ clickCount: 0, bonusClaimed: false, enableAnimation: true, enableVibration: true });
                     }
+                    updateLeaderboard();
                 }).catch(error => {
                     console.error("Error getting document:", error);
                 });
@@ -177,6 +178,9 @@ document.addEventListener('DOMContentLoaded', function() {
             clickCount++;
             countDisplay.textContent = clickCount;
             db.collection("clicks").doc(username).set({ clickCount, bonusClaimed, enableAnimation, enableVibration })
+                .then(() => {
+                    updateLeaderboard();
+                })
                 .catch(error => {
                     console.error("Помилка оновлення документа:", error);
                 });
@@ -203,6 +207,9 @@ document.addEventListener('DOMContentLoaded', function() {
             clickCount += event.touches.length;
             countDisplay.textContent = clickCount;
             db.collection("clicks").doc(username).set({ clickCount, bonusClaimed, enableAnimation, enableVibration })
+                .then(() => {
+                    updateLeaderboard();
+                })
                 .catch(error => {
                     console.error("Помилка оновлення документа:", error);
                 });
@@ -238,6 +245,9 @@ document.addEventListener('DOMContentLoaded', function() {
                     countDisplay.textContent = clickCount;
                     bonusButton.disabled = true;
                     db.collection("clicks").doc(username).set({ clickCount, bonusClaimed, enableAnimation, enableVibration })
+                        .then(() => {
+                            updateLeaderboard();
+                        })
                         .catch(error => {
                             console.error("Помилка оновлення документа:", error);
                         });
