@@ -5,6 +5,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const earnButton = document.getElementById('earnButton');
     const airdropButton = document.getElementById('airdropButton');
     const usernameDisplay = document.getElementById('usernameDisplay');
+    const leaderboardList = document.getElementById('leaderboardList');
     const navButtons = document.querySelectorAll('.nav-button');
 
     let username = '';
@@ -30,6 +31,25 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
+    function getLeaderboardData() {
+        db.collection("clicks")
+            .orderBy("clickCount", "desc")
+            .limit(5)
+            .get()
+            .then(querySnapshot => {
+                leaderboardList.innerHTML = ''; // Clear the leaderboard list
+                querySnapshot.forEach(doc => {
+                    const userData = doc.data();
+                    const listItem = document.createElement('li');
+                    listItem.textContent = `${userData.firstName || 'Unknown'}: ${userData.clickCount} clicks`;
+                    leaderboardList.appendChild(listItem);
+                });
+            })
+            .catch(error => {
+                console.error("Error getting leaderboard data:", error);
+            });
+    }
+
     function initialize() {
         username = getUsernameFromUrl();
         if (username) {
@@ -41,6 +61,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 linkEarn = userData.link_earn;
                 linkDrop = userData.link_drop;
                 usernameDisplay.textContent = firstName;
+                getLeaderboardData(); // Load leaderboard data on initialization
             }).catch(error => {
                 console.error("Error getting user data:", error);
                 alert('Помилка: Не вдалося отримати дані користувача.');
