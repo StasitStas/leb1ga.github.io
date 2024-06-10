@@ -65,22 +65,25 @@ body {
 .coin-container {
     display: flex;
     align-items: center;
-    gap: 10px;
+    justify-content: center;
+    margin-bottom: 20px;
 }
 
 .coin-image {
-    width: 50px; /* Збільшення розміру зображення */
-    height: 50px; /* Збільшення розміру зображення */
+    width: 40px;
+    height: 40px;
+    margin-right: 10px;
 }
 
 .click-count {
-    font-size: 24px; /* Збільшення розміру цифр кліків */
-    color: gold; /* Той самий золотий колір, як і в іншому тексті */
+    font-size: 3em;
+    font-weight: bold;
+    color: white;
 }
 
 .circle-button {
-    width: 300px; /* Збільшення розміру */
-    height: 300px; /* Збільшення розміру */
+    width: 250px;
+    height: 250px;
     border: 5px solid #3E6B70;
     border-radius: 50%;
     padding: 0;
@@ -94,7 +97,7 @@ body {
     justify-content: center;
     user-select: none;
     transition: transform 0.1s ease-out, box-shadow 0.5s;
-    box-shadow: 0 0 15px 5px #333;
+    box-shadow: 0 0 10px 5px #333;
 }
 
 .circle-button::after {
@@ -116,9 +119,11 @@ body {
     box-shadow: none; /* Прибираємо тінь підсвічування */
 }
 
+
+
 .circle-button img {
-    width: 90%;
-    height: 90%;
+    width: 100%;
+    height: 100%;
     border-radius: 50%;
     display: block;
     user-select: none;
@@ -127,8 +132,9 @@ body {
 
 .circle-button:active {
     transform: scale(0.99);
-    box-shadow: 0 0 15px 5px rgba(0, 123, 255, 0.5);
+    box-shadow: 0 0 10px 5px rgba(0, 123, 255, 0.5);
 }
+
 
 
 .cog-icon {
