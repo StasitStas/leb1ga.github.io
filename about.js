@@ -7,6 +7,11 @@ document.addEventListener('DOMContentLoaded', function() {
     const usernameDisplay = document.getElementById('usernameDisplay');
     const navButtons = document.querySelectorAll('.nav-button');
     const shopItems = document.querySelectorAll('.shop-item');
+    const cofferModal = document.getElementById('coffer-modal');
+    const closeModalButton = document.querySelector('.close-modal');
+    const cofferImage = document.getElementById('coffer-image');
+    const cofferPrice = document.getElementById('coffer-price');
+    const openCofferButton = document.getElementById('open-coffer');
 
     let username = '';
     let firstName = '';
@@ -100,8 +105,20 @@ document.addEventListener('DOMContentLoaded', function() {
 
     shopItems.forEach(item => {
         item.addEventListener('click', function() {
-            // Поки що нічого не відбувається при кліку на сундук
+            const cofferImageSrc = item.querySelector('img').src;
+            cofferImage.src = cofferImageSrc;
+            cofferPrice.textContent = "Ціна: 100 кліків";
+            cofferModal.style.display = 'flex';
         });
+    });
+
+    closeModalButton.addEventListener('click', function() {
+        cofferModal.style.display = 'none';
+    });
+
+    openCofferButton.addEventListener('click', function() {
+        alert("Відкрито сундук!");
+        cofferModal.style.display = 'none';
     });
 
     initialize();
