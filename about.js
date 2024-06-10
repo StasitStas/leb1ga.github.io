@@ -6,6 +6,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const airdropButton = document.getElementById('airdropButton');
     const usernameDisplay = document.getElementById('usernameDisplay');
     const navButtons = document.querySelectorAll('.nav-button');
+    const shopItems = document.querySelectorAll('.shop-item');
 
     let username = '';
     let firstName = '';
@@ -95,6 +96,12 @@ document.addEventListener('DOMContentLoaded', function() {
         } else {
             alert('Помилка: Посилання не знайдено.');
         }
+    });
+
+    shopItems.forEach(item => {
+        item.addEventListener('click', function() {
+            // Поки що нічого не відбувається при кліку на сундук
+        });
     });
 
     initialize();
