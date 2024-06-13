@@ -39,7 +39,7 @@ body.modal-open {
 }
 
 .shop-item {
-    background-color: #301819;
+    background-color: #3f3d36;
     padding: 10px;
     border-radius: 10px;
     width: 120px;
@@ -118,7 +118,7 @@ body.modal-open {
     position: relative;
     box-sizing: border-box;
     border-top: 2px solid #FFD700; /* Золота обводка зверху */
-    box-shadow: 0px -5px 15px 0px rgba(255, 215, 0, 0.5); /* Золота тінь зверху */
+    box-shadow: 0px -8px 15px 0px rgba(255, 215, 0, 0.5); /* Золота тінь зверху */
 }
 
 .close-modal {
@@ -159,14 +159,4 @@ body.modal-open {
 
 #open-coffer:hover {
     background-color: #922A33;
-}
-
-.price-container {
-    display: flex;
-    align-items: center;
-}
-
-.coin-image {
-    width: 20px; /* Встановіть розмір монети, якщо потрібно */
-    margin-right: 5px; /* Проміжок між зображенням монети та текстом */
 }
