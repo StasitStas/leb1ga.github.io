@@ -117,8 +117,8 @@ body.modal-open {
     align-items: center;
     position: relative;
     box-sizing: border-box;
+    border-top: 5px solid #FFD700; /* Золота обводка зверху */
 }
-
 
 .close-modal {
     position: absolute;
@@ -151,7 +151,7 @@ body.modal-open {
     background-color: #301819;
     border: none;
     border-radius: 5px;
-    color: white;
+    color: білий;
     padding: 10px 20px;
     cursor: pointer;
 }
