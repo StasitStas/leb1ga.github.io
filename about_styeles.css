@@ -7,6 +7,10 @@ body {
     background-color: #191919;
 }
 
+body.modal-open {
+    overflow: hidden;
+}
+
 .container {
     text-align: center;
     display: flex;
