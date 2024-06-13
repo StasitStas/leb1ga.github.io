@@ -39,7 +39,7 @@ body.modal-open {
 }
 
 .shop-item {
-    background-color: #333;
+    background-color: #301819;
     padding: 10px;
     border-radius: 10px;
     width: 120px;
@@ -107,7 +107,7 @@ body.modal-open {
 }
 
 .modal-content {
-    background: #333;
+    background: #a32526;
     width: 100%; /* Повна ширина */
     max-height: 90%; /* Максимальна висота 90% від висоти вікна */
     padding: 20px;
@@ -124,7 +124,7 @@ body.modal-open {
     position: absolute;
     top: 10px;
     right: 10px;
-    font-size: 24px;
+    font-size: 38px;
     cursor: pointer;
     color: white;
 }
@@ -148,7 +148,7 @@ body.modal-open {
 }
 
 #open-coffer {
-    background-color: #3E6B70;
+    background-color: #301819;
     border: none;
     border-radius: 5px;
     color: white;
