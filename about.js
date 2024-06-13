@@ -1,4 +1,5 @@
 document.addEventListener('DOMContentLoaded', function() {
+    // Всі елементи
     const exchangeButton = document.getElementById('exchangeButton');
     const mineButton = document.getElementById('mineButton');
     const friendsButton = document.getElementById('friendsButton');
@@ -21,11 +22,13 @@ document.addEventListener('DOMContentLoaded', function() {
     let linkEarn = '';
     let linkDrop = '';
 
+    // Отримання ім'я користувача з URL
     function getUsernameFromUrl() {
         const urlParams = new URLSearchParams(window.location.search);
         return urlParams.get('username');
     }
 
+    // Отримання даних користувача з бази даних
     function getUserData(username) {
         return db.collection("users").doc(username).get().then(doc => {
             if (doc.exists) {
@@ -36,10 +39,12 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    function initialize() {
+    // Ініціалізація даних користувача та посилань
+    async function initialize() {
         username = getUsernameFromUrl();
         if (username) {
-            getUserData(username).then(userData => {
+            try {
+                const userData = await getUserData(username);
                 firstName = userData.first_name;
                 linkMain = userData.link_main;
                 linkAbout = userData.link_about;
@@ -47,15 +52,16 @@ document.addEventListener('DOMContentLoaded', function() {
                 linkEarn = userData.link_earn;
                 linkDrop = userData.link_drop;
                 usernameDisplay.textContent = firstName;
-            }).catch(error => {
+            } catch (error) {
                 console.error("Error getting user data:", error);
                 alert('Помилка: Не вдалося отримати дані користувача.');
-            });
+            }
         } else {
             alert('Помилка: Ім\'я користувача не вказане.');
         }
     }
 
+    // Обробка активності кнопок навігації
     navButtons.forEach(button => {
         button.addEventListener('click', function() {
             navButtons.forEach(btn => btn.classList.remove('active'));
@@ -103,22 +109,29 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
+    // Обробка кліку по товару в магазині
     shopItems.forEach(item => {
         item.addEventListener('click', function() {
             const cofferImageSrc = item.querySelector('img').src;
             cofferImage.src = cofferImageSrc;
             cofferPrice.textContent = "Ціна: 100 кліків";
             cofferModal.style.display = 'flex';
+            document.body.classList.add('modal-open');
         });
     });
 
+    // Закриття модального вікна при кліку на закриття
     closeModalButton.addEventListener('click', function() {
         cofferModal.style.display = 'none';
+        document.body.classList.remove('modal-open');
     });
 
+    // Закриття модального вікна при натисканні на кнопку "Відкрити сундук"
     openCofferButton.addEventListener('click', function() {
         cofferModal.style.display = 'none';
+        document.body.classList.remove('modal-open');
     });
 
+    // Ініціалізація даних користувача
     initialize();
 });
