@@ -102,8 +102,9 @@ body.modal-open {
     background: rgba(0, 0, 0, 0.8);
     display: none;
     justify-content: center; /* Центруємо по горизонталі */
-    align-items: flex-end; /* Розміщуємо внизу */
     z-index: 9999; /* Зазначаємо, щоб бути над іншими елементами */
+    align-items: center; /* Центрує модальне вікно по вертикалі */
+    padding-top: 20%; /* Піднімає модальне вікно трохи вище */
 }
 
 .modal-content {
