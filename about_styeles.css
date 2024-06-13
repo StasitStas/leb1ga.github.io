@@ -98,10 +98,10 @@ body {
     background: rgba(0, 0, 0, 0.8);
     display: none;
     justify-content: flex-end; /* Align to the bottom */
-    align-items: flex-start; /* Align to the top */
-    padding: 20px; /* Add some padding */
-    box-sizing: border-box; /* Ensure padding doesn't affect width */
+    align-items: center;
+    z-index: 9999; /* Ensure it is above other elements */
 }
+
 
 .modal-content {
     background: #333;
