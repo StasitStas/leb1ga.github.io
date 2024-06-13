@@ -104,12 +104,16 @@ body {
 
 .modal-content {
     background: #333;
+    width: 100%; /* Повна ширина */
+    max-height: 90%; /* Максимальна висота 90% від висоти вікна */
     padding: 20px;
-    border-radius: 10px;
+    border-radius: 0; /* Без заокруглених кутів */
     display: flex;
     flex-direction: column;
     align-items: center;
     position: relative;
+    box-sizing: border-box;
+    overflow-y: auto; /* Додаємо прокручування, якщо контент занадто великий */
 }
 
 .close-modal {
