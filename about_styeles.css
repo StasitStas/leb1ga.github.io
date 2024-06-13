@@ -117,7 +117,11 @@ body.modal-open {
     align-items: center;
     position: relative;
     box-sizing: border-box;
-    border-top: 5px solid #FFD700; /* Золота обводка зверху */
+    border-top: 5px solid; /* Золота обводка зверху */
+    border-image-source: linear-gradient(to right, #FFD700, #FFC125); /* Стиль розтушування */
+    border-image-slice: 1; /* Ширина розтушування */
+    border-image-width: 5px; /* Ширина обводки */
+    border-image-outset: 0;
 }
 
 .close-modal {
@@ -151,7 +155,7 @@ body.modal-open {
     background-color: #301819;
     border: none;
     border-radius: 5px;
-    color: білий;
+    color: #fff;
     padding: 10px 20px;
     cursor: pointer;
 }
