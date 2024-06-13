@@ -90,7 +90,7 @@ body {
 }
 
 #coffer-image {
-    width: 200px; /* Оригінальний розмір */
+    width: 200px; /* Оригінальний розмір для модального вікна */
     border-radius: 10px;
 }
 
@@ -120,3 +120,7 @@ body {
     background-color: #5F9EA0;
 }
 
+.shop-item img {
+    width: 100%; /* Оригінальний розмір на сторінці */
+    border-radius: 10px;
+}
