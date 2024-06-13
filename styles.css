@@ -82,6 +82,7 @@ body {
 }
 
 .circle-button {
+    margin-bottom: 20px; /* Adjust this value to move the button up */
     width: 250px;
     height: 250px;
     border: 5px solid #3E6B70;
@@ -98,6 +99,7 @@ body {
     user-select: none;
     transition: transform 0.1s ease-out, box-shadow 0.5s;
     box-shadow: 0 0 10px 5px #333;
+    -webkit-tap-highlight-color: transparent; /* Prevents highlight on Android */
 }
 
 .circle-button::after {
@@ -115,8 +117,8 @@ body {
 }
 
 .circle-button:active {
-    outline: none; /* Прибираємо рамку підсвічування */
-    box-shadow: none; /* Прибираємо тінь підсвічування */
+    outline: none; /* Prevents outline on active state */
+    box-shadow: none; /* Removes shadow on active state */
 }
 
 
