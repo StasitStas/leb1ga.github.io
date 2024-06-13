@@ -61,22 +61,23 @@ body {
     height: 100%;
     background: rgba(0, 0, 0, 0.8);
     display: none;
-    justify-content: flex-end; /* Align to the bottom */
-    align-items: center;
+    justify-content: center; /* Центруємо по горизонталі */
+    align-items: flex-end; /* Розміщуємо внизу */
+    z-index: 9999; /* Зазначаємо, щоб бути над іншими елементами */
 }
 
 .modal-content {
     background: #333;
-    width: 100%; /* Full width */
-    height: 100%; /* Full height */
+    width: 100%; /* Повна ширина */
+    max-height: 90%; /* Максимальна висота 90% від висоти вікна */
     padding: 20px;
-    border-radius: 0; /* No rounded corners */
+    border-radius: 0; /* Без заокруглених кутів */
     display: flex;
     flex-direction: column;
     align-items: center;
     position: relative;
     box-sizing: border-box;
-    overflow-y: auto; /* Enable scrolling if content is too large */
+    overflow-y: auto; /* Додаємо прокручування, якщо контент занадто великий */
 }
 
 .close-modal {
@@ -89,7 +90,7 @@ body {
 }
 
 #coffer-image {
-    width: 200px;
+    width: 200px; /* Оригінальний розмір */
     border-radius: 10px;
 }
 
@@ -118,3 +119,4 @@ body {
 #open-coffer:hover {
     background-color: #5F9EA0;
 }
+
