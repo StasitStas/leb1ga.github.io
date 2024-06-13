@@ -114,7 +114,7 @@ document.addEventListener('DOMContentLoaded', function() {
         item.addEventListener('click', function() {
             const cofferImageSrc = item.querySelector('img').src;
             cofferImage.src = cofferImageSrc;
-            cofferPrice.textContent = "Ціна: 100 кліків";
+            cofferPrice.textContent = "100";
             cofferModal.style.display = 'flex';
             document.body.classList.add('modal-open');
         });
