@@ -160,3 +160,9 @@ body.modal-open {
 #open-coffer:hover {
     background-color: #922A33;
 }
+
+.coin-image {
+    width: 40px;
+    height: 40px;
+    margin-right: 10px;
+}
