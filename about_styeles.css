@@ -169,14 +169,15 @@ body.modal-open {
 
 .price-container {
     color: #FFD700;
-    font-size: 14px;
     margin-bottom: 20px;
     display: flex;
     align-items: center; /* Для вирівнювання іконки та тексту */
+    font-size: 24px; /* Розмір тексту */
 }
 
 .price-container i {
     margin-right: 5px; /* Відстань між іконкою та текстом */
+    font-size: 24px; /* Розмір іконки */
 }
 
 #open-coffer {
