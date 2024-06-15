@@ -171,14 +171,16 @@ body.modal-open {
     color: #FFD700;
     margin-bottom: 20px;
     display: flex;
-    align-items: center; /* Для вирівнювання іконки та тексту */
+    align-items: center; /* Для вирівнювання зображення та тексту */
     font-size: 24px; /* Розмір тексту */
 }
 
-.price-container i {
-    margin-right: 5px; /* Відстань між іконкою та текстом */
-    font-size: 24px; /* Розмір іконки */
+.coin-icon {
+    margin-right: 5px; /* Відстань між зображенням та текстом */
+    width: 24px; /* Висота та ширина зображення */
+    height: 24px;
 }
+
 
 #open-coffer {
     background-color: #FFD700;
