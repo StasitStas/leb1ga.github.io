@@ -109,7 +109,7 @@ body.modal-open {
 .modal-content {
     background: #a32526;
     width: 100%; /* Повна ширина */
-    height: 60%;
+    height: 55%;
     padding: 20px;
     border-radius: 20px 20px 0 0; /* Заокруглені кути зверху */
     display: flex;
