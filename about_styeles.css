@@ -153,6 +153,9 @@ body.modal-open {
     font-size: 38px;
     cursor: pointer;
     color: white;
+    border: 2px solid white; /* обводка навколо елемента */
+    border-radius: 50%; /* кругла обводка */
+    padding: 5px; /* відступ навколо тексту */
 }
 
 #coffer-image {
