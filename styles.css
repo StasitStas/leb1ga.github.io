@@ -277,7 +277,7 @@ body {
 .switch-btn span {
     display: flex;
     align-items: center;
-    width: 50px; /* Reduced width */
+    width: 46px; /* Reduced width */
     height: 24px; /* Reduced height */
     border-radius: 15px; /* Adjusted border radius */
     background-color: #ddd;
