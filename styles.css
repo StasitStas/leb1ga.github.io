@@ -266,3 +266,47 @@ body {
 #subscribeButton:hover, #bonusButton:hover {
     background-color: #5F9EA0;
 }
+
+/* Switch Button */
+.switch-btn {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px; /* Add margin to separate the buttons */
+}
+
+.switch-btn span {
+    display: flex;
+    align-items: center;
+    width: 80px;
+    height: 44px;
+    border-radius: 30px;
+    background-color: #ddd;
+    transition: 0.3s;
+    padding: 0 3px;
+    position: relative;
+}
+
+.switch-btn span::before {
+    content: '';
+    display: inline-block;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background-color: #fff;
+    position: absolute;
+    left: 5px;
+    transition: 0.6s;
+}
+
+.switch-btn input {
+    display: none;
+}
+
+.switch-btn input:checked ~ span {
+    background-color: #02bcf0;
+}
+
+.switch-btn input:checked ~ span::before {
+    left: 45px;
+}
+
