@@ -1,5 +1,4 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // Всі елементи
     const exchangeButton = document.getElementById('exchangeButton');
     const mineButton = document.getElementById('mineButton');
     const friendsButton = document.getElementById('friendsButton');
@@ -11,7 +10,6 @@ document.addEventListener('DOMContentLoaded', function() {
     const cofferModal = document.getElementById('coffer-modal');
     const closeModalButton = document.querySelector('.close-modal');
     const cofferImage = document.getElementById('coffer-image');
-    const cofferPrice = document.getElementById('coffer-price');
     const openCofferButton = document.getElementById('open-coffer');
 
     let username = '';
@@ -22,13 +20,11 @@ document.addEventListener('DOMContentLoaded', function() {
     let linkEarn = '';
     let linkDrop = '';
 
-    // Отримання ім'я користувача з URL
     function getUsernameFromUrl() {
         const urlParams = new URLSearchParams(window.location.search);
         return urlParams.get('username');
     }
 
-    // Отримання даних користувача з бази даних
     function getUserData(username) {
         return db.collection("users").doc(username).get().then(doc => {
             if (doc.exists) {
@@ -39,7 +35,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Ініціалізація даних користувача та посилань
     async function initialize() {
         username = getUsernameFromUrl();
         if (username) {
@@ -61,7 +56,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    // Обробка активності кнопок навігації
     navButtons.forEach(button => {
         button.addEventListener('click', function() {
             navButtons.forEach(btn => btn.classList.remove('active'));
@@ -109,29 +103,24 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // Обробка кліку по товару в магазині
     shopItems.forEach(item => {
         item.addEventListener('click', function() {
             const cofferImageSrc = item.querySelector('img').src;
             cofferImage.src = cofferImageSrc;
-            cofferPrice.textContent = "100";
             cofferModal.style.display = 'flex';
             document.body.classList.add('modal-open');
         });
     });
 
-    // Закриття модального вікна при кліку на закриття
     closeModalButton.addEventListener('click', function() {
         cofferModal.style.display = 'none';
         document.body.classList.remove('modal-open');
     });
 
-    // Закриття модального вікна при натисканні на кнопку "Відкрити сундук"
     openCofferButton.addEventListener('click', function() {
         cofferModal.style.display = 'none';
         document.body.classList.remove('modal-open');
     });
 
-    // Ініціалізація даних користувача
     initialize();
 });
