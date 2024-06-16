@@ -271,13 +271,20 @@ body {
 
 .switch-label {
     display: flex;
-    justify-content: space-between; /* Розташування тексту і switch-btn по бокам */
+    justify-content: space-between;
     align-items: center;
-    margin-bottom: 10px; /* Додати відступ, щоб відокремити елементи */
+    margin-bottom: 10px;
 }
 
 .switch-label span {
-    margin-right: 10px; /* Додатковий відступ між текстом і switch-btn */
+    margin-right: 10px;
+}
+
+/* Highlight background */
+.highlight {
+    background-color: rgba(255, 255, 255, 0.1);
+    padding: 10px;
+    border-radius: 5px;
 }
 
 .switch-btn {
@@ -288,24 +295,24 @@ body {
 .switch-btn span {
     display: flex;
     align-items: center;
-    width: 46px; /* Зменшена ширина */
-    height: 24px; /* Зменшена висота */
-    border-radius: 15px; /* Змінений радіус круга */
+    width: 46px;
+    height: 24px;
+    border-radius: 15px;
     background-color: #ddd;
     transition: 0.3s;
-    padding: 0 2px; /* Зменшений відступ */
+    padding: 0 2px;
     position: relative;
 }
 
 .switch-btn span::before {
     content: '';
     display: inline-block;
-    width: 20px; /* Зменшена ширина */
-    height: 20px; /* Зменшена висота */
+    width: 20px;
+    height: 20px;
     border-radius: 50%;
     background-color: #fff;
     position: absolute;
-    left: 2px; /* Змінена позиція */
+    left: 2px;
     transition: 0.6s;
 }
 
@@ -318,5 +325,5 @@ body {
 }
 
 .switch-btn input:checked ~ span::before {
-    left: 28px; /* Змінена позиція для зменшеного switch */
+    left: 28px;
 }
