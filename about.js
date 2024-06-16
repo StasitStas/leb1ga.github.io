@@ -146,7 +146,7 @@ document.addEventListener('DOMContentLoaded', function() {
             openCofferButton.classList.add('insufficient-clicks');
             setTimeout(() => {
                 openCofferButton.classList.remove('insufficient-clicks');
-            }, 500);
+            }, 1000); // 1000 milliseconds = 1 second
         }
     });
 
