@@ -202,31 +202,35 @@ document.addEventListener('DOMContentLoaded', function() {
             return;
         }
         lastClickTime = currentTime;
-
+    
+        // Check if more than one touch is detected
+        if (event.touches.length > 1) {
+            return;
+        }
+    
         if (username) {
-            clickCount += event.touches.length;
+            clickCount++;
             countDisplay.textContent = clickCount;
             db.collection("clicks").doc(username).set({ clickCount, bonusClaimed, enableAnimation, enableVibration })
                 .then(() => {
                     updateLeaderboard();
                 })
                 .catch(error => {
-                    console.error("Помилка оновлення документа:", error);
+                    console.error("Error updating document:", error);
                 });
-
+    
             vibrate();
-
+    
             const rect = button.getBoundingClientRect();
-            for (let i = 0; i < event.touches.length; i++) {
-                const touch = event.touches[i];
-                const x = touch.clientX - rect.left;
-                const y = touch.clientY - rect.top;
-                createClickEffect(x, y);
-            }
+            const touch = event.touches[0];
+            const x = touch.clientX - rect.left;
+            const y = touch.clientY - rect.top;
+            createClickEffect(x, y);
         } else {
-            alert('Помилка: Ім\'я користувача не вказане.');
+            alert('Error: Username is not specified.');
         }
     }
+
 
     button.addEventListener('click', handleClick);
     button.addEventListener('touchstart', handleTouch);
