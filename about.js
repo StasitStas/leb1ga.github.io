@@ -161,9 +161,8 @@ document.addEventListener('DOMContentLoaded', function() {
         // Implement prize claiming logic here if needed
     });
 
-    function generatePrize() {
+    async function generatePrize() {
         const clickPrizeProbability = 0.5;
-        const skinPrizeProbability = 0.5;
         const skins = [
             { src: 'leb1ga-ment.png', probability: 0.7 },
             { src: 'skin_1.png', probability: 0.5 },
@@ -175,6 +174,8 @@ document.addEventListener('DOMContentLoaded', function() {
         
         if (Math.random() < clickPrizeProbability) {
             const clicks = Math.floor(Math.random() * (150 - 30 + 1)) + 30;
+            clickCount += clicks;
+            await db.collection("clicks").doc(username).update({ clickCount: clickCount });
             prizeDescriptionText = `Ваш приз: ${clicks} кліків`;
             prizeImageSrc = 'coin.png';
         } else {
