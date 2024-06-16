@@ -275,8 +275,8 @@ body {
     align-items: center;
     margin-bottom: 10px;
     padding: 10px;
-    border-radius: 5px;
-    background-color: #3f3e3e; /* Світлий сірий колір */
+    border-radius: 10px;
+    background-color: #515152a3; /* Світлий сірий колір */
 }
 
 .switch-label span {
