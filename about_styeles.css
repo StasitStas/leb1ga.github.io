@@ -284,7 +284,8 @@ body.modal-open {
 }
 
 .insufficient-clicks {
-    animation: blink-red 0.5s;
+    animation: blink-red 1s;
+    background-color: red;
 }
 
 @keyframes blink-red {
@@ -292,4 +293,3 @@ body.modal-open {
     50% { background-color: transparent; }
     100% { background-color: red; }
 }
-
