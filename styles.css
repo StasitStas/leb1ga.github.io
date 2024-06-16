@@ -53,7 +53,7 @@ body {
 }
 /* Logo-firstname */
 .golden-text {
-    color: #ffcc00;
+    color: #ffffff;
     font-weight: bold;
     font-size: 1.2em;
     padding: 8px 20px;
@@ -63,11 +63,6 @@ body {
     transition: transform 0.2s ease-in-out;
     display: inline-block;
 }
-
-.golden-text:hover {
-    transform: scale(1.05);
-}
-
 
 .coin-container {
     display: flex;
