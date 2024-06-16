@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     const exchangeButton = document.getElementById('exchangeButton');
     const mineButton = document.getElementById('mineButton');
     const friendsButton = document.getElementById('friendsButton');
@@ -62,13 +62,13 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     navButtons.forEach(button => {
-        button.addEventListener('click', function() {
+        button.addEventListener('click', function () {
             navButtons.forEach(btn => btn.classList.remove('active'));
             button.classList.add('active');
         });
     });
 
-    exchangeButton.addEventListener('click', function() {
+    exchangeButton.addEventListener('click', function () {
         if (linkMain) {
             window.location.href = linkMain;
         } else {
@@ -76,7 +76,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    mineButton.addEventListener('click', function() {
+    mineButton.addEventListener('click', function () {
         if (linkAbout) {
             window.location.href = linkAbout;
         } else {
@@ -84,7 +84,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    friendsButton.addEventListener('click', function() {
+    friendsButton.addEventListener('click', function () {
         if (linkFriends) {
             window.location.href = linkFriends;
         } else {
@@ -92,7 +92,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    earnButton.addEventListener('click', function() {
+    earnButton.addEventListener('click', function () {
         if (linkEarn) {
             window.location.href = linkEarn;
         } else {
@@ -100,7 +100,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    airdropButton.addEventListener('click', function() {
+    airdropButton.addEventListener('click', function () {
         if (linkDrop) {
             window.location.href = linkDrop;
         } else {
@@ -109,7 +109,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     shopItems.forEach(item => {
-        item.addEventListener('click', function() {
+        item.addEventListener('click', function () {
             const cofferImageSrc = item.querySelector('img').src;
             cofferImage.src = cofferImageSrc;
             cofferModal.style.display = 'flex';
@@ -117,29 +117,49 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    closeModalButton.addEventListener('click', function() {
+    closeModalButton.addEventListener('click', function () {
         cofferModal.style.display = 'none';
         document.body.classList.remove('modal-open');
     });
 
-    openCofferButton.addEventListener('click', function() {
+    openCofferButton.addEventListener('click', async function () {
         cofferModal.style.display = 'none';
         document.body.classList.remove('modal-open');
-        generatePrize();
+
+        try {
+            const userDoc = await db.collection('users').doc(username).get();
+            const clickCount = userDoc.data().clickCount;
+
+            if (clickCount < 100) {
+                // Disable the button and make it red
+                openCofferButton.style.backgroundColor = 'red';
+                openCofferButton.disabled = true;
+                return;
+            }
+
+            // Subtract 100 clicks from the user's click count
+            await db.collection('users').doc(username).update({
+                clickCount: clickCount - 100
+            });
+
+            generatePrize();
+        } catch (error) {
+            console.error("Error updating user click count:", error);
+            alert("Failed to update user data.");
+        }
     });
 
-    closePrizeModalButton.addEventListener('click', function() {
+    closePrizeModalButton.addEventListener('click', function () {
         prizeModal.style.display = 'none';
         document.body.classList.remove('modal-open');
     });
 
-    claimPrizeButton.addEventListener('click', function() {
+    claimPrizeButton.addEventListener('click', async function () {
         prizeModal.style.display = 'none';
         document.body.classList.remove('modal-open');
-        // Implement prize claiming logic here if needed
     });
 
-    function generatePrize() {
+    async function generatePrize() {
         const clickPrizeProbability = 0.5;
         const skinPrizeProbability = 0.5;
         const skins = [
@@ -150,11 +170,21 @@ document.addEventListener('DOMContentLoaded', function() {
 
         let prizeDescriptionText = '';
         let prizeImageSrc = '';
-        
+
         if (Math.random() < clickPrizeProbability) {
             const clicks = Math.floor(Math.random() * (150 - 30 + 1)) + 30;
             prizeDescriptionText = `Ваш приз: ${clicks} кліків`;
             prizeImageSrc = 'coin.png';
+
+            // Update user click count in Firestore
+            try {
+                await db.collection('users').doc(username).update({
+                    clickCount: db.firestore.FieldValue.increment(clicks)
+                });
+            } catch (error) {
+                console.error("Error updating user click count:", error);
+                alert("Failed to update user data.");
+            }
         } else {
             const skin = skins.find(skin => Math.random() < skin.probability);
             if (skin) {
