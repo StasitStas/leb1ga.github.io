@@ -142,14 +142,8 @@ document.addEventListener('DOMContentLoaded', function() {
             cofferModal.style.display = 'none';
             document.body.classList.remove('modal-open');
             generatePrize();
-        } else {
-            openCofferButton.style.backgroundColor = 'red'; // Встановлення червоного кольору
-            setTimeout(() => {
-                openCofferButton.style.backgroundColor = ''; // Повернення до оригінального кольору через 1 секунду
-            }, 1000);
         }
     });
-
 
     closePrizeModalButton.addEventListener('click', function() {
         prizeModal.style.display = 'none';
