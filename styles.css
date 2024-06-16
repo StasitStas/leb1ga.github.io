@@ -268,10 +268,15 @@ body {
 }
 
 /* Smaller Switch Button */
+.switch-label {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10px; /* Add margin to separate the labels */
+}
+
 .switch-btn {
     display: flex;
     align-items: center;
-    margin-bottom: 10px; /* Add margin to separate the buttons */
 }
 
 .switch-btn span {
