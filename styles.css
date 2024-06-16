@@ -5,7 +5,7 @@ body {
     padding: 0;
     user-select: none;
     background-color: #191919;
-    overflow: hidden; /* Запобіає вертикальній прокрутці */
+    overflow: hidden; /* Запобіає вертикальній прокутці */
 }
 
 .container {
