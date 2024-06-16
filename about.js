@@ -143,7 +143,10 @@ document.addEventListener('DOMContentLoaded', function() {
             document.body.classList.remove('modal-open');
             generatePrize();
         } else {
-            alert('Недостатньо кліків для відкриття сундука.');
+            openCofferButton.classList.add('insufficient-clicks');
+            setTimeout(() => {
+                openCofferButton.classList.remove('insufficient-clicks');
+            }, 500);
         }
     });
 
