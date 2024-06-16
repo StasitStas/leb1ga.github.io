@@ -288,8 +288,8 @@ body.modal-open {
 }
 
 @keyframes blink-red {
-    0% { background-color: #f00; }
-    50% { background-color: #fff; }
-    100% { background-color: #f00; }
+    0% { background-color: red; }
+    50% { background-color: transparent; }
+    100% { background-color: red; }
 }
 
