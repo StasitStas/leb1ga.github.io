@@ -282,14 +282,3 @@ body.modal-open {
     box-shadow: 0 6px 15px rgba(0, 0, 0, 0.5);
     transform: translateY(-2px);
 }
-
-.insufficient-clicks {
-    animation: blink-red 1s;
-    background-color: red;
-}
-
-@keyframes blink-red {
-    0% { background-color: red; }
-    50% { background-color: transparent; }
-    100% { background-color: red; }
-}
