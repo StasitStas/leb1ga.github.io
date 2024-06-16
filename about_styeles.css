@@ -283,3 +283,13 @@ body.modal-open {
     transform: translateY(-2px);
 }
 
+.insufficient-clicks {
+    animation: blink-red 0.5s;
+}
+
+@keyframes blink-red {
+    0% { background-color: #f00; }
+    50% { background-color: #fff; }
+    100% { background-color: #f00; }
+}
+
