@@ -24,6 +24,7 @@ document.addEventListener('DOMContentLoaded', function() {
     let linkFriends = '';
     let linkEarn = '';
     let linkDrop = '';
+    let clickCount = 0;
 
     function getUsernameFromUrl() {
         const urlParams = new URLSearchParams(window.location.search);
@@ -40,17 +41,29 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
+    function getUserClicks(username) {
+        return db.collection("clicks").doc(username).get().then(doc => {
+            if (doc.exists) {
+                return doc.data();
+            } else {
+                throw new Error('Документ з кліками не знайдено');
+            }
+        });
+    }
+
     async function initialize() {
         username = getUsernameFromUrl();
         if (username) {
             try {
                 const userData = await getUserData(username);
+                const clickData = await getUserClicks(username);
                 firstName = userData.first_name;
                 linkMain = userData.link_main;
                 linkAbout = userData.link_about;
                 linkFriends = userData.link_friends;
                 linkEarn = userData.link_earn;
                 linkDrop = userData.link_drop;
+                clickCount = clickData.clickCount || 0;
                 usernameDisplay.textContent = firstName;
             } catch (error) {
                 console.error("Error getting user data:", error);
@@ -122,10 +135,16 @@ document.addEventListener('DOMContentLoaded', function() {
         document.body.classList.remove('modal-open');
     });
 
-    openCofferButton.addEventListener('click', function() {
-        cofferModal.style.display = 'none';
-        document.body.classList.remove('modal-open');
-        generatePrize();
+    openCofferButton.addEventListener('click', async function() {
+        if (clickCount >= 100) {
+            clickCount -= 100;
+            await db.collection("clicks").doc(username).update({ clickCount: clickCount });
+            cofferModal.style.display = 'none';
+            document.body.classList.remove('modal-open');
+            generatePrize();
+        } else {
+            alert('Недостатньо кліків для відкриття сундука.');
+        }
     });
 
     closePrizeModalButton.addEventListener('click', function() {
