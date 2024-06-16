@@ -16,6 +16,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const prizeDescription = document.getElementById('prize-description');
     const prizeImage = document.getElementById('prize-image');
     const claimPrizeButton = document.getElementById('claim-prize');
+    const cofferPrice = document.getElementById('coffer-price'); // Додано для роботи з ціною скарбнички
 
     let username = '';
     let firstName = '';
@@ -142,6 +143,12 @@ document.addEventListener('DOMContentLoaded', function() {
             cofferModal.style.display = 'none';
             document.body.classList.remove('modal-open');
             generatePrize();
+        } else {
+            // Анімація для недостатньої кількості кліків
+            cofferPrice.style.animation = 'shake 0.5s';
+            setTimeout(() => {
+                cofferPrice.style.animation = '';
+            }, 1000);
         }
     });
 
