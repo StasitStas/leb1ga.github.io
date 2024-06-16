@@ -15,7 +15,6 @@ document.addEventListener('DOMContentLoaded', function () {
     const closePrizeModalButton = document.querySelector('.close-prize-modal');
     const prizeDescription = document.getElementById('prize-description');
     const prizeImage = document.getElementById('prize-image');
-    const claimPrizeButton = document.getElementById('claim-prize');
 
     let username = '';
     let firstName = '';
@@ -123,9 +122,6 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     openCofferButton.addEventListener('click', async function () {
-        cofferModal.style.display = 'none';
-        document.body.classList.remove('modal-open');
-
         try {
             const userDoc = await db.collection('users').doc(username).get();
             const clickCount = userDoc.data().clickCount;
@@ -134,19 +130,23 @@ document.addEventListener('DOMContentLoaded', function () {
                 // Disable the button and make it red
                 openCofferButton.style.backgroundColor = 'red';
                 openCofferButton.disabled = true;
+                alert("Недостатньо кліків для відкриття сундука");
                 return;
             }
 
-            // Subtract 100 clicks from the user's click count
+            // Generate prize
+            generatePrize();
+
+            // Subtract 100 clicks from the user's click count in Firestore
             await db.collection('users').doc(username).update({
                 clickCount: clickCount - 100
             });
 
-            generatePrize();
         } catch (error) {
             console.error("Error updating user click count:", error);
             alert("Failed to update user data.");
         }
+
     });
 
     closePrizeModalButton.addEventListener('click', function () {
@@ -154,14 +154,9 @@ document.addEventListener('DOMContentLoaded', function () {
         document.body.classList.remove('modal-open');
     });
 
-    claimPrizeButton.addEventListener('click', async function () {
-        prizeModal.style.display = 'none';
-        document.body.classList.remove('modal-open');
-    });
-
-    async function generatePrize() {
-        const clickPrizeProbability = 0.5;
-        const skinPrizeProbability = 0.5;
+    function generatePrize() {
+        const clickPrizeProbability = 0.5; // 50% chance for clicks
+        const skinPrizeProbability = 0.5; // 50% chance for skin
         const skins = [
             { src: 'leb1ga-ment.png', probability: 0.7 },
             { src: 'skin_1.png', probability: 0.5 },
@@ -175,16 +170,6 @@ document.addEventListener('DOMContentLoaded', function () {
             const clicks = Math.floor(Math.random() * (150 - 30 + 1)) + 30;
             prizeDescriptionText = `Ваш приз: ${clicks} кліків`;
             prizeImageSrc = 'coin.png';
-
-            // Update user click count in Firestore
-            try {
-                await db.collection('users').doc(username).update({
-                    clickCount: db.firestore.FieldValue.increment(clicks)
-                });
-            } catch (error) {
-                console.error("Error updating user click count:", error);
-                alert("Failed to update user data.");
-            }
         } else {
             const skin = skins.find(skin => Math.random() < skin.probability);
             if (skin) {
