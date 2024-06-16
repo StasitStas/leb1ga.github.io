@@ -136,13 +136,13 @@ document.addEventListener('DOMContentLoaded', function () {
                 return;
             }
 
-            // Generate prize
-            generatePrize();
-
             // Update click count after opening coffer
             await userRef.update({
                 clickCount: clickCount - 100
             });
+
+            // Generate prize
+            generatePrize();
 
         } catch (error) {
             console.error("Error updating user data:", error);
