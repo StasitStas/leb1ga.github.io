@@ -274,17 +274,13 @@ body {
     justify-content: space-between;
     align-items: center;
     margin-bottom: 10px;
+    padding: 10px;
+    border-radius: 5px;
+    background-color: #007bff; /* Світлий синій колір */
 }
 
 .switch-label span {
     margin-right: 10px;
-}
-
-/* Highlight background */
-.highlight {
-    background-color: rgba(255, 255, 255, 0.1);
-    padding: 10px;
-    border-radius: 5px;
 }
 
 .switch-btn {
