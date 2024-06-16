@@ -143,12 +143,13 @@ document.addEventListener('DOMContentLoaded', function() {
             document.body.classList.remove('modal-open');
             generatePrize();
         } else {
-            openCofferButton.classList.add('insufficient-clicks');
+            openCofferButton.style.backgroundColor = 'red'; // Встановлення червоного кольору
             setTimeout(() => {
-                openCofferButton.classList.remove('insufficient-clicks');
-            }, 1000); // 1000 milliseconds = 1 second
+                openCofferButton.style.backgroundColor = ''; // Повернення до оригінального кольору через 1 секунду
+            }, 1000);
         }
     });
+
 
     closePrizeModalButton.addEventListener('click', function() {
         prizeModal.style.display = 'none';
