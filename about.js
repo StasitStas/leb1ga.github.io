@@ -24,23 +24,24 @@ document.addEventListener('DOMContentLoaded', function () {
     let linkEarn = '';
     let linkDrop = '';
 
-    function getUsernameFromUrl() {
+    const db = firebase.firestore();
+
+    async function getUsernameFromUrl() {
         const urlParams = new URLSearchParams(window.location.search);
         return urlParams.get('username');
     }
 
-    function getUserData(username) {
-        return db.collection("users").doc(username).get().then(doc => {
-            if (doc.exists) {
-                return doc.data();
-            } else {
-                throw new Error('Документ не знайдено');
-            }
-        });
+    async function getUserData(username) {
+        const doc = await db.collection("users").doc(username).get();
+        if (doc.exists) {
+            return doc.data();
+        } else {
+            throw new Error('Документ не знайдено');
+        }
     }
 
     async function initialize() {
-        username = getUsernameFromUrl();
+        username = await getUsernameFromUrl();
         if (username) {
             try {
                 const userData = await getUserData(username);
@@ -123,7 +124,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
     openCofferButton.addEventListener('click', async function () {
         try {
-            const userDoc = await db.collection('users').doc(username).get();
+            const userRef = db.collection('users').doc(username);
+            const userDoc = await userRef.get();
             const clickCount = userDoc.data().clickCount;
 
             if (clickCount < 100) {
@@ -137,13 +139,13 @@ document.addEventListener('DOMContentLoaded', function () {
             // Generate prize
             generatePrize();
 
-            // Subtract 100 clicks from the user's click count in Firestore
-            await db.collection('users').doc(username).update({
+            // Update click count after opening coffer
+            await userRef.update({
                 clickCount: clickCount - 100
             });
 
         } catch (error) {
-            console.error("Error updating user click count:", error);
+            console.error("Error updating user data:", error);
             alert("Failed to update user data.");
         }
 
@@ -170,6 +172,7 @@ document.addEventListener('DOMContentLoaded', function () {
             const clicks = Math.floor(Math.random() * (150 - 30 + 1)) + 30;
             prizeDescriptionText = `Ваш приз: ${clicks} кліків`;
             prizeImageSrc = 'coin.png';
+            updateClickCount(clicks);
         } else {
             const skin = skins.find(skin => Math.random() < skin.probability);
             if (skin) {
@@ -186,6 +189,19 @@ document.addEventListener('DOMContentLoaded', function () {
         prizeImage.src = prizeImageSrc;
         prizeModal.style.display = 'flex';
         document.body.classList.add('modal-open');
+    }
+
+    async function updateClickCount(clicks) {
+        try {
+            const userRef = db.collection('users').doc(username);
+            const userDoc = await userRef.get();
+            const currentClickCount = userDoc.data().clickCount;
+            await userRef.update({
+                clickCount: currentClickCount + clicks
+            });
+        } catch (error) {
+            console.error("Error updating click count:", error);
+        }
     }
 
     initialize();
