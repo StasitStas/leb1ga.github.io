@@ -327,11 +327,14 @@ body {
 }
 
 .status-bar {
+    position: absolute; /* Додаємо абсолютне позиціонування */
+    top: 100px; /* Відступ від верху екрану, налаштуйте за потреби */
+    left: 50%;
+    transform: translateX(-50%); /* Центрування по горизонталі */
     display: flex;
     justify-content: space-between;
     width: 90%;
     max-width: 600px;
-    margin: 20px auto;
 }
 
 .status-item {
@@ -354,4 +357,3 @@ body {
     font-size: 18px;
     font-weight: bold;
 }
-
