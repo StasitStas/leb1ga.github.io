@@ -325,3 +325,33 @@ body {
 .switch-btn input:checked ~ span::before {
     left: 28px;
 }
+
+.status-bar {
+    display: flex;
+    justify-content: space-between;
+    width: 90%;
+    max-width: 600px;
+    margin: 20px auto;
+}
+
+.status-item {
+    background-color: #333;
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+    text-align: center;
+    flex: 1;
+    margin: 0 5px;
+}
+
+.status-title {
+    display: block;
+    font-size: 14px;
+    margin-bottom: 5px;
+}
+
+.status-value {
+    font-size: 18px;
+    font-weight: bold;
+}
+
