@@ -33,7 +33,7 @@ body::after {
     z-index: -2; /* Поміщаємо за градієнт */
 }
 
-/* Додаємо текст "Lebiga" під кутом 45 градусів */
+/* Додаємо текст "Lebiga" під кутом 40 градусів */
 body::before {
     content: '';
     position: absolute;
@@ -57,33 +57,21 @@ body::after {
     z-index: -2;
 }
 
-body::after {
-    content: 'Lebiga Lebiga Lebiga Lebiga Lebiga Lebiga Lebiga Lebiga Lebiga Lebiga Lebiga Lebiga';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%) rotate(-45deg);
-    font-size: 20px;
-    color: rgba(255, 255, 255, 0.1); /* Напівпрозорий білий колір */
-    white-space: nowrap;
-    z-index: -2;
-}
-
 body::after::before {
     content: 'Lebiga Lebiga Lebiga Lebiga Lebiga Lebiga Lebiga Lebiga Lebiga Lebiga Lebiga Lebiga';
     position: absolute;
-    top: -100%;
+    top: 0;
     left: -100%;
     width: 300%;
     height: 300%;
-    transform: rotate(45deg);
     font-size: 20px;
-    color: rgba(255, 255, 255, 0.1);
+    color: rgba(255, 255, 255, 0.1); /* Напівпрозорий білий колір */
+    transform: rotate(-40deg);
     z-index: -3;
+    white-space: nowrap;
     pointer-events: none;
     background: transparent;
 }
-
 
 
 .container {
