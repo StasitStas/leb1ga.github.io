@@ -386,13 +386,13 @@ body::after {
 }
 
 .status-item {
-    background-color: #444; /* Темніше тло для кращого контрасту */
+    background-color: #272727; /* Темніше тло для кращого контрасту */
     color: white;
-    padding: 15px; /* Збільшуємо відступи */
-    border-radius: 8px;
+    padding: 3px; /* Збільшуємо відступи */
+    border-radius: 15px;
     text-align: center;
     flex: 1;
-    margin: 0 10px; /* Збільшуємо відступи між елементами */
+    margin: 0 5px; /* Збільшуємо відступи між елементами */
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Додаємо тінь */
     transition: transform 0.3s; /* Анімація при наведенні */
 }
