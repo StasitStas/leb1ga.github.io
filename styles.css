@@ -49,18 +49,18 @@ body::after {
     bottom: 20px;
     width: 100%;
     height: 60px;
-    background-color: #333;
     display: flex;
     justify-content: space-around;
     align-items: center;
-    border-top: 1px solid #444;
-    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.5); /* Додаємо тінь */
     z-index: 1000; /* Встановлюємо високий z-index */
+    background: none; /* Прибираємо фоновий колір */
+    border: none; /* Прибираємо бордер */
+    box-shadow: none; /* Прибираємо тінь */
 }
 
 .nav-button {
     color: #FFF;
-    background: linear-gradient(145deg, #444, #222);
+    background: rgba(51, 51, 51, 0.8); /* Легка напівпрозорість */
     border: none;
     border-radius: 10px; /* Округлі краї */
     padding: 10px 15px;
@@ -79,15 +79,16 @@ body::after {
 }
 
 .nav-button:hover {
-    background: linear-gradient(145deg, #555, #333); /* Зміна фону при наведенні */
+    background: rgba(85, 85, 85, 0.8); /* Зміна фону при наведенні */
     transform: translateY(-2px); /* Піднімаємо кнопку при наведенні */
 }
 
 .nav-button:active {
-    background: linear-gradient(145deg, #222, #111); /* Зміна фону при натисканні */
+    background: rgba(34, 34, 34, 0.8); /* Зміна фону при натисканні */
     transform: translateY(1px); /* Тиснемо кнопку при натисканні */
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Зменшуємо тінь при натисканні */
 }
+
 
 .header {
     position: absolute;
