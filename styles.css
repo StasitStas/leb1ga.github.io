@@ -217,8 +217,8 @@ z-index: -2; /* Поміщаємо за градієнт */
 
 @media (max-width: 600px) {
     .circle-button {
-        width: 250px;
-        height: 250px;
+        width: 260px;
+        height: 260px;
         margin-top: 10px;
     }
 
