@@ -276,9 +276,13 @@ body::after {
     position: absolute;
     top: 10px;
     right: 10px;
-    font-size: 24px;
+    font-size: 42px;
     cursor: pointer;
     color: white;
+}
+
+.settings-toge {
+    top: 70px;
 }
 
 /* Додаємо стилі для нового вікна Telegram */
@@ -331,7 +335,7 @@ body::after {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin: 20px 0 10px; /* Відступ зверху 20px, знизу 10px */
+    margin: 10px 10px; /* Відступ зверху 20px, знизу 10px */
     padding: 10px;
     border-radius: 10px;
     background-color: #515152a3; /* Світлий сірий колір */
