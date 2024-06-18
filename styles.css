@@ -258,12 +258,12 @@ body::after {
     left: 0;
     width: 100vw; /* Ширина 100% вікна перегляду */
     height: 100vh; /* Висота 100% вікна перегляду */
-    background-color: rgba(0, 0, 0, 0.9); /* Напівпрозорий чорний фон для створення затемненого ефекту */
-    padding: 20px;
+    background-color: rgba(0, 0, 0); 
+    padding: 0px;
     border-radius: 0; /* Видаляємо заокруглені краї */
     box-shadow: none; /* Видаляємо тінь */
     color: white;
-    z-index: 1000;
+    z-index: 1001;
     overflow: auto; /* Додаємо прокрутку, якщо контент перевищує висоту вікна */
 }
 
