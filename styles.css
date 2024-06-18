@@ -371,28 +371,27 @@ body::after {
 }
 
 .status-bar {
-    position: absolute; /* Додаємо абсолютне позиціонування */
-    top: 75px; /* Відступ від верху екрану, налаштуйте за потреби */
-    left: 50%;
-    transform: translateX(-50%); /* Центрування по горизонталі */
+    position: absolute; /* Абсолютне позиціонування */
+    top: 75px; /* Відступ від верху екрану */
+    left: 0; /* Вирівнювання по лівому краю */
+    width: 100%; /* Ширина 100% */
     display: flex;
     justify-content: space-between;
-    width: 90%;
-    max-width: 600px;
     background-color: rgba(0, 0, 0, 0.5); /* Напівпрозорий фон */
-    padding: 10px;
-    border-radius: 10px;
+    padding: 10px 20px; /* Відступи */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Додаємо тінь */
+    z-index: 1000; /* Високий z-index */
+    box-sizing: border-box; /* Забезпечує правильний підрахунок відступів */
 }
 
 .status-item {
     background-color: #272727; /* Темніше тло для кращого контрасту */
     color: white;
-    padding: 3px; /* Збільшуємо відступи */
+    padding: 3px; /* Внутрішні відступи */
     border-radius: 15px;
     text-align: center;
     flex: 1;
-    margin: 0 5px; /* Збільшуємо відступи між елементами */
+    margin: 0 5px; /* Відступи між елементами */
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Додаємо тінь */
     transition: transform 0.3s; /* Анімація при наведенні */
 }
