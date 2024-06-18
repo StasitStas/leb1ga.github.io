@@ -17,7 +17,7 @@ body::before {
     left: 0;
     right: 0;
     bottom: 0;
-    background: linear-gradient(to top, rgba(255, 99, 71, 0.5), transparent 40%); /* Градієнт від низу до трохи вище центру */
+    background: radial-gradient(circle at center bottom, rgba(255, 99, 71, 0.5), transparent 70%); /* Радіальний градієнт */
     z-index: -1; /* Поміщаємо за контент */
 }
 
@@ -32,8 +32,6 @@ body::after {
     backdrop-filter: blur(10px); /* Розмивання для матового ефекту */
     z-index: -2; /* Поміщаємо за градієнт */
 }
-
-
 
 .container {
     text-align: center;
