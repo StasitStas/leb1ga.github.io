@@ -379,7 +379,7 @@ body::after {
     justify-content: space-between;
     background-color: rgba(0, 0, 0, 0); /* Повністю прозорий фон */
     padding: 20px 10px; /* Відступи */
-    box-shadow: 0px -8px 10px rgba(100 75 14 / 78%); /* Жовта тінь вгору і звичайна тінь вниз */
+    box-shadow: 0px -13px 20px rgba(180 180 1 / 39%); /* Жовта тінь вгору і звичайна тінь вниз */
     box-sizing: border-box; /* Забезпечує правильний підрахунок відступів */
     border-top-left-radius: 20px; /* Заокруглені краї тільки зверху */
     border-top-right-radius: 20px; /* Заокруглені краї тільки зверху */
