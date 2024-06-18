@@ -5,20 +5,32 @@ body {
     padding: 0;
     user-select: none;
     background-color: #000; /* Чисто чорний фон */
-    overflow: hidden; /* Запобігає вертикальній прокртці */
+    overflow: hidden; /* Запобігає вертикальній прокрутці */
     position: relative;
     height: 100vh; /* Висота на весь екран */
+    color: white; /* Колір тексту */
 }
 
 body::before {
-    content: '';
+    content: 'Lebiga Lebiga Lebiga Lebiga Lebiga Lebiga Lebiga Lebiga Lebiga Lebiga Lebiga Lebiga';
     position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: radial-gradient(circle at center bottom, rgba(255, 99, 71, 0.5), transparent 70%); /* Радіальний градієнт */
-    z-index: -1; /* Поміщаємо за контент */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(-45deg);
+    font-size: 20px;
+    color: rgba(255, 255, 255, 0.1); /* Напівпрозорий білий колір */
+    white-space: nowrap; /* Забезпечує неперервність тексту в одному рядку */
+    z-index: -1;
+    animation: moveText 10s linear infinite; /* Анімація для руху тексту */
+}
+
+@keyframes moveText {
+    0% {
+        transform: translate(-50%, -50%) rotate(-45deg) translateX(0);
+    }
+    100% {
+        transform: translate(-50%, -50%) rotate(-45deg) translateX(-100%);
+    }
 }
 
 body::after {
@@ -32,6 +44,7 @@ body::after {
     backdrop-filter: blur(10px); /* Розмивання для матового ефекту */
     z-index: -2; /* Поміщаємо за градієнт */
 }
+
 
 .container {
     text-align: center;
