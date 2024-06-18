@@ -219,7 +219,7 @@ z-index: -2; /* Поміщаємо за градієнт */
     .circle-button {
         width: 260px;
         height: 260px;
-        margin-top: 10px;
+        margin-top: 20px;
     }
 
     h1 {
