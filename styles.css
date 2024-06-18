@@ -272,6 +272,14 @@ body::after {
     margin-bottom: 10px;
 }
 
+.settings-window .close-icon {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 24px;
+    cursor: pointer;
+    color: white;
+}
 
 /* Додаємо стилі для нового вікна Telegram */
 .telegram-window {
@@ -323,7 +331,7 @@ body::after {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 10px;
+    margin: 20px 0 10px; /* Відступ зверху 20px, знизу 10px */
     padding: 10px;
     border-radius: 10px;
     background-color: #515152a3; /* Світлий сірий колір */
