@@ -282,7 +282,9 @@ body::after {
 }
 
 .settings-toge {
-    top: 70px;
+    margin-top: 50px; /* Відступ зверху для опускання перемикачів */
+    padding: 20px;
+    width: 100%;
 }
 
 /* Додаємо стилі для нового вікна Telegram */
