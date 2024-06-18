@@ -335,25 +335,50 @@ body {
     justify-content: space-between;
     width: 90%;
     max-width: 600px;
+    background-color: rgba(0, 0, 0, 0.5); /* Напівпрозорий фон */
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Додаємо тінь */
 }
 
 .status-item {
-    background-color: #333;
+    background-color: #444; /* Темніше тло для кращого контрасту */
     color: white;
-    padding: 10px;
-    border-radius: 5px;
+    padding: 15px; /* Збільшуємо відступи */
+    border-radius: 8px;
     text-align: center;
     flex: 1;
-    margin: 0 5px;
+    margin: 0 10px; /* Збільшуємо відступи між елементами */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Додаємо тінь */
+    transition: transform 0.3s; /* Анімація при наведенні */
+}
+
+.status-item:hover {
+    transform: scale(1.05); /* Збільшуємо при наведенні */
 }
 
 .status-title {
     display: block;
-    font-size: 14px;
+    font-size: 16px; /* Збільшуємо розмір шрифту */
     margin-bottom: 5px;
+    text-transform: uppercase; /* Всі літери великі */
+    letter-spacing: 1px; /* Додаємо відстань між літерами */
 }
 
 .status-value {
-    font-size: 18px;
+    font-size: 20px; /* Збільшуємо розмір шрифту */
     font-weight: bold;
+}
+
+/* Встановлюємо різні кольори для кожного заголовка */
+.status-item:nth-child(1) .status-title {
+    color: #ff5733; /* Помаранчевий */
+}
+
+.status-item:nth-child(2) .status-title {
+    color: #33ff57; /* Зелений */
+}
+
+.status-item:nth-child(3) .status-title {
+    color: #3357ff; /* Синій */
 }
