@@ -1,36 +1,40 @@
 body {
-font-family: Arial, sans-serif;
-text-align: center;
-margin: 0;
-padding: 0;
-user-select: none;
-background-color: #000; /* Чисто чорний фон */
-overflow: hidden; /* Запобігає вертикальній прокртці */
-position: relative;
-height: 100vh; /* Висота на весь екран */
+    font-family: Arial, sans-serif;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+    user-select: none; /* Забороняємо виділення для всього тіла */
+    background-color: #000; /* Чисто чорний фон */
+    overflow: hidden; /* Запобігає вертикальній прокрутці */
+    position: relative;
+    height: 100vh; /* Висота на весь екран */
+}
+
+body * {
+    user-select: none; /* Забороняємо виділення для всіх елементів */
 }
 
 body::before {
-content: '';
-position: absolute;
-top: 0;
-left: 0;
-right: 0;
-bottom: 0;
-background: radial-gradient(circle at center bottom, rgba(255, 99, 71, 0.5), transparent 70%); /* Радіальний градієнт */
-z-index: -1; /* Поміщаємо за контент */
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(circle at center bottom, rgba(255, 99, 71, 0.5), transparent 70%); /* Радіальний градієнт */
+    z-index: -1; /* Поміщаємо за контент */
 }
 
 body::after {
-content: '';
-position: absolute;
-top: 0;
-left: 0;
-right: 0;
-bottom: 0;
-background: rgba(255, 255, 255, 0.1); /* Напівпрозорий білий шар */
-backdrop-filter: blur(10px); /* Розмивання для матового ефекту */
-z-index: -2; /* Поміщаємо за градієнт */
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(255, 255, 255, 0.1); /* Напівпрозорий білий шар */
+    backdrop-filter: blur(10px); /* Розмивання для матового ефекту */
+    z-index: -2; /* Поміщаємо за градієнт */
 }
 
 .container {
