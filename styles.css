@@ -4,15 +4,24 @@ body {
     margin: 0;
     padding: 0;
     user-select: none;
-    background: linear-gradient(to top, rgba(255, 99, 71, 0.3), rgba(25, 25, 25, 0.9) 30%) no-repeat; /* Градієнт знизу до центру */
-    background-color: #191919; /* Основний чорний фон */
+    background-color: #000; /* Чисто чорний фон */
     overflow: hidden; /* Запобігає вертикальній прокрутці */
     position: relative;
     height: 100vh; /* Висота на весь екран */
 }
 
-/* Додаємо ефект матовості */
 body::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(to top, rgba(255, 99, 71, 0.5), transparent 40%); /* Градієнт від низу до трохи вище центру */
+    z-index: -1; /* Поміщаємо за контент */
+}
+
+body::after {
     content: '';
     position: absolute;
     top: 0;
@@ -21,8 +30,9 @@ body::before {
     bottom: 0;
     background: rgba(255, 255, 255, 0.1); /* Напівпрозорий білий шар */
     backdrop-filter: blur(10px); /* Розмивання для матового ефекту */
-    z-index: -1; /* Поміщаємо за контент */
+    z-index: -2; /* Поміщаємо за градієнт */
 }
+
 
 
 .container {
