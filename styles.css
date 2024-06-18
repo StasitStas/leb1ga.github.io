@@ -406,7 +406,7 @@ body::after {
 
 .status-item {
     background-color: #272727; /* Темніше тло для кращого контрасту */
-    color: білий;
+    color: #fff;
     padding: 0px; /* Внутрішні відступи */
     border-radius: 15px; /* Заокруглені краї */
     text-align: центр;
