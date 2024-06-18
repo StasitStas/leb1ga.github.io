@@ -282,8 +282,7 @@ body::after {
 }
 
 .settings-toge {
-    margin-top: 50px; /* Відступ зверху для опускання перемикачів */
-    padding: 20px;
+    margin-top: 60px; /* Відступ зверху для опускання перемикачів */
     width: 100%;
 }
 
