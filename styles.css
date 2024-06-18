@@ -253,18 +253,18 @@ body::after {
 
 .settings-window {
     display: none;
-    position: fixed; /* Зміна на fixed для фіксованого позиціонування відносно вікна браузера */
+    position: fixed;
     top: 0;
     left: 0;
-    width: 100vw; /* Ширина 100% вікна перегляду */
-    height: 100vh; /* Висота 100% вікна перегляду */
-    background-color: rgba(0, 0, 0); 
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0);
     padding: 0px;
-    border-radius: 0; /* Видаляємо заокруглені краї */
-    box-shadow: none; /* Видаляємо тінь */
+    border-radius: 0;
+    box-shadow: none;
     color: white;
     z-index: 1001;
-    overflow: auto; /* Додаємо прокрутку, якщо контент перевищує висоту вікна */
+    overflow: auto;
 }
 
 .settings-window label {
@@ -282,7 +282,7 @@ body::after {
 }
 
 .settings-toge {
-    margin-top: 60px; /* Відступ зверху для опускання перемикачів */
+    margin-top: 60px;
     width: 100%;
 }
 
@@ -336,10 +336,10 @@ body::after {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin: 10px 10px; /* Відступ зверху 20px, знизу 10px */
+    margin: 10px 10px;
     padding: 10px;
     border-radius: 10px;
-    background-color: #515152a3; /* Світлий сірий колір */
+    background-color: #515152a3;
 }
 
 .switch-label span {
