@@ -378,8 +378,8 @@ body::after {
     display: flex;
     justify-content: space-between;
     background-color: rgba(0, 0, 0, 0); /* Повністю прозорий фон */
-    padding: 10px 20px; /* Відступи */
-    box-shadow: 0px -8px 10px rgba(156, 156, 0, 0.44); /* Жовта тінь вгору і звичайна тінь вниз */
+    padding: 20px 10px; /* Відступи */
+    box-shadow: 0px -8px 10px rgba(100 75 14 / 78%); /* Жовта тінь вгору і звичайна тінь вниз */
     box-sizing: border-box; /* Забезпечує правильний підрахунок відступів */
     border-top-left-radius: 20px; /* Заокруглені краї тільки зверху */
     border-top-right-radius: 20px; /* Заокруглені краї тільки зверху */
@@ -389,11 +389,11 @@ body::after {
 .status-item {
     background-color: #272727; /* Темніше тло для кращого контрасту */
     color: білий;
-    padding: 3px; /* Внутрішні відступи */
+    padding: 0px; /* Внутрішні відступи */
     border-radius: 15px; /* Заокруглені краї */
     text-align: центр;
     flex: 1;
-    margin: 0 5px; /* Відступи між елементами */
+    margin: 0 3px; /* Відступи між елементами */
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Додаємо тінь */
     transition: transform 0.3s; /* Анімація при наведенні */
 }
