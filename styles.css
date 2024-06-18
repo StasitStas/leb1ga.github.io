@@ -377,7 +377,7 @@ body::after {
     width: 100%; /* Ширина 100% */
     display: flex;
     justify-content: space-between;
-
+    background-color: rgba(0, 0, 0, 0); /* Повністю прозорий фон */
     padding: 20px 10px; /* Відступи */
     box-shadow: 0px -8px 10px rgba(100 75 14 / 78%); /* Жовта тінь вгору і звичайна тінь вниз */
     box-sizing: border-box; /* Забезпечує правильний підрахунок відступів */
