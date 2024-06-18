@@ -383,7 +383,7 @@ body::after {
     box-sizing: border-box; /* Забезпечує правильний підрахунок відступів */
     border-top-left-radius: 20px; /* Заокруглені краї тільки зверху */
     border-top-right-radius: 20px; /* Заокруглені краї тільки зверху */
-    border-top: 3px solid yellow; /* Жовта обводка зверху по всій довжині */
+    border-top: 3px solid #dbb24f; /* Жовта обводка зверху по всій довжині */
 }
 
 .status-item {
