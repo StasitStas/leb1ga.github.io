@@ -5,7 +5,7 @@ body {
     padding: 0;
     user-select: none;
     background-color: #000; /* Чисто чорний фон */
-    overflow: hidden; /* Запобігає вертикальній прокрутці */
+    overflow: hidden; /* Запобігає вертикальній прокртці */
     position: relative;
     height: 100vh; /* Висота на весь екран */
 }
