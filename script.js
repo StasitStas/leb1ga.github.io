@@ -5,6 +5,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const clickEffectContainer = document.getElementById('clickEffectContainer');
     const settingsIcon = document.querySelector('.cog-icon');
     const settingsWindow = document.getElementById('settingsWindow');
+    const closeIcon = document.querySelector('.close-icon');
     const telegramIcon = document.querySelector('.telegram-icon');
     const telegramWindow = document.getElementById('telegramWindow');
     const animationToggle = document.getElementById('animationToggle');
@@ -41,6 +42,11 @@ document.addEventListener('DOMContentLoaded', function() {
         settingsWindowOpen = !settingsWindowOpen;
     });
 
+    closeIcon.addEventListener('click', function() {
+        settingsWindow.style.display = 'none';
+        settingsWindowOpen = false;
+    });
+
     telegramIcon.addEventListener('click', function(event) {
         event.stopPropagation();
         telegramWindow.style.display = telegramWindowOpen ? 'none' : 'block';
@@ -61,7 +67,7 @@ document.addEventListener('DOMContentLoaded', function() {
     settingsWindow.addEventListener('click', function(event) {
         event.stopPropagation();
     });
-
+    
     telegramWindow.addEventListener('click', function(event) {
         event.stopPropagation();
     });
