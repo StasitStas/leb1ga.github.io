@@ -253,21 +253,25 @@ body::after {
 
 .settings-window {
     display: none;
-    position: absolute;
-    top: 50px;
-    right: 10px;
-    background-color: #333;
+    position: fixed; /* Зміна на fixed для фіксованого позиціонування відносно вікна браузера */
+    top: 0;
+    left: 0;
+    width: 100vw; /* Ширина 100% вікна перегляду */
+    height: 100vh; /* Висота 100% вікна перегляду */
+    background-color: rgba(0, 0, 0, 0.9); /* Напівпрозорий чорний фон для створення затемненого ефекту */
     padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border-radius: 0; /* Видаляємо заокруглені краї */
+    box-shadow: none; /* Видаляємо тінь */
     color: white;
     z-index: 1000;
+    overflow: auto; /* Додаємо прокрутку, якщо контент перевищує висоту вікна */
 }
 
 .settings-window label {
     display: block;
     margin-bottom: 10px;
 }
+
 
 /* Додаємо стилі для нового вікна Telegram */
 .telegram-window {
