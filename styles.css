@@ -328,7 +328,7 @@ body {
 
 .status-bar {
     position: absolute; /* Додаємо абсолютне позиціонування */
-    top: 61px; /* Відступ від верху екрану, налаштуйте за потреби */
+    top: 70px; /* Відступ від верху екрану, налаштуйте за потреби */
     left: 50%;
     transform: translateX(-50%); /* Центрування по горизонталі */
     display: flex;
@@ -351,10 +351,6 @@ body {
     margin: 0 10px; /* Збільшуємо відступи між елементами */
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Додаємо тінь */
     transition: transform 0.3s; /* Анімація при наведенні */
-}
-
-.status-item:hover {
-    transform: scale(1.05); /* Збільшуємо при наведенні */
 }
 
 .status-title {
