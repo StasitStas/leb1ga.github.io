@@ -382,7 +382,7 @@ body::after {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Додаємо тінь */
     z-index: 1000; /* Високий z-index */
     box-sizing: border-box; /* Забезпечує правильний підрахунок відступів */
-    border-radius: 15px; /* Заокруглені краї */
+    border-radius: 20px; /* Заокруглені краї */
 }
 
 .status-item {
