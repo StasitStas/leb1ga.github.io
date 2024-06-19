@@ -108,7 +108,26 @@ body::after {
     transform: translateY(1px); /* Тиснемо кнопку при натисканні */
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Зменшуємо тінь при натисканні */
 }
+/* Спеціальні стилі для кнопки exchangeButton */
+#exchangeButton {
+    color: #FFF; /* Білий колір тексту */
+}
 
+#exchangeButton::before {
+    content: '';
+    position: absolute;
+    top: 10%;
+    left: 10%;
+    width: 80%;
+    height: 80%;
+    background: rgba(0, 0, 0, 0.9); /* Темніший чорний фон */
+    border-radius: 8px; /* Округлі краї */
+    z-index: -1; /* Розміщуємо задній фон під контентом кнопки */
+}
+
+#exchangeButton i {
+    color: #FFF; /* Білий колір іконки */
+}
 /* КІнець навігації */
 
 .header {
