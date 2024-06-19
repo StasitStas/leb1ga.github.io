@@ -490,15 +490,6 @@ body::after {
     position: relative;
     width: 90%;
     height: 14px;
-    background-color: #f0f0f0;
-    margin-top: 5%;
-    margin-bottom: -10%;
-    border-radius: 40px;
-    overflow: hidden; /* Додаємо це, щоб приховати заокруглені краї зеленої смужки за межами контейнера */
-}
-
-.level-bar {
-    height: 100%;
     background: linear-gradient(to right,
         #ff5252 0%,
         #ff4081 10%,
@@ -511,8 +502,16 @@ body::after {
         #69f0ae 80%,
         #b2ff59 90%,
         #eeff41 100%);
-    width: 100%; /* Займає всю доступну ширину */
-    border-radius: 40px; /* Загальне значення для заокруглння країв */
+    margin-top: 5%;
+    margin-bottom: -10%;
+    border-radius: 40px;
+}
+
+.level-bar {
+    height: 100%;
+    background-color: #f0f0f0;
+    width: 0;
+    border-radius: 40px;
     border-top-right-radius: 40px;
     border-bottom-right-radius: 40px;
     border-top-left-radius: 40px;
