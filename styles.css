@@ -485,3 +485,27 @@ body::after {
 .status-item:nth-child(3) .status-title {
     color: #3357ff; /* Синій */
 }
+/* Level */
+.level-bar-container {
+    position: absolute; /* Поміщаємо над нижнім меню */
+    top: 20px; /* Відстань від верхнього краю */
+    left: 0;
+    width: 100%;
+    height: 20px; /* Тонка і довга бар */
+    background-color: #444;
+}
+
+.level-bar {
+    height: 100%;
+    background-color: #FFD700;
+    width: 0; /* Початкове значення */
+}
+
+.level-text {
+    position: absolute; /* Над рівнем */
+    top: 2px; /* Зміщення від рівня */
+    left: 5px;
+    color: #fff;
+    font-size: 14px;
+}
+
