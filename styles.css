@@ -490,6 +490,18 @@ body::after {
     position: relative;
     width: 90%;
     height: 14px;
+    margin-top: 5%;
+    margin-bottom: -10%;
+    border-radius: 40px;
+    background: #f0f0f0; /* Поверхневий фон, який "стирається" */
+}
+
+.level-bar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 0;
     background: linear-gradient(to right,
         #ff5252 0%,
         #ff4081 10%,
@@ -502,16 +514,8 @@ body::after {
         #69f0ae 80%,
         #b2ff59 90%,
         #eeff41 100%);
-    margin-top: 5%;
-    margin-bottom: -10%;
     border-radius: 40px;
-}
-
-.level-bar {
-    height: 100%;
-    background-color: #f0f0f0;
-    width: 0;
-    border-radius: 40px;
+    transition: width 0.3s ease; /* Плавна анімація зміни ширини */
     border-top-right-radius: 40px;
     border-bottom-right-radius: 40px;
     border-top-left-radius: 40px;
@@ -533,3 +537,4 @@ body::after {
     right: 0;
     color: #fff;
 }
+
