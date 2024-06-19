@@ -499,15 +499,15 @@ body::after {
 
 .level-bar {
     height: 100%;
-    background-color: #4caf50;
+    background: linear-gradient(to right, #ff5252, #ff4081, #e040fb, #7c4dff, #536dfe, #42a5f5, #40c4ff, #18ffff, #69f0ae, #b2ff59, #eeff41, #ffd740, #ffab40, #ff6e40, #ff5252);
     width: 0;
     border-radius: 40px; /* Загальне значення для заокруглення країв */
-    /* Додаткові властивості для забезпечення заокруглення країв навіть при маленькій ширині */
     border-top-right-radius: 40px;
     border-bottom-right-radius: 40px;
     border-top-left-radius: 40px;
     border-bottom-left-radius: 40px;
 }
+
 
 .level-text-left, .level-text-right {
     position: absolute;
