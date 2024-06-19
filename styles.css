@@ -80,18 +80,6 @@ body::after {
     overflow: hidden; /* Прибираємо вихід псевдоелемента за межі кнопки */
 }
 
-.nav-button::before {
-    content: '';
-    position: absolute;
-    top: 10%;
-    left: 10%;
-    width: 80%;
-    height: 80%;
-    background: black; /* Чорний фон */
-    border-radius: 8px; /* Округлі краї */
-    z-index: -1; /* Розміщуємо задній фон під контентом кнопки */
-}
-
 .nav-button i {
     font-size: 24px;
     margin-bottom: 4px;
@@ -108,9 +96,12 @@ body::after {
     transform: translateY(1px); /* Тиснемо кнопку при натисканні */
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Зменшуємо тінь при натисканні */
 }
+
 /* Спеціальні стилі для кнопки exchangeButton */
 #exchangeButton {
     position: relative; /* Для створення контексту позиціювання псевдоелемента */
+    background: black; /* Чорний фон */
+    color: #fff; /* Білий колір тексту */
 }
 
 #exchangeButton::before {
@@ -120,29 +111,28 @@ body::after {
     left: 10%;
     width: 80%;
     height: 80%;
-    background: black; /* Чорний фон */
+    background: rgba(0, 0, 0, 0.9); /* Темніший чорний фон */
     border-radius: 8px; /* Округлі краї */
     z-index: -1; /* Розміщуємо задній фон під контентом кнопки */
 }
 
 #exchangeButton i {
-    color: #fff; 
+    color: #fff; /* Білий колір іконки */
+}
+
+#exchangeButton span {
+    color: #fff; /* Білий колір тексту */
 }
 
 #exchangeButton:hover {
-    background: rgba(85, 85, 85, 0.8); /* Зміна фону при наведенні */
     transform: translateY(-2px); /* Піднімаємо кнопку при наведенні */
 }
 
 #exchangeButton:active {
-    background: rgba(34, 34, 34, 0.8); /* Зміна фону при натисканні */
     transform: translateY(1px); /* Тиснемо кнопку при натисканні */
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Зменшуємо тінь при натисканні */
 }
 
-#exchangeButton span {
-    color: #fff;
-}
 /* КІнець навігації */
 
 .header {
