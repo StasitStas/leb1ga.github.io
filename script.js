@@ -67,35 +67,35 @@ document.addEventListener('DOMContentLoaded', function() {
         const currentLevelIndex = getCurrentLevel(clickCount);
         const currentLevel = LEVELS[currentLevelIndex];
         const nextLevel = LEVELS[currentLevelIndex + 1] || currentLevel;
-
+    
         levelTextLeft.textContent = currentLevel.label;
         levelTextRight.textContent = nextLevel.label;
-
+    
         const levelRange = nextLevel.threshold - currentLevel.threshold;
         const progressWithinLevel = clickCount - currentLevel.threshold;
         const levelProgressPercentage = (progressWithinLevel / levelRange) * 100;
-
+    
         levelBar.style.width = `${levelProgressPercentage}%`;
-
+    
         saveLevelToDB(currentLevel.label);
     }
-
+    
     function saveLevelToDB(currentLevel) {
-        const levelData = {};
+        const levelData = { currentLevel: currentLevel };
         LEVELS.forEach(level => {
             levelData[level.label] = level.label === currentLevel;
         });
-
+    
         db.collection("clicks").doc(username).update(levelData).catch(error => {
             console.error("Error updating levels in database:", error);
         });
     }
-
+    
     function initializeLevels(userData) {
         const clickCount = userData.clickCount || 0;
         const currentLevelIndex = getCurrentLevel(clickCount);
         const currentLevel = LEVELS[currentLevelIndex].label;
-
+    
         db.collection("clicks").doc(username).get().then(doc => {
             if (doc.exists) {
                 const data = doc.data();
@@ -109,6 +109,7 @@ document.addEventListener('DOMContentLoaded', function() {
             console.error("Error initializing levels:", error);
         });
     }
+
     
     settingsIcon.addEventListener('click', function(event) {
         event.stopPropagation();
@@ -256,21 +257,21 @@ document.addEventListener('DOMContentLoaded', function() {
             return;
         }
         lastClickTime = currentTime;
-
+    
         if (username) {
             clickCount++;
             countDisplay.textContent = clickCount;
             db.collection("clicks").doc(username).set({ clickCount, bonusClaimed, enableAnimation, enableVibration })
                 .then(() => {
                     updateLeaderboard();
-                    updateLevelBar(clickCount);
+                    updateLevelBar(clickCount);  // Оновлення рівня та зеленої смужки
                 })
                 .catch(error => {
                     console.error("Error updating document:", error);
                 });
-
+    
             vibrate();
-
+    
             const rect = button.getBoundingClientRect();
             const x = event.clientX - rect.left;
             const y = event.clientY - rect.top;
@@ -279,7 +280,7 @@ document.addEventListener('DOMContentLoaded', function() {
             alert('Error: Username is not specified.');
         }
     }
-
+    
     function handleTouch(event) {
         const currentTime = new Date().getTime();
         if (currentTime - lastClickTime < 50) {
@@ -298,7 +299,7 @@ document.addEventListener('DOMContentLoaded', function() {
             db.collection("clicks").doc(username).set({ clickCount, bonusClaimed, enableAnimation, enableVibration })
                 .then(() => {
                     updateLeaderboard();
-                    updateLevelBar(clickCount);
+                    updateLevelBar(clickCount);  // Оновлення рівня та зеленої смужки
                 })
                 .catch(error => {
                     console.error("Error updating document:", error);
@@ -315,7 +316,6 @@ document.addEventListener('DOMContentLoaded', function() {
             alert('Error: Username is not specified.');
         }
     }
-
 
     button.addEventListener('click', function(event) {
         handleClick(event);
