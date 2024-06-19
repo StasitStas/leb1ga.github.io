@@ -39,6 +39,7 @@ document.addEventListener('DOMContentLoaded', function() {
     let username = '';
     let firstName = '';
     let clickCount = 0;
+    let clickCountMax = 0;
     let enableAnimation = true;
     let enableVibration = true;
     let bonusClaimed = false;
@@ -64,50 +65,51 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function updateLevelBar(clickCount) {
-        const currentLevelIndex = getCurrentLevel(clickCount);
+        const currentLevelIndex = getCurrentLevel(clickCountMax);
         const currentLevel = LEVELS[currentLevelIndex];
         const nextLevel = LEVELS[currentLevelIndex + 1] || currentLevel;
-    
+
         levelTextLeft.textContent = currentLevel.label;
         levelTextRight.textContent = nextLevel.label;
-    
+
         const levelRange = nextLevel.threshold - currentLevel.threshold;
         const progressWithinLevel = clickCount - currentLevel.threshold;
         const levelProgressPercentage = (progressWithinLevel / levelRange) * 100;
-    
+
         levelBar.style.width = `${levelProgressPercentage}%`;
+
+        saveLevelToDB(currentLevel.label);
     }
-    
+
     function saveLevelToDB(currentLevel) {
         const levelData = {};
         LEVELS.forEach(level => {
             levelData[level.label] = level.label === currentLevel;
         });
-    
+
         db.collection("clicks").doc(username).update(levelData).catch(error => {
             console.error("Error updating levels in database:", error);
         });
     }
-    
+
     function initializeLevels(userData) {
-        const clickCount = userData.clickCount || 0;
-        updateLevelBar(clickCount);
-    
+        clickCountMax = userData.clickCountMax || 0;
+        const currentLevelIndex = getCurrentLevel(clickCountMax);
+        const currentLevel = LEVELS[currentLevelIndex].label;
+
         db.collection("clicks").doc(username).get().then(doc => {
             if (doc.exists) {
                 const data = doc.data();
-                const currentLevel = LEVELS[getCurrentLevel(clickCount)].label;
                 if (!data[currentLevel]) {
-                    saveLevelToDB(currentLevel);
+                    updateLevelBar(clickCountMax);
                 }
             } else {
-                saveLevelToDB(LEVELS[getCurrentLevel(clickCount)].label);
+                saveLevelToDB(currentLevel);
             }
         }).catch(error => {
             console.error("Error initializing levels:", error);
         });
     }
-
     
     settingsIcon.addEventListener('click', function(event) {
         event.stopPropagation();
@@ -181,10 +183,12 @@ document.addEventListener('DOMContentLoaded', function() {
                 linkEarn = userData.link_earn;
                 linkDrop = userData.link_drop;
                 usernameDisplay.textContent = firstName;
+    
                 db.collection("clicks").doc(username).get().then(doc => {
                     if (doc.exists) {
                         const data = doc.data();
                         clickCount = data.clickCount || 0;
+                        clickCountMax = data.clickCountMax || 0;
                         bonusClaimed = data.bonusClaimed || false;
                         enableAnimation = data.enableAnimation !== undefined ? data.enableAnimation : true;
                         enableVibration = data.enableVibration !== undefined ? data.enableVibration : true;
@@ -195,14 +199,21 @@ document.addEventListener('DOMContentLoaded', function() {
                             bonusButton.disabled = true;
                         }
                         updateRank();
-                        updateLevelBar(clickCount);
+                        updateLevelBar(clickCount); // Оновлюємо панель рівня на основі поточних кліків
                     } else {
-                        db.collection("clicks").doc(username).set({ clickCount: 0, bonusClaimed: false, enableAnimation: true, enableVibration: true });
+                        db.collection("clicks").doc(username).set({
+                            clickCount: 0,
+                            clickCountMax: 0,
+                            bonusClaimed: false,
+                            enableAnimation: true,
+                            enableVibration: true
+                        });
                     }
                     updateLeaderboard();
                 }).catch(error => {
                     console.error("Error getting document:", error);
                 });
+    
                 initializeLevels(userData);
             }).catch(error => {
                 console.error("Error getting user data:", error);
@@ -260,15 +271,21 @@ document.addEventListener('DOMContentLoaded', function() {
             clickCount++;
             countDisplay.textContent = clickCount;
     
+            // Оновлюємо максимальну кількість кліків, якщо потрібно
+            if (clickCount > clickCountMax) {
+                clickCountMax = clickCount;
+            }
+    
             updateLevelBar(clickCount);  // Оновлення рівня та зеленої смужки
     
             db.collection("clicks").doc(username).set({
                 clickCount,
+                clickCountMax,  // Збереження максимальної кількості кліків
                 bonusClaimed,
                 enableAnimation,
                 enableVibration
             }).then(() => {
-                const currentLevel = LEVELS[getCurrentLevel(clickCount)].label;
+                const currentLevel = LEVELS[getCurrentLevel(clickCountMax)].label;  // Використовуємо clickCountMax для рівня
                 saveLevelToDB(currentLevel);
                 updateLeaderboard();
             }).catch(error => {
@@ -302,15 +319,21 @@ document.addEventListener('DOMContentLoaded', function() {
             clickCount++;
             countDisplay.textContent = clickCount;
     
+            // Оновлюємо максимальну кількість кліків, якщо потрібно
+            if (clickCount > clickCountMax) {
+                clickCountMax = clickCount;
+            }
+    
             updateLevelBar(clickCount);  // Оновлення рівня та зеленої смужки
     
             db.collection("clicks").doc(username).set({
                 clickCount,
+                clickCountMax,  // Збереження максимальної кількості кліків
                 bonusClaimed,
                 enableAnimation,
                 enableVibration
             }).then(() => {
-                const currentLevel = LEVELS[getCurrentLevel(clickCount)].label;
+                const currentLevel = LEVELS[getCurrentLevel(clickCountMax)].label;  // Використовуємо clickCountMax для рівня
                 saveLevelToDB(currentLevel);
                 updateLeaderboard();
             }).catch(error => {
@@ -328,6 +351,7 @@ document.addEventListener('DOMContentLoaded', function() {
             alert('Error: Username is not specified.');
         }
     }
+
 
     button.addEventListener('click', function(event) {
         handleClick(event);
