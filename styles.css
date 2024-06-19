@@ -487,31 +487,30 @@ body::after {
 }
 /* Level */
 .level-bar-container {
-    position: absolute; /* Вище навігаційних кнопок */
-    top: 80%;
-    width: 90%;
-    height: 10px; /* Тонка і довга бар */
-    border-radius: 30px;
-    background-color: #444;
-    display: flex;
-    justify-content: space-between;
+    position: relative;
+    width: 100%;
+    height: 20px;
+    background-color: #f0f0f0;
+    margin-top: 10px;
+    margin-bottom: 20px;
 }
 
 .level-bar {
     height: 100%;
-    background-color: #FFD700;
-    width: 0; /* Початкове значення */
+    background-color: #4caf50;
+    width: 0;
 }
 
 .level-text-left, .level-text-right {
-    position: absolute; /* Над рівнем */
-    top: -15px; /* Відстань від рівня */
-    color: #fff;
+    position: absolute;
+    top: -25px;
     font-size: 14px;
 }
+
 .level-text-left {
-    left: 5px; /* Розташування зліва */
+    left: 0;
 }
+
 .level-text-right {
-    right: 5px; /* Розташування справа */
+    right: 0;
 }
