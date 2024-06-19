@@ -488,7 +488,7 @@ body::after {
 /* Level */
 .level-bar-container {
     position: absolute; /* Вище навігаційних кнопок */
-    top: 600px;
+    top: 80%;
     width: 90%;
     height: 10px; /* Тонка і довга бар */
     border-radius: 30px;
