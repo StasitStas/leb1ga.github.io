@@ -494,13 +494,19 @@ body::after {
     margin-top: 5%;
     margin-bottom: -10%;
     border-radius: 40px;
+    overflow: hidden; /* Додаємо це, щоб приховати заокруглені краї зеленої смужки за межами контейнера */
 }
 
 .level-bar {
     height: 100%;
     background-color: #4caf50;
     width: 0;
-    border-radius: 40px;
+    border-radius: 40px; /* Загальне значення для заокруглення країв */
+    /* Додаткові властивості для забезпечення заокруглення країв навіть при маленькій ширині */
+    border-top-right-radius: 40px;
+    border-bottom-right-radius: 40px;
+    border-top-left-radius: 40px;
+    border-bottom-left-radius: 40px;
 }
 
 .level-text-left, .level-text-right {
