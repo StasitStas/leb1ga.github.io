@@ -487,12 +487,14 @@ body::after {
 }
 /* Level */
 .level-bar-container {
-    position: absolute; /* Поміщаємо над нижнім меню */
-    top: 20px; /* Відстань від верхнього краю */
-    left: 0;
-    width: 100%;
-    height: 20px; /* Тонка і довга бар */
+    position: absolute; /* Вище навігаційних кнопок */
+    top: 600px;
+    width: 90%;
+    height: 10px; /* Тонка і довга бар */
+    border-radius: 30px;
     background-color: #444;
+    display: flex;
+    justify-content: space-between;
 }
 
 .level-bar {
@@ -501,11 +503,15 @@ body::after {
     width: 0; /* Початкове значення */
 }
 
-.level-text {
+.level-text-left, .level-text-right {
     position: absolute; /* Над рівнем */
-    top: 2px; /* Зміщення від рівня */
-    left: 5px;
+    top: -15px; /* Відстань від рівня */
     color: #fff;
     font-size: 14px;
 }
-
+.level-text-left {
+    left: 5px; /* Розташування зліва */
+}
+.level-text-right {
+    right: 5px; /* Розташування справа */
+}
