@@ -19,6 +19,19 @@ document.addEventListener('DOMContentLoaded', function() {
     const earnButton = document.getElementById('earnButton');
     const airdropButton = document.getElementById('airdropButton');
     const rankDisplay = document.getElementById('rank'); // Елемент для відображення місця в рейтингу
+    const levelMap = {
+        "lvl-0": 0,
+        "lvl-1": 100,
+        "lvl-2": 1000,
+        "lvl-3": 10000,
+        "lvl-4": 25000,
+        "lvl-5": 75000,
+        "lvl-6": 250000,
+        "lvl-7": 500000,
+        "lvl-8": 1000000,
+        "lvl-9": 2500000,
+        "lvl-10": 5000000
+    };
 
     let username = '';
     let firstName = '';
@@ -31,11 +44,16 @@ document.addEventListener('DOMContentLoaded', function() {
     let linkFriends = '';
     let linkEarn = '';
     let linkDrop = '';
-
     let settingsWindowOpen = false;
     let telegramWindowOpen = false;
-
     let lastClickTime = 0;
+
+    let username = getUsernameFromUrl();
+    let clickCount = 0;
+    let currentLevel = "lvl-0"; // Встановлено початковий рівень
+    let levelTextLeft = document.getElementById("levelTextLeft");
+    let levelTextRight = document.getElementById("levelTextRight");
+    const levelBar = document.getElementById("levelBar");
 
     settingsIcon.addEventListener('click', function(event) {
         event.stopPropagation();
@@ -83,6 +101,46 @@ document.addEventListener('DOMContentLoaded', function() {
         saveSettings();
     });
 
+    // Функція для визначення рівня на основі кількості кліків
+    function getLevelForClicks(clicks) {
+        for (let level in levelMap) {
+            if (clicks < levelMap[level]) {
+                return level;
+            }
+        }
+        return "lvl-10"; // Найвищий рівень, який ви вказали
+    }
+
+    // Функція для оновлення відображення рівня
+    function updateLevelBar(clicks) {
+        const levels = Object.keys(levelMap);
+        let newLevel = levels[0];
+    
+        for (let i = 0; i < levels.length; i++) {
+            if (clicks >= levelMap[levels[i]]) {
+                newLevel = levels[i];
+            } else {
+                break;
+            }
+        }
+    
+        if (newLevel !== currentLevel) {
+            db.collection("clicks").doc(username).update({[currentLevel]: false});
+            db.collection("clicks").doc(username).update({[newLevel]: true});
+    
+            currentLevel = newLevel;
+            levelTextLeft.textContent = currentLevel;
+            const nextLevelIndex = levels.indexOf(currentLevel) + 1;
+            levelTextRight.textContent = levels[nextLevelIndex] ? levels[nextLevelIndex] : "lvl-10";
+        }
+    
+        const currentLevelIndex = levels.indexOf(currentLevel);
+        const nextLevelClicks = levelMap[levels[currentLevelIndex + 1]] || levelMap["lvl-10"];
+        const previousLevelClicks = levelMap[currentLevel];
+        const levelWidth = ((clicks - previousLevelClicks) / (nextLevelClicks - previousLevelClicks)) * 100;
+        levelBar.style.width = `${levelWidth}%`;
+    }
+
     function getUsernameFromUrl() {
         const urlParams = new URLSearchParams(window.location.search);
         return urlParams.get('username');
@@ -123,8 +181,25 @@ document.addEventListener('DOMContentLoaded', function() {
                             bonusButton.disabled = true;
                         }
                         updateRank(); // Оновлюємо місце в рейтингу
+                        updateLevelBar(clickCount); // Оновлюємо відображення рівня
                     } else {
-                        db.collection("clicks").doc(username).set({ clickCount: 0, bonusClaimed: false, enableAnimation: true, enableVibration: true });
+                        db.collection("clicks").doc(username).set({ 
+                            clickCount: 0, 
+                            bonusClaimed: false, 
+                            enableAnimation: true, 
+                            enableVibration: true, 
+                            "lvl-0": true,
+                            "lvl-1": false,
+                            "lvl-2": false,
+                            "lvl-3": false,
+                            "lvl-4": false,
+                            "lvl-5": false,
+                            "lvl-6": false,
+                            "lvl-7": false,
+                            "lvl-8": false,
+                            "lvl-9": false,
+                            "lvl-10": false
+                        });
                     }
                     updateLeaderboard();
                 }).catch(error => {
@@ -138,6 +213,7 @@ document.addEventListener('DOMContentLoaded', function() {
             alert('Помилка: Ім\'я користувача не вказане.');
         }
     }
+
 
     function saveSettings() {
         db.collection("clicks").doc(username).set({
