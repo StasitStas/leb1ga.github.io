@@ -19,6 +19,22 @@ document.addEventListener('DOMContentLoaded', function() {
     const earnButton = document.getElementById('earnButton');
     const airdropButton = document.getElementById('airdropButton');
     const rankDisplay = document.getElementById('rank'); // Елемент для відображення місця в рейтингу
+    const levelBar = document.getElementById('levelBar');
+    const levelTextLeft = document.getElementById('levelTextLeft');
+    const levelTextRight = document.getElementById('levelTextRight');
+    const LEVELS = [
+        { threshold: 0, label: 'lvl-0' },
+        { threshold: 100, label: 'lvl-1' },
+        { threshold: 1000, label: 'lvl-2' },
+        { threshold: 10000, label: 'lvl-3' },
+        { threshold: 25000, label: 'lvl-4' },
+        { threshold: 75000, label: 'lvl-5' },
+        { threshold: 250000, label: 'lvl-6' },
+        { threshold: 500000, label: 'lvl-7' },
+        { threshold: 1000000, label: 'lvl-8' },
+        { threshold: 2500000, label: 'lvl-9' },
+        { threshold: 5000000, label: 'lvl-10' }
+    ];
 
     let username = '';
     let firstName = '';
@@ -37,6 +53,63 @@ document.addEventListener('DOMContentLoaded', function() {
 
     let lastClickTime = 0;
 
+
+    function getCurrentLevel(clickCount) {
+        for (let i = LEVELS.length - 1; i >= 0; i--) {
+            if (clickCount >= LEVELS[i].threshold) {
+                return i;
+            }
+        }
+        return 0;
+    }
+
+    function updateLevelBar(clickCount) {
+        const currentLevelIndex = getCurrentLevel(clickCount);
+        const currentLevel = LEVELS[currentLevelIndex];
+        const nextLevel = LEVELS[currentLevelIndex + 1] || currentLevel;
+
+        levelTextLeft.textContent = currentLevel.label;
+        levelTextRight.textContent = nextLevel.label;
+
+        const levelRange = nextLevel.threshold - currentLevel.threshold;
+        const progressWithinLevel = clickCount - currentLevel.threshold;
+        const levelProgressPercentage = (progressWithinLevel / levelRange) * 100;
+
+        levelBar.style.width = `${levelProgressPercentage}%`;
+
+        saveLevelToDB(currentLevel.label);
+    }
+
+    function saveLevelToDB(currentLevel) {
+        const levelData = {};
+        LEVELS.forEach(level => {
+            levelData[level.label] = level.label === currentLevel;
+        });
+
+        db.collection("clicks").doc(username).update(levelData).catch(error => {
+            console.error("Error updating levels in database:", error);
+        });
+    }
+
+    function initializeLevels(userData) {
+        const clickCount = userData.clickCount || 0;
+        const currentLevelIndex = getCurrentLevel(clickCount);
+        const currentLevel = LEVELS[currentLevelIndex].label;
+
+        db.collection("clicks").doc(username).get().then(doc => {
+            if (doc.exists) {
+                const data = doc.data();
+                if (!data[currentLevel]) {
+                    updateLevelBar(clickCount);
+                }
+            } else {
+                saveLevelToDB(currentLevel);
+            }
+        }).catch(error => {
+            console.error("Error initializing levels:", error);
+        });
+    }
+    
     settingsIcon.addEventListener('click', function(event) {
         event.stopPropagation();
         settingsWindow.style.display = settingsWindowOpen ? 'none' : 'block';
@@ -122,7 +195,8 @@ document.addEventListener('DOMContentLoaded', function() {
                         if (bonusClaimed) {
                             bonusButton.disabled = true;
                         }
-                        updateRank(); // Оновлюємо місце в рейтингу
+                        updateRank();
+                        updateLevelBar(clickCount);
                     } else {
                         db.collection("clicks").doc(username).set({ clickCount: 0, bonusClaimed: false, enableAnimation: true, enableVibration: true });
                     }
@@ -130,12 +204,13 @@ document.addEventListener('DOMContentLoaded', function() {
                 }).catch(error => {
                     console.error("Error getting document:", error);
                 });
+                initializeLevels(userData);
             }).catch(error => {
                 console.error("Error getting user data:", error);
-                alert('Помилка: Не вдалося отримати дані користувача.');
+                alert('Error: Failed to retrieve user data.');
             });
         } else {
-            alert('Помилка: Ім\'я користувача не вказане.');
+            alert('Error: Username not specified.');
         }
     }
 
@@ -188,9 +263,10 @@ document.addEventListener('DOMContentLoaded', function() {
             db.collection("clicks").doc(username).set({ clickCount, bonusClaimed, enableAnimation, enableVibration })
                 .then(() => {
                     updateLeaderboard();
+                    updateLevelBar(clickCount);
                 })
                 .catch(error => {
-                    console.error("Помилка оновлення документа:", error);
+                    console.error("Error updating document:", error);
                 });
 
             vibrate();
@@ -200,7 +276,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const y = event.clientY - rect.top;
             createClickEffect(x, y);
         } else {
-            alert('Помилка: Ім\'я користувача не вказане.');
+            alert('Error: Username is not specified.');
         }
     }
 
@@ -222,6 +298,7 @@ document.addEventListener('DOMContentLoaded', function() {
             db.collection("clicks").doc(username).set({ clickCount, bonusClaimed, enableAnimation, enableVibration })
                 .then(() => {
                     updateLeaderboard();
+                    updateLevelBar(clickCount);
                 })
                 .catch(error => {
                     console.error("Error updating document:", error);
@@ -242,12 +319,12 @@ document.addEventListener('DOMContentLoaded', function() {
 
     button.addEventListener('click', function(event) {
         handleClick(event);
-        updateRank(); // Оновлюємо місце в рейтингу після кожного кліку
+        updateRank();
     });
     
     button.addEventListener('touchstart', function(event) {
         handleTouch(event);
-        updateRank(); // Оновлюємо місце в рейтингу після кожного кліку
+        updateRank();
     });
 
     function updateRank() {
