@@ -18,6 +18,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const friendsButton = document.getElementById('friendsButton');
     const earnButton = document.getElementById('earnButton');
     const airdropButton = document.getElementById('airdropButton');
+    const rankDisplay = document.getElementById('rank'); // Елемент для відображення місця в рейтингу
 
     let username = '';
     let firstName = '';
@@ -121,6 +122,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         if (bonusClaimed) {
                             bonusButton.disabled = true;
                         }
+                        updateRank(); // Оновлюємо місце в рейтингу
                     } else {
                         db.collection("clicks").doc(username).set({ clickCount: 0, bonusClaimed: false, enableAnimation: true, enableVibration: true });
                     }
@@ -238,8 +240,37 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
 
-    button.addEventListener('click', handleClick);
-    button.addEventListener('touchstart', handleTouch);
+    button.addEventListener('click', function(event) {
+        handleClick(event);
+        updateRank(); // Оновлюємо місце в рейтингу після кожного кліку
+    });
+    
+    button.addEventListener('touchstart', function(event) {
+        handleTouch(event);
+        updateRank(); // Оновлюємо місце в рейтингу після кожного кліку
+    });
+
+    function updateRank() {
+        const clicksRef = db.collection("clicks").orderBy("clickCount", "desc");
+        clicksRef.get().then(querySnapshot => {
+            let rank = 1;
+            let userFound = false;
+            querySnapshot.forEach(doc => {
+                if (doc.id === username) {
+                    rankDisplay.textContent = rank;
+                    userFound = true;
+                }
+                if (!userFound) {
+                    rank++;
+                }
+            });
+            if (!userFound) {
+                rankDisplay.textContent = 'N/A';
+            }
+        }).catch(error => {
+            console.error("Помилка отримання документів:", error);
+        });
+    }
 
     function subscribeToChannel() {
         const telegramLink = "https://t.me/leb1gaa";
@@ -257,6 +288,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     db.collection("clicks").doc(username).set({ clickCount, bonusClaimed, enableAnimation, enableVibration })
                         .then(() => {
                             updateLeaderboard();
+                            updateRank();
                         })
                         .catch(error => {
                             console.error("Помилка оновлення документа:", error);
