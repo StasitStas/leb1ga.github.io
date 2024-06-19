@@ -120,7 +120,7 @@ body::after {
     left: 10%;
     width: 80%;
     height: 80%;
-    background: rgba(0, 0, 0, 0.9); /* Темніший чорний фон */
+    background: rgba(0, 0, 0); /* Темніший чорний фон */
     border-radius: 8px; /* Округлі краї */
     z-index: -1; /* Розміщуємо задній фон під контентом кнопки */
 }
