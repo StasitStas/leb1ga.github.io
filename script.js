@@ -76,12 +76,10 @@ document.addEventListener('DOMContentLoaded', function() {
         const levelProgressPercentage = (progressWithinLevel / levelRange) * 100;
     
         levelBar.style.width = `${levelProgressPercentage}%`;
-    
-        saveLevelToDB(currentLevel.label);
     }
     
     function saveLevelToDB(currentLevel) {
-        const levelData = { currentLevel: currentLevel };
+        const levelData = {};
         LEVELS.forEach(level => {
             levelData[level.label] = level.label === currentLevel;
         });
@@ -93,17 +91,17 @@ document.addEventListener('DOMContentLoaded', function() {
     
     function initializeLevels(userData) {
         const clickCount = userData.clickCount || 0;
-        const currentLevelIndex = getCurrentLevel(clickCount);
-        const currentLevel = LEVELS[currentLevelIndex].label;
+        updateLevelBar(clickCount);
     
         db.collection("clicks").doc(username).get().then(doc => {
             if (doc.exists) {
                 const data = doc.data();
+                const currentLevel = LEVELS[getCurrentLevel(clickCount)].label;
                 if (!data[currentLevel]) {
-                    updateLevelBar(clickCount);
+                    saveLevelToDB(currentLevel);
                 }
             } else {
-                saveLevelToDB(currentLevel);
+                saveLevelToDB(LEVELS[getCurrentLevel(clickCount)].label);
             }
         }).catch(error => {
             console.error("Error initializing levels:", error);
@@ -261,14 +259,21 @@ document.addEventListener('DOMContentLoaded', function() {
         if (username) {
             clickCount++;
             countDisplay.textContent = clickCount;
-            db.collection("clicks").doc(username).set({ clickCount, bonusClaimed, enableAnimation, enableVibration })
-                .then(() => {
-                    updateLeaderboard();
-                    updateLevelBar(clickCount);  // Оновлення рівня та зеленої смужки
-                })
-                .catch(error => {
-                    console.error("Error updating document:", error);
-                });
+    
+            updateLevelBar(clickCount);  // Оновлення рівня та зеленої смужки
+    
+            db.collection("clicks").doc(username).set({
+                clickCount,
+                bonusClaimed,
+                enableAnimation,
+                enableVibration
+            }).then(() => {
+                const currentLevel = LEVELS[getCurrentLevel(clickCount)].label;
+                saveLevelToDB(currentLevel);
+                updateLeaderboard();
+            }).catch(error => {
+                console.error("Error updating document:", error);
+            });
     
             vibrate();
     
@@ -296,14 +301,21 @@ document.addEventListener('DOMContentLoaded', function() {
         if (username) {
             clickCount++;
             countDisplay.textContent = clickCount;
-            db.collection("clicks").doc(username).set({ clickCount, bonusClaimed, enableAnimation, enableVibration })
-                .then(() => {
-                    updateLeaderboard();
-                    updateLevelBar(clickCount);  // Оновлення рівня та зеленої смужки
-                })
-                .catch(error => {
-                    console.error("Error updating document:", error);
-                });
+    
+            updateLevelBar(clickCount);  // Оновлення рівня та зеленої смужки
+    
+            db.collection("clicks").doc(username).set({
+                clickCount,
+                bonusClaimed,
+                enableAnimation,
+                enableVibration
+            }).then(() => {
+                const currentLevel = LEVELS[getCurrentLevel(clickCount)].label;
+                saveLevelToDB(currentLevel);
+                updateLeaderboard();
+            }).catch(error => {
+                console.error("Error updating document:", error);
+            });
     
             vibrate();
     
