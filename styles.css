@@ -512,7 +512,11 @@ body::after {
         #b2ff59 90%,
         #eeff41 100%);
     width: 100%; /* Займає всю доступну ширину */
-    border-radius: 40px; /* Загальне значення для заокруглення країв */
+    border-radius: 40px; /* Загальне значення для заокруглння країв */
+    border-top-right-radius: 40px;
+    border-bottom-right-radius: 40px;
+    border-top-left-radius: 40px;
+    border-bottom-left-radius: 40px;
 }
 
 .level-text-left, .level-text-right {
