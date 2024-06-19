@@ -486,6 +486,7 @@ body::after {
     color: #3357ff; /* Синій */
 }
 /* Level */
+
 .level-bar-container {
     position: relative;
     width: 90%;
@@ -493,7 +494,30 @@ body::after {
     margin-top: 5%;
     margin-bottom: -10%;
     border-radius: 40px;
-    background: #f0f0f0; /* Поверхневий фон, який "стирається" */
+    background: linear-gradient(to right,
+        #ff5252 0%,
+        #ff4081 10%,
+        #e040fb 20%,
+        #7c4dff 30%,
+        #536dfe 40%,
+        #42a5f5 50%,
+        #40c4ff 60%,
+        #18ffff 70%,
+        #69f0ae 80%,
+        #b2ff59 90%,
+        #eeff41 100%);
+}
+
+.level-bar-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #f0f0f0;
+    border-radius: 40px;
+    z-index: 1; /* Поміщаємо під `.level-bar`, щоб він його перекривав */
 }
 
 .level-bar {
@@ -516,6 +540,7 @@ body::after {
         #eeff41 100%);
     border-radius: 40px;
     transition: width 0.3s ease; /* Плавна анімація зміни ширини */
+    z-index: 2; /* Поміщаємо поверх основного фону */
     border-top-right-radius: 40px;
     border-bottom-right-radius: 40px;
     border-top-left-radius: 40px;
@@ -537,4 +562,3 @@ body::after {
     right: 0;
     color: #fff;
 }
-
