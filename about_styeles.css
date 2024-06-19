@@ -30,6 +30,19 @@ body.modal-open {
     font-size: 24px;
 }
 
+/* Logo-firstname   */
+.golden-text {
+    color: #6622228f;
+    font-weight: bold;
+    font-size: 1.2em;
+    padding: 8px 20px;
+    border-radius: 25px;
+    background: linear-gradient(135deg, #fddb92, #d1a63b);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: transform 0.2s ease-in-out;
+    display: inline-block;
+}
+
 .shop-section {
     display: flex;
     flex-wrap: wrap;
