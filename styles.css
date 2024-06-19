@@ -488,11 +488,12 @@ body::after {
 /* Level */
 .level-bar-container {
     position: relative;
-    width: 100%;
+    width: 90%;
     height: 20px;
     background-color: #f0f0f0;
-    margin-top: 10px;
-    margin-bottom: 20px;
+    margin-top: 20%;
+    margin-bottom: -30%;
+    border-radius: 40px;
 }
 
 .level-bar {
@@ -509,8 +510,10 @@ body::after {
 
 .level-text-left {
     left: 0;
+    color: #fff;
 }
 
 .level-text-right {
     right: 0;
+    color: #fff;
 }
