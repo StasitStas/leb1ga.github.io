@@ -62,7 +62,7 @@ body.modal-open {
 .golden-text {
     color: #6622228f;
     font-weight: bold;
-    font-size: 1.2em;
+    font-size: 0.9em;
     padding: 8px 20px;
     border-radius: 25px;
     background: linear-gradient(135deg, #fddb92, #d1a63b);
@@ -80,7 +80,7 @@ body.modal-open {
 }
 
 .shop-item {
-    background-color: #3f3d36;
+    background-color: #1f1e1e8f;
     padding: 10px;
     border-radius: 10px;
     width: 120px;
