@@ -22,6 +22,9 @@ document.addEventListener('DOMContentLoaded', function() {
     const levelBar = document.getElementById('levelBar');
     const levelTextLeft = document.getElementById('levelTextLeft');
     const levelTextRight = document.getElementById('levelTextRight');
+    const avatarButton = document.getElementById("avatarButton");
+    const settingsContent = document.getElementById("settingsContent");
+    const avatarsContent = document.getElementById("avatarsContent");
     const LEVELS = [
         { threshold: 0, label: 'lvl-0' },
         { threshold: 100, label: 'lvl-1' },
@@ -54,7 +57,11 @@ document.addEventListener('DOMContentLoaded', function() {
 
     let lastClickTime = 0;
 
-
+    avatarButton.addEventListener("click", function() {
+        settingsContent.classList.toggle("hidden");
+        avatarsContent.classList.toggle("hidden");
+    });
+    
     function getCurrentLevel(clickCount) {
         for (let i = LEVELS.length - 1; i >= 0; i--) {
             if (clickCount >= LEVELS[i].threshold) {
