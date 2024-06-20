@@ -564,24 +564,3 @@ body::after {
 }
 
 /* Аватарки */
-
-.hidden {
-    display: none;
-}
-
-#avatarsContent {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
-    padding: 10px;
-}
-
-.avatar {
-    width: 45%;
-    margin: 5px 0;
-}
-
-.avatar img {
-    width: 100%;
-    border-radius: 10px;
-}
