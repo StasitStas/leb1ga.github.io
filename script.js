@@ -158,12 +158,12 @@ document.addEventListener('DOMContentLoaded', function() {
         event.stopPropagation();
     });
 
-    animationToggle.addEventListener('change', function() {
+    animationToggle.addEventListener("change", function() {
         enableAnimation = animationToggle.checked;
         saveSettings();
     });
 
-    vibrationToggle.addEventListener('change', function() {
+    vibrationToggle.addEventListener("change", function() {
         enableVibration = vibrationToggle.checked;
         saveSettings();
     });
