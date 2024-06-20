@@ -564,3 +564,6 @@ body::after {
 }
 
 /* Аватарки */
+.hidden {
+    display: none;
+}
