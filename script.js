@@ -22,9 +22,6 @@ document.addEventListener('DOMContentLoaded', function() {
     const levelBar = document.getElementById('levelBar');
     const levelTextLeft = document.getElementById('levelTextLeft');
     const levelTextRight = document.getElementById('levelTextRight');
-    const avatarButton = document.getElementById('avatarButton');
-    const settingsContent = document.getElementById('settingsContent');
-    const avatarsContent = document.getElementById('avatarsContent');
     const LEVELS = [
         { threshold: 0, label: 'lvl-0' },
         { threshold: 100, label: 'lvl-1' },
@@ -114,21 +111,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Переконатися, що avatarsContent прихований спочатку
-    avatarsContent.classList.add('hidden');
-
-    avatarButton.addEventListener('click', function() {
-        // Перевірити, чи avatarsContent прихований
-        if (avatarsContent.classList.contains('hidden')) {
-            // Якщо прихований, показати avatarsContent і приховати settingsContent
-            avatarsContent.classList.remove('hidden');
-            settingsContent.classList.add('hidden');
-        } else {
-            // Якщо показаний, приховати avatarsContent і показати settingsContent
-            avatarsContent.classList.add('hidden');
-            settingsContent.classList.remove('hidden');
-        }
-    });
     
     settingsIcon.addEventListener('click', function(event) {
         event.stopPropagation();
