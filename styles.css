@@ -376,6 +376,16 @@ body::after {
 
 /* Smaller Switch Button */
 
+setting-avatar{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 10px 15px;
+    padding: 15px;
+    border-radius: 15px;
+    background-color: #52515199;
+{
+
 .switch-label {
     display: flex;
     justify-content: space-between;
