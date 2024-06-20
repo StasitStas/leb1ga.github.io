@@ -380,10 +380,10 @@ body::after {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin: 10px 10px;
-    padding: 10px;
-    border-radius: 10px;
-    background-color: #515152a3;
+    margin: 10px 15px;
+    padding: 15px;
+    border-radius: 15px;
+    background-color: #52515199;
 }
 
 .switch-label span {
