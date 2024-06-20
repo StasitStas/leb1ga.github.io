@@ -115,8 +115,8 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     avatarButton.addEventListener('click', function() {
-        settingsContent.classList.toggle('hidden');
-        avatarsContent.classList.toggle('hidden');
+        settingsContent.classList.add('hidden');
+        avatarsContent.classList.remove('hidden');
     });
     
     settingsIcon.addEventListener('click', function(event) {
