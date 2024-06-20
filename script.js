@@ -57,6 +57,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
     let lastClickTime = 0;
 
+    avatarsContent.classList.add("hidden");  // Додати цей рядок для приховування аватарок спочатку
+
     avatarButton.addEventListener("click", function() {
         settingsContent.classList.toggle("hidden");
         avatarsContent.classList.toggle("hidden");
