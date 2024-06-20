@@ -376,7 +376,7 @@ body::after {
 
 /* Smaller Switch Button */
 
-setting-avatar{
+.setting-avatar{
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -384,6 +384,14 @@ setting-avatar{
     padding: 15px;
     border-radius: 15px;
     background-color: #52515199;
+{
+
+.setting-avatar span {
+    margin-right: 10px;
+}
+
+.setting-avatar la-angle-right{
+    margin-left: 10px;
 {
 
 .switch-label {
