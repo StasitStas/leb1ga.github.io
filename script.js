@@ -63,6 +63,7 @@ document.addEventListener('DOMContentLoaded', function() {
     avatarButton.addEventListener("click", function() {
         settingsContent.classList.toggle("hidden");
         hiddenBlock.classList.toggle("hidden");
+        avatarButton.classList.remove('active');
     });
     
     function getCurrentLevel(clickCount) {
