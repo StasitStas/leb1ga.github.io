@@ -390,6 +390,10 @@ body::after {
     margin-right: 10px;
 }
 
+.la-angle-right switch-label {
+    font-size: 42px;
+}
+
 .switch-btn {
     display: flex;
     align-items: center;
