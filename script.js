@@ -118,8 +118,16 @@ document.addEventListener('DOMContentLoaded', function() {
     avatarsContent.classList.add('hidden');
 
     avatarButton.addEventListener('click', function() {
-        settingsContent.classList.toggle('hidden');
-        avatarsContent.classList.toggle('hidden');
+        // Перевірити, чи avatarsContent прихований
+        if (avatarsContent.classList.contains('hidden')) {
+            // Якщо прихований, показати avatarsContent і приховати settingsContent
+            avatarsContent.classList.remove('hidden');
+            settingsContent.classList.add('hidden');
+        } else {
+            // Якщо показаний, приховати avatarsContent і показати settingsContent
+            avatarsContent.classList.add('hidden');
+            settingsContent.classList.remove('hidden');
+        }
     });
     
     settingsIcon.addEventListener('click', function(event) {
