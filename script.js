@@ -24,7 +24,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const levelTextRight = document.getElementById('levelTextRight');
     const avatarButton = document.getElementById("avatarButton");
     const settingsContent = document.getElementById("settingsContent");
-    const avatarsContent = document.getElementById("avatarsContent");
+    const hiddenBlock = document.querySelector(".hidden-block");
     const LEVELS = [
         { threshold: 0, label: 'lvl-0' },
         { threshold: 100, label: 'lvl-1' },
@@ -57,9 +57,12 @@ document.addEventListener('DOMContentLoaded', function() {
 
     let lastClickTime = 0;
 
+    // Початкове приховування hidden-block
+    hiddenBlock.classList.add("hidden");
+
     avatarButton.addEventListener("click", function() {
-        settingsContent.classList.toggle("hidden");
-        avatarsContent.classList.toggle("hidden");
+        settingsContent.classList.add("hidden");
+        hiddenBlock.classList.remove("hidden");
     });
     
     function getCurrentLevel(clickCount) {
