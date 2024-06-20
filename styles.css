@@ -584,7 +584,7 @@ body::after {
 
 .avatar img {
     width: 100%;
-    border-radius: 10px;
+    border-radius: 25px;
 }
 
 .active {
