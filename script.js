@@ -23,7 +23,6 @@ document.addEventListener('DOMContentLoaded', function() {
     const levelTextLeft = document.getElementById('levelTextLeft');
     const levelTextRight = document.getElementById('levelTextRight');
     const avatarButton = document.getElementById('avatarButton');
-    const avatarButtonAgain = document.getElementById('avatarButtonAgain');
     const settingsContent = document.getElementById('settingsContent');
     const avatarsContent = document.getElementById('avatarsContent');
     const LEVELS = [
@@ -116,13 +115,8 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     avatarButton.addEventListener('click', function() {
-        settingsContent.classList.add('hidden');
-        avatarsContent.classList.remove('hidden');
-    });
-
-    avatarButtonAgain.addEventListener('click', function() {
-        settingsContent.classList.remove('hidden');
-        avatarsContent.classList.add('hidden');
+        settingsContent.classList.toggle('hidden');
+        avatarsContent.classList.toggle('hidden');
     });
     
     settingsIcon.addEventListener('click', function(event) {
