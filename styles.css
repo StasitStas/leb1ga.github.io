@@ -3,7 +3,7 @@ body {
     text-align: center;
     margin: 0;
     padding: 0;
-    user-select: none; /* Забороняємо виділення для всього тіла */
+    user-select: none; /* Забороняємо виділення для всього тіл */
     background-color: #000; /* Чисто чорний фон */
     overflow: hidden; /* Запобігає вертикальній прокрутці */
     position: relative;
