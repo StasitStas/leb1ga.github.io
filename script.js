@@ -114,6 +114,9 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
+    // Переконатися, що avatarsContent прихований спочатку
+    avatarsContent.classList.add('hidden');
+
     avatarButton.addEventListener('click', function() {
         settingsContent.classList.toggle('hidden');
         avatarsContent.classList.toggle('hidden');
