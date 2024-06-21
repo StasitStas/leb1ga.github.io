@@ -587,14 +587,10 @@ body::after {
 }
 
 .avatar img {
-    width: 100px; /* Set a fixed width */
-    height: 100px; /* Set a fixed height */
-    object-fit: cover; /* Ensure the image covers the container */
+    width: 160px; 
+    height: 150px; 
+    object-fit: cover; 
     border-radius: 25px;
-}
-
-.active {
-    background-color: #777777;
 }
 
 .apply-button {
@@ -611,6 +607,6 @@ body::after {
     cursor: pointer;
 }
 
-.avatar.active .apply-button {
+.avatar.selected .apply-button {
     display: block;
 }
