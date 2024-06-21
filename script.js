@@ -61,11 +61,11 @@ document.addEventListener('DOMContentLoaded', function() {
 
     avatars.forEach(avatar => {
         avatar.addEventListener('click', function() {
-            // Remove active class and button from any other avatar
-            avatars.forEach(av => av.classList.remove('active'));
+            // Remove the selected class and button from any other avatar
+            avatars.forEach(av => av.classList.remove('selected'));
             
-            // Add active class to the clicked avatar
-            avatar.classList.add('active');
+            // Add selected class to the clicked avatar
+            avatar.classList.add('selected');
             
             // Create the apply button if it doesn't exist
             let applyButton = avatar.querySelector('.apply-button');
