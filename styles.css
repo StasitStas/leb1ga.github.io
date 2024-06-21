@@ -580,6 +580,7 @@ body::after {
 .avatar {
     width: 45%;
     margin: 5px 0;
+    position: relative;
 }
 
 .avatar img {
@@ -589,4 +590,22 @@ body::after {
 
 .active {
     background-color: #777777;
+}
+
+.apply-button {
+    display: none;
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+.avatar.active .apply-button {
+    display: block;
 }
