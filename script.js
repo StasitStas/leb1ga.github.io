@@ -25,6 +25,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const avatarButton = document.getElementById("avatarButton");
     const settingsContent = document.getElementById("settingsContent");
     const hiddenBlock = document.querySelector(".hidden-block");
+    const avatars = document.querySelectorAll('.avatar');
     const LEVELS = [
         { threshold: 0, label: 'lvl-0' },
         { threshold: 100, label: 'lvl-1' },
@@ -57,6 +58,30 @@ document.addEventListener('DOMContentLoaded', function() {
 
     let lastClickTime = 0;
 
+
+    avatars.forEach(avatar => {
+        avatar.addEventListener('click', function() {
+            // Remove active class and button from any other avatar
+            avatars.forEach(av => av.classList.remove('active'));
+            
+            // Add active class to the clicked avatar
+            avatar.classList.add('active');
+            
+            // Create the apply button if it doesn't exist
+            let applyButton = avatar.querySelector('.apply-button');
+            if (!applyButton) {
+                applyButton = document.createElement('button');
+                applyButton.classList.add('apply-button');
+                applyButton.innerText = 'Застосувати';
+                applyButton.addEventListener('click', function() {
+                    // Add your apply action here
+                    alert('Avatar applied!');
+                });
+                avatar.appendChild(applyButton);
+            }
+        });
+    });
+    
     // Початкове приховування hidden-block
     hiddenBlock.classList.add("hidden");
 
