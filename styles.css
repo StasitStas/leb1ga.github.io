@@ -581,10 +581,15 @@ body::after {
     width: 45%;
     margin: 5px 0;
     position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .avatar img {
-    width: 100%;
+    width: 100px; /* Set a fixed width */
+    height: 100px; /* Set a fixed height */
+    object-fit: cover; /* Ensure the image covers the container */
     border-radius: 25px;
 }
 
