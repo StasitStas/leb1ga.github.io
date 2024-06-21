@@ -61,23 +61,38 @@ document.addEventListener('DOMContentLoaded', function() {
 
     avatars.forEach(avatar => {
         avatar.addEventListener('click', function() {
-            // Remove the selected class and button from any other avatar
-            avatars.forEach(av => av.classList.remove('selected'));
-            
-            // Add selected class to the clicked avatar
-            avatar.classList.add('selected');
-            
-            // Create the apply button if it doesn't exist
-            let applyButton = avatar.querySelector('.apply-button');
-            if (!applyButton) {
-                applyButton = document.createElement('button');
-                applyButton.classList.add('apply-button');
-                applyButton.innerText = 'Застосувати';
-                applyButton.addEventListener('click', function() {
-                    // Add your apply action here
-                    alert('Avatar applied!');
+            // If the avatar is already selected, remove the selected class and button
+            if (avatar.classList.contains('selected')) {
+                avatar.classList.remove('selected');
+                let applyButton = avatar.querySelector('.apply-button');
+                if (applyButton) {
+                    applyButton.remove();
+                }
+            } else {
+                // Remove the selected class and button from any other avatar
+                avatars.forEach(av => {
+                    av.classList.remove('selected');
+                    let applyButton = av.querySelector('.apply-button');
+                    if (applyButton) {
+                        applyButton.remove();
+                    }
                 });
-                avatar.appendChild(applyButton);
+                
+                // Add selected class to the clicked avatar
+                avatar.classList.add('selected');
+                
+                // Create the apply button if it doesn't exist
+                let applyButton = avatar.querySelector('.apply-button');
+                if (!applyButton) {
+                    applyButton = document.createElement('button');
+                    applyButton.classList.add('apply-button');
+                    applyButton.innerText = 'Застосувати';
+                    applyButton.addEventListener('click', function() {
+                        // Add your apply action here
+                        alert('Avatar applied!');
+                    });
+                    avatar.appendChild(applyButton);
+                }
             }
         });
     });
