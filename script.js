@@ -311,6 +311,8 @@ document.addEventListener('DOMContentLoaded', function() {
     
     function saveSettings() {
         db.collection("clicks").doc(username).set({
+            clickCount,
+            bonusClaimed,
             enableAnimation,
             enableVibration
         }).catch(error => {
