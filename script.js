@@ -52,19 +52,16 @@ document.addEventListener('DOMContentLoaded', function() {
     let linkFriends = '';
     let linkEarn = '';
     let linkDrop = '';
+
     let settingsWindowOpen = false;
     let telegramWindowOpen = false;
+
     let lastClickTime = 0;
-    let currentLevel = 0;  // Placeholder for user level, will be set dynamically
 
 
     avatars.forEach(avatar => {
         avatar.addEventListener('click', function() {
-            if (avatar.classList.contains('locked')) {
-                alert(`This avatar unlocks at ${avatar.querySelector('.lock-text').innerText}.`);
-                return;
-            }
-
+            // If the avatar is already selected, remove the selected class and button
             if (avatar.classList.contains('selected')) {
                 avatar.classList.remove('selected');
                 let applyButton = avatar.querySelector('.apply-button');
@@ -72,6 +69,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     applyButton.remove();
                 }
             } else {
+                // Remove the selected class and button from any other avatar
                 avatars.forEach(av => {
                     av.classList.remove('selected');
                     let applyButton = av.querySelector('.apply-button');
@@ -79,35 +77,25 @@ document.addEventListener('DOMContentLoaded', function() {
                         applyButton.remove();
                     }
                 });
-
+                
+                // Add selected class to the clicked avatar
                 avatar.classList.add('selected');
+                
+                // Create the apply button if it doesn't exist
                 let applyButton = avatar.querySelector('.apply-button');
                 if (!applyButton) {
                     applyButton = document.createElement('button');
                     applyButton.classList.add('apply-button');
                     applyButton.innerText = 'Застосувати';
                     applyButton.addEventListener('click', function() {
-                        applyAvatar(avatar);
+                        // Add your apply action here
+                        alert('Avatar applied!');
                     });
                     avatar.appendChild(applyButton);
                 }
             }
         });
     });
-
-    function applyAvatar(selectedAvatar) {
-        const avatarIndex = Array.from(avatars).indexOf(selectedAvatar);
-        const updates = {};
-        for (let i = 0; i < avatars.length; i++) {
-            updates[`ava${i + 1}`] = (i === avatarIndex);
-        }
-
-        db.collection("users").doc(username).update(updates).then(() => {
-            alert('Avatar applied!');
-        }).catch(error => {
-            console.error("Error updating avatars in database:", error);
-        });
-    }
     
     // Початкове приховування hidden-block
     hiddenBlock.classList.add("hidden");
@@ -116,22 +104,10 @@ document.addEventListener('DOMContentLoaded', function() {
         settingsContent.classList.toggle("hidden");
         hiddenBlock.classList.toggle("hidden");
     });
-
-    function initializeAvatarAvailability() {
-        avatars.forEach(avatar => {
-            const requiredLevel = parseInt(avatar.getAttribute('data-level'), 10);
-            if (currentLevel < requiredLevel) {
-                avatar.classList.add('locked');
-                avatar.querySelector('.lock-text').innerText = LEVELS[requiredLevel].label;
-            } else {
-                avatar.classList.remove('locked');
-            }
-        });
-    }
     
-    function getCurrentLevel(clickCountMax) {
+    function getCurrentLevel(clickCount) {
         for (let i = LEVELS.length - 1; i >= 0; i--) {
-            if (clickCountMax >= LEVELS[i].threshold) {
+            if (clickCount >= LEVELS[i].threshold) {
                 return i;
             }
         }
@@ -233,8 +209,8 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     function getUsernameFromUrl() {
-        const params = new URLSearchParams(window.location.search);
-        return params.get('username');
+        const urlParams = new URLSearchParams(window.location.search);
+        return urlParams.get('username');
     }
 
     function getUserData(username) {
@@ -242,11 +218,8 @@ document.addEventListener('DOMContentLoaded', function() {
             if (doc.exists) {
                 return doc.data();
             } else {
-                console.error("No such document!");
-                return null;
+                throw new Error('Документ не знайдено');
             }
-        }).catch(error => {
-            console.error("Error getting user data:", error);
         });
     }
 
@@ -254,58 +227,51 @@ document.addEventListener('DOMContentLoaded', function() {
         username = getUsernameFromUrl();
         if (username) {
             getUserData(username).then(userData => {
-                if (userData) {
-                    firstName = userData.first_name;
-                    usernameDisplay.textContent = firstName;
-
-                    db.collection("clicks").doc(username).get().then(doc => {
-                        if (doc.exists) {
-                            const data = doc.data();
-                            clickCount = data.clickCount || 0;
-                            clickCountMax = data.clickCountMax || 0;
-                            bonusClaimed = data.bonusClaimed || false;
-                            enableAnimation = data.enableAnimation !== undefined ? data.enableAnimation : true;
-                            enableVibration = data.enableVibration !== undefined ? data.enableVibration : true;
-                            countDisplay.textContent = clickCount;
-                            animationToggle.checked = enableAnimation;
-                            vibrationToggle.checked = enableVibration;
-                            if (bonusClaimed) {
-                                bonusButton.disabled = true;
-                            }
-                            updateRank();
-                            updateLevelBar(clickCount);
-
-                            currentLevel = getCurrentLevel(clickCountMax);
-                            initializeAvatarAvailability();
-
-                            const userAvatars = doc.data();
-                            avatars.forEach((avatar, index) => {
-                                if (userAvatars[`ava${index + 1}`]) {
-                                    avatar.classList.add('selected');
-                                    let applyButton = document.createElement('button');
-                                    applyButton.classList.add('apply-button');
-                                    applyButton.innerText = 'Застосувати';
-                                    applyButton.addEventListener('click', function() {
-                                        applyAvatar(avatar);
-                                    });
-                                    avatar.appendChild(applyButton);
-                                }
-                            });
-                        } else {
-                            db.collection("clicks").doc(username).set({
-                                clickCount: 0,
-                                clickCountMax: 0,
-                                bonusClaimed: false,
-                                enableAnimation: true,
-                                enableVibration: true
-                            });
+                firstName = userData.first_name;
+                linkMain = userData.link_main;
+                linkAbout = userData.link_about;
+                linkFriends = userData.link_friends;
+                linkEarn = userData.link_earn;
+                linkDrop = userData.link_drop;
+                usernameDisplay.textContent = firstName;
+    
+                db.collection("clicks").doc(username).get().then(doc => {
+                    if (doc.exists) {
+                        const data = doc.data();
+                        clickCount = data.clickCount || 0;
+                        clickCountMax = data.clickCountMax || 0;
+                        bonusClaimed = data.bonusClaimed || false;
+                        enableAnimation = data.enableAnimation !== undefined ? data.enableAnimation : true;
+                        enableVibration = data.enableVibration !== undefined ? data.enableVibration : true;
+                        countDisplay.textContent = clickCount;
+                        animationToggle.checked = enableAnimation;
+                        vibrationToggle.checked = enableVibration;
+                        if (bonusClaimed) {
+                            bonusButton.disabled = true;
                         }
-                        updateLeaderboard();
-                    }).catch(error => {
-                        console.error("Error getting document:", error);
-                    });
-                }
+                        updateRank();
+                        updateLevelBar(clickCount); // Оновлюємо панель рівня на основі поточних кліків
+                    } else {
+                        db.collection("clicks").doc(username).set({
+                            clickCount: 0,
+                            clickCountMax: 0,
+                            bonusClaimed: false,
+                            enableAnimation: true,
+                            enableVibration: true
+                        });
+                    }
+                    updateLeaderboard();
+                }).catch(error => {
+                    console.error("Error getting document:", error);
+                });
+    
+                initializeLevels(userData);
+            }).catch(error => {
+                console.error("Error getting user data:", error);
+                alert('Error: Failed to retrieve user data.');
             });
+        } else {
+            alert('Error: Username not specified.');
         }
     }
 
