@@ -226,7 +226,7 @@ document.addEventListener('DOMContentLoaded', function() {
         enableAnimation = animationToggle.checked;
         saveSettings();
     });
-    
+
     vibrationToggle.addEventListener("change", function() {
         enableVibration = vibrationToggle.checked;
         saveSettings();
@@ -257,7 +257,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 if (userData) {
                     firstName = userData.first_name;
                     usernameDisplay.textContent = firstName;
-    
+
                     db.collection("clicks").doc(username).get().then(doc => {
                         if (doc.exists) {
                             const data = doc.data();
@@ -274,10 +274,10 @@ document.addEventListener('DOMContentLoaded', function() {
                             }
                             updateRank();
                             updateLevelBar(clickCount);
-    
+
                             currentLevel = getCurrentLevel(clickCountMax);
                             initializeAvatarAvailability();
-    
+
                             const userAvatars = doc.data();
                             avatars.forEach((avatar, index) => {
                                 if (userAvatars[`ava${index + 1}`]) {
@@ -308,7 +308,7 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         }
     }
- 
+
     function saveSettings() {
         db.collection("clicks").doc(username).set({
             clickCount,
@@ -356,20 +356,21 @@ document.addEventListener('DOMContentLoaded', function() {
             clickCount++;
             countDisplay.textContent = clickCount;
     
+            // Оновлюємо максимальну кількість кліків, якщо потрібно
             if (clickCount > clickCountMax) {
                 clickCountMax = clickCount;
             }
     
-            updateLevelBar(clickCount);
+            updateLevelBar(clickCount);  // Оновлення рівня та зеленої смужки
     
             db.collection("clicks").doc(username).set({
                 clickCount,
-                clickCountMax,
+                clickCountMax,  // Збереження максимальної кількості кліків
                 bonusClaimed,
                 enableAnimation,
                 enableVibration
             }).then(() => {
-                const currentLevel = LEVELS[getCurrentLevel(clickCountMax)].label;
+                const currentLevel = LEVELS[getCurrentLevel(clickCountMax)].label;  // Використовуємо clickCountMax для рівня
                 saveLevelToDB(currentLevel);
                 updateLeaderboard();
             }).catch(error => {
@@ -386,7 +387,6 @@ document.addEventListener('DOMContentLoaded', function() {
             alert('Error: Username is not specified.');
         }
     }
-
     
     function handleTouch(event) {
         const currentTime = new Date().getTime();
@@ -498,17 +498,10 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    navButtons.forEach(navButton => {
-        navButton.addEventListener('click', function(event) {
-            const target = event.currentTarget;
-            if (target.id === 'bonusButton' && bonusClaimed) {
-                return; // Якщо бонус вже отриманий, нічого не робити
-            }
-            const linkId = target.id.replace('Button', 'Link');
-            const link = document.getElementById(linkId).value;
-            if (link) {
-                window.location.href = link;
-            }
+    navButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            navButtons.forEach(btn => btn.classList.remove('active')); // Видаляємо клас active з усіх кнопок
+            button.classList.add('active'); // Додаємо клас active до натиснутої кнопки
         });
     });
 
