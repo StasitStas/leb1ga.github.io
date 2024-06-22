@@ -255,9 +255,9 @@ document.addEventListener('DOMContentLoaded', function() {
         if (username) {
             getUserData(username).then(userData => {
                 if (userData) {
-                    firstName = userData.first_name;
-                    usernameDisplay.textContent = firstName;
-
+                    const firstName = userData.first_name;
+                    document.getElementById('usernameDisplay').textContent = firstName;
+    
                     db.collection("clicks").doc(username).get().then(doc => {
                         if (doc.exists) {
                             const data = doc.data();
@@ -274,23 +274,28 @@ document.addEventListener('DOMContentLoaded', function() {
                             }
                             updateRank();
                             updateLevelBar(clickCount);
-
+    
                             currentLevel = getCurrentLevel(clickCountMax);
                             initializeAvatarAvailability();
-
+    
                             const userAvatars = doc.data();
-                            avatars.forEach((avatar, index) => {
-                                if (userAvatars[`ava${index + 1}`]) {
-                                    avatar.classList.add('selected');
+                            for (let i = 0; i < avatars.length; i++) {
+                                if (userAvatars[`ava${i + 1}`]) {
+                                    avatars[i].classList.add('selected');
                                     let applyButton = document.createElement('button');
                                     applyButton.classList.add('apply-button');
                                     applyButton.innerText = 'Застосувати';
                                     applyButton.addEventListener('click', function() {
-                                        applyAvatar(avatar);
+                                        applyAvatar(avatars[i]);
                                     });
-                                    avatar.appendChild(applyButton);
+                                    avatars[i].appendChild(applyButton);
+    
+                                    // If avatar is selected, display it next to the username
+                                    const avatarImage = document.getElementById('userAvatar');
+                                    avatarImage.src = `ava-img/ava${i + 1}.jpg`;
+                                    avatarImage.style.display = 'inline-block';
                                 }
-                            });
+                            }
                         } else {
                             db.collection("clicks").doc(username).set({
                                 clickCount: 0,
@@ -308,6 +313,7 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         }
     }
+
 
     function saveSettings() {
         db.collection("clicks").doc(username).set({
