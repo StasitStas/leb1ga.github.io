@@ -284,8 +284,9 @@ document.addEventListener('DOMContentLoaded', function() {
                             const userAvatars = doc.data();
                             let avatarFound = false;
                             for (let i = 0; i < avatars.length; i++) {
-                                console.log(`Checking ava${i + 1}:`, userAvatars[`ava${i + 1}`]);
-                                if (userAvatars[`ava${i + 1}`]) {
+                                const avatarField = `ava${i + 1}`;
+                                console.log(`Checking ${avatarField}:`, userAvatars[avatarField]);
+                                if (userAvatars[avatarField]) {
                                     avatars[i].classList.add('selected');
                                     let applyButton = document.createElement('button');
                                     applyButton.classList.add('apply-button');
@@ -314,7 +315,6 @@ document.addEventListener('DOMContentLoaded', function() {
                                 enableVibration: true
                             });
                         }
-                        updateLeaderboard();
                     }).catch(error => {
                         console.error("Error getting document:", error);
                     });
