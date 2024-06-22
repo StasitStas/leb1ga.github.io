@@ -279,6 +279,7 @@ document.addEventListener('DOMContentLoaded', function() {
                             initializeAvatarAvailability();
     
                             const userAvatars = doc.data();
+                            let avatarFound = false;
                             for (let i = 0; i < avatars.length; i++) {
                                 if (userAvatars[`ava${i + 1}`]) {
                                     avatars[i].classList.add('selected');
@@ -291,9 +292,12 @@ document.addEventListener('DOMContentLoaded', function() {
                                     avatars[i].appendChild(applyButton);
     
                                     // If avatar is selected, display it next to the username
-                                    const avatarImage = document.getElementById('userAvatar');
-                                    avatarImage.src = `ava-img/ava${i + 1}.jpg`;
-                                    avatarImage.style.display = 'inline-block';
+                                    if (!avatarFound) {
+                                        const avatarImage = document.getElementById('userAvatar');
+                                        avatarImage.src = `ava-img/ava${i + 1}.jpg`;
+                                        avatarImage.style.display = 'inline-block';
+                                        avatarFound = true;  // Ensure only one avatar is displayed
+                                    }
                                 }
                             }
                         } else {
