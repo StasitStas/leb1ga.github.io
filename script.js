@@ -253,17 +253,14 @@ document.addEventListener('DOMContentLoaded', function() {
     function initialize() {
         username = getUsernameFromUrl();
         if (username) {
-            console.log('Username:', username);
             getUserData(username).then(userData => {
                 if (userData) {
-                    const firstName = userData.first_name;
-                    console.log('First Name:', firstName);
-                    document.getElementById('usernameDisplay').textContent = firstName;
-    
+                    firstName = userData.first_name;
+                    usernameDisplay.textContent = firstName;
+
                     db.collection("clicks").doc(username).get().then(doc => {
                         if (doc.exists) {
                             const data = doc.data();
-                            console.log('User Data:', data);
                             clickCount = data.clickCount || 0;
                             clickCountMax = data.clickCountMax || 0;
                             bonusClaimed = data.bonusClaimed || false;
@@ -277,35 +274,23 @@ document.addEventListener('DOMContentLoaded', function() {
                             }
                             updateRank();
                             updateLevelBar(clickCount);
-    
+
                             currentLevel = getCurrentLevel(clickCountMax);
                             initializeAvatarAvailability();
-    
+
                             const userAvatars = doc.data();
-                            let avatarFound = false;
-                            for (let i = 0; i < avatars.length; i++) {
-                                const avatarField = `ava${i + 1}`;
-                                console.log(`Checking ${avatarField}:`, userAvatars[avatarField]);
-                                if (userAvatars[avatarField]) {
-                                    avatars[i].classList.add('selected');
+                            avatars.forEach((avatar, index) => {
+                                if (userAvatars[`ava${index + 1}`]) {
+                                    avatar.classList.add('selected');
                                     let applyButton = document.createElement('button');
                                     applyButton.classList.add('apply-button');
                                     applyButton.innerText = 'Застосувати';
                                     applyButton.addEventListener('click', function() {
-                                        applyAvatar(avatars[i]);
+                                        applyAvatar(avatar);
                                     });
-                                    avatars[i].appendChild(applyButton);
-    
-                                    // If avatar is selected, display it next to the username
-                                    if (!avatarFound) {
-                                        const avatarImage = document.getElementById('userAvatar');
-                                        avatarImage.src = `ava-img/ava${i + 1}.jpg`;
-                                        avatarImage.style.display = 'inline-block';
-                                        console.log('Displaying avatar:', `ava-img/ava${i + 1}.jpg`);
-                                        avatarFound = true;  // Ensure only one avatar is displayed
-                                    }
+                                    avatar.appendChild(applyButton);
                                 }
-                            }
+                            });
                         } else {
                             db.collection("clicks").doc(username).set({
                                 clickCount: 0,
@@ -315,6 +300,7 @@ document.addEventListener('DOMContentLoaded', function() {
                                 enableVibration: true
                             });
                         }
+                        updateLeaderboard();
                     }).catch(error => {
                         console.error("Error getting document:", error);
                     });
