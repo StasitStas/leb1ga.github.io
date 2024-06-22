@@ -500,12 +500,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
     navButtons.forEach(navButton => {
         navButton.addEventListener('click', function(event) {
-            const target = event.target.closest('.nav-button');
-            if (!target) return;
+            const target = event.currentTarget;
             if (target.id === 'bonusButton' && bonusClaimed) {
                 return; // Якщо бонус вже отриманий, нічого не робити
             }
-            // Використовуємо ID для вибору посилання
             const linkId = target.id.replace('Button', 'Link');
             const link = document.getElementById(linkId).value;
             if (link) {
