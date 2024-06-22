@@ -226,7 +226,7 @@ document.addEventListener('DOMContentLoaded', function() {
         enableAnimation = animationToggle.checked;
         saveSettings();
     });
-
+    
     vibrationToggle.addEventListener("change", function() {
         enableVibration = vibrationToggle.checked;
         saveSettings();
@@ -257,7 +257,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 if (userData) {
                     firstName = userData.first_name;
                     usernameDisplay.textContent = firstName;
-
+    
                     db.collection("clicks").doc(username).get().then(doc => {
                         if (doc.exists) {
                             const data = doc.data();
@@ -274,10 +274,10 @@ document.addEventListener('DOMContentLoaded', function() {
                             }
                             updateRank();
                             updateLevelBar(clickCount);
-
+    
                             currentLevel = getCurrentLevel(clickCountMax);
                             initializeAvatarAvailability();
-
+    
                             const userAvatars = doc.data();
                             avatars.forEach((avatar, index) => {
                                 if (userAvatars[`ava${index + 1}`]) {
@@ -308,7 +308,7 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         }
     }
-    
+ 
     function saveSettings() {
         db.collection("clicks").doc(username).set({
             clickCount,
@@ -356,21 +356,20 @@ document.addEventListener('DOMContentLoaded', function() {
             clickCount++;
             countDisplay.textContent = clickCount;
     
-            // Оновлюємо максимальну кількість кліків, якщо потрібно
             if (clickCount > clickCountMax) {
                 clickCountMax = clickCount;
             }
     
-            updateLevelBar(clickCount);  // Оновлення рівня та зеленої смужки
+            updateLevelBar(clickCount);
     
             db.collection("clicks").doc(username).set({
                 clickCount,
-                clickCountMax,  // Збереження максимальної кількості кліків
+                clickCountMax,
                 bonusClaimed,
                 enableAnimation,
                 enableVibration
             }).then(() => {
-                const currentLevel = LEVELS[getCurrentLevel(clickCountMax)].label;  // Використовуємо clickCountMax для рівня
+                const currentLevel = LEVELS[getCurrentLevel(clickCountMax)].label;
                 saveLevelToDB(currentLevel);
                 updateLeaderboard();
             }).catch(error => {
@@ -387,6 +386,7 @@ document.addEventListener('DOMContentLoaded', function() {
             alert('Error: Username is not specified.');
         }
     }
+
     
     function handleTouch(event) {
         const currentTime = new Date().getTime();
