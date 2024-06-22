@@ -253,14 +253,17 @@ document.addEventListener('DOMContentLoaded', function() {
     function initialize() {
         username = getUsernameFromUrl();
         if (username) {
+            console.log('Username:', username);
             getUserData(username).then(userData => {
                 if (userData) {
                     const firstName = userData.first_name;
+                    console.log('First Name:', firstName);
                     document.getElementById('usernameDisplay').textContent = firstName;
     
                     db.collection("clicks").doc(username).get().then(doc => {
                         if (doc.exists) {
                             const data = doc.data();
+                            console.log('User Data:', data);
                             clickCount = data.clickCount || 0;
                             clickCountMax = data.clickCountMax || 0;
                             bonusClaimed = data.bonusClaimed || false;
@@ -281,6 +284,7 @@ document.addEventListener('DOMContentLoaded', function() {
                             const userAvatars = doc.data();
                             let avatarFound = false;
                             for (let i = 0; i < avatars.length; i++) {
+                                console.log(`Checking ava${i + 1}:`, userAvatars[`ava${i + 1}`]);
                                 if (userAvatars[`ava${i + 1}`]) {
                                     avatars[i].classList.add('selected');
                                     let applyButton = document.createElement('button');
@@ -296,6 +300,7 @@ document.addEventListener('DOMContentLoaded', function() {
                                         const avatarImage = document.getElementById('userAvatar');
                                         avatarImage.src = `ava-img/ava${i + 1}.jpg`;
                                         avatarImage.style.display = 'inline-block';
+                                        console.log('Displaying avatar:', `ava-img/ava${i + 1}.jpg`);
                                         avatarFound = true;  // Ensure only one avatar is displayed
                                     }
                                 }
@@ -317,7 +322,6 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         }
     }
-
 
     function saveSettings() {
         db.collection("clicks").doc(username).set({
