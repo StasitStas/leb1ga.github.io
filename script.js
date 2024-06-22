@@ -498,10 +498,19 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    navButtons.forEach(button => {
-        button.addEventListener('click', function() {
-            navButtons.forEach(btn => btn.classList.remove('active')); // Видаляємо клас active з усіх кнопок
-            button.classList.add('active'); // Додаємо клас active до натиснутої кнопки
+    navButtons.forEach(navButton => {
+        navButton.addEventListener('click', function(event) {
+            const target = event.target.closest('.nav-button');
+            if (!target) return;
+            if (target.id === 'bonusButton' && bonusClaimed) {
+                return; // Якщо бонус вже отриманий, нічого не робити
+            }
+            // Використовуємо ID для вибору посилання
+            const linkId = target.id.replace('Button', 'Link');
+            const link = document.getElementById(linkId).value;
+            if (link) {
+                window.location.href = link;
+            }
         });
     });
 
