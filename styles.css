@@ -21,7 +21,7 @@ body::before {
     left: 0;
     right: 0;
     bottom: 0;
-    background: radial-gradient(circle at center bottom, rgba(255, 99, 71, 0.5), transparent 70%); /* Радіальний градієнт */
+    background: radial-gradient(circle at center bottom, rgb(255 99 71), black 70%); /* Радіальний градієнт */
     z-index: -1; /* Поміщаємо за контент */
 }
 
