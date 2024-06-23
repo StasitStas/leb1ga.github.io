@@ -22,10 +22,6 @@ document.addEventListener('DOMContentLoaded', function() {
     const levelBar = document.getElementById('levelBar');
     const levelTextLeft = document.getElementById('levelTextLeft');
     const levelTextRight = document.getElementById('levelTextRight');
-    const avatarButton = document.getElementById("avatarButton");
-    const settingsContent = document.getElementById("settingsContent");
-    const hiddenBlock = document.querySelector(".hidden-block");
-    const avatars = document.querySelectorAll('.avatar');
     const LEVELS = [
         { threshold: 0, label: 'lvl-0' },
         { threshold: 100, label: 'lvl-1' },
@@ -59,52 +55,6 @@ document.addEventListener('DOMContentLoaded', function() {
     let lastClickTime = 0;
 
 
-    avatars.forEach(avatar => {
-        avatar.addEventListener('click', function() {
-            // If the avatar is already selected, remove the selected class and button
-            if (avatar.classList.contains('selected')) {
-                avatar.classList.remove('selected');
-                let applyButton = avatar.querySelector('.apply-button');
-                if (applyButton) {
-                    applyButton.remove();
-                }
-            } else {
-                // Remove the selected class and button from any other avatar
-                avatars.forEach(av => {
-                    av.classList.remove('selected');
-                    let applyButton = av.querySelector('.apply-button');
-                    if (applyButton) {
-                        applyButton.remove();
-                    }
-                });
-                
-                // Add selected class to the clicked avatar
-                avatar.classList.add('selected');
-                
-                // Create the apply button if it doesn't exist
-                let applyButton = avatar.querySelector('.apply-button');
-                if (!applyButton) {
-                    applyButton = document.createElement('button');
-                    applyButton.classList.add('apply-button');
-                    applyButton.innerText = 'Застосувати';
-                    applyButton.addEventListener('click', function() {
-                        // Add your apply action here
-                        alert('Avatar applied!');
-                    });
-                    avatar.appendChild(applyButton);
-                }
-            }
-        });
-    });
-    
-    // Початкове приховування hidden-block
-    hiddenBlock.classList.add("hidden");
-
-    avatarButton.addEventListener("click", function() {
-        settingsContent.classList.toggle("hidden");
-        hiddenBlock.classList.toggle("hidden");
-    });
-    
     function getCurrentLevel(clickCount) {
         for (let i = LEVELS.length - 1; i >= 0; i--) {
             if (clickCount >= LEVELS[i].threshold) {
@@ -160,7 +110,6 @@ document.addEventListener('DOMContentLoaded', function() {
             console.error("Error initializing levels:", error);
         });
     }
-
     
     settingsIcon.addEventListener('click', function(event) {
         event.stopPropagation();
@@ -198,12 +147,12 @@ document.addEventListener('DOMContentLoaded', function() {
         event.stopPropagation();
     });
 
-    animationToggle.addEventListener("change", function() {
+    animationToggle.addEventListener('change', function() {
         enableAnimation = animationToggle.checked;
         saveSettings();
     });
 
-    vibrationToggle.addEventListener("change", function() {
+    vibrationToggle.addEventListener('change', function() {
         enableVibration = vibrationToggle.checked;
         saveSettings();
     });
