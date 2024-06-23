@@ -1,45 +1,4 @@
-body {
-    font-family: Arial, sans-serif;
-    text-align: center;
-    margin: 0;
-    padding: 0;
-    user-select: none; /* Забороняємо виділення для всього тіл */
-    background-color: #000; /* Чисто чорний фон */
-    position: relative;
-    height: 100vh; /* Висота на весь екран */
-}
-
-body * {
-    user-select: none; /* Забороняємо виділення для всіх елементів */
-}
-
-body::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: radial-gradient(circle at center bottom, rgba(255, 99, 71, 0.5), transparent 70%); /* Радіальний градієнт */
-    z-index: -1; /* Поміщаємо за контент */
-}
-
-body::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(255, 255, 255, 0.1); /* Напівпрозорий білий шар */
-    backdrop-filter: blur(10px); /* Розмивання для матового ефекту */
-    z-index: -2; /* Поміщаємо за градієнт */
-}
-body.modal-open {
-    overflow: hidden;
-}
-
-.container {
+.container-mine {
     text-align: center;
     display: flex;
     flex-direction: column;
@@ -48,27 +7,6 @@ body.modal-open {
     height: 100vh;
     position: relative;
     padding-bottom: 60px; /* Простір для нижньої навігації */
-}
-
-.header {
-    position: absolute;
-    top: 10px;
-    left: 10px;
-    color: gold;
-    font-size: 24px;
-}
-
-/* Logo-firstname   */
-.golden-text {
-    color: #6622228f;
-    font-weight: bold;
-    font-size: 0.9em;
-    padding: 8px 20px;
-    border-radius: 25px;
-    background: linear-gradient(135deg, #fddb92, #d1a63b);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    transition: transform 0.2s ease-in-out;
-    display: inline-block;
 }
 
 .shop-section {
@@ -107,94 +45,6 @@ body.modal-open {
     display: block;
 }
 
-/* ПОчаток навігації */
-.bottom-nav {
-    position: fixed;
-    bottom: 20px;
-    width: 100%;
-    height: 63px;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    z-index: 1000; /* Встановлюємо високий z-index */
-    background: none; /* Прибираємо фоновий колір */
-    border: none; /* Прибираємо бордер */
-    box-shadow: none; /* Прибираємо тінь */
-}
-
-.nav-button {
-    position: relative; /* Для створення контексту позиціювання псевдоелемента */
-    color: #888; /* Сірий колір тексту */
-    background: rgba(51, 51, 51, 0.8); /* Легка напівпрозорість */
-    border: none;
-    border-radius: 12px; /* Округлі краї */
-    padding: 12px 18px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    transition: background 0.3s, transform 0.2s;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3); /* Тінь */
-    overflow: hidden; /* Прибираємо вихід псевдоелемента за межі кнопки */
-}
-
-.nav-button i {
-    font-size: 24px;
-    margin-bottom: 4px;
-    color: #888; /* Сірий колір іконки */
-}
-
-.nav-button:hover {
-    background: rgba(85, 85, 85, 0.8); /* Зміна фону при наведенні */
-    transform: translateY(-2px); /* Піднімаємо кнопку при наведенні */
-}
-
-.nav-button:active {
-    background: rgba(34, 34, 34, 0.8); /* Зміна фону при натисканні */
-    transform: translateY(1px); /* Тиснемо кнопку при натисканні */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Зменшуємо тінь при натисканні */
-}
-
-/* Спеціальні стилі для кнопки exchangeButton */
-#mineButton {
-    position: relative; /* Для створення контексту позиціювання псевдоелемента */
-    background: black; /* Чорний фон */
-    color: #fff; /* Білий колір тексту */
-}
-
-#mineButton::before {
-    content: '';
-    position: absolute;
-    top: 10%;
-    left: 10%;
-    width: 80%;
-    height: 80%;
-    background: rgba(0, 0, 0, 0.9); /* Темніший чорний фон */
-    border-radius: 8px; /* Округлі краї */
-    z-index: -1; /* Розміщуємо задній фон під контентом кнопки */
-}
-
-#mineButton i {
-    color: #fff; /* Білий колір іконки */
-}
-
-#mineButton span {
-    color: #fff; /* Білий колір тексту */
-}
-
-#mineButton:hover {
-    transform: translateY(-2px); /* Піднімаємо кнопку при наведенні */
-}
-
-#mineButton:active {
-    transform: translateY(1px); /* Тиснемо кнопку при натисканні */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Зменшуємо тінь при натисканні */
-}
-
-/* КІнець навігації */
-
-
 @keyframes slideUp {
     from {
         transform: translateY(100%);
@@ -231,7 +81,7 @@ body.modal-open {
     display: flex;
 }
 
-.modal-content {
+.modal-content-mine {
     background: #a32526;
     width: 100%;
     height: 60%;
@@ -248,7 +98,7 @@ body.modal-open {
     animation: slideUp 0.2s ease-out forwards;
 }
 
-.close-modal {
+.close-modal-mine {
     position: absolute;
     top: 10px;
     right: 10px;
@@ -277,7 +127,7 @@ body.modal-open {
     font-size: 34px; /* Розмір тексту */
 }
 
-.coin-icon {
+.coin-icon-mine {
     margin-right: 5px; /* Відстань між зображенням та текстом */
     width: 36px; /* Висота та ширина зображення */
     height: 36px;
@@ -401,3 +251,29 @@ body.modal-open {
     animation-iteration-count: 2;
 }
 
+/* Стиль модального вікна для mine */
+.modal-mine {
+    display: none;
+    position: fixed;
+    z-index: 2999;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background: radial-gradient(circle at center bottom, rgb(255 99 71), black 70%); /* Радіальний градієнт */
+    background-size: cover;
+    background-position: center;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-mine .modal-content {
+    background-color: white;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 600px;
+    border-radius: 10px;
+}
