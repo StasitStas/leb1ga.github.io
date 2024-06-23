@@ -96,6 +96,7 @@
     box-shadow: 0px -8px 15px 0px rgba(255, 215, 0, 0.5);
     transform: translateY(100%);
     animation: slideUp 0.2s ease-out forwards;
+    z-index: 3001;
 }
 
 .close-modal-mine {
