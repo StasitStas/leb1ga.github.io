@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <title>Clicker</title>
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="about_styeles.css">
+    <link rel="stylesheet" href="friends_styeles.css">
+    <link rel="stylesheet" href="earn_styeles.css">
     <link rel="stylesheet" href="drop_styeles.css">
     <link href="https://cdn.jsdelivr.net/npm/line-awesome/dist/line-awesome/css/line-awesome.min.css" rel="stylesheet">
 </head>
@@ -93,7 +96,54 @@
             </button>
         </div>
     </div>
-    <<div id="airdropModal" class="modal-airdrop">
+    <div id="mineModal" class="modal-mine">
+        <div class="container-mine">
+            <div class="shop-section">
+                <!-- Додаємо сундуки -->
+                <div class="shop-item" id="coffer1">
+                    <img src="coffer1.png" alt="Простий сундук">
+                    <div class="item-details">
+                        <span class="item-name">Простий</span>
+                    </div>
+                </div>
+                <!-- Додаємо інші сундуки в майбутньому -->
+            </div>
+            <div id="coffer-modal" class="coffer-modal">
+                <div class="modal-content-mine">
+                    <span class="close-modal-mine">&times;</span>
+                    <img id="coffer-image" src="" alt="Простий сундук">
+                    <div class="modal-details">
+                        <div class="price-container">
+                            <img src="coin.png" alt="Coin" class="coin-icon-mine"> <!-- Зображення замість іконки -->
+                            <span id="coffer-price">100</span>
+                        </div>
+                        <button id="open-coffer">Відкрити</button>
+                    </div>
+                </div>
+            </div>
+            <!-- Prize Modal -->
+            <div id="prize-modal" class="prize-modal">
+                <div class="modal-content-mine">
+                    <span class="close-prize-modal">&times;</span>
+                    <div id="prize-description" class="prize-description"></div>
+                    <img id="prize-image" src="" alt="Приз" class="prize-image">
+                    <button id="claim-prize">Забрати</button>
+                </div>
+            </div>
+        </div>  
+        <script src="about.js"></script> <!-- Підключення drop.js тут -->
+    </div>
+    <div id="friendsModal" class="modal-friends">
+        <div class="container-friends">
+
+        </div>    
+    </div>
+    <div id="earnModal" class="modal-earn">
+        <div class="container-earn">
+            
+        </div> 
+    </div>
+    <div id="airdropModal" class="modal-airdrop">
         <div class="container-globe">
             <div class="header-globe">
             </div>
@@ -104,6 +154,7 @@
         </div>
         <script src="drop.js"></script> <!-- Підключення drop.js тут -->
     </div>
+
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-analytics.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
