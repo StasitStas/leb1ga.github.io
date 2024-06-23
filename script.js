@@ -426,8 +426,6 @@ document.addEventListener('DOMContentLoaded', function() {
         if (airdropModal.style.display === 'none' || airdropModal.style.display === '') {
             closeAllModals();
             airdropModal.style.display = 'flex';
-        } else {
-            closeAllModals();
         }
     });
 
