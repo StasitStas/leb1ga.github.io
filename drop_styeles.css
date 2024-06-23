@@ -8,6 +8,7 @@
     height: 100vh;
     position: relative;
     padding-bottom: 60px; /* Простір для нижньої навігації */
+    overflow: hidden; /* Запобігає вертикальній прокрутці */
 }
 
 .header-globe {
