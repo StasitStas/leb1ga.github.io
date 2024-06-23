@@ -1,4 +1,7 @@
 document.addEventListener('DOMContentLoaded', function() {
+    const airdropButton = document.getElementById('airdropButton');
+    const exchangeButton = document.getElementById('exchangeButton');
+    const airdropModal = document.getElementById('airdropModal');
     const button = document.getElementById('clickButton');
     const countDisplay = document.getElementById('count');
     const usernameDisplay = document.getElementById('usernameDisplay');
@@ -13,11 +16,6 @@ document.addEventListener('DOMContentLoaded', function() {
     const subscribeButton = document.getElementById('subscribeButton');
     const bonusButton = document.getElementById('bonusButton');
     const navButtons = document.querySelectorAll('.nav-button'); // Вибираємо всі навігаційні кнопки
-    const exchangeButton = document.getElementById('exchangeButton');
-    const mineButton = document.getElementById('mineButton');
-    const friendsButton = document.getElementById('friendsButton');
-    const earnButton = document.getElementById('earnButton');
-    const airdropButton = document.getElementById('airdropButton');
     const rankDisplay = document.getElementById('rank'); // Елемент для відображення місця в рейтингу
     const levelBar = document.getElementById('levelBar');
     const levelTextLeft = document.getElementById('levelTextLeft');
@@ -43,11 +41,6 @@ document.addEventListener('DOMContentLoaded', function() {
     let enableAnimation = true;
     let enableVibration = true;
     let bonusClaimed = false;
-    let linkMain = '';
-    let linkAbout = '';
-    let linkFriends = '';
-    let linkEarn = '';
-    let linkDrop = '';
 
     let settingsWindowOpen = false;
     let telegramWindowOpen = false;
@@ -177,11 +170,6 @@ document.addEventListener('DOMContentLoaded', function() {
         if (username) {
             getUserData(username).then(userData => {
                 firstName = userData.first_name;
-                linkMain = userData.link_main;
-                linkAbout = userData.link_about;
-                linkFriends = userData.link_friends;
-                linkEarn = userData.link_earn;
-                linkDrop = userData.link_drop;
                 usernameDisplay.textContent = firstName;
     
                 db.collection("clicks").doc(username).get().then(doc => {
@@ -420,43 +408,15 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    exchangeButton.addEventListener('click', function() {
-        if (linkMain) {
-            window.location.href = linkMain;
-        } else {
-            alert('Помилка: Посилання не знайдено.');
-        }
-    });
-
-    mineButton.addEventListener('click', function() {
-        if (linkAbout) {
-            window.location.href = linkAbout;
-        } else {
-            alert('Помилка: Посилання не знайдено.');
-        }
-    });
-
-    friendsButton.addEventListener('click', function() {
-        if (linkFriends) {
-            window.location.href = linkFriends;
-        } else {
-            alert('Помилка: Посилання не знайдено.');
-        }
-    });
-
-    earnButton.addEventListener('click', function() {
-        if (linkEarn) {
-            window.location.href = linkEarn;
-        } else {
-            alert('Помилка: Посилання не знайдено.');
-        }
-    });
-
     airdropButton.addEventListener('click', function() {
-        if (linkDrop) {
-            window.location.href = linkDrop;
-        } else {
-            alert('Помилка: Посилання не знайдено.');
+        if (airdropModal.style.display === 'none' || airdropModal.style.display === '') {
+            airdropModal.style.display = 'flex';
+        }
+    });
+
+    exchangeButton.addEventListener('click', function() {
+        if (airdropModal.style.display === 'flex') {
+            airdropModal.style.display = 'none';
         }
     });
 
