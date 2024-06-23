@@ -87,8 +87,9 @@ body::after {
 }
 
 .nav-button:hover {
-    background: rgba(85, 85, 85, 0.8); /* Зміна фону при наведенні */
+    background: black;
     transform: translateY(-2px); /* Піднімаємо кнопку при наведенні */
+    color: #fff;
 }
 
 .nav-button:active {
