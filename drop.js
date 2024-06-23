@@ -37,26 +37,30 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function updateLeaderboard() {
         db.collection("clicks").orderBy("clickCount", "desc").limit(5)
-        .onSnapshot(snapshot => {
-            leaderboardList.innerHTML = '';
-            let index = 0;
-            snapshot.forEach(doc => {
+        .onSnapshot(async (snapshot) => {
+            const userPromises = snapshot.docs.map(doc => {
                 const userId = doc.id;
                 const clickCount = doc.data().clickCount;
-                db.collection("users").doc(userId).get().then(userDoc => {
+                return db.collection("users").doc(userId).get().then(userDoc => {
                     if (userDoc.exists) {
-                        const userFirstName = userDoc.data().first_name;
-                        index++;
-                        const listItem = document.createElement('li');
-                        listItem.textContent = `${index}. ${userFirstName}: ${clickCount}`;
-                        leaderboardList.appendChild(listItem);
+                        return { userId, clickCount, firstName: userDoc.data().first_name };
                     } else {
-                        console.error("Error getting user document for leaderboard: User document not found");
+                        throw new Error('User document not found');
                     }
-                }).catch(error => {
-                    console.error("Error getting user document for leaderboard:", error);
                 });
             });
+
+            try {
+                const users = await Promise.all(userPromises);
+                leaderboardList.innerHTML = '';
+                users.forEach((user, index) => {
+                    const listItem = document.createElement('li');
+                    listItem.textContent = `${index + 1}. ${user.firstName}: ${user.clickCount}`;
+                    leaderboardList.appendChild(listItem);
+                });
+            } catch (error) {
+                console.error("Error updating leaderboard:", error);
+            }
         }, error => {
             console.error("Помилка отримання документів: ", error);
         });
