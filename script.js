@@ -188,7 +188,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         bonusClaimed = data.bonusClaimed || false;
                         enableAnimation = data.enableAnimation !== undefined ? data.enableAnimation : true;
                         enableVibration = data.enableVibration !== undefined ? data.enableVibration : true;
-                        countDisplay.textContent = clickCount;
+                        countDisplay.textContent = clickCount.toLocaleString();
                         animationToggle.checked = enableAnimation;
                         vibrationToggle.checked = enableVibration;
                         if (bonusClaimed) {
@@ -265,7 +265,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
         if (username) {
             clickCount++;
-            countDisplay.textContent = clickCount;
+            countDisplay.textContent = clickCount.toLocaleString();
     
             // Оновлюємо максимальну кількість кліків, якщо потрібно
             if (clickCount > clickCountMax) {
@@ -313,7 +313,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
         if (username) {
             clickCount++;
-            countDisplay.textContent = clickCount;
+            countDisplay.textContent = clickCount.toLocaleString();
     
             // Оновлюємо максимальну кількість кліків, якщо потрібно
             if (clickCount > clickCountMax) {
