@@ -36,10 +36,11 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function updateLeaderboard() {
-        db.collection("clicks").orderBy("clickCount", "desc").limit(5).get().then(querySnapshot => {
+        db.collection("clicks").orderBy("clickCount", "desc").limit(5)
+        .onSnapshot(snapshot => {
             leaderboardList.innerHTML = '';
             let index = 0;
-            querySnapshot.forEach(doc => {
+            snapshot.forEach(doc => {
                 const userId = doc.id;
                 const clickCount = doc.data().clickCount;
                 db.collection("users").doc(userId).get().then(userDoc => {
@@ -56,7 +57,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     console.error("Error getting user document for leaderboard:", error);
                 });
             });
-        }).catch(error => {
+        }, error => {
             console.error("Помилка отримання документів: ", error);
         });
     }
