@@ -36,7 +36,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function updateLeaderboard() {
-        db.collection("clicks").orderBy("clickCount", "desc").limit(5)
+        db.collection("clicks").orderBy("clickCount", "desc").limit(20)
         .onSnapshot(async (snapshot) => {
             const userPromises = snapshot.docs.map(doc => {
                 const userId = doc.id;
