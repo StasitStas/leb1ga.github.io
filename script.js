@@ -435,8 +435,6 @@ document.addEventListener('DOMContentLoaded', function() {
         if (mineModal.style.display === 'none' || mineModal.style.display === '') {
             closeAllModals();
             mineModal.style.display = 'flex';
-        } else {
-            closeAllModals();
         }
     });
 
@@ -444,8 +442,6 @@ document.addEventListener('DOMContentLoaded', function() {
         if (friendsModal.style.display === 'none' || friendsModal.style.display === '') {
             closeAllModals();
             friendsModal.style.display = 'flex';
-        } else {
-            closeAllModals();
         }
     });
 
@@ -453,8 +449,6 @@ document.addEventListener('DOMContentLoaded', function() {
         if (earnModal.style.display === 'none' || earnModal.style.display === '') {
             closeAllModals();
             earnModal.style.display = 'flex';
-        } else {
-            closeAllModals();
         }
     });
 
