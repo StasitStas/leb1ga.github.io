@@ -1,7 +1,14 @@
 document.addEventListener('DOMContentLoaded', function() {
     const airdropButton = document.getElementById('airdropButton');
     const exchangeButton = document.getElementById('exchangeButton');
+    const mineButton = document.getElementById('mineButton');
+    const friendsButton = document.getElementById('friendsButton');
+    const earnButton = document.getElementById('earnButton');
+
     const airdropModal = document.getElementById('airdropModal');
+    const mineModal = document.getElementById('mineModal');
+    const friendsModal = document.getElementById('friendsModal');
+    const earnModal = document.getElementById('earnModal');
     const button = document.getElementById('clickButton');
     const countDisplay = document.getElementById('count');
     const usernameDisplay = document.getElementById('usernameDisplay');
@@ -408,16 +415,51 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
+    function closeAllModals() {
+        airdropModal.style.display = 'none';
+        mineModal.style.display = 'none';
+        friendsModal.style.display = 'none';
+        earnModal.style.display = 'none';
+    }
+
     airdropButton.addEventListener('click', function() {
         if (airdropModal.style.display === 'none' || airdropModal.style.display === '') {
+            closeAllModals();
             airdropModal.style.display = 'flex';
+        } else {
+            closeAllModals();
+        }
+    });
+
+    mineButton.addEventListener('click', function() {
+        if (mineModal.style.display === 'none' || mineModal.style.display === '') {
+            closeAllModals();
+            mineModal.style.display = 'flex';
+        } else {
+            closeAllModals();
+        }
+    });
+
+    friendsButton.addEventListener('click', function() {
+        if (friendsModal.style.display === 'none' || friendsModal.style.display === '') {
+            closeAllModals();
+            friendsModal.style.display = 'flex';
+        } else {
+            closeAllModals();
+        }
+    });
+
+    earnButton.addEventListener('click', function() {
+        if (earnModal.style.display === 'none' || earnModal.style.display === '') {
+            closeAllModals();
+            earnModal.style.display = 'flex';
+        } else {
+            closeAllModals();
         }
     });
 
     exchangeButton.addEventListener('click', function() {
-        if (airdropModal.style.display === 'flex') {
-            airdropModal.style.display = 'none';
-        }
+        closeAllModals();
     });
 
     subscribeButton.addEventListener('click', subscribeToChannel);
