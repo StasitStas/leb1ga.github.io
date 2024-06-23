@@ -75,7 +75,7 @@
 .modal-airdrop {
     display: none;
     position: fixed;
-    z-index: 2999;
+    z-index: 2997;
     left: 0;
     top: 0;
     width: 100%;
