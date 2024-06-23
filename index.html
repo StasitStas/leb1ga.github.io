@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <title>Clicker</title>
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="drop_styeles.css">
     <link href="https://cdn.jsdelivr.net/npm/line-awesome/dist/line-awesome/css/line-awesome.min.css" rel="stylesheet">
 </head>
 <body>
@@ -92,6 +93,17 @@
             </button>
         </div>
     </div>
+    <<div id="airdropModal" class="modal-airdrop">
+        <div class="container-globe">
+            <div class="header-globe">
+            </div>
+            <div id="leaderboard" class="leaderboard">
+                <h2>Top 5 Users</h2>
+                <ol id="leaderboardList"></ol>
+            </div>
+        </div>
+        <script src="drop.js"></script> <!-- Підключення drop.js тут -->
+    </div>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-analytics.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
@@ -113,3 +125,4 @@
     </script>
     <script src="script.js"></script>
 </body>
+</html>
