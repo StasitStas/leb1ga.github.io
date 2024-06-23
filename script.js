@@ -179,7 +179,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 firstName = userData.first_name;
                 usernameDisplay.textContent = firstName;
     
-                db.collection("clicks").doc(username).get().then(doc => {
+                // Підписка на зміни в документі
+                db.collection("clicks").doc(username).onSnapshot(doc => {
                     if (doc.exists) {
                         const data = doc.data();
                         clickCount = data.clickCount || 0;
@@ -205,7 +206,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         });
                     }
                     updateLeaderboard();
-                }).catch(error => {
+                }, error => {
                     console.error("Error getting document:", error);
                 });
     
