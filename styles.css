@@ -538,9 +538,15 @@ body::after {
 
 .avatar-content {
     display: flex;
-    flex-wrap: wrap;
+    flex-direction: column;
     gap: 10px;
-    justify-content: space-around;
+    align-items: center;
+}
+
+.avatar-row {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
 }
 
 .avatar-img {
