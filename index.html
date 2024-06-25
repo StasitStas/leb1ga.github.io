@@ -19,8 +19,18 @@
             <i class="lab la-telegram telegram-icon" id="telegramIcon"></i>
         </div>
         <div id="settingsWindow" class="settings-window">
-            <div class="close-icon">&times;</div>
+            <div class="settings-header">
+                <span class="settings-title">Налаштування</span>
+                <div class="close-icon">&times;</div>
+            </div>
             <div class="settings-toge">
+                <label class="switch-label">
+                    <span>Аватарки</span>
+                    <div class="switch-btn">
+                        <input type="checkbox" id="avatarsToggle" checked>
+                        <span></span>
+                    </div>
+                </label>
                 <label class="switch-label">
                     <span>Анімація</span>
                     <div class="switch-btn">
@@ -35,7 +45,7 @@
                         <span></span>
                     </div>
                 </label>
-            </div>        
+            </div>
         </div>
         <div class="telegram-window" id="telegramWindow">
             <button id="subscribeButton">Підписатися на канал</button>
