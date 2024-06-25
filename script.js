@@ -4,7 +4,6 @@ document.addEventListener('DOMContentLoaded', function() {
     const mineButton = document.getElementById('mineButton');
     const friendsButton = document.getElementById('friendsButton');
     const earnButton = document.getElementById('earnButton');
-
     const airdropModal = document.getElementById('airdropModal');
     const mineModal = document.getElementById('mineModal');
     const friendsModal = document.getElementById('friendsModal');
@@ -27,6 +26,9 @@ document.addEventListener('DOMContentLoaded', function() {
     const levelBar = document.getElementById('levelBar');
     const levelTextLeft = document.getElementById('levelTextLeft');
     const levelTextRight = document.getElementById('levelTextRight');
+    const avatarWindow = document.getElementById('avatarWindow');
+    const avatarCloseIcon = avatarWindow.querySelector('.close-icon');
+    const avatarLabel = document.querySelector('.switch-label span:contains("Аватарки")').parentNode;
     const LEVELS = [
         { threshold: 0, label: 'lvl-0' },
         { threshold: 100, label: 'lvl-1' },
@@ -53,6 +55,27 @@ document.addEventListener('DOMContentLoaded', function() {
     let telegramWindowOpen = false;
 
     let lastClickTime = 0;
+
+    avatarLabel.addEventListener('click', function(event) {
+        event.stopPropagation();
+        settingsWindow.style.display = 'none';
+        settingsWindowOpen = false;
+        avatarWindow.style.display = 'block';
+    });
+
+    avatarCloseIcon.addEventListener('click', function() {
+        avatarWindow.style.display = 'none';
+    });
+
+    document.addEventListener('click', function() {
+        if (avatarWindow.style.display === 'block') {
+            avatarWindow.style.display = 'none';
+        }
+    });
+
+    avatarWindow.addEventListener('click', function(event) {
+        event.stopPropagation();
+    });
 
 
     function getCurrentLevel(clickCount) {
