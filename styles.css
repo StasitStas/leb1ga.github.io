@@ -296,6 +296,19 @@ body::after {
     width: 100%;
 }
 
+.settings-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+.settings-title {
+    font-size: 24px;
+    font-weight: bold;
+    color: white;
+}
 /* Додаємо стилі для нового вікна Telegram */
 .telegram-window {
     display: none;
