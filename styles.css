@@ -538,13 +538,7 @@ body::after {
 
 .avatar-content {
     display: flex;
-    flex-direction: column;
-    gap: 10px;
-    align-items: center;
-}
-
-.avatar-row {
-    display: flex;
+    flex-wrap: wrap;
     gap: 10px;
     justify-content: center;
 }
@@ -555,4 +549,3 @@ body::after {
     border-radius: 10px; /* Adjust the border-radius for rounded corners */
     object-fit: cover;
 }
-
