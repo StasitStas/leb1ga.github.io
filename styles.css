@@ -536,3 +536,17 @@ body::after {
     color: #fff;
 }
 
+.avatar-content {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: space-around;
+}
+
+.avatar-img {
+    width: 100px;  /* Adjust the size as needed */
+    height: 100px; /* Adjust the size as needed */
+    border-radius: 10px; /* Adjust the border-radius for rounded corners */
+    object-fit: cover;
+}
+
