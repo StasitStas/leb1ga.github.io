@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const levelTextRight = document.getElementById('levelTextRight');
     const avatarWindow = document.getElementById('avatarWindow');
     const avatarCloseIcon = avatarWindow.querySelector('.close-icon');
-    const avatarLabel = document.querySelector('.switch-label span:contains("Аватарки")').parentNode;
+    const avatarToggleLabel = document.getElementById('avatarToggleLabel');
     const LEVELS = [
         { threshold: 0, label: 'lvl-0' },
         { threshold: 100, label: 'lvl-1' },
@@ -56,7 +56,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     let lastClickTime = 0;
 
-    avatarLabel.addEventListener('click', function(event) {
+    avatarToggleLabel.addEventListener('click', function(event) {
         event.stopPropagation();
         settingsWindow.style.display = 'none';
         settingsWindowOpen = false;
@@ -76,7 +76,6 @@ document.addEventListener('DOMContentLoaded', function() {
     avatarWindow.addEventListener('click', function(event) {
         event.stopPropagation();
     });
-
 
     function getCurrentLevel(clickCount) {
         for (let i = LEVELS.length - 1; i >= 0; i--) {
