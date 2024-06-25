@@ -29,6 +29,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const avatarWindow = document.getElementById('avatarWindow');
     const avatarCloseIcon = avatarWindow.querySelector('.close-icon');
     const avatarToggleLabel = document.getElementById('avatarToggleLabel');
+    const avatarTOsettings = document.getElementById('avatarTOsettings');
     const LEVELS = [
         { threshold: 0, label: 'lvl-0' },
         { threshold: 100, label: 'lvl-1' },
@@ -75,6 +76,12 @@ document.addEventListener('DOMContentLoaded', function() {
 
     avatarWindow.addEventListener('click', function(event) {
         event.stopPropagation();
+    });
+
+    avatarTOsettings.addEventListener('click', function(event) {
+        event.stopPropagation();
+        avatarWindow.style.display = 'none';
+        settingsWindow.style.display = 'block';
     });
 
     function getCurrentLevel(clickCount) {
