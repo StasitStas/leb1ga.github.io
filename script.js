@@ -51,6 +51,7 @@ document.addEventListener('DOMContentLoaded', function() {
     let enableAnimation = true;
     let enableVibration = true;
     let bonusClaimed = false;
+
     let settingsWindowOpen = false;
     let telegramWindowOpen = false;
 
