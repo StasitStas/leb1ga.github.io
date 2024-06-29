@@ -103,8 +103,12 @@ document.addEventListener('DOMContentLoaded', function() {
     avatars.forEach(avatar => {
         avatar.addEventListener('click', function() {
             if (!avatar.classList.contains('locked')) {
-                avatars.forEach(av => av.classList.remove('selected'));
-                avatar.classList.add('selected');
+                if (avatar.classList.contains('selected')) {
+                    avatar.classList.remove('selected');
+                } else {
+                    avatars.forEach(av => av.classList.remove('selected'));
+                    avatar.classList.add('selected');
+                }
             }
         });
     });
@@ -116,6 +120,7 @@ document.addEventListener('DOMContentLoaded', function() {
             if (selectedAvatar) {
                 const avatarIndex = Array.from(avatars).indexOf(selectedAvatar) + 1;
                 applyAvatar(avatarIndex);
+                button.style.display = 'none'; // Hide the button after applying the avatar
             }
         });
     });
@@ -143,7 +148,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }
     }
-
+    
     function getCurrentLevel(clickCount) {
         for (let i = LEVELS.length - 1; i >= 0; i--) {
             if (clickCount >= LEVELS[i].threshold) {
