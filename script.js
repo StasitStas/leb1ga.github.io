@@ -32,6 +32,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const avatarTOsettings = document.getElementById('avatarTOsettings');
     const avatars = document.querySelectorAll('.avatar');
     const applyButtons = document.querySelectorAll('.apply-button');
+    const avatarDisplay = document.querySelector('.avatar-display');
     const LEVELS = [
         { threshold: 0, label: 'lvl-0' },
         { threshold: 100, label: 'lvl-1' },
@@ -149,6 +150,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         db.collection("users").doc(username).update(avatarData).then(() => {
             console.log('Avatar updated successfully');
+            updateAvatarDisplay(avatarIndex);
         }).catch(error => {
             console.error('Error updating avatar:', error);
         });
@@ -165,8 +167,13 @@ document.addEventListener('DOMContentLoaded', function() {
                 });
                 avatarElement.classList.add('selected');
                 showApplyButton(avatarElement);
+                updateAvatarDisplay(i);
             }
         }
+    }
+
+    function updateAvatarDisplay(avatarIndex) {
+        avatarDisplay.src = `ava-img/ava${avatarIndex}.jpg`;
     }
     
     function getCurrentLevel(clickCount) {
