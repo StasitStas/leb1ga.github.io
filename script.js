@@ -31,6 +31,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const avatarToggleLabel = document.getElementById('avatarToggleLabel');
     const avatarTOsettings = document.getElementById('avatarTOsettings');
     const avatars = document.querySelectorAll('.avatar');
+    const applyButtons = document.querySelectorAll('.apply-button');
     const LEVELS = [
         { threshold: 0, label: 'lvl-0' },
         { threshold: 100, label: 'lvl-1' },
@@ -103,17 +104,17 @@ document.addEventListener('DOMContentLoaded', function() {
     avatars.forEach(avatar => {
         avatar.addEventListener('click', function() {
             if (!avatar.classList.contains('locked')) {
-                if (avatar.classList.contains('selected')) {
-                    avatar.classList.remove('selected');
-                } else {
-                    avatars.forEach(av => av.classList.remove('selected'));
-                    avatar.classList.add('selected');
-                }
+                avatars.forEach(av => {
+                    av.classList.remove('selected');
+                    hideApplyButton(av);
+                });
+                avatar.classList.add('selected');
+                showApplyButton(avatar);
             }
         });
     });
 
-    document.querySelectorAll('.apply-button').forEach(button => {
+    applyButtons.forEach(button => {
         button.addEventListener('click', function(event) {
             event.stopPropagation();
             const selectedAvatar = button.closest('.avatar');
@@ -121,9 +122,24 @@ document.addEventListener('DOMContentLoaded', function() {
                 const avatarIndex = Array.from(avatars).indexOf(selectedAvatar) + 1;
                 applyAvatar(avatarIndex);
                 button.style.display = 'none'; // Hide the button after applying the avatar
+                selectedAvatar.classList.remove('selected');
             }
         });
     });
+
+    function hideApplyButton(avatar) {
+        const button = avatar.querySelector('.apply-button');
+        if (button) {
+            button.style.display = 'none';
+        }
+    }
+
+    function showApplyButton(avatar) {
+        const button = avatar.querySelector('.apply-button');
+        if (button) {
+            button.style.display = 'block';
+        }
+    }
 
     function applyAvatar(avatarIndex) {
         const avatarData = {};
@@ -143,8 +159,12 @@ document.addEventListener('DOMContentLoaded', function() {
             const avatarKey = `ava${i}`;
             const avatarElement = document.querySelector(`.avatar[data-avatar-level="${i - 1}"]`);
             if (userData[avatarKey]) {
-                avatars.forEach(av => av.classList.remove('selected'));
+                avatars.forEach(av => {
+                    av.classList.remove('selected');
+                    hideApplyButton(av);
+                });
                 avatarElement.classList.add('selected');
+                showApplyButton(avatarElement);
             }
         }
     }
@@ -314,7 +334,7 @@ document.addEventListener('DOMContentLoaded', function() {
             alert('Error: Username not specified.');
         }
     }
-
+    
     function saveSettings() {
         db.collection("clicks").doc(username).set({
             clickCount,
