@@ -148,15 +148,16 @@ document.addEventListener('DOMContentLoaded', function() {
             const avatarKey = `ava${i}`;
             const avatarElement = document.querySelector(`.avatar[data-avatar-level="${i - 1}"]`);
             if (userData[avatarKey]) {
+                selectedAvatarIndex = i;
                 avatars.forEach(av => av.classList.remove('selected'));
                 avatarElement.classList.add('selected');
-                selectedAvatarIndex = i; // Update the selected avatar index
+                break; // Stop after finding the first selected avatar
             }
         }
 
         updateAvatarDisplay(selectedAvatarIndex); // Set the avatar display on load
     }
-    
+
     function updateAvatarDisplay(avatarIndex) {
         if (avatarDisplay) {
             avatarDisplay.src = `ava-img/ava${avatarIndex}.jpg`;
