@@ -143,7 +143,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
     function initializeUserAvatars(userData) {
         let selectedAvatarIndex = 1; // Default to avatar 1 if none is selected
-    
+
         for (let i = 1; i <= 8; i++) {
             const avatarKey = `ava${i}`;
             const avatarElement = document.querySelector(`.avatar[data-avatar-level="${i - 1}"]`);
@@ -153,12 +153,11 @@ document.addEventListener('DOMContentLoaded', function() {
                 selectedAvatarIndex = i; // Update the selected avatar index
             }
         }
-    
+
         updateAvatarDisplay(selectedAvatarIndex); // Set the avatar display on load
     }
     
     function updateAvatarDisplay(avatarIndex) {
-        const avatarDisplay = document.getElementById('avatarDisplay');
         if (avatarDisplay) {
             avatarDisplay.src = `ava-img/ava${avatarIndex}.jpg`;
             console.log(`Avatar display updated to ava${avatarIndex}.jpg`); // Debugging log
@@ -288,11 +287,11 @@ document.addEventListener('DOMContentLoaded', function() {
             if (doc.exists) {
                 return doc.data();
             } else {
-                throw new Error('Документ не знайдено');
+                throw new Error('Document not found');
             }
         });
     }
-
+    
     function initialize() {
         username = getUsernameFromUrl();
         if (username) {
