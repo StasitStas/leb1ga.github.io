@@ -158,8 +158,13 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     function updateAvatarDisplay(avatarIndex) {
-        const avatarDisplay = document.querySelector('.avatar-display');
-        avatarDisplay.src = `ava-img/ava${avatarIndex}.jpg`;
+        const avatarDisplay = document.getElementById('avatarDisplay');
+        if (avatarDisplay) {
+            avatarDisplay.src = `ava-img/ava${avatarIndex}.jpg`;
+            console.log(`Avatar display updated to ava${avatarIndex}.jpg`); // Debugging log
+        } else {
+            console.error('Avatar display element not found');
+        }
     }
     
     function toggleApplyButton(avatar) {
