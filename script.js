@@ -30,6 +30,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const avatarCloseIcon = avatarWindow.querySelector('.close-icon');
     const avatarToggleLabel = document.getElementById('avatarToggleLabel');
     const avatarTOsettings = document.getElementById('avatarTOsettings');
+    const avatars = document.querySelectorAll('.avatar');
     const LEVELS = [
         { threshold: 0, label: 'lvl-0' },
         { threshold: 100, label: 'lvl-1' },
@@ -83,6 +84,65 @@ document.addEventListener('DOMContentLoaded', function() {
         avatarWindow.style.display = 'none';
         settingsWindow.style.display = 'block';
     });
+
+    // Initialize avatars
+    function initializeAvatars(currentLevel) {
+        avatars.forEach(avatar => {
+            const avatarLevel = parseInt(avatar.getAttribute('data-avatar-level'));
+            if (avatarLevel > currentLevel) {
+                avatar.classList.add('locked');
+                avatar.setAttribute('data-unlock-level', `lvl-${avatarLevel}`);
+            } else {
+                avatar.classList.remove('locked');
+                avatar.removeAttribute('data-unlock-level');
+            }
+        });
+    }
+
+    // Apply avatar selection logic
+    avatars.forEach(avatar => {
+        avatar.addEventListener('click', function() {
+            if (!avatar.classList.contains('locked')) {
+                avatars.forEach(av => av.classList.remove('selected'));
+                avatar.classList.add('selected');
+            }
+        });
+    });
+
+    document.querySelectorAll('.apply-button').forEach(button => {
+        button.addEventListener('click', function(event) {
+            event.stopPropagation();
+            const selectedAvatar = button.closest('.avatar');
+            if (selectedAvatar) {
+                const avatarIndex = Array.from(avatars).indexOf(selectedAvatar) + 1;
+                applyAvatar(avatarIndex);
+            }
+        });
+    });
+
+    function applyAvatar(avatarIndex) {
+        const avatarData = {};
+        avatars.forEach((avatar, index) => {
+            avatarData[`ava${index + 1}`] = index + 1 === avatarIndex;
+        });
+
+        db.collection("users").doc(username).update(avatarData).then(() => {
+            console.log('Avatar updated successfully');
+        }).catch(error => {
+            console.error('Error updating avatar:', error);
+        });
+    }
+
+    function initializeUserAvatars(userData) {
+        for (let i = 1; i <= 8; i++) {
+            const avatarKey = `ava${i}`;
+            const avatarElement = document.querySelector(`.avatar[data-avatar-level="${i - 1}"]`);
+            if (userData[avatarKey]) {
+                avatars.forEach(av => av.classList.remove('selected'));
+                avatarElement.classList.add('selected');
+            }
+        }
+    }
 
     function getCurrentLevel(clickCount) {
         for (let i = LEVELS.length - 1; i >= 0; i--) {
@@ -207,8 +267,7 @@ document.addEventListener('DOMContentLoaded', function() {
             getUserData(username).then(userData => {
                 firstName = userData.first_name;
                 usernameDisplay.textContent = firstName;
-    
-                // Підписка на зміни в документі
+
                 db.collection("clicks").doc(username).onSnapshot(doc => {
                     if (doc.exists) {
                         const data = doc.data();
@@ -224,7 +283,9 @@ document.addEventListener('DOMContentLoaded', function() {
                             bonusButton.disabled = true;
                         }
                         updateRank();
-                        updateLevelBar(clickCount); // Оновлюємо панель рівня на основі поточних кліків
+                        updateLevelBar(clickCount);
+                        initializeAvatars(getCurrentLevel(clickCountMax));
+                        initializeUserAvatars(userData);
                     } else {
                         db.collection("clicks").doc(username).set({
                             clickCount: 0,
@@ -238,7 +299,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 }, error => {
                     console.error("Error getting document:", error);
                 });
-    
+
                 initializeLevels(userData);
             }).catch(error => {
                 console.error("Error getting user data:", error);
