@@ -106,11 +106,6 @@ body::after {
     left: 10px;
 }
 /* Logo-firstname   */
-.user-container {
-    display: flex;
-    align-items: center;
-}
-
 .golden-text {
     color: #6622228f;
     font-weight: bold;
@@ -120,16 +115,16 @@ body::after {
     background: linear-gradient(135deg, #fddb92, #d1a63b);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     transition: transform 0.2s ease-in-out;
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
     z-index: 2998;
-    margin-left: 10px; /* відступ для відділення від аватара */
 }
 
 .avatar-display {
-    width: 40px; /* розмір аватара */
-    height: 40px; /* розмір аватара */
+    width: 30px; /* розмір аватара */
+    height: 30px; /* розмір аватара */
     border-radius: 50%; /* заокруглення */
-    vertical-align: middle; /* вирівнювання по вертикалі */
+    margin-right: 10px; /* відступ між аватаром і текстом */
 }
 
 .coin-container {
