@@ -101,7 +101,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
-    // Apply avatar selection logic
     avatars.forEach(avatar => {
         avatar.addEventListener('click', function() {
             if (!avatar.classList.contains('locked')) {
@@ -123,7 +122,7 @@ document.addEventListener('DOMContentLoaded', function() {
             if (selectedAvatar) {
                 const avatarIndex = Array.from(avatars).indexOf(selectedAvatar) + 1;
                 applyAvatar(avatarIndex);
-                button.style.display = 'none'; // Hide the button after applying the avatar
+                button.style.display = 'none';
             }
         });
     });
@@ -136,22 +135,26 @@ document.addEventListener('DOMContentLoaded', function() {
     
         db.collection("users").doc(username).update(avatarData).then(() => {
             console.log('Avatar updated successfully');
-            updateAvatarDisplay(avatarIndex); // Update the avatar display after applying
+            updateAvatarDisplay(avatarIndex);
         }).catch(error => {
             console.error('Error updating avatar:', error);
         });
     }
     
     function initializeUserAvatars(userData) {
+        let selectedAvatarIndex = 1; // Default to avatar 1 if none is selected
+    
         for (let i = 1; i <= 8; i++) {
             const avatarKey = `ava${i}`;
             const avatarElement = document.querySelector(`.avatar[data-avatar-level="${i - 1}"]`);
             if (userData[avatarKey]) {
                 avatars.forEach(av => av.classList.remove('selected'));
                 avatarElement.classList.add('selected');
-                updateAvatarDisplay(i); // Set the avatar display on load
+                selectedAvatarIndex = i; // Update the selected avatar index
             }
         }
+    
+        updateAvatarDisplay(selectedAvatarIndex); // Set the avatar display on load
     }
     
     function updateAvatarDisplay(avatarIndex) {
