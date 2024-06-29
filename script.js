@@ -166,6 +166,7 @@ document.addEventListener('DOMContentLoaded', function() {
             console.error('Avatar display element not found');
         }
     }
+
     
     function toggleApplyButton(avatar) {
         const applyButton = avatar.querySelector('.apply-button');
@@ -316,7 +317,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         updateRank();
                         updateLevelBar(clickCount);
                         initializeAvatars(getCurrentLevel(clickCountMax));
-                        initializeUserAvatars(userData);
+                        initializeUserAvatars(userData); // Initialize avatars based on user data
                     } else {
                         db.collection("clicks").doc(username).set({
                             clickCount: 0,
