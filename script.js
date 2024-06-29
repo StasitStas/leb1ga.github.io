@@ -100,22 +100,23 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     }
-
+    
     // Apply avatar selection logic
     avatars.forEach(avatar => {
         avatar.addEventListener('click', function() {
             if (!avatar.classList.contains('locked')) {
-                avatars.forEach(av => {
-                    av.classList.remove('selected');
-                    hideApplyButton(av);
-                });
-                avatar.classList.add('selected');
-                showApplyButton(avatar);
+                if (avatar.classList.contains('selected')) {
+                    avatar.classList.remove('selected');
+                } else {
+                    avatars.forEach(av => av.classList.remove('selected'));
+                    avatar.classList.add('selected');
+                }
+                toggleApplyButton(avatar);
             }
         });
     });
-
-    applyButtons.forEach(button => {
+    
+    document.querySelectorAll('.apply-button').forEach(button => {
         button.addEventListener('click', function(event) {
             event.stopPropagation();
             const selectedAvatar = button.closest('.avatar');
@@ -123,57 +124,47 @@ document.addEventListener('DOMContentLoaded', function() {
                 const avatarIndex = Array.from(avatars).indexOf(selectedAvatar) + 1;
                 applyAvatar(avatarIndex);
                 button.style.display = 'none'; // Hide the button after applying the avatar
-                selectedAvatar.classList.remove('selected');
             }
         });
     });
-
-    function hideApplyButton(avatar) {
-        const button = avatar.querySelector('.apply-button');
-        if (button) {
-            button.style.display = 'none';
-        }
-    }
-
-    function showApplyButton(avatar) {
-        const button = avatar.querySelector('.apply-button');
-        if (button) {
-            button.style.display = 'block';
-        }
-    }
-
+    
     function applyAvatar(avatarIndex) {
         const avatarData = {};
         avatars.forEach((avatar, index) => {
             avatarData[`ava${index + 1}`] = index + 1 === avatarIndex;
         });
-
+    
         db.collection("users").doc(username).update(avatarData).then(() => {
             console.log('Avatar updated successfully');
-            updateAvatarDisplay(avatarIndex);
+            updateAvatarDisplay(avatarIndex); // Update the avatar display after applying
         }).catch(error => {
             console.error('Error updating avatar:', error);
         });
     }
-
+    
     function initializeUserAvatars(userData) {
         for (let i = 1; i <= 8; i++) {
             const avatarKey = `ava${i}`;
             const avatarElement = document.querySelector(`.avatar[data-avatar-level="${i - 1}"]`);
             if (userData[avatarKey]) {
-                avatars.forEach(av => {
-                    av.classList.remove('selected');
-                    hideApplyButton(av);
-                });
+                avatars.forEach(av => av.classList.remove('selected'));
                 avatarElement.classList.add('selected');
-                showApplyButton(avatarElement);
-                updateAvatarDisplay(i);
+                updateAvatarDisplay(i); // Set the avatar display on load
             }
         }
     }
-
+    
     function updateAvatarDisplay(avatarIndex) {
+        const avatarDisplay = document.querySelector('.avatar-display');
         avatarDisplay.src = `ava-img/ava${avatarIndex}.jpg`;
+    }
+    
+    function toggleApplyButton(avatar) {
+        const applyButton = avatar.querySelector('.apply-button');
+        if (applyButton) {
+            const isSelected = avatar.classList.contains('selected');
+            applyButton.style.display = isSelected ? 'block' : 'none';
+        }
     }
     
     function getCurrentLevel(clickCount) {
@@ -299,7 +290,7 @@ document.addEventListener('DOMContentLoaded', function() {
             getUserData(username).then(userData => {
                 firstName = userData.first_name;
                 usernameDisplay.textContent = firstName;
-
+    
                 db.collection("clicks").doc(username).onSnapshot(doc => {
                     if (doc.exists) {
                         const data = doc.data();
@@ -331,7 +322,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 }, error => {
                     console.error("Error getting document:", error);
                 });
-
+    
                 initializeLevels(userData);
             }).catch(error => {
                 console.error("Error getting user data:", error);
