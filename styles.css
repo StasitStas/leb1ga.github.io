@@ -117,6 +117,14 @@ body::after {
     transition: transform 0.2s ease-in-out;
     display: inline-block;
     z-index: 2998;
+    margin-left: 10px; /* відступ для відділення від аватара */
+}
+
+.avatar-display {
+    width: 40px; /* розмір аватара */
+    height: 40px; /* розмір аватара */
+    border-radius: 50%; /* заокруглення */
+    vertical-align: middle; /* вирівнювання по вертикалі */
 }
 
 .coin-container {
