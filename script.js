@@ -105,15 +105,20 @@ document.addEventListener('DOMContentLoaded', function() {
             if (!avatar.classList.contains('locked')) {
                 if (avatar.classList.contains('selected')) {
                     avatar.classList.remove('selected');
+                    hideApplyButton(avatar);
                 } else {
-                    avatars.forEach(av => av.classList.remove('selected'));
+                    avatars.forEach(av => {
+                        av.classList.remove('selected');
+                        hideApplyButton(av);
+                    });
                     avatar.classList.add('selected');
+                    showApplyButton(avatar);
                 }
             }
         });
     });
 
-    document.querySelectorAll('.apply-button').forEach(button => {
+    applyButtons.forEach(button => {
         button.addEventListener('click', function(event) {
             event.stopPropagation();
             const selectedAvatar = button.closest('.avatar');
@@ -124,6 +129,20 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     });
+
+    function hideApplyButton(avatar) {
+        const button = avatar.querySelector('.apply-button');
+        if (button) {
+            button.style.display = 'none';
+        }
+    }
+
+    function showApplyButton(avatar) {
+        const button = avatar.querySelector('.apply-button');
+        if (button) {
+            button.style.display = 'block';
+        }
+    }
 
     function applyAvatar(avatarIndex) {
         const avatarData = {};
@@ -145,6 +164,7 @@ document.addEventListener('DOMContentLoaded', function() {
             if (userData[avatarKey]) {
                 avatars.forEach(av => av.classList.remove('selected'));
                 avatarElement.classList.add('selected');
+                showApplyButton(avatarElement);
             }
         }
     }
