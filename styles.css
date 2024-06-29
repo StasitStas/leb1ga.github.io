@@ -550,13 +550,13 @@ body::after {
     display: flex;
     justify-content: center;
     align-items: center;
-    flex-direction: column;
+    flex-direction: column; /* To ensure the button stays at the bottom */
 }
 
 .avatar img {
-    width: 160px; 
-    height: 150px; 
-    object-fit: cover; 
+    width: 160px;
+    height: 150px;
+    object-fit: cover;
     border-radius: 25px;
 }
 
@@ -569,7 +569,7 @@ body::after {
     background-color: #28a745;
     color: white;
     border: none;
-    border-radius: 0 0 25px 25px;
+    border-radius: 0 0 25px 25px; /* Match the border radius of the image */
     padding: 10px 0;
     text-align: center;
     cursor: pointer;
@@ -579,19 +579,20 @@ body::after {
     display: block;
 }
 
-.avatar.disabled img {
+.avatar.locked img {
+    filter: grayscale(100%);
     opacity: 0.5;
 }
 
-.avatar.disabled::after {
-    content: attr(data-level);
+.avatar.locked::before {
+    content: attr(data-unlock-level);
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background-color: rgba(0, 0, 0, 0.7);
+    background: rgba(0, 0, 0, 0.7);
     color: white;
     padding: 5px 10px;
-    border-radius: 5px;
+    border-radius: 10px;
     font-size: 1.2em;
 }
