@@ -32,7 +32,6 @@ document.addEventListener('DOMContentLoaded', function() {
     const avatarTOsettings = document.getElementById('avatarTOsettings');
     const avatars = document.querySelectorAll('.avatar');
     const applyButtons = document.querySelectorAll('.apply-button');
-    const avatarDisplay = document.querySelector('.avatar-display');
     const LEVELS = [
         { threshold: 0, label: 'lvl-0' },
         { threshold: 100, label: 'lvl-1' },
@@ -87,7 +86,7 @@ document.addEventListener('DOMContentLoaded', function() {
         settingsWindow.style.display = 'block';
     });
 
-    // Initialize avatars
+   // Initialize avatars
     function initializeAvatars(currentLevel) {
         avatars.forEach(avatar => {
             const avatarLevel = parseInt(avatar.getAttribute('data-avatar-level'));
@@ -100,78 +99,73 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     }
-    
+
+    // Apply avatar selection logic
     avatars.forEach(avatar => {
         avatar.addEventListener('click', function() {
             if (!avatar.classList.contains('locked')) {
-                if (avatar.classList.contains('selected')) {
-                    avatar.classList.remove('selected');
-                } else {
-                    avatars.forEach(av => av.classList.remove('selected'));
-                    avatar.classList.add('selected');
-                }
-                toggleApplyButton(avatar);
+                avatars.forEach(av => {
+                    av.classList.remove('selected');
+                    hideApplyButton(av);
+                });
+                avatar.classList.add('selected');
+                showApplyButton(avatar);
             }
         });
     });
-    
-    document.querySelectorAll('.apply-button').forEach(button => {
+
+    applyButtons.forEach(button => {
         button.addEventListener('click', function(event) {
             event.stopPropagation();
             const selectedAvatar = button.closest('.avatar');
             if (selectedAvatar) {
                 const avatarIndex = Array.from(avatars).indexOf(selectedAvatar) + 1;
                 applyAvatar(avatarIndex);
-                button.style.display = 'none';
+                button.style.display = 'none'; // Hide the button after applying the avatar
+                selectedAvatar.classList.remove('selected');
             }
         });
     });
-    
+
+    function hideApplyButton(avatar) {
+        const button = avatar.querySelector('.apply-button');
+        if (button) {
+            button.style.display = 'none';
+        }
+    }
+
+    function showApplyButton(avatar) {
+        const button = avatar.querySelector('.apply-button');
+        if (button) {
+            button.style.display = 'block';
+        }
+    }
+
     function applyAvatar(avatarIndex) {
         const avatarData = {};
         avatars.forEach((avatar, index) => {
             avatarData[`ava${index + 1}`] = index + 1 === avatarIndex;
         });
-    
+
         db.collection("users").doc(username).update(avatarData).then(() => {
             console.log('Avatar updated successfully');
-            updateAvatarDisplay(avatarIndex);
         }).catch(error => {
             console.error('Error updating avatar:', error);
         });
     }
-    
+
     function initializeUserAvatars(userData) {
-        let selectedAvatarIndex = 1; // Default to avatar 1 if none is selected
-    
         for (let i = 1; i <= 8; i++) {
             const avatarKey = `ava${i}`;
             const avatarElement = document.querySelector(`.avatar[data-avatar-level="${i - 1}"]`);
             if (userData[avatarKey]) {
-                avatars.forEach(av => av.classList.remove('selected'));
+                avatars.forEach(av => {
+                    av.classList.remove('selected');
+                    hideApplyButton(av);
+                });
                 avatarElement.classList.add('selected');
-                selectedAvatarIndex = i; // Update the selected avatar index
+                showApplyButton(avatarElement);
             }
-        }
-    
-        updateAvatarDisplay(selectedAvatarIndex); // Set the avatar display on load
-    }
-    
-    function updateAvatarDisplay(avatarIndex) {
-        const avatarDisplay = document.getElementById('avatarDisplay');
-        if (avatarDisplay) {
-            avatarDisplay.src = `ava-img/ava${avatarIndex}.jpg`;
-            console.log(`Avatar display updated to ava${avatarIndex}.jpg`); // Debugging log
-        } else {
-            console.error('Avatar display element not found');
-        }
-    }
-    
-    function toggleApplyButton(avatar) {
-        const applyButton = avatar.querySelector('.apply-button');
-        if (applyButton) {
-            const isSelected = avatar.classList.contains('selected');
-            applyButton.style.display = isSelected ? 'block' : 'none';
         }
     }
     
@@ -298,7 +292,7 @@ document.addEventListener('DOMContentLoaded', function() {
             getUserData(username).then(userData => {
                 firstName = userData.first_name;
                 usernameDisplay.textContent = firstName;
-    
+
                 db.collection("clicks").doc(username).onSnapshot(doc => {
                     if (doc.exists) {
                         const data = doc.data();
@@ -330,7 +324,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 }, error => {
                     console.error("Error getting document:", error);
                 });
-    
+
                 initializeLevels(userData);
             }).catch(error => {
                 console.error("Error getting user data:", error);
