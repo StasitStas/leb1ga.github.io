@@ -32,7 +32,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const avatarTOsettings = document.getElementById('avatarTOsettings');
     const avatars = document.querySelectorAll('.avatar');
     const applyButtons = document.querySelectorAll('.apply-button');
-    const avatarDisplay = document.querySelector('.avatar-display');
+    const avatarDisplay = document.getElementById('avatarDisplay');
     const LEVELS = [
         { threshold: 0, label: 'lvl-0' },
         { threshold: 100, label: 'lvl-1' },
@@ -132,32 +132,44 @@ document.addEventListener('DOMContentLoaded', function() {
         avatars.forEach((avatar, index) => {
             avatarData[`ava${index + 1}`] = index + 1 === avatarIndex;
         });
-    
+
         db.collection("users").doc(username).update(avatarData).then(() => {
             console.log('Avatar updated successfully');
-            updateAvatarDisplay(avatarIndex);
         }).catch(error => {
             console.error('Error updating avatar:', error);
         });
     }
     
     function initializeUserAvatars(userData) {
-        let selectedAvatarIndex = 1; // Default to avatar 1 if none is selected
-
         for (let i = 1; i <= 8; i++) {
             const avatarKey = `ava${i}`;
             const avatarElement = document.querySelector(`.avatar[data-avatar-level="${i - 1}"]`);
             if (userData[avatarKey]) {
-                selectedAvatarIndex = i;
                 avatars.forEach(av => av.classList.remove('selected'));
                 avatarElement.classList.add('selected');
-                break; // Stop after finding the first selected avatar
+                avatarDisplay.src = `ava-img/ava${i}.jpg`; // Set the displayed avatar image
             }
         }
-
-        updateAvatarDisplay(selectedAvatarIndex); // Set the avatar display on load
     }
 
+    function getCurrentAvatar(userData) {
+        for (let i = 1; i <= 8; i++) {
+            const avatarKey = `ava${i}`;
+            if (userData[avatarKey]) {
+                return `ava-img/ava${i}.jpg`;
+            }
+        }
+        return 'ava-img/ava1.jpg'; // Default avatar
+    }
+
+    db.collection("users").doc(username).onSnapshot(doc => {
+        if (doc.exists) {
+            const userData = doc.data();
+            avatarDisplay.src = getCurrentAvatar(userData);
+            initializeUserAvatars(userData);
+        }
+    });
+    
     function updateAvatarDisplay(avatarIndex) {
         if (avatarDisplay) {
             avatarDisplay.src = `ava-img/ava${avatarIndex}.jpg`;
@@ -299,7 +311,7 @@ document.addEventListener('DOMContentLoaded', function() {
             getUserData(username).then(userData => {
                 firstName = userData.first_name;
                 usernameDisplay.textContent = firstName;
-    
+
                 db.collection("clicks").doc(username).onSnapshot(doc => {
                     if (doc.exists) {
                         const data = doc.data();
@@ -317,7 +329,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         updateRank();
                         updateLevelBar(clickCount);
                         initializeAvatars(getCurrentLevel(clickCountMax));
-                        initializeUserAvatars(userData); // Initialize avatars based on user data
+                        initializeUserAvatars(userData);
                     } else {
                         db.collection("clicks").doc(username).set({
                             clickCount: 0,
@@ -331,7 +343,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 }, error => {
                     console.error("Error getting document:", error);
                 });
-    
+
                 initializeLevels(userData);
             }).catch(error => {
                 console.error("Error getting user data:", error);
