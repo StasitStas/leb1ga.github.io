@@ -32,7 +32,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const avatarTOsettings = document.getElementById('avatarTOsettings');
     const avatars = document.querySelectorAll('.avatar');
     const applyButtons = document.querySelectorAll('.apply-button');
-    const avatarDisplay = document.getElementById('avatarDisplay');
+    const avatarDisplay = document.querySelector('.avatar-display');
     const LEVELS = [
         { threshold: 0, label: 'lvl-0' },
         { threshold: 100, label: 'lvl-1' },
@@ -132,45 +132,33 @@ document.addEventListener('DOMContentLoaded', function() {
         avatars.forEach((avatar, index) => {
             avatarData[`ava${index + 1}`] = index + 1 === avatarIndex;
         });
-
+    
         db.collection("users").doc(username).update(avatarData).then(() => {
             console.log('Avatar updated successfully');
+            updateAvatarDisplay(avatarIndex);
         }).catch(error => {
             console.error('Error updating avatar:', error);
         });
     }
     
     function initializeUserAvatars(userData) {
+        let selectedAvatarIndex = 1; // Default to avatar 1 if none is selected
+    
         for (let i = 1; i <= 8; i++) {
             const avatarKey = `ava${i}`;
             const avatarElement = document.querySelector(`.avatar[data-avatar-level="${i - 1}"]`);
             if (userData[avatarKey]) {
                 avatars.forEach(av => av.classList.remove('selected'));
                 avatarElement.classList.add('selected');
-                avatarDisplay.src = `ava-img/ava${i}.jpg`; // Set the displayed avatar image
+                selectedAvatarIndex = i; // Update the selected avatar index
             }
         }
+    
+        updateAvatarDisplay(selectedAvatarIndex); // Set the avatar display on load
     }
-
-    function getCurrentAvatar(userData) {
-        for (let i = 1; i <= 8; i++) {
-            const avatarKey = `ava${i}`;
-            if (userData[avatarKey]) {
-                return `ava-img/ava${i}.jpg`;
-            }
-        }
-        return 'ava-img/ava1.jpg'; // Default avatar
-    }
-
-    db.collection("users").doc(username).onSnapshot(doc => {
-        if (doc.exists) {
-            const userData = doc.data();
-            avatarDisplay.src = getCurrentAvatar(userData);
-            initializeUserAvatars(userData);
-        }
-    });
     
     function updateAvatarDisplay(avatarIndex) {
+        const avatarDisplay = document.getElementById('avatarDisplay');
         if (avatarDisplay) {
             avatarDisplay.src = `ava-img/ava${avatarIndex}.jpg`;
             console.log(`Avatar display updated to ava${avatarIndex}.jpg`); // Debugging log
@@ -178,7 +166,6 @@ document.addEventListener('DOMContentLoaded', function() {
             console.error('Avatar display element not found');
         }
     }
-
     
     function toggleApplyButton(avatar) {
         const applyButton = avatar.querySelector('.apply-button');
@@ -300,18 +287,18 @@ document.addEventListener('DOMContentLoaded', function() {
             if (doc.exists) {
                 return doc.data();
             } else {
-                throw new Error('Document not found');
+                throw new Error('Документ не знайдено');
             }
         });
     }
-    
+
     function initialize() {
         username = getUsernameFromUrl();
         if (username) {
             getUserData(username).then(userData => {
                 firstName = userData.first_name;
                 usernameDisplay.textContent = firstName;
-
+    
                 db.collection("clicks").doc(username).onSnapshot(doc => {
                     if (doc.exists) {
                         const data = doc.data();
@@ -343,7 +330,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 }, error => {
                     console.error("Error getting document:", error);
                 });
-
+    
                 initializeLevels(userData);
             }).catch(error => {
                 console.error("Error getting user data:", error);
