@@ -141,6 +141,17 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
+    function updateAvatarDisplay(avatarIndex) {
+        for (let i = 1; i <= 8; i++) {
+            const avatarDisplay = document.getElementById(`avatarDisplay${i}`);
+            if (i === avatarIndex) {
+                avatarDisplay.style.display = 'block';
+            } else {
+                avatarDisplay.style.display = 'none';
+            }
+        }
+    }
+
     function applyAvatar(avatarIndex) {
         const avatarData = {};
         avatars.forEach((avatar, index) => {
@@ -149,6 +160,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         db.collection("users").doc(username).update(avatarData).then(() => {
             console.log('Avatar updated successfully');
+            updateAvatarDisplay(avatarIndex);
         }).catch(error => {
             console.error('Error updating avatar:', error);
         });
@@ -165,6 +177,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 });
                 avatarElement.classList.add('selected');
                 showApplyButton(avatarElement);
+                updateAvatarDisplay(i);  // Update displayed avatar
             }
         }
     }
