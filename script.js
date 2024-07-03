@@ -152,12 +152,13 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
+
     function applyAvatar(avatarIndex) {
         const avatarData = {};
         avatars.forEach((avatar, index) => {
             avatarData[`ava${index + 1}`] = index + 1 === avatarIndex;
         });
-
+    
         db.collection("users").doc(username).update(avatarData).then(() => {
             console.log('Avatar updated successfully');
             updateAvatarDisplay(avatarIndex);
@@ -166,7 +167,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    function initializeUserAvatars(userData) {
+        function initializeUserAvatars(userData) {
         for (let i = 1; i <= 8; i++) {
             const avatarKey = `ava${i}`;
             const avatarElement = document.querySelector(`.avatar[data-avatar-level="${i - 1}"]`);
@@ -181,7 +182,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }
     }
-    
+  
     function getCurrentLevel(clickCount) {
         for (let i = LEVELS.length - 1; i >= 0; i--) {
             if (clickCount >= LEVELS[i].threshold) {
