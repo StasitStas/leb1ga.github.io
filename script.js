@@ -161,27 +161,29 @@ document.addEventListener('DOMContentLoaded', function() {
     
         db.collection("users").doc(username).update(avatarData).then(() => {
             console.log('Avatar updated successfully');
-            updateAvatarDisplay(avatarIndex);
         }).catch(error => {
             console.error('Error updating avatar:', error);
         });
     }
-
-        function initializeUserAvatars(userData) {
+    
+    // Ініціалізація аватарок користувача при завантаженні сторінки
+    function initializeUserAvatars(userData) {
         for (let i = 1; i <= 8; i++) {
             const avatarKey = `ava${i}`;
-            const avatarElement = document.querySelector(`.avatar[data-avatar-level="${i - 1}"]`);
             if (userData[avatarKey]) {
                 avatars.forEach(av => {
                     av.classList.remove('selected');
                     hideApplyButton(av);
                 });
+                const avatarElement = document.querySelector(`.avatar[data-avatar-level="${i - 1}"]`);
                 avatarElement.classList.add('selected');
                 showApplyButton(avatarElement);
-                updateAvatarDisplay(i);  // Update displayed avatar
+                updateAvatarDisplay(i);  // Оновлення відображення аватарки
+                break;
             }
         }
     }
+
   
     function getCurrentLevel(clickCount) {
         for (let i = LEVELS.length - 1; i >= 0; i--) {
@@ -306,7 +308,7 @@ document.addEventListener('DOMContentLoaded', function() {
             getUserData(username).then(userData => {
                 firstName = userData.first_name;
                 usernameDisplay.textContent = firstName;
-
+    
                 db.collection("clicks").doc(username).onSnapshot(doc => {
                     if (doc.exists) {
                         const data = doc.data();
@@ -338,7 +340,19 @@ document.addEventListener('DOMContentLoaded', function() {
                 }, error => {
                     console.error("Error getting document:", error);
                 });
-
+    
+                // Прослуховувач змін в документі користувача
+                db.collection("users").doc(username).onSnapshot(doc => {
+                    if (doc.exists) {
+                        const data = doc.data();
+                        updateAvatarFromDatabase(data);
+                    } else {
+                        console.log('Document does not exist!');
+                    }
+                }, error => {
+                    console.error("Error listening to document:", error);
+                });
+    
                 initializeLevels(userData);
             }).catch(error => {
                 console.error("Error getting user data:", error);
@@ -348,6 +362,19 @@ document.addEventListener('DOMContentLoaded', function() {
             alert('Error: Username not specified.');
         }
     }
+    
+    // Функція для оновлення відображення аватарки
+    function updateAvatarFromDatabase(userData) {
+        for (let i = 1; i <= 8; i++) {
+            const avatarKey = `ava${i}`;
+            if (userData[avatarKey]) {
+                updateAvatarDisplay(i);  // Оновлення відображення аватарки
+                break;
+            }
+        }
+    }
+
+
     
     function saveSettings() {
         db.collection("clicks").doc(username).set({
