@@ -328,6 +328,7 @@ body::after {
     color: white;
     z-index: 3001;
     overflow: auto;
+    transition: left 0.5s ease; /* Додаємо плавний перехід */
 }
 
 .settings-window label {
