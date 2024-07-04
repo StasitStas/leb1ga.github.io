@@ -15,6 +15,7 @@ document.addEventListener('DOMContentLoaded', function() {
     let username = '';
     let firstName = '';
     let clickCount = 0;
+    let currentCoffer = ''; // Track which coffer is opened
 
     function getUsernameFromUrl() {
         const urlParams = new URLSearchParams(window.location.search);
@@ -71,6 +72,7 @@ document.addEventListener('DOMContentLoaded', function() {
             cofferImage.src = cofferImageSrc;
             cofferModal.style.display = 'flex';
             document.body.classList.add('modal-open');
+            currentCoffer = item.id; // Set the current coffer
         });
     });
 
@@ -80,14 +82,20 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     openCofferButton.addEventListener('click', async function() {
-        if (clickCount >= 100) {
-            clickCount -= 100;
+        let cofferCost = 0;
+        if (currentCoffer === 'coffer1') {
+            cofferCost = 100;
+        } else if (currentCoffer === 'coffer2') {
+            cofferCost = 800;
+        }
+
+        if (clickCount >= cofferCost) {
+            clickCount -= cofferCost;
             await db.collection("clicks").doc(username).update({ clickCount: clickCount });
             cofferModal.style.display = 'none';
             document.body.classList.remove('modal-open');
-            generatePrize();
+            generatePrize(currentCoffer);
         } else {
-            // Анімація для недостатньої кількості кліків
             cofferPrice.style.animation = 'shake 0.5s';
             setTimeout(() => {
                 cofferPrice.style.animation = '';
@@ -103,38 +111,63 @@ document.addEventListener('DOMContentLoaded', function() {
     claimPrizeButton.addEventListener('click', function() {
         prizeModal.style.display = 'none';
         document.body.classList.remove('modal-open');
-        // Implement prize claiming logic here if needed
     });
 
-    async function generatePrize() {
-        const clickPrizeProbability = 0.5;
-        const skins = [
-            { src: 'leb1ga-ment.png', probability: 0.7 },
-            { src: 'skin_1.png', probability: 0.5 },
-            { src: 'skin_2.png', probability: 0.25 }
-        ];
-
+    async function generatePrize(cofferType) {
         let prizeDescriptionText = '';
         let prizeImageSrc = '';
-        
-        if (Math.random() < clickPrizeProbability) {
-            const clicks = Math.floor(Math.random() * (150 - 30 + 1)) + 30;
-            clickCount += clicks;
-            await db.collection("clicks").doc(username).update({ clickCount: clickCount });
-            prizeDescriptionText = `Ваш приз: ${clicks} кліків`;
-            prizeImageSrc = 'coin.png';
-        } else {
-            const skin = skins.find(skin => Math.random() < skin.probability);
-            if (skin) {
-                prizeDescriptionText = 'Ваш приз: Скін';
-                prizeImageSrc = skin.src;
+
+        if (cofferType === 'coffer1') {
+            const clickPrizeProbability = 0.5;
+            const skins = [
+                { src: 'leb1ga-ment.png', probability: 0.7 },
+                { src: 'skin_1.png', probability: 0.5 },
+                { src: 'skin_2.png', probability: 0.25 }
+            ];
+
+            if (Math.random() < clickPrizeProbability) {
+                const clicks = Math.floor(Math.random() * (150 - 30 + 1)) + 30;
+                clickCount += clicks;
+                await db.collection("clicks").doc(username).update({ clickCount: clickCount });
+                prizeDescriptionText = `Ваш приз: ${clicks} кліків`;
+                prizeImageSrc = 'coin.png';
             } else {
-                prizeDescriptionText = 'Ваш приз: Скін';
-                prizeImageSrc = skins[2].src; // Default skin if none matched
+                const skin = skins.find(skin => Math.random() < skin.probability);
+                if (skin) {
+                    prizeDescriptionText = 'Ваш приз: Скін';
+                    prizeImageSrc = skin.src;
+                } else {
+                    prizeDescriptionText = 'Ваш приз: Скін';
+                    prizeImageSrc = skins[2].src; // Default skin if none matched
+                }
+            }
+        } else if (cofferType === 'coffer2') {
+            const clickPrizeProbability = 0.6;
+            const skins = [
+                { src: 'skin_3.png', probability: 0.5 },
+                { src: 'skin_4.png', probability: 0.3 },
+                { src: 'skin_5.png', probability: 0.25 },
+                { src: 'skin_6.png', probability: 0.1 }
+            ];
+
+            if (Math.random() < clickPrizeProbability) {
+                const clicks = Math.floor(Math.random() * (1400 - 200 + 1)) + 200;
+                clickCount += clicks;
+                await db.collection("clicks").doc(username).update({ clickCount: clickCount });
+                prizeDescriptionText = `Ваш приз: ${clicks} кліків`;
+                prizeImageSrc = 'coin.png';
+            } else {
+                const skin = skins.find(skin => Math.random() < skin.probability);
+                if (skin) {
+                    prizeDescriptionText = 'Ваш приз: Скін';
+                    prizeImageSrc = skin.src;
+                } else {
+                    prizeDescriptionText = 'Ваш приз: Скін';
+                    prizeImageSrc = skins[skins.length - 1].src; // Default skin if none matched
+                }
             }
         }
 
-        // Update the prize modal with the generated prize
         prizeDescription.textContent = prizeDescriptionText;
         prizeImage.src = prizeImageSrc;
         prizeModal.style.display = 'flex';
