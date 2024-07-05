@@ -328,3 +328,16 @@
     left: 35%;
 }
 
+.skins-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.skin-item {
+    width: 150px;
+    height: 150px;
+    background-size: cover;
+    border-radius: 50px;
+}
+
