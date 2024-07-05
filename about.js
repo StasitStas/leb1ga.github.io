@@ -178,19 +178,19 @@ document.addEventListener('DOMContentLoaded', function() {
             minClicks = 30;
             maxClicks = 150;
             skins = [
-                { src: 'leb1ga-ment.png', probability: 0.7 },
-                { src: 'skin_1.png', probability: 0.5 },
-                { src: 'skin_2.png', probability: 0.25 }
+                { src: 'skin/skin_1.png', probability: 0.7 },
+                { src: 'skin/skin_2.png', probability: 0.5 },
+                { src: 'skin/skin_3.png', probability: 0.25 }
             ];
         } else if (cofferType === 'coffer2') {
             clickPrizeProbability = 0.6;
             minClicks = 200;
             maxClicks = 1400;
             skins = [
-                { src: 'skin_3.png', probability: 0.5 },
-                { src: 'skin_4.png', probability: 0.3 },
-                { src: 'skin_5.png', probability: 0.25 },
-                { src: 'skin_6.png', probability: 0.1 }
+                { src: 'skin/skin_4.png', probability: 0.5 },
+                { src: 'skin/skin_5.png', probability: 0.3 },
+                { src: 'skin/skin_6.png', probability: 0.25 },
+                { src: 'skin/skin_7.png', probability: 0.1 }
             ];
         }
 
@@ -228,20 +228,13 @@ document.addEventListener('DOMContentLoaded', function() {
         } else {
             userData.skins[skinId].count += 1;
         }
-        const skinData = userData.skins[skinId];
-        if (skinData) {
-            skinData.count++;
-            userData.skins[skinId] = skinData;
-        } else {
-            userData.skins[skinId] = { hasSkin: true, count: 1, applied: false };
-        }
 
         await userRef.update({ skins: userData.skins });
+        userSkins = userData.skins;
     }
-// Skins Modal handling
+
     skinButton.addEventListener('click', function() {
-        displaySkins();
-        skinsModal.style.display = 'block';
+        skinsModal.style.display = 'flex';
         document.body.classList.add('modal-open');
     });
 
