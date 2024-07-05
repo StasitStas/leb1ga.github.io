@@ -283,7 +283,7 @@
     display: block;
     margin: 10px auto;
     padding: 10px 40px;
-    background-color: #4CAF50; /* Green background */
+    background: linear-gradient(135deg, #373737, #000000);
     color: white; /* White text */
     border: none;
     border-radius: 20px;
