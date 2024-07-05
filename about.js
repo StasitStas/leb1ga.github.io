@@ -12,10 +12,20 @@ document.addEventListener('DOMContentLoaded', function() {
     const claimPrizeButton = document.getElementById('claim-prize');
     const cofferPrice = document.getElementById('coffer-price'); // Додано для роботи з ціною скарбнички
 
+    const skinButton = document.getElementById('skin-button');
+    const skinsModal = document.getElementById('skins-modal');
+    const closeSkinsModalButton = document.querySelector('.close-skins-modal');
+    const skinsList = document.getElementById('skins-list');
+    const skinDetails = document.getElementById('skin-details');
+    const selectedSkinImage = document.getElementById('selected-skin-image');
+    const selectedSkinInfo = document.getElementById('selected-skin-info');
+    const applySkinButton = document.getElementById('apply-skin');
+
     let username = '';
     let firstName = '';
     let clickCount = 0;
     let currentCoffer = ''; // Track which coffer is opened
+    let userSkins = {}; // Track user skins
 
     function getUsernameFromUrl() {
         const urlParams = new URLSearchParams(window.location.search);
@@ -50,6 +60,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 const clickData = await getUserClicks(username);
                 firstName = userData.first_name;
                 clickCount = clickData.clickCount || 0;
+                userSkins = userData.skins || {};
+                displaySkins();
             } catch (error) {
                 console.error("Error getting user data:", error);
                 alert('Помилка: Не вдалося отримати дані користувача.');
@@ -57,6 +69,43 @@ document.addEventListener('DOMContentLoaded', function() {
         } else {
             alert('Помилка: Ім\'я користувача не вказане.');
         }
+    }
+
+    function displaySkins() {
+        skinsList.innerHTML = '';
+        for (const [skinId, skinData] of Object.entries(userSkins)) {
+            if (skinData.hasSkin) {
+                const skinItem = document.createElement('div');
+                skinItem.classList.add('skin-item');
+                skinItem.innerHTML = `<img src="${skinId}.png" alt="${skinId}">`;
+                skinItem.addEventListener('click', () => {
+                    showSkinDetails(skinId, skinData);
+                });
+                skinsList.appendChild(skinItem);
+            }
+        }
+    }
+
+    function showSkinDetails(skinId, skinData) {
+        selectedSkinImage.src = `${skinId}.png`;
+        selectedSkinInfo.innerHTML = `
+            <p>Кількість: ${skinData.count}</p>
+            <p>Загальна кількість: ${skinData.totalCount || 0}</p>
+            <p>За натискання: +2</p>
+        `;
+        skinDetails.style.display = 'block';
+        applySkinButton.onclick = () => applySkin(skinId);
+    }
+
+    async function applySkin(skinId) {
+        for (const key in userSkins) {
+            if (userSkins.hasOwnProperty(key)) {
+                userSkins[key].applied = false;
+            }
+        }
+        userSkins[skinId].applied = true;
+        await db.collection("users").doc(username).update({ skins: userSkins });
+        alert('Скін застосовано');
     }
 
     navButtons.forEach(button => {
@@ -118,66 +167,48 @@ document.addEventListener('DOMContentLoaded', function() {
     claimPrizeButton.addEventListener('click', function() {
         prizeModal.style.display = 'none';
         document.body.classList.remove('modal-open');
+        // Implement prize claiming logic here if needed
     });
 
     async function generatePrize(cofferType) {
+        let clickPrizeProbability, minClicks, maxClicks, skins;
+
+        if (cofferType === 'coffer1') {
+            clickPrizeProbability = 0.5;
+            minClicks = 30;
+            maxClicks = 150;
+            skins = [
+                { src: 'leb1ga-ment.png', probability: 0.7 },
+                { src: 'skin_1.png', probability: 0.5 },
+                { src: 'skin_2.png', probability: 0.25 }
+            ];
+        } else if (cofferType === 'coffer2') {
+            clickPrizeProbability = 0.6;
+            minClicks = 200;
+            maxClicks = 1400;
+            skins = [
+                { src: 'skin_3.png', probability: 0.5 },
+                { src: 'skin_4.png', probability: 0.3 },
+                { src: 'skin_5.png', probability: 0.25 },
+                { src: 'skin_6.png', probability: 0.1 }
+            ];
+        }
+
         let prizeDescriptionText = '';
         let prizeImageSrc = '';
 
-        if (cofferType === 'coffer1') {
-            const clickPrizeProbability = 0.5;
-            const skins = [
-                { src: 'skin/leb1ga-ment.png', id: 'skin_1', probability: 0.7 },
-                { src: 'skin/skin_1.png', id: 'skin_2', probability: 0.5 },
-                { src: 'skin/skin_2.png', id: 'skin_3', probability: 0.25 }
-            ];
-
-            if (Math.random() < clickPrizeProbability) {
-                const clicks = Math.floor(Math.random() * (150 - 30 + 1)) + 30;
-                clickCount += clicks;
-                await db.collection("clicks").doc(username).update({ clickCount: clickCount });
-                prizeDescriptionText = `Ваш приз: ${clicks} кліків`;
-                prizeImageSrc = 'coin.png';
-            } else {
-                const skin = skins.find(skin => Math.random() < skin.probability);
-                if (skin) {
-                    await updateSkin(skin.id);
-                    prizeDescriptionText = 'Ваш приз: Скін';
-                    prizeImageSrc = skin.src;
-                } else {
-                    const defaultSkin = skins[2];
-                    await updateSkin(defaultSkin.id);
-                    prizeDescriptionText = 'Ваш приз: Скін';
-                    prizeImageSrc = defaultSkin.src;
-                }
-            }
-        } else if (cofferType === 'coffer2') {
-            const clickPrizeProbability = 0.6;
-            const skins = [
-                { src: 'skin/skin_3.png', id: 'skin_4', probability: 0.5 },
-                { src: 'skin/skin_4.png', id: 'skin_5', probability: 0.3 },
-                { src: 'skin/skin_5.png', id: 'skin_6', probability: 0.25 },
-                { src: 'skin/skin_6.png', id: 'skin_7', probability: 0.1 }
-            ];
-
-            if (Math.random() < clickPrizeProbability) {
-                const clicks = Math.floor(Math.random() * (1400 - 200 + 1)) + 200;
-                clickCount += clicks;
-                await db.collection("clicks").doc(username).update({ clickCount: clickCount });
-                prizeDescriptionText = `Ваш приз: ${clicks} кліків`;
-                prizeImageSrc = 'coin.png';
-            } else {
-                const skin = skins.find(skin => Math.random() < skin.probability);
-                if (skin) {
-                    await updateSkin(skin.id);
-                    prizeDescriptionText = 'Ваш приз: Скін';
-                    prizeImageSrc = skin.src;
-                } else {
-                    const defaultSkin = skins[3];
-                    await updateSkin(defaultSkin.id);
-                    prizeDescriptionText = 'Ваш приз: Скін';
-                    prizeImageSrc = defaultSkin.src;
-                }
+        if (Math.random() < clickPrizeProbability) {
+            const clicks = Math.floor(Math.random() * (maxClicks - minClicks + 1)) + minClicks;
+            clickCount += clicks;
+            await db.collection("clicks").doc(username).update({ clickCount: clickCount });
+            prizeDescriptionText = `Ваш приз: ${clicks} кліків`;
+            prizeImageSrc = 'coin.png';
+        } else {
+            const skin = skins.find(skin => Math.random() < skin.probability);
+            if (skin) {
+                await updateSkin(skin.src);
+                prizeDescriptionText = 'Ваш приз: Скін';
+                prizeImageSrc = skin.src;
             }
         }
 
@@ -189,39 +220,36 @@ document.addEventListener('DOMContentLoaded', function() {
 
     async function updateSkin(skinId) {
         const userRef = db.collection("users").doc(username);
-        const userData = await userRef.get();
-        const userSkins = userData.data().skins || {};
+        const userDoc = await userRef.get();
+        const userData = userDoc.data();
 
-        if (!userSkins[skinId]) {
-            userSkins[skinId] = {
-                hasSkin: true,
-                count: 1,
-                applied: false
-            };
+        if (!userData.skins[skinId]) {
+            userData.skins[skinId] = { hasSkin: true, count: 1, applied: false };
         } else {
-            userSkins[skinId].count += 1;
+            userData.skins[skinId].count += 1;
+        }
+        const skinData = userData.skins[skinId];
+        if (skinData) {
+            skinData.count++;
+            userData.skins[skinId] = skinData;
+        } else {
+            userData.skins[skinId] = { hasSkin: true, count: 1, applied: false };
         }
 
-        await userRef.update({ skins: userSkins });
+        await userRef.update({ skins: userData.skins });
     }
+// Skins Modal handling
+    skinButton.addEventListener('click', function() {
+        displaySkins();
+        skinsModal.style.display = 'block';
+        document.body.classList.add('modal-open');
+    });
 
-    async function applySkin(skinId) {
-        const userRef = db.collection("users").doc(username);
-        const userData = await userRef.get();
-        const userSkins = userData.data().skins || {};
-
-        // Set all skins' applied to false
-        for (const skin in userSkins) {
-            userSkins[skin].applied = false;
-        }
-
-        // Set the selected skin's applied to true
-        if (userSkins[skinId]) {
-            userSkins[skinId].applied = true;
-        }
-
-        await userRef.update({ skins: userSkins });
-    }
+    closeSkinsModalButton.addEventListener('click', function() {
+        skinsModal.style.display = 'none';
+        document.body.classList.remove('modal-open');
+        skinDetails.style.display = 'none';
+    });
 
     initialize();
 });
