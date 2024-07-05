@@ -303,16 +303,6 @@
     align-items: center;
 }
 
-.modal-content-mine-skin {
-    background-color: #fefefe;
-    margin: auto;
-    padding: 20px;
-    border: 1px solid #888;
-    width: 80%;
-    max-width: 800px;
-    position: relative;
-}
-
 .close-skins-modal {
     position: absolute;
     top: 10px;
