@@ -309,18 +309,22 @@
     justify-content: center;
 }
 
-#skins-button-modal {
-    display: block;
-    margin: 10px auto;
-    padding: 10px 40px;
-    background-color: #4CAF50; /* Green background */
-    color: white; /* White text */
-    border: none;
-    border-radius: 20px;
-    cursor: pointer;
-    font-size: 16px;
-}
-
 #skins-button-modal:hover {
     background-color: #45a049; /* Darker green on hover */
 }
+
+#skins-button-modal {
+    display: block;
+    margin: 10px auto;
+    padding: 10px 20px;
+    background-color: #4CAF50; /* Green background */
+    color: white; /* White text */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    position: absolute;
+    top: 20px; /* Adjust this value to move the button up or down */
+    left: 50%;
+}
+
