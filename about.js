@@ -127,9 +127,9 @@ document.addEventListener('DOMContentLoaded', function() {
         if (cofferType === 'coffer1') {
             const clickPrizeProbability = 0.5;
             const skins = [
-                { src: 'leb1ga-ment.png', probability: 0.7 },
-                { src: 'skin_1.png', probability: 0.5 },
-                { src: 'skin_2.png', probability: 0.25 }
+                { src: 'skin/leb1ga-ment.png', probability: 0.7 },
+                { src: 'skin/skin_1.png', probability: 0.5 },
+                { src: 'skin/skin_2.png', probability: 0.25 }
             ];
 
             if (Math.random() < clickPrizeProbability) {
@@ -151,10 +151,10 @@ document.addEventListener('DOMContentLoaded', function() {
         } else if (cofferType === 'coffer2') {
             const clickPrizeProbability = 0.6;
             const skins = [
-                { src: 'skin_3.png', probability: 0.5 },
-                { src: 'skin_4.png', probability: 0.3 },
-                { src: 'skin_5.png', probability: 0.25 },
-                { src: 'skin_6.png', probability: 0.1 }
+                { src: 'skin/skin_3.png', probability: 0.5 },
+                { src: 'skin/skin_4.png', probability: 0.3 },
+                { src: 'skin/skin_5.png', probability: 0.25 },
+                { src: 'skin/skin_6.png', probability: 0.1 }
             ];
 
             if (Math.random() < clickPrizeProbability) {
