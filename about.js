@@ -14,9 +14,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
     const skinsButton = document.getElementById('skins-button');
     const skinsModal = document.getElementById('skins-modal');
-    const closeSkinsModalButton = document.querySelector('.close-skins-modal');
     const skinsButtonModal = document.getElementById('skins-button-modal');
-
+    
     let username = '';
     let firstName = '';
     let clickCount = 0;
@@ -246,16 +245,10 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    // Event listener for the Skins button
+    // Event listener for the Skins button to open the modal
     skinsButton.addEventListener('click', function() {
         skinsModal.style.display = 'flex';
         document.body.classList.add('modal-open');
-    });
-
-    // Event listener to close the Skins modal
-    closeSkinsModalButton.addEventListener('click', function() {
-        skinsModal.style.display = 'none';
-        document.body.classList.remove('modal-open');
     });
 
     // Event listener to close the Skins modal from the button inside the modal
