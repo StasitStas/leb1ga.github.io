@@ -73,6 +73,13 @@ document.addEventListener('DOMContentLoaded', function() {
             cofferModal.style.display = 'flex';
             document.body.classList.add('modal-open');
             currentCoffer = item.id; // Set the current coffer
+
+            // Update the price in the modal based on the coffer
+            if (currentCoffer === 'coffer1') {
+                cofferPrice.textContent = '100';
+            } else if (currentCoffer === 'coffer2') {
+                cofferPrice.textContent = '800';
+            }
         });
     });
 
@@ -120,9 +127,9 @@ document.addEventListener('DOMContentLoaded', function() {
         if (cofferType === 'coffer1') {
             const clickPrizeProbability = 0.5;
             const skins = [
-                { src: 'skin/leb1ga-ment.png', probability: 0.7 },
-                { src: 'skin/skin_1.png', probability: 0.5 },
-                { src: 'skin/skin_2.png', probability: 0.25 }
+                { src: 'leb1ga-ment.png', probability: 0.7 },
+                { src: 'skin_1.png', probability: 0.5 },
+                { src: 'skin_2.png', probability: 0.25 }
             ];
 
             if (Math.random() < clickPrizeProbability) {
@@ -144,10 +151,10 @@ document.addEventListener('DOMContentLoaded', function() {
         } else if (cofferType === 'coffer2') {
             const clickPrizeProbability = 0.6;
             const skins = [
-                { src: 'skin/skin_3.png', probability: 0.5 },
-                { src: 'skin/skin_4.png', probability: 0.3 },
-                { src: 'skin/skin_5.png', probability: 0.25 },
-                { src: 'skin/skin_6.png', probability: 0.1 }
+                { src: 'skin_3.png', probability: 0.5 },
+                { src: 'skin_4.png', probability: 0.3 },
+                { src: 'skin_5.png', probability: 0.25 },
+                { src: 'skin_6.png', probability: 0.1 }
             ];
 
             if (Math.random() < clickPrizeProbability) {
