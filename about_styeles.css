@@ -278,3 +278,19 @@
     max-width: 600px;
     border-radius: 10px;
 }
+
+#skins-button {
+    display: block;
+    margin: 10px auto;
+    padding: 10px 20px;
+    background-color: #4CAF50; /* Green background */
+    color: white; /* White text */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+#skins-button:hover {
+    background-color: #45a049; /* Darker green on hover */
+}
