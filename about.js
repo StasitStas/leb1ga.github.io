@@ -242,7 +242,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const skinElement = document.createElement('div');
             skinElement.classList.add('skin-item');
             skinElement.innerHTML = `
-                <img src="skin/${skin.png}" alt="${skinId}">
+                <img src="skin/${skin_1.png}" alt="${skinId}">
             `;
             skinsContainer.appendChild(skinElement);
         });
