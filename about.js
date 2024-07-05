@@ -127,9 +127,9 @@ document.addEventListener('DOMContentLoaded', function() {
         if (cofferType === 'coffer1') {
             const clickPrizeProbability = 0.5;
             const skins = [
-                { src: 'skin/leb1ga-ment.png', probability: 0.7 },
-                { src: 'skin/skin_1.png', probability: 0.5 },
-                { src: 'skin/skin_2.png', probability: 0.25 }
+                { src: 'leb1ga-ment.png', id: 'skin_1', probability: 0.7 },
+                { src: 'skin_1.png', id: 'skin_2', probability: 0.5 },
+                { src: 'skin_2.png', id: 'skin_3', probability: 0.25 }
             ];
 
             if (Math.random() < clickPrizeProbability) {
@@ -141,20 +141,23 @@ document.addEventListener('DOMContentLoaded', function() {
             } else {
                 const skin = skins.find(skin => Math.random() < skin.probability);
                 if (skin) {
+                    await updateSkin(skin.id);
                     prizeDescriptionText = 'Ваш приз: Скін';
                     prizeImageSrc = skin.src;
                 } else {
+                    const defaultSkin = skins[2];
+                    await updateSkin(defaultSkin.id);
                     prizeDescriptionText = 'Ваш приз: Скін';
-                    prizeImageSrc = skins[2].src; // Default skin if none matched
+                    prizeImageSrc = defaultSkin.src;
                 }
             }
         } else if (cofferType === 'coffer2') {
             const clickPrizeProbability = 0.6;
             const skins = [
-                { src: 'skin/skin_3.png', probability: 0.5 },
-                { src: 'skin/skin_4.png', probability: 0.3 },
-                { src: 'skin/skin_5.png', probability: 0.25 },
-                { src: 'skin/skin_6.png', probability: 0.1 }
+                { src: 'skin_3.png', id: 'skin_4', probability: 0.5 },
+                { src: 'skin_4.png', id: 'skin_5', probability: 0.3 },
+                { src: 'skin_5.png', id: 'skin_6', probability: 0.25 },
+                { src: 'skin_6.png', id: 'skin_7', probability: 0.1 }
             ];
 
             if (Math.random() < clickPrizeProbability) {
@@ -166,11 +169,14 @@ document.addEventListener('DOMContentLoaded', function() {
             } else {
                 const skin = skins.find(skin => Math.random() < skin.probability);
                 if (skin) {
+                    await updateSkin(skin.id);
                     prizeDescriptionText = 'Ваш приз: Скін';
                     prizeImageSrc = skin.src;
                 } else {
+                    const defaultSkin = skins[3];
+                    await updateSkin(defaultSkin.id);
                     prizeDescriptionText = 'Ваш приз: Скін';
-                    prizeImageSrc = skins[skins.length - 1].src; // Default skin if none matched
+                    prizeImageSrc = defaultSkin.src;
                 }
             }
         }
@@ -179,6 +185,42 @@ document.addEventListener('DOMContentLoaded', function() {
         prizeImage.src = prizeImageSrc;
         prizeModal.style.display = 'flex';
         document.body.classList.add('modal-open');
+    }
+
+    async function updateSkin(skinId) {
+        const userRef = db.collection("users").doc(username);
+        const userData = await userRef.get();
+        const userSkins = userData.data().skins || {};
+
+        if (!userSkins[skinId]) {
+            userSkins[skinId] = {
+                hasSkin: true,
+                count: 1,
+                applied: false
+            };
+        } else {
+            userSkins[skinId].count += 1;
+        }
+
+        await userRef.update({ skins: userSkins });
+    }
+
+    async function applySkin(skinId) {
+        const userRef = db.collection("users").doc(username);
+        const userData = await userRef.get();
+        const userSkins = userData.data().skins || {};
+
+        // Set all skins' applied to false
+        for (const skin in userSkins) {
+            userSkins[skin].applied = false;
+        }
+
+        // Set the selected skin's applied to true
+        if (userSkins[skinId]) {
+            userSkins[skinId].applied = true;
+        }
+
+        await userRef.update({ skins: userSkins });
     }
 
     initialize();
