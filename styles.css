@@ -130,6 +130,7 @@ body::after {
     height: 40px; /* розмір аватара */
     border-radius: 50%; /* заокруглення */
     vertical-align: middle; /* вирівнювання по вертикалі */
+    z-index: 2998;
 }
 
 .coin-container {
