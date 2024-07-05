@@ -12,6 +12,11 @@ document.addEventListener('DOMContentLoaded', function() {
     const claimPrizeButton = document.getElementById('claim-prize');
     const cofferPrice = document.getElementById('coffer-price'); // Додано для роботи з ціною скарбнички
 
+    const skinsButton = document.getElementById('skins-button');
+    const skinsModal = document.getElementById('skins-modal');
+    const closeSkinsModalButton = document.querySelector('.close-skins-modal');
+    const skinsButtonModal = document.getElementById('skins-button-modal');
+
     let username = '';
     let firstName = '';
     let clickCount = 0;
@@ -222,6 +227,42 @@ document.addEventListener('DOMContentLoaded', function() {
 
         await userRef.update({ skins: userSkins });
     }
+
+    // Existing initialization function
+    async function initialize() {
+        username = getUsernameFromUrl();
+        if (username) {
+            try {
+                const userData = await getUserData(username);
+                const clickData = await getUserClicks(username);
+                firstName = userData.first_name;
+                clickCount = clickData.clickCount || 0;
+            } catch (error) {
+                console.error("Error getting user data:", error);
+                alert('Помилка: Не вдалося отримати дані користувача.');
+            }
+        } else {
+            alert('Помилка: Ім\'я користувача не вказане.');
+        }
+    }
+
+    // Event listener for the Skins button
+    skinsButton.addEventListener('click', function() {
+        skinsModal.style.display = 'flex';
+        document.body.classList.add('modal-open');
+    });
+
+    // Event listener to close the Skins modal
+    closeSkinsModalButton.addEventListener('click', function() {
+        skinsModal.style.display = 'none';
+        document.body.classList.remove('modal-open');
+    });
+
+    // Event listener to close the Skins modal from the button inside the modal
+    skinsButtonModal.addEventListener('click', function() {
+        skinsModal.style.display = 'none';
+        document.body.classList.remove('modal-open');
+    });
 
     initialize();
 });
