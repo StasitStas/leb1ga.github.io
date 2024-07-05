@@ -15,6 +15,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const skinsButton = document.getElementById('skins-button');
     const skinsModal = document.getElementById('skins-modal');
     const skinsButtonModal = document.getElementById('skins-button-modal');
+    const skinsContainer = document.getElementById('skins-container');
     
     let username = '';
     let firstName = '';
@@ -54,12 +55,25 @@ document.addEventListener('DOMContentLoaded', function() {
                 const clickData = await getUserClicks(username);
                 firstName = userData.first_name;
                 clickCount = clickData.clickCount || 0;
+                displayUserSkins(userData.skins);
             } catch (error) {
                 console.error("Error getting user data:", error);
                 alert('Помилка: Не вдалося отримати дані користувача.');
             }
         } else {
             alert('Помилка: Ім\'я користувача не вказане.');
+        }
+    }
+
+    function displayUserSkins(skins) {
+        skinsContainer.innerHTML = '';
+        for (const skinId in skins) {
+            if (skins[skinId].hasSkin) {
+                const skinElement = document.createElement('div');
+                skinElement.classList.add('skin-item');
+                skinElement.style.backgroundImage = `url('path/to/skins/${skinId}.png')`; // Update the path accordingly
+                skinsContainer.appendChild(skinElement);
+            }
         }
     }
 
@@ -225,24 +239,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }
 
         await userRef.update({ skins: userSkins });
-    }
-
-    // Existing initialization function
-    async function initialize() {
-        username = getUsernameFromUrl();
-        if (username) {
-            try {
-                const userData = await getUserData(username);
-                const clickData = await getUserClicks(username);
-                firstName = userData.first_name;
-                clickCount = clickData.clickCount || 0;
-            } catch (error) {
-                console.error("Error getting user data:", error);
-                alert('Помилка: Не вдалося отримати дані користувача.');
-            }
-        } else {
-            alert('Помилка: Ім\'я користувача не вказане.');
-        }
     }
 
     // Event listener for the Skins button to open the modal
