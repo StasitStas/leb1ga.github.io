@@ -140,8 +140,10 @@
     </div>
     <div id="mineModal" class="modal-mine">
         <div class="container-mine">
-            <button id="skins-button">Скіни</button>
             <div class="shop-section">
+                <!-- Додаємо кнопку Скіни -->
+                <button id="skins-button">Скіни</button>
+        
                 <!-- Додаємо сундуки -->
                 <div class="shop-item" id="coffer1">
                     <img src="coffer1.png" alt="Простий сундук">
@@ -149,16 +151,18 @@
                         <span class="item-name">Простий</span>
                     </div>
                 </div>
-
+        
                 <div class="shop-item" id="coffer2">
                     <img src="coffer2.png" alt="Презедентський сундук">
                     <div class="item-details">
                         <span class="item-name">Презедентський</span>
                     </div>
                 </div>
-
+        
                 <!-- Додаємо інші сундуки в майбутньому -->
             </div>
+        
+            <!-- Coffer Modal -->
             <div id="coffer-modal" class="coffer-modal">
                 <div class="modal-content-mine">
                     <span class="close-modal-mine">&times;</span>
@@ -172,6 +176,7 @@
                     </div>
                 </div>
             </div>
+        
             <!-- Prize Modal -->
             <div id="prize-modal" class="prize-modal">
                 <div class="modal-content-mine">
@@ -181,7 +186,16 @@
                     <button id="claim-prize">Забрати</button>
                 </div>
             </div>
-        </div>  
+        
+            <!-- Skins Modal -->
+            <div id="skins-modal" class="skins-modal">
+                <div class="modal-content-mine">
+                    <span class="close-skins-modal">&times;</span>
+                    <button id="skins-button-modal">Скіни</button>
+                    <!-- Add any other content you want inside the skins modal here -->
+                </div>
+            </div>
+        </div>
         <script src="about.js"></script> <!-- Підключення drop.js тут -->
     </div>
     <div id="friendsModal" class="modal-friends">
