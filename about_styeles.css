@@ -295,20 +295,6 @@
     background-color: #45a049; /* Darker green on hover */
 }
 
-.skins-modal {
-    display: none; /* Hidden by default */
-    position: fixed;
-    z-index: 1000;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    overflow: auto;
-    background-color: rgba(0, 0, 0, 0.5); /* Black with opacity */
-    align-items: center;
-    justify-content: center;
-}
-
 .modal-content-mine-skin {
     background-color: #fefefe;
     margin: auto;
@@ -317,4 +303,21 @@
     width: 80%;
     max-width: 500px; /* Adjust as needed */
     text-align: center;
+}
+
+.skins-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0);
+    padding: 0px;
+    border-radius: 0;
+    box-shadow: none;
+    color: white;
+    z-index: 3001;
+    overflow: auto;
+    transition: left 0.5s ease; /* Додаємо плавний перехід */
 }
