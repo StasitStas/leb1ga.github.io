@@ -328,16 +328,16 @@
     left: 35%;
 }
 
-.skins-container {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
+.skin-item {
+    display: inline-block;
+    margin: 10px;
+    border-radius: 10px;
+    overflow: hidden;
 }
 
-.skin-item {
+.skin-item img {
     width: 150px;
     height: 150px;
-    background-size: cover;
-    border-radius: 50px;
+    border-radius: 10px;
+    object-fit: cover;
 }
-
