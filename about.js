@@ -47,24 +47,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    async function initialize() {
-        username = getUsernameFromUrl();
-        if (username) {
-            try {
-                const userData = await getUserData(username);
-                const clickData = await getUserClicks(username);
-                firstName = userData.first_name;
-                clickCount = clickData.clickCount || 0;
-                displayUserSkins(userData.skins || {});
-            } catch (error) {
-                console.error("Error getting user data:", error);
-                alert('Помилка: Не вдалося отримати дані користувача.');
-            }
-        } else {
-            alert('Помилка: Ім\'я користувача не вказане.');
-        }
-    }
-
     function displayUserSkins(skins) {
         skinsContainer.innerHTML = ''; // Очистити контейнер перед додаванням нових елементів
         for (const skinId in skins) {
@@ -75,6 +57,33 @@ document.addEventListener('DOMContentLoaded', function() {
                 img.height = 150;
                 skinsContainer.appendChild(img);
             }
+        }
+    }
+
+    async function initialize() {
+        username = getUsernameFromUrl();
+        if (username) {
+            try {
+                const userData = await getUserData(username);
+                const clickData = await getUserClicks(username);
+                firstName = userData.first_name;
+                clickCount = clickData.clickCount || 0;
+                displayUserSkins(userData.skins || {});
+
+                // Слухач змін для скинів користувача
+                db.collection("users").doc(username).onSnapshot(doc => {
+                    if (doc.exists) {
+                        const userData = doc.data();
+                        displayUserSkins(userData.skins || {});
+                    }
+                });
+
+            } catch (error) {
+                console.error("Error getting user data:", error);
+                alert('Помилка: Не вдалося отримати дані користувача.');
+            }
+        } else {
+            alert('Помилка: Ім\'я користувача не вказане.');
         }
     }
 
@@ -224,24 +233,6 @@ document.addEventListener('DOMContentLoaded', function() {
         await userRef.update({ skins: userSkins });
     }
 
-    async function applySkin(skinId) {
-        const userRef = db.collection("users").doc(username);
-        const userData = await userRef.get();
-        const userSkins = userData.data().skins || {};
-
-        // Set all skins' applied to false
-        for (const skin in userSkins) {
-            userSkins[skin].applied = false;
-        }
-
-        // Set the selected skin's applied to true
-        if (userSkins[skinId]) {
-            userSkins[skinId].applied = true;
-        }
-
-        await userRef.update({ skins: userSkins });
-    }
-
     // Event listener for the Skins button to open the modal
     skinsButton.addEventListener('click', function() {
         skinsModal.style.display = 'flex';
@@ -256,4 +247,3 @@ document.addEventListener('DOMContentLoaded', function() {
 
     initialize();
 });
-
