@@ -332,12 +332,13 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
-    padding: 10px;
+    padding: 12px;
 }
 
 .skins-container img {
     width: 150px;
     height: 150px;
-    border-radius: 15px; /* Заокруглення країв */
-    object-fit: cover; /* Забезпечити, щоб зображення заповнювало елемент без спотворення */
+    border-radius: 60px;
+    object-fit: cover;
+    margin-top: 15px;
 }
