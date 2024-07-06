@@ -2,11 +2,11 @@
     text-align: center;
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
     height: 100vh;
     position: relative;
-    padding-bottom: 60px; /* Простір для нижньої навігації */
+    padding-bottom: 1%;
+    margin-top: 10%;
 }
 
 .shop-section {
