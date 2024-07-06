@@ -319,18 +319,16 @@ body::after {
     display: none;
     position: fixed;
     top: 0;
-    left: 100%;
+    left: 0;
     width: 100vw;
     height: 100vh;
-    background-color: rgba(0, 0, 0, 0.8); /* Додано прозорість для фону */
-    padding: 0;
+    background-color: rgba(0, 0, 0);
+    padding: 0px;
     border-radius: 0;
     box-shadow: none;
     color: white;
     z-index: 3001;
     overflow: auto;
-    transform: translateX(0);
-    animation: slideLeft 0.2s ease-out forwards;
 }
 
 
