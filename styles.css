@@ -319,18 +319,29 @@ body::after {
     display: none;
     position: fixed;
     top: 0;
-    left: 0;
+    left: 100%;
     width: 100vw;
     height: 100vh;
-    background-color: rgba(0, 0, 0);
-    padding: 0px;
+    background-color: rgba(0, 0, 0, 0.8); /* Додано прозорість для фону */
+    padding: 0;
     border-radius: 0;
     box-shadow: none;
     color: white;
     z-index: 3001;
     overflow: auto;
-    transition: left 0.5s ease; /* Додаємо плавний перехід */
+    transform: translateX(0);
+    animation: slideLeft 0.2s ease-out forwards;
 }
+
+@keyframes slideLeft {
+    from {
+        transform: translateX(100%);
+    }
+    to {
+        transform: translateX(0);
+    }
+}
+
 
 .settings-window label {
     margin-bottom: 10px;
