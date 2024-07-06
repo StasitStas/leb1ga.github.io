@@ -53,8 +53,6 @@ document.addEventListener('DOMContentLoaded', function() {
             if (skins[skinId].hasSkin) {
                 const img = document.createElement('img');
                 img.src = `skin/${skinId}.png`;
-                img.width = 150;
-                img.height = 150;
                 skinsContainer.appendChild(img);
             }
         }
@@ -228,6 +226,24 @@ document.addEventListener('DOMContentLoaded', function() {
             };
         } else {
             userSkins[skinId].count += 1;
+        }
+
+        await userRef.update({ skins: userSkins });
+    }
+
+    async function applySkin(skinId) {
+        const userRef = db.collection("users").doc(username);
+        const userData = await userRef.get();
+        const userSkins = userData.data().skins || {};
+
+        // Set all skins' applied to false
+        for (const skin in userSkins) {
+            userSkins[skin].applied = false;
+        }
+
+        // Set the selected skin's applied to true
+        if (userSkins[skinId]) {
+            userSkins[skinId].applied = true;
         }
 
         await userRef.update({ skins: userSkins });
