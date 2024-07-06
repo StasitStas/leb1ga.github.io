@@ -342,3 +342,8 @@
     object-fit: cover;
     margin-top: 15px;
 }
+
+.modal-open {
+    overflow: hidden;
+}
+
