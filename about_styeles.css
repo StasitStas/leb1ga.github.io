@@ -331,7 +331,8 @@
 .skins-container {
     display: flex;
     flex-wrap: wrap;
-    gap: 10px; /* Відступ між скінами */
+    justify-content: space-around;
+    padding: 10px;
 }
 
 .skins-container img {
