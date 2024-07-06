@@ -328,16 +328,15 @@
     left: 35%;
 }
 
-.skin-item {
-    display: inline-block;
-    margin: 10px;
-    border-radius: 10px;
-    overflow: hidden;
+.skins-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px; /* Відступ між скінами */
 }
 
-.skin-item img {
+.skins-container img {
     width: 150px;
     height: 150px;
-    border-radius: 10px;
-    object-fit: cover;
+    border-radius: 15px; /* Заокруглення країв */
+    object-fit: cover; /* Забезпечити, щоб зображення заповнювало елемент без спотворення */
 }
