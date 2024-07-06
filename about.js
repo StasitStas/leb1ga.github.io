@@ -15,6 +15,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const skinsButton = document.getElementById('skins-button');
     const skinsModal = document.getElementById('skins-modal');
     const skinsButtonModal = document.getElementById('skins-button-modal');
+    const skinsContainer = document.getElementById('skins-container');
     
     let username = '';
     let firstName = '';
@@ -54,12 +55,26 @@ document.addEventListener('DOMContentLoaded', function() {
                 const clickData = await getUserClicks(username);
                 firstName = userData.first_name;
                 clickCount = clickData.clickCount || 0;
+                displayUserSkins(userData.skins || {});
             } catch (error) {
                 console.error("Error getting user data:", error);
                 alert('Помилка: Не вдалося отримати дані користувача.');
             }
         } else {
             alert('Помилка: Ім\'я користувача не вказане.');
+        }
+    }
+
+    function displayUserSkins(skins) {
+        skinsContainer.innerHTML = ''; // Очистити контейнер перед додаванням нових елементів
+        for (const skinId in skins) {
+            if (skins[skinId].hasSkin) {
+                const img = document.createElement('img');
+                img.src = `skin/${skinId}.png`;
+                img.width = 150;
+                img.height = 150;
+                skinsContainer.appendChild(img);
+            }
         }
     }
 
@@ -140,7 +155,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 const clicks = Math.floor(Math.random() * (150 - 30 + 1)) + 30;
                 clickCount += clicks;
                 await db.collection("clicks").doc(username).update({ clickCount: clickCount });
-                prizeDescriptionText = Ваш приз: ${clicks} кліків;
+                prizeDescriptionText = `Ваш приз: ${clicks} кліків`;
                 prizeImageSrc = 'coin.png';
             } else {
                 const skin = skins.find(skin => Math.random() < skin.probability);
@@ -168,7 +183,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 const clicks = Math.floor(Math.random() * (1400 - 200 + 1)) + 200;
                 clickCount += clicks;
                 await db.collection("clicks").doc(username).update({ clickCount: clickCount });
-                prizeDescriptionText = Ваш приз: ${clicks} кліків;
+                prizeDescriptionText = `Ваш приз: ${clicks} кліків`;
                 prizeImageSrc = 'coin.png';
             } else {
                 const skin = skins.find(skin => Math.random() < skin.probability);
@@ -227,24 +242,6 @@ document.addEventListener('DOMContentLoaded', function() {
         await userRef.update({ skins: userSkins });
     }
 
-    // Existing initialization function
-    async function initialize() {
-        username = getUsernameFromUrl();
-        if (username) {
-            try {
-                const userData = await getUserData(username);
-                const clickData = await getUserClicks(username);
-                firstName = userData.first_name;
-                clickCount = clickData.clickCount || 0;
-            } catch (error) {
-                console.error("Error getting user data:", error);
-                alert('Помилка: Не вдалося отримати дані користувача.');
-            }
-        } else {
-            alert('Помилка: Ім\'я користувача не вказане.');
-        }
-    }
-
     // Event listener for the Skins button to open the modal
     skinsButton.addEventListener('click', function() {
         skinsModal.style.display = 'flex';
@@ -259,3 +256,4 @@ document.addEventListener('DOMContentLoaded', function() {
 
     initialize();
 });
+
