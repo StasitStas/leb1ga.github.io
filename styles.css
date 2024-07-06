@@ -333,15 +333,6 @@ body::after {
     animation: slideLeft 0.2s ease-out forwards;
 }
 
-@keyframes slideLeft {
-    from {
-        transform: translateX(100%);
-    }
-    to {
-        transform: translateX(0);
-    }
-}
-
 
 .settings-window label {
     margin-bottom: 10px;
