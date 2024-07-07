@@ -1,13 +1,13 @@
 window.addEventListener('load', function() {
     const preloader = document.getElementById('preloader');
-    const loadingBar = document.querySelector('.loading-bar');
+    const loadingProgress = document.querySelector('.loading-progress');
     
     // Показуємо вікно загрузки
     preloader.style.display = 'flex';
 
     // Заповнюємо прогрес-бар за 3 секунди
     setTimeout(function() {
-        loadingBar.style.width = '100%';
+        loadingProgress.style.width = '100%';
     }, 10); // Невелика затримка перед початком анімації
 
     // Приховуємо вікно загрузки через 3 секунди
