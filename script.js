@@ -1,5 +1,4 @@
 document.addEventListener('DOMContentLoaded', function() {
-    const preloader = document.getElementById('preloader');
     const airdropButton = document.getElementById('airdropButton');
     const exchangeButton = document.getElementById('exchangeButton');
     const mineButton = document.getElementById('mineButton');
@@ -46,6 +45,12 @@ document.addEventListener('DOMContentLoaded', function() {
         { threshold: 2500000, label: 'lvl-9' },
         { threshold: 5000000, label: 'lvl-10' }
     ];
+    preloader.style.display = 'flex'; // показуємо вікно загрузки
+    
+    // Через 3 секунди приховуємо вікно загрузки
+    setTimeout(function() {
+        preloader.style.display = 'none';
+    }, 3000); // 3000 мілісекунд = 3 секунди
 
     let username = '';
     let firstName = '';
