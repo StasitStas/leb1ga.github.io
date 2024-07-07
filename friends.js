@@ -1,43 +1,43 @@
 document.addEventListener('DOMContentLoaded', function () {
-    const queryString = window.location.search;
-    const urlParams = new URLSearchParams(queryString);
-    const username = urlParams.get('username');
-    const refKey = urlParams.get('ref');
+    const containerFriends = document.querySelector('.container-friends');
+    const db = firebase.firestore();
 
-    const container = document.getElementById('container-friends');
-    if (username && refKey) {
-        const referralLink = document.createElement('div');
-        referralLink.classList.add('referral-link');
-        referralLink.textContent = `https://t.me/Leb1gacoin_bot?start=${refKey}`;
-        referralLink.addEventListener('click', function () {
-            navigator.clipboard.writeText(referralLink.textContent).then(() => {
-                alert('Посилання скопійовано');
+    firebase.auth().onAuthStateChanged(user => {
+        if (user) {
+            const username = user.displayName;
+            const userRef = db.collection('users').doc(username);
+
+            userRef.get().then(doc => {
+                if (doc.exists) {
+                    const data = doc.data();
+                    if (data.referral_link) {
+                        const referralLink = document.createElement('div');
+                        referralLink.innerHTML = `
+                            <p>Ваше реферальне посилання:</p>
+                            <input type="text" value="${data.referral_link}" id="referralLink" readonly>
+                            <button onclick="copyReferralLink()">Копіювати посилання</button>
+                        `;
+                        containerFriends.appendChild(referralLink);
+                    }
+                }
             });
-        });
-        container.appendChild(referralLink);
-    }
 
-    if (refKey) {
-        // Перевірка чи користувач вже існує та оновлення бази даних
-        checkAndAddReferral(refKey, username);
-    }
+            const referralsRef = db.collection('Ref').doc(username).collection('referrals');
+            referralsRef.get().then(querySnapshot => {
+                querySnapshot.forEach(doc => {
+                    const referralData = doc.data();
+                    const referralDiv = document.createElement('div');
+                    referralDiv.innerText = `Реферал: ${referralData.username}`;
+                    containerFriends.appendChild(referralDiv);
+                });
+            });
+        }
+    });
 });
 
-function checkAndAddReferral(refKey, username) {
-    fetch('https://<your-cloud-function-url>', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ refKey, username })
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (data.success) {
-            console.log('Referral added successfully');
-        } else {
-            console.log('Referral already exists or error occurred');
-        }
-    })
-    .catch(error => console.error('Error:', error));
+function copyReferralLink() {
+    const referralLink = document.getElementById('referralLink');
+    referralLink.select();
+    document.execCommand('copy');
+    alert('Посилання скопійовано');
 }
