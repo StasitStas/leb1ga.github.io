@@ -86,3 +86,43 @@
         opacity: 0;
     }
 }
+
+.copy-button {
+    display: inline-block;
+    margin-left: 10px;
+    padding: 5px;
+    border: 2px solid #fff;
+    border-radius: 50%;
+    color: #fff;
+    background-color: #c20000;
+    font-size: 18px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+    user-select: none;
+    position: relative;
+}
+
+.copy-button:hover {
+    background-color: #ff0000;
+    transform: scale(1.1);
+}
+
+.copy-icon {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: green;
+    font-size: 18px;
+    font-weight: bold;
+    animation: fadeOut 6s forwards;
+}
+
+@keyframes fadeOut {
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}
