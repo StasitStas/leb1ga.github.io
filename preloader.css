@@ -1,0 +1,109 @@
+/* Neon text effect styles */
+.text-effect-wrapper,
+.text {
+  position: relative;
+}
+
+.text-effect-wrapper::before,
+.text-effect-wrapper::after,
+.text::before,
+.text::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.text-effect-wrapper {
+  --spotlight-color: white;
+  overflow: hidden;
+
+  /* Shimmer animation */
+  &::before {
+    animation: shimmer 3s infinite linear;
+    background: 
+      radial-gradient(circle, var(--spotlight-color), transparent 25%) 0 0 / 25% 25%,
+      radial-gradient(circle, var(--spotlight-color), black 25%) 50% 50% / 12.5% 12.5%;
+    inset-block-start: -100%;
+    inset-inline-start: -100%;
+    mix-blend-mode: color-dodge;
+    z-index: 3;
+  }
+
+  /* Extra filter to boost colors and contrast */
+  &::after {
+    backdrop-filter: blur(1px) brightness(90%) contrast(150%);
+    z-index: 4;
+  }
+}
+
+@keyframes shimmer {
+  100% {
+    transform: translate3d(50%, 50%, 0);
+  }
+}
+
+.text {
+  --background-color: black;
+  --text-color: white;
+  --color-1: red;
+  --color-2: blue;
+
+  color: transparent;
+  text-shadow: 
+    0 0 0.02em var(--background-color), 
+    0 0 0.02em var(--text-color),
+    0 0 0.02em var(--text-color), 
+    0 0 0.02em var(--text-color);
+
+  &::before {
+    backdrop-filter: blur(0.013em) brightness(400%);
+    z-index: 1;
+  }
+
+  &::after {
+    background: linear-gradient(45deg, var(--color-1), var(--color-2));
+    mix-blend-mode: multiply;
+    z-index: 2;
+  }
+}
+
+/* Preloader styles */
+.preloader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10000;
+}
+
+.preloader-inner {
+    text-align: center;
+}
+
+.loading-bar {
+    width: 80%;
+    height: 5px;
+    background: rgba(255, 255, 255, 0.2);
+    margin-top: 20px;
+    overflow: hidden;
+    position: relative;
+}
+
+.loading-progress {
+    width: 0;
+    height: 100%;
+    background: #00ff00;
+    animation: load 3s linear forwards;
+}
+
+@keyframes load {
+    to {
+        width: 100%;
+    }
+}
