@@ -49,6 +49,9 @@
   --color-1: red;
   --color-2: blue;
 
+  /* Зміна розміру тексту */
+  font-size: 6rem; /* Змінюйте значення за потребою */
+
   color: transparent;
   text-shadow: 
     0 0 0.02em var(--background-color), 
@@ -99,11 +102,5 @@
     width: 0;
     height: 100%;
     background: #00ff00;
-    animation: load 3s linear forwards;
-}
-
-@keyframes load {
-    to {
-        width: 100%;
-    }
+    transition: width 3s linear;
 }
