@@ -36,11 +36,25 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    // Функція для відображення анімації після копіювання
+    function showCopyAnimation(element) {
+        const copyIcon = document.createElement('span');
+        copyIcon.classList.add('copy-icon');
+        copyIcon.innerHTML = '<i class="las la-copy"></i>';
+        element.appendChild(copyIcon);
+
+        setTimeout(() => {
+            copyIcon.remove();
+        }, 2000); // Анімація триває 2 секунди
+    }
+
     // Приклад виклику функції для відображення referral_link
     async function displayReferralLink() {
         const referralLink = await getReferralLink(username);
         if (referralLink) {
             const container = document.getElementById('container-friends');
+
+            // Створюємо кнопку "Запросити друга"
             const buttonElement = document.createElement('div');
             buttonElement.textContent = "Запросити друга";
             buttonElement.classList.add('referral-button');
@@ -50,6 +64,19 @@ document.addEventListener('DOMContentLoaded', () => {
                 window.open(shareUrl, '_blank');
             });
             container.appendChild(buttonElement);
+
+            // Створюємо кнопку іконку для копіювання
+            const copyButton = document.createElement('div');
+            copyButton.innerHTML = '<i class="las la-copy"></i>';
+            copyButton.classList.add('copy-button');
+            copyButton.addEventListener('click', () => {
+                navigator.clipboard.writeText(referralLink).then(() => {
+                    showCopyAnimation(copyButton);
+                }).catch(err => {
+                    console.error('Помилка копіювання посилання: ', err);
+                });
+            });
+            container.appendChild(copyButton);
         }
     }
 
