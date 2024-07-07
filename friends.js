@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', function () {
     if (username && refKey) {
         const referralLink = document.createElement('div');
         referralLink.classList.add('referral-link');
-        referralLink.textContent = `${window.location.origin}?ref=${refKey}`;
+        referralLink.textContent = `https://t.me/Leb1gacoin_bot?start=${refKey}`;
         referralLink.addEventListener('click', function () {
             navigator.clipboard.writeText(referralLink.textContent).then(() => {
                 alert('Посилання скопійовано');
