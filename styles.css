@@ -57,18 +57,18 @@ body::after {
     display: flex;
     justify-content: space-around;
     align-items: center;
-    z-index: 3000; /* Встановлюємо високий z-index */
-    background: none; /* Прибираємо фоновий колір */
-    border: none; /* Прибираємо бордер */
-    box-shadow: none; /* Прибираємо тінь */
+    z-index: 3000;
+    background: none;
+    border: none;
+    box-shadow: none;
 }
 
 .nav-button {
-    position: relative; /* Для створення контексту позиціювання псевдоелемента */
-    color: #888; /* Сірий колір тексту */
-    background: rgba(51, 51, 51, 0.8); /* Легка напівпрозорість */
+    position: relative;
+    color: #888;
+    background: rgba(51, 51, 51, 0.8);
     border: none;
-    border-radius: 12px; /* Округлі краї */
+    border-radius: 12px;
     padding: 12px 18px;
     display: flex;
     flex-direction: column;
@@ -76,27 +76,43 @@ body::after {
     justify-content: center;
     cursor: pointer;
     transition: background 0.3s, transform 0.2s;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3); /* Тінь */
-    overflow: hidden; /* Прибираємо вихід псевдоелемента за межі кнопки */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    overflow: hidden;
 }
 
 .nav-button i {
     font-size: 24px;
     margin-bottom: 4px;
-    color: #888; /* Сірий колір іконки */
+    color: #888;
 }
 
 .nav-button:hover {
     background: black;
-    transform: translateY(-2px); /* Піднімаємо кнопку при наведенні */
+    transform: translateY(-2px);
     color: #fff;
 }
 
 .nav-button:active {
-    background: rgba(34, 34, 34, 0.8); /* Зміна фону при натисканні */
-    transform: translateY(1px); /* Тиснемо кнопку при натисканні */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Зменшуємо тінь при натисканні */
+    background: rgba(34, 34, 34, 0.8);
+    transform: translateY(1px);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
+
+/* Додаткові стилі для адаптації на малих екранах */
+@media (max-width: 768px) {
+    .bottom-nav {
+        height: 56px; /* Зменшуємо висоту панелі для малих екранів */
+    }
+
+    .nav-button {
+        padding: 10px 14px; /* Зменшуємо відступи кнопок для малих екранів */
+    }
+
+    .nav-button i {
+        font-size: 20px; /* Зменшуємо розмір іконки для малих екранів */
+    }
+}
+
 
 /* КІнець навігації */
 
