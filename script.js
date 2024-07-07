@@ -1,4 +1,5 @@
 document.addEventListener('DOMContentLoaded', function() {
+    const preloader = document.getElementById('preloader');
     const airdropButton = document.getElementById('airdropButton');
     const exchangeButton = document.getElementById('exchangeButton');
     const mineButton = document.getElementById('mineButton');
@@ -58,6 +59,8 @@ document.addEventListener('DOMContentLoaded', function() {
     let telegramWindowOpen = false;
 
     let lastClickTime = 0;
+
+    preloader.style.display = 'none'; // ховаємо вікно загрузки після завантаження
 
     avatarToggleLabel.addEventListener('click', function(event) {
         event.stopPropagation();
