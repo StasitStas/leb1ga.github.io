@@ -41,10 +41,16 @@ document.addEventListener('DOMContentLoaded', () => {
         const referralLink = await getReferralLink(username);
         if (referralLink) {
             const container = document.getElementById('container-friends');
-            const linkElement = document.createElement('a');
-            linkElement.href = referralLink;
-            linkElement.textContent = "Ваше реферальне посилання";
-            linkElement.classList.add('referral-link'); // Додамо клас для стилізації
+            const linkElement = document.createElement('div');
+            linkElement.textContent = referralLink;
+            linkElement.classList.add('referral-link');
+            linkElement.addEventListener('click', () => {
+                navigator.clipboard.writeText(referralLink).then(() => {
+                    alert('Реферальне посилання скопійовано!');
+                }).catch(err => {
+                    console.error('Помилка копіювання посилання: ', err);
+                });
+            });
             container.appendChild(linkElement);
         }
     }
