@@ -35,3 +35,14 @@
     max-width: 600px;
     border-radius: 10px;
 }
+
+.container-friends {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 50px;
+}
+
+.referral-link {
+    margin: 10px 0;
+}
