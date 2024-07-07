@@ -45,12 +45,6 @@ document.addEventListener('DOMContentLoaded', function() {
         { threshold: 2500000, label: 'lvl-9' },
         { threshold: 5000000, label: 'lvl-10' }
     ];
-    preloader.style.display = 'flex'; // показуємо вікно загрузки
-    
-    // Через 3 секунди приховуємо вікно загрузки
-    setTimeout(function() {
-        preloader.style.display = 'none';
-    }, 3000); // 3000 мілісекунд = 3 секунди
 
     let username = '';
     let firstName = '';
@@ -64,8 +58,6 @@ document.addEventListener('DOMContentLoaded', function() {
     let telegramWindowOpen = false;
 
     let lastClickTime = 0;
-
-    preloader.style.display = 'none'; // ховаємо вікно загрузки після завантаження
 
     avatarToggleLabel.addEventListener('click', function(event) {
         event.stopPropagation();
