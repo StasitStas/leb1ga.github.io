@@ -36,23 +36,20 @@
     border-radius: 10px;
 }
 
-.container-friends {
-    background-color: #fff;
-    border: 1px solid #ddd;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    text-align: center;
-}
-
 .referral-link {
     display: block;
     margin-top: 20px;
-    text-decoration: none;
+    padding: 10px 20px;
+    border: 1px solid #ddd;
+    border-radius: 25px;
+    background-color: #f8f9fa;
     color: #007bff;
     font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    user-select: none;
 }
 
 .referral-link:hover {
-    text-decoration: underline;
+    background-color: #e2e6ea;
 }
