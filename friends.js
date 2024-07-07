@@ -53,17 +53,14 @@ document.addEventListener('DOMContentLoaded', () => {
         const referralLink = await getReferralLink(username);
         if (referralLink) {
             const container = document.getElementById('container-friends');
-            const linkElement = document.createElement('div');
-            linkElement.textContent = referralLink;
-            linkElement.classList.add('referral-link');
-            linkElement.addEventListener('click', () => {
-                navigator.clipboard.writeText(referralLink).then(() => {
-                    showCopyAnimation(linkElement);
-                }).catch(err => {
-                    console.error('Помилка копіювання посилання: ', err);
-                });
+            const buttonElement = document.createElement('div');
+            buttonElement.textContent = "Запросити друга";
+            buttonElement.classList.add('referral-button');
+            buttonElement.addEventListener('click', () => {
+                const shareUrl = `https://t.me/share/url?url=${encodeURIComponent(referralLink)}&text=${encodeURIComponent("Запрошую тебе приєднатися!")}`;
+                window.open(shareUrl, '_blank');
             });
-            container.appendChild(linkElement);
+            container.appendChild(buttonElement);
         }
     }
 
