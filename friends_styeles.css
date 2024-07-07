@@ -36,7 +36,7 @@
 
 .referral-button {
     display: inline-block;
-    margin-top: 10px; /* Відстань від нижнього краю */
+    margin-top: 10px;
     padding: 20px 60px;
     border: 3px solid #fff;
     border-radius: 15px;
@@ -47,27 +47,31 @@
     transition: background-color 0.3s, transform 0.3s;
     user-select: none;
     position: relative;
-    font-size: 18px; /* Збільшено розмір шрифту для кращої видимості на малих екранах */
+    font-size: 18px;
     text-align: center;
     animation: pulse 1.5s infinite;
+    margin-top: auto;
+    margin-bottom: 100px;
+    right: 70px;
 }
 
 .copy-button {
     display: inline-block;
-    margin-left: 10px;
-    margin-top: 10px; /* Відстань від нижнього краю і від копійованої кнопки */
+    left: auto;
+    margin-top: auto;
     padding: 15px;
     border: 3px solid #fff;
     border-radius: 25%;
     color: #fff;
     background-color: #c20000;
-    font-size: 24px; /* Зменшено розмір шрифту для копіювання */
+    font-size: 24px;
     cursor: pointer;
     transition: background-color 0.3s, transform 0.3s;
     user-select: none;
     position: absolute;
-    right: 20px; /* Право від контейнера */
-    bottom: 20px; /* Низ від контейнера */
+    right: 20px;
+    bottom: 20px;
+    margin-bottom: 100px;
 }
 
 .copy-button:hover {
