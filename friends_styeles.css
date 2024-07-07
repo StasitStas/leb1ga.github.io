@@ -38,18 +38,15 @@
 
 .referral-link {
     display: block;
-    margin-top: 20px;
+    margin-top: 600px;
     padding: 10px 20px;
-    border: 1px solid #ddd;
+    border: 3px solid #fff;
     border-radius: 25px;
-    background-color: #f8f9fa;
-    color: #007bff;
+    background-color: #c20000;
+    color: #ffffff;
     font-weight: bold;
     cursor: pointer;
     transition: background-color 0.3s;
     user-select: none;
-}
-
-.referral-link:hover {
-    background-color: #e2e6ea;
+    font-size: 14px;
 }
