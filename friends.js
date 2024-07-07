@@ -36,6 +36,18 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    // Функція для відображення анімації після копіювання
+    function showCopyAnimation(element) {
+        const copyIcon = document.createElement('span');
+        copyIcon.classList.add('copy-icon');
+        copyIcon.textContent = '✓';
+        element.appendChild(copyIcon);
+
+        setTimeout(() => {
+            copyIcon.remove();
+        }, 2000); // Анімація триває 2 секунди
+    }
+
     // Приклад виклику функції для відображення referral_link
     async function displayReferralLink() {
         const referralLink = await getReferralLink(username);
@@ -46,7 +58,7 @@ document.addEventListener('DOMContentLoaded', () => {
             linkElement.classList.add('referral-link');
             linkElement.addEventListener('click', () => {
                 navigator.clipboard.writeText(referralLink).then(() => {
-                    alert('Реферальне посилання скопійовано!');
+                    showCopyAnimation(linkElement);
                 }).catch(err => {
                     console.error('Помилка копіювання посилання: ', err);
                 });
