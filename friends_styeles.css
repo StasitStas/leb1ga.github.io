@@ -1,14 +1,3 @@
-.container-friends {
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    position: relative;
-    padding-bottom: 60px; /* Простір для нижньої навігації */
-}
-
 /* Стиль модального вікна для airdrop */
 .modal-friends {
     display: none;
@@ -35,9 +24,19 @@
     border-radius: 10px;
 }
 
+.container-friends {
+    position: relative;
+    height: 100vh; /* Займати весь висоту екрану */
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end; /* Вирівнювати всі елементи до низу контейнера */
+    align-items: flex-start; /* Вирівнювати всі елементи до лівого краю контейнера */
+    padding: 20px; /* Падінг для контейнера, щоб не було впливу інших елементів */
+}
+
 .referral-button {
-    display: block;
-    margin-top: 220%;
+    display: inline-block;
+    margin-top: 10px; /* Відстань від нижнього краю */
     padding: 20px 60px;
     border: 3px solid #fff;
     border-radius: 15px;
@@ -48,57 +47,27 @@
     transition: background-color 0.3s, transform 0.3s;
     user-select: none;
     position: relative;
-    /* font-size: 14px; */
+    font-size: 18px; /* Збільшено розмір шрифту для кращої видимості на малих екранах */
     text-align: center;
     animation: pulse 1.5s infinite;
-    right: 21%;
-}
-
-@keyframes pulse {
-    0% {
-        transform: scale(1);
-    }
-    50% {
-        transform: scale(1.05);
-    }
-    100% {
-        transform: scale(1);
-    }
-}
-
-.copy-icon {
-    position: absolute;
-    right: 10px;
-    top: 50%;
-    transform: translateY(-50%);
-    color: green;
-    font-size: 18px;
-    font-weight: bold;
-    animation: fadeOut 6s forwards;
-}
-
-@keyframes fadeOut {
-    0% {
-        opacity: 1;
-    }
-    100% {
-        opacity: 0;
-    }
 }
 
 .copy-button {
     display: inline-block;
     margin-left: 10px;
-    padding: 5px;
-    border: 2px solid #fff;
-    border-radius: 50%;
+    margin-top: 10px; /* Відстань від нижнього краю і від копійованої кнопки */
+    padding: 15px;
+    border: 3px solid #fff;
+    border-radius: 25%;
     color: #fff;
     background-color: #c20000;
-    font-size: 18px;
+    font-size: 24px; /* Зменшено розмір шрифту для копіювання */
     cursor: pointer;
     transition: background-color 0.3s, transform 0.3s;
     user-select: none;
-    position: relative;
+    position: absolute;
+    right: 20px; /* Право від контейнера */
+    bottom: 20px; /* Низ від контейнера */
 }
 
 .copy-button:hover {
@@ -117,11 +86,36 @@
     animation: fadeOut 6s forwards;
 }
 
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
 @keyframes fadeOut {
     0% {
         opacity: 1;
     }
     100% {
         opacity: 0;
+    }
+}
+
+/* Додаткові стилі для адаптації на малих екранах */
+@media (max-width: 768px) {
+    .referral-button {
+        font-size: 16px;
+        padding: 15px 40px;
+    }
+
+    .copy-button {
+        font-size: 20px;
+        padding: 10px;
     }
 }
