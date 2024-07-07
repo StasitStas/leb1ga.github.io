@@ -36,18 +36,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // Функція для відображення анімації після копіювання
-    function showCopyAnimation(element) {
-        const copyIcon = document.createElement('span');
-        copyIcon.classList.add('copy-icon');
-        copyIcon.textContent = '✓';
-        element.appendChild(copyIcon);
-
-        setTimeout(() => {
-            copyIcon.remove();
-        }, 2000); // Анімація триває 2 секунди
-    }
-
     // Приклад виклику функції для відображення referral_link
     async function displayReferralLink() {
         const referralLink = await getReferralLink(username);
@@ -57,7 +45,8 @@ document.addEventListener('DOMContentLoaded', () => {
             buttonElement.textContent = "Запросити друга";
             buttonElement.classList.add('referral-button');
             buttonElement.addEventListener('click', () => {
-                const shareUrl = `https://t.me/share/url?url=${encodeURIComponent(referralLink)}&text=${encodeURIComponent("Запрошую тебе приєднатися!")}`;
+                const shareText = `Запрошую тебе приєднатися!\n${referralLink}`;
+                const shareUrl = `https://t.me/share/url?url=${encodeURIComponent(referralLink)}&text=${encodeURIComponent(shareText)}`;
                 window.open(shareUrl, '_blank');
             });
             container.appendChild(buttonElement);
