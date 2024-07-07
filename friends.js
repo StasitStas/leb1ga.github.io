@@ -1,43 +1,36 @@
-document.addEventListener('DOMContentLoaded', function () {
-    const containerFriends = document.querySelector('.container-friends');
+document.addEventListener('DOMContentLoaded', () => {
     const db = firebase.firestore();
 
-    firebase.auth().onAuthStateChanged(user => {
-        if (user) {
-            const username = user.displayName;
-            const userRef = db.collection('users').doc(username);
-
-            userRef.get().then(doc => {
-                if (doc.exists) {
-                    const data = doc.data();
-                    if (data.referral_link) {
-                        const referralLink = document.createElement('div');
-                        referralLink.innerHTML = `
-                            <p>Ваше реферальне посилання:</p>
-                            <input type="text" value="${data.referral_link}" id="referralLink" readonly>
-                            <button onclick="copyReferralLink()">Копіювати посилання</button>
-                        `;
-                        containerFriends.appendChild(referralLink);
-                    }
-                }
-            });
-
-            const referralsRef = db.collection('Ref').doc(username).collection('referrals');
-            referralsRef.get().then(querySnapshot => {
-                querySnapshot.forEach(doc => {
-                    const referralData = doc.data();
-                    const referralDiv = document.createElement('div');
-                    referralDiv.innerText = `Реферал: ${referralData.username}`;
-                    containerFriends.appendChild(referralDiv);
-                });
-            });
+    // Функція для отримання referral_link з Firestore
+    async function getReferralLink(username) {
+        try {
+            const docRef = db.collection("users").doc(username);
+            const doc = await docRef.get();
+            if (doc.exists) {
+                return doc.data().referral_link;
+            } else {
+                console.log("Документ не знайдено!");
+                return null;
+            }
+        } catch (error) {
+            console.error("Помилка отримання документа: ", error);
+            return null;
         }
-    });
-});
+    }
 
-function copyReferralLink() {
-    const referralLink = document.getElementById('referralLink');
-    referralLink.select();
-    document.execCommand('copy');
-    alert('Посилання скопійовано');
-}
+    // Приклад виклику функції для відображення referral_link
+    async function displayReferralLink() {
+        const username = "USERNAME"; // Замініть на потрібний username
+        const referralLink = await getReferralLink(username);
+        if (referralLink) {
+            const container = document.getElementById('container-friends');
+            const linkElement = document.createElement('a');
+            linkElement.href = referralLink;
+            linkElement.textContent = "Ваше реферальне посилання";
+            container.appendChild(linkElement);
+        }
+    }
+
+    // Виклик функції при завантаженні сторінки
+    displayReferralLink();
+});
