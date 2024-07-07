@@ -38,10 +38,10 @@
 
 .referral-button {
     display: block;
-    margin-top: 140%;
-    padding: 10px 30px;
+    margin-top: 220%;
+    padding: 20px 60px;
     border: 3px solid #fff;
-    border-radius: 25px;
+    border-radius: 15px;
     background-color: #c20000;
     color: #ffffff;
     font-weight: bold;
@@ -49,9 +49,10 @@
     transition: background-color 0.3s, transform 0.3s;
     user-select: none;
     position: relative;
-    font-size: 14px;
+    /* font-size: 14px; */
     text-align: center;
     animation: pulse 1.5s infinite;
+    right: 21%;
 }
 
 @keyframes pulse {
