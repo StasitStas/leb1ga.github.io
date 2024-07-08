@@ -2,6 +2,29 @@ document.addEventListener('DOMContentLoaded', function() {
     const leaderboardList = document.getElementById('leaderboardList');
     const navButtons = document.querySelectorAll('.nav-button');
 
+    const LEVELS = [
+        { threshold: 0, label: 'lvl-0' },
+        { threshold: 100, label: 'lvl-1' },
+        { threshold: 1000, label: 'lvl-2' },
+        { threshold: 10000, label: 'lvl-3' },
+        { threshold: 25000, label: 'lvl-4' },
+        { threshold: 75000, label: 'lvl-5' },
+        { threshold: 250000, label: 'lvl-6' },
+        { threshold: 500000, label: 'lvl-7' },
+        { threshold: 1000000, label: 'lvl-8' },
+        { threshold: 2500000, label: 'lvl-9' },
+        { threshold: 5000000, label: 'lvl-10' }
+    ];
+
+    function getLevel(clickCountMax) {
+        for (let i = LEVELS.length - 1; i >= 0; i--) {
+            if (clickCountMax >= LEVELS[i].threshold) {
+                return LEVELS[i].label;
+            }
+        }
+        return LEVELS[0].label;
+    }
+
     let username = '';
     let firstName = '';
 
@@ -18,15 +41,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 throw new Error('Документ не знайдено');
             }
         });
-    }
-
-    function getUserLevel(userDoc) {
-        for (let i = 0; i <= 10; i++) {
-            if (userDoc[`lvl-${i}`] === true) {
-                return i;
-            }
-        }
-        return 0; // Default to 0 if no level is found
     }
 
     function initialize() {
@@ -50,9 +64,10 @@ document.addEventListener('DOMContentLoaded', function() {
             const userPromises = snapshot.docs.map(doc => {
                 const userId = doc.id;
                 const clickCount = doc.data().clickCount;
+                const clickCountMax = doc.data().clickCountMax; // отримуємо значення clickCountMax
+                const level = getLevel(clickCountMax); // визначаємо рівень на основі clickCountMax
                 return db.collection("users").doc(userId).get().then(userDoc => {
                     if (userDoc.exists) {
-                        const level = getUserLevel(userDoc.data());
                         return { userId, clickCount, firstName: userDoc.data().first_name, level };
                     } else {
                         throw new Error('User document not found');
@@ -68,7 +83,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     
                     const userSpan = document.createElement('span');
                     userSpan.className = 'user-details';
-                    userSpan.textContent = `${index + 1}. ${user.firstName} - ${user.clickCount} | lvl-${user.level}`;
+                    userSpan.textContent = `${index + 1}. ${user.firstName} - ${user.clickCount} | ${user.level}`;
 
                     listItem.appendChild(userSpan);
 
