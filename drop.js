@@ -55,7 +55,17 @@ document.addEventListener('DOMContentLoaded', function() {
                 leaderboardList.innerHTML = '';
                 users.forEach((user, index) => {
                     const listItem = document.createElement('li');
-                    listItem.textContent = `${index + 1}. ${user.firstName}: ${user.clickCount}`;
+
+                    const usernameSpan = document.createElement('span');
+                    usernameSpan.className = 'username';
+                    usernameSpan.textContent = `${index + 1}. ${user.firstName}`;
+
+                    const clickCountSpan = document.createElement('span');
+                    clickCountSpan.className = 'clickCount';
+                    clickCountSpan.textContent = `${user.clickCount}`;
+
+                    listItem.appendChild(usernameSpan);
+                    listItem.appendChild(clickCountSpan);
                     leaderboardList.appendChild(listItem);
                 });
             } catch (error) {
