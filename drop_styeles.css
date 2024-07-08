@@ -49,17 +49,6 @@
     border-radius: 5px;
 }
 
-#leaderboardList li .username {
-    flex: 1;
-    text-align: left;
-    padding-right: 10px;
-}
-
-#leaderboardList li .clickCount {
-    text-align: right;
-    width: 50px;
-}
-
 #leaderboardList li:nth-child(1) {
     background-color: #ffd700;
 }
@@ -79,6 +68,21 @@
 #leaderboardList li:nth-child(even) {
     background-color: #e0e0e0;
 }
+
+.username, .clicks, .level {
+    flex: 1;
+}
+
+.clicks {
+    text-align: right;
+    margin-right: 10px; /* Додатковий відступ для відокремлення кліків */
+}
+
+.level {
+    text-align: left;
+    margin-left: 10px; /* Додатковий відступ для відокремлення рівня */
+}
+
 
 
 /* Стиль модального вікна для airdrop */
