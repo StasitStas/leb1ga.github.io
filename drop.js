@@ -36,9 +36,9 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     async function getUserLevel(userId) {
-        const levelDoc = await db.collection("clicks").doc(userId).collection("level").doc("currentLevel").get();
-        if (levelDoc.exists) {
-            return levelDoc.data().level;
+        const userDoc = await db.collection("users").doc(userId).get();
+        if (userDoc.exists) {
+            return userDoc.data().level;
         } else {
             return 0; // Якщо рівень не знайдено, повернути 0 або інше значення за замовчуванням
         }
