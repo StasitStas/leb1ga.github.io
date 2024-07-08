@@ -83,13 +83,23 @@ document.addEventListener('DOMContentLoaded', function() {
                     
                     const userDetails = document.createElement('div');
                     userDetails.className = 'user-details';
-    
-                    // Додаємо аватарку перед ім'ям
-                    const avatarImg = document.createElement('img');
-                    avatarImg.className = 'avatar';
-                    avatarImg.src = `ava-img/${user.avatar}`; // шлях до аватарки з поля user.avatar
-                    avatarImg.alt = 'Avatar';
-                    userDetails.appendChild(avatarImg);
+
+                    // Додаємо всі аватарки
+                    for (let i = 1; i <= 8; i++) {
+                        const avatarImg = document.createElement('img');
+                        avatarImg.src = `ava-img/ava${i}.jpg`;
+                        avatarImg.id = `avatarDisplay${i}`;
+                        avatarImg.className = 'avatar-display';
+                        avatarImg.alt = 'Avatar';
+                        avatarImg.style.display = 'none';
+                        userDetails.appendChild(avatarImg);
+                    }
+
+                    // Показуємо тільки потрібну аватарку
+                    const selectedAvatar = userDetails.querySelector(`#avatarDisplay${user.avatar}`);
+                    if (selectedAvatar) {
+                        selectedAvatar.style.display = 'block';
+                    }
     
                     const usernameSpan = document.createElement('span');
                     usernameSpan.className = 'username';
