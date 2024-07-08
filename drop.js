@@ -118,7 +118,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-
     navButtons.forEach(button => {
         button.addEventListener('click', function() {
             navButtons.forEach(btn => btn.classList.remove('active'));
