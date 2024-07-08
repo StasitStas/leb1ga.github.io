@@ -81,12 +81,26 @@ document.addEventListener('DOMContentLoaded', function() {
                 users.forEach((user, index) => {
                     const listItem = document.createElement('li');
                     
-                    const userSpan = document.createElement('span');
-                    userSpan.className = 'user-details';
-                    userSpan.textContent = `${index + 1}. ${user.firstName} - ${user.clickCount} | ${user.level}`;
+                    const userDetails = document.createElement('div');
+                    userDetails.className = 'user-details';
 
-                    listItem.appendChild(userSpan);
+                    const usernameSpan = document.createElement('span');
+                    usernameSpan.className = 'username';
+                    usernameSpan.textContent = `${index + 1}. ${user.firstName}`;
 
+                    const clicksSpan = document.createElement('span');
+                    clicksSpan.className = 'clicks';
+                    clicksSpan.textContent = `${user.clickCount}`;
+
+                    const levelSpan = document.createElement('span');
+                    levelSpan.className = 'level';
+                    levelSpan.textContent = `${user.level}`;
+
+                    userDetails.appendChild(usernameSpan);
+                    userDetails.appendChild(clicksSpan);
+                    userDetails.appendChild(levelSpan);
+
+                    listItem.appendChild(userDetails);
                     leaderboardList.appendChild(listItem);
                 });
             } catch (error) {
