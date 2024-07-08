@@ -56,21 +56,11 @@ document.addEventListener('DOMContentLoaded', function() {
                 users.forEach((user, index) => {
                     const listItem = document.createElement('li');
                     
-                    const usernameSpan = document.createElement('span');
-                    usernameSpan.className = 'username';
-                    usernameSpan.textContent = `${index + 1}. ${user.firstName}`;
-                    
-                    const clicksSpan = document.createElement('span');
-                    clicksSpan.className = 'clicks';
-                    clicksSpan.textContent = `${user.clickCount}`;
+                    const userSpan = document.createElement('span');
+                    userSpan.className = 'user-details';
+                    userSpan.textContent = `${index + 1}. ${user.firstName} - ${user.clickCount} | lvl-${user.level}`;
 
-                    const levelSpan = document.createElement('span');
-                    levelSpan.className = 'level';
-                    levelSpan.textContent = ` | lvl-${user.level}`;
-
-                    listItem.appendChild(usernameSpan);
-                    listItem.appendChild(clicksSpan);
-                    listItem.appendChild(levelSpan);
+                    listItem.appendChild(userSpan);
 
                     leaderboardList.appendChild(listItem);
                 });
