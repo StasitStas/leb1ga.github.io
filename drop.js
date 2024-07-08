@@ -68,13 +68,13 @@ document.addEventListener('DOMContentLoaded', function() {
                 const level = getLevel(clickCountMax); // визначаємо рівень на основі clickCountMax
                 return db.collection("users").doc(userId).get().then(userDoc => {
                     if (userDoc.exists) {
-                        return { userId, clickCount, firstName: userDoc.data().first_name, avatar: userDoc.data().avatar, level };
+                        return { userId, clickCount, firstName: userDoc.data().first_name, level, avatar: userDoc.data().avatar }; // додаємо поле для аватарки
                     } else {
                         throw new Error('User document not found');
                     }
                 });
             });
-
+    
             try {
                 const users = await Promise.all(userPromises);
                 leaderboardList.innerHTML = '';
@@ -83,32 +83,30 @@ document.addEventListener('DOMContentLoaded', function() {
                     
                     const userDetails = document.createElement('div');
                     userDetails.className = 'user-details';
-
+    
+                    // Додаємо аватарку перед ім'ям
                     const avatarImg = document.createElement('img');
                     avatarImg.className = 'avatar';
-                    avatarImg.src = user.avatar;
-                    avatarImg.alt = `${user.firstName}'s avatar`;
-                    avatarImg.style.width = '35px';
-                    avatarImg.style.height = '35px';
-                    avatarImg.style.borderRadius = '50%'; // робить аватар круглим
-
+                    avatarImg.src = `ava-img/${user.avatar}`; // шлях до аватарки з поля user.avatar
+                    avatarImg.alt = 'Avatar';
+                    userDetails.appendChild(avatarImg);
+    
                     const usernameSpan = document.createElement('span');
                     usernameSpan.className = 'username';
                     usernameSpan.textContent = `${index + 1}. ${user.firstName}`;
-
+    
                     const clicksSpan = document.createElement('span');
                     clicksSpan.className = 'clicks';
                     clicksSpan.textContent = `${user.clickCount}`;
-
+    
                     const levelSpan = document.createElement('span');
                     levelSpan.className = 'level';
                     levelSpan.textContent = `${user.level}`;
-
-                    userDetails.appendChild(avatarImg);
+    
                     userDetails.appendChild(usernameSpan);
                     userDetails.appendChild(clicksSpan);
                     userDetails.appendChild(levelSpan);
-
+    
                     listItem.appendChild(userDetails);
                     leaderboardList.appendChild(listItem);
                 });
@@ -119,6 +117,7 @@ document.addEventListener('DOMContentLoaded', function() {
             console.error("Помилка отримання документів: ", error);
         });
     }
+
 
     navButtons.forEach(button => {
         button.addEventListener('click', function() {
