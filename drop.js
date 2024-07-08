@@ -68,7 +68,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 const level = getLevel(clickCountMax); // визначаємо рівень на основі clickCountMax
                 return db.collection("users").doc(userId).get().then(userDoc => {
                     if (userDoc.exists) {
-                        return { userId, clickCount, firstName: userDoc.data().first_name, level };
+                        return { userId, clickCount, firstName: userDoc.data().first_name, avatar: userDoc.data().avatar, level };
                     } else {
                         throw new Error('User document not found');
                     }
@@ -84,6 +84,14 @@ document.addEventListener('DOMContentLoaded', function() {
                     const userDetails = document.createElement('div');
                     userDetails.className = 'user-details';
 
+                    const avatarImg = document.createElement('img');
+                    avatarImg.className = 'avatar';
+                    avatarImg.src = user.avatar;
+                    avatarImg.alt = `${user.firstName}'s avatar`;
+                    avatarImg.style.width = '35px';
+                    avatarImg.style.height = '35px';
+                    avatarImg.style.borderRadius = '50%'; // робить аватар круглим
+
                     const usernameSpan = document.createElement('span');
                     usernameSpan.className = 'username';
                     usernameSpan.textContent = `${index + 1}. ${user.firstName}`;
@@ -96,6 +104,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     levelSpan.className = 'level';
                     levelSpan.textContent = `${user.level}`;
 
+                    userDetails.appendChild(avatarImg);
                     userDetails.appendChild(usernameSpan);
                     userDetails.appendChild(clicksSpan);
                     userDetails.appendChild(levelSpan);
