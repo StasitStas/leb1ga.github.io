@@ -35,19 +35,28 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
+    async function getUserLevel(userId) {
+        const levelDoc = await db.collection("clicks").doc(userId).collection("level").doc("currentLevel").get();
+        if (levelDoc.exists) {
+            return levelDoc.data().level;
+        } else {
+            return 0; // Якщо рівень не знайдено, повернути 0 або інше значення за замовчуванням
+        }
+    }
+
     function updateLeaderboard() {
         db.collection("clicks").orderBy("clickCount", "desc").limit(20)
         .onSnapshot(async (snapshot) => {
-            const userPromises = snapshot.docs.map(doc => {
+            const userPromises = snapshot.docs.map(async (doc) => {
                 const userId = doc.id;
                 const clickCount = doc.data().clickCount;
-                return db.collection("users").doc(userId).get().then(userDoc => {
-                    if (userDoc.exists) {
-                        return { userId, clickCount, firstName: userDoc.data().first_name, level: userDoc.data().level };
-                    } else {
-                        throw new Error('User document not found');
-                    }
-                });
+                const userDoc = await db.collection("users").doc(userId).get();
+                if (userDoc.exists) {
+                    const level = await getUserLevel(userId);
+                    return { userId, clickCount, firstName: userDoc.data().first_name, level };
+                } else {
+                    throw new Error('User document not found');
+                }
             });
 
             try {
