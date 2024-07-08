@@ -20,6 +20,15 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
+    function getUserLevel(userDoc) {
+        for (let i = 0; i <= 10; i++) {
+            if (userDoc[`lvl-${i}`] === true) {
+                return i;
+            }
+        }
+        return 0; // Default to 0 if no level is found
+    }
+
     function initialize() {
         username = getUsernameFromUrl();
         if (username) {
@@ -35,28 +44,20 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    async function getUserLevel(userId) {
-        const userDoc = await db.collection("users").doc(userId).get();
-        if (userDoc.exists) {
-            return userDoc.data().level;
-        } else {
-            return 0; // Якщо рівень не знайдено, повернути 0 або інше значення за замовчуванням
-        }
-    }
-
     function updateLeaderboard() {
         db.collection("clicks").orderBy("clickCount", "desc").limit(20)
         .onSnapshot(async (snapshot) => {
-            const userPromises = snapshot.docs.map(async (doc) => {
+            const userPromises = snapshot.docs.map(doc => {
                 const userId = doc.id;
                 const clickCount = doc.data().clickCount;
-                const userDoc = await db.collection("users").doc(userId).get();
-                if (userDoc.exists) {
-                    const level = await getUserLevel(userId);
-                    return { userId, clickCount, firstName: userDoc.data().first_name, level };
-                } else {
-                    throw new Error('User document not found');
-                }
+                return db.collection("users").doc(userId).get().then(userDoc => {
+                    if (userDoc.exists) {
+                        const level = getUserLevel(userDoc.data());
+                        return { userId, clickCount, firstName: userDoc.data().first_name, level };
+                    } else {
+                        throw new Error('User document not found');
+                    }
+                });
             });
 
             try {
