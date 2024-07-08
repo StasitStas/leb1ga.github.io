@@ -43,7 +43,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 const clickCount = doc.data().clickCount;
                 return db.collection("users").doc(userId).get().then(userDoc => {
                     if (userDoc.exists) {
-                        return { userId, clickCount, firstName: userDoc.data().first_name };
+                        return { userId, clickCount, firstName: userDoc.data().first_name, level: userDoc.data().level };
                     } else {
                         throw new Error('User document not found');
                     }
@@ -55,17 +55,23 @@ document.addEventListener('DOMContentLoaded', function() {
                 leaderboardList.innerHTML = '';
                 users.forEach((user, index) => {
                     const listItem = document.createElement('li');
-
+                    
                     const usernameSpan = document.createElement('span');
                     usernameSpan.className = 'username';
                     usernameSpan.textContent = `${index + 1}. ${user.firstName}`;
+                    
+                    const clicksSpan = document.createElement('span');
+                    clicksSpan.className = 'clicks';
+                    clicksSpan.textContent = `${user.clickCount}`;
 
-                    const clickCountSpan = document.createElement('span');
-                    clickCountSpan.className = 'clickCount';
-                    clickCountSpan.textContent = `${user.clickCount}`;
+                    const levelSpan = document.createElement('span');
+                    levelSpan.className = 'level';
+                    levelSpan.textContent = ` | lvl-${user.level}`;
 
                     listItem.appendChild(usernameSpan);
-                    listItem.appendChild(clickCountSpan);
+                    listItem.appendChild(clicksSpan);
+                    listItem.appendChild(levelSpan);
+
                     leaderboardList.appendChild(listItem);
                 });
             } catch (error) {
