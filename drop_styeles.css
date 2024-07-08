@@ -69,17 +69,24 @@
     background-color: #e0e0e0;
 }
 
-.username, .clicks, .level {
-    flex: 1;
+.user-details {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
 }
 
-.clicks {
-    text-align: right;
-    margin-right: 10px; /* Додатковий відступ для відокремлення кліків */
+.username {
+    flex: 2; /* Збільшує ширину для імені користувача */
+    text-align: left;
+}
+
+.clicks, .level {
+    flex: 1; /* Рівний простір для кліків та рівня */
+    text-align: right; /* Вирівнює текст вправо */
 }
 
 .level {
-    text-align: left;
+    text-align: left; /* Вирівнює текст вліво */
     margin-left: 10px; /* Додатковий відступ для відокремлення рівня */
 }
 
