@@ -91,9 +91,10 @@
 
 .loading-bar {
     width: 80%;
+    max-width: 600px;
     height: 5px;
     background: rgba(255, 255, 255, 0.2);
-    margin-top: 20px;
+    margin: 20px auto; /* Центрування по осі X */
     overflow: hidden;
     position: relative;
 }
@@ -102,5 +103,5 @@
     width: 0;
     height: 100%;
     background: #00ff00;
-    transition: width 2s linear;
+    transition: width 3s linear; /* Зміна ширини на 3 секунди */
 }
