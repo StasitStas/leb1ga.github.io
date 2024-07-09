@@ -68,7 +68,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 const level = getLevel(clickCountMax); // визначаємо рівень на основі clickCountMax
                 return db.collection("users").doc(userId).get().then(userDoc => {
                     if (userDoc.exists) {
-                        return { userId, clickCount, firstName: userDoc.data().first_name, level, avatar: userDoc.data().avatar }; // додаємо поле для аватарки
+                        return { userId, clickCount, firstName: userDoc.data().first_name, level, avatar: userDoc.data() }; // додаємо поле для аватарки
                     } else {
                         throw new Error('User document not found');
                     }
