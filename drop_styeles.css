@@ -90,6 +90,11 @@
     margin-left: 10px; /* Додатковий відступ для відокремлення рівня */
 }
 
+.avatar-leaderboard {
+    width: 35px;
+    height: 35px;
+    border-radius: 25%;
+}
 
 
 /* Стиль модального вікна для airdrop */
