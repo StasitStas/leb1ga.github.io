@@ -100,9 +100,9 @@
 .place {
     font-size: 45px;
     font-weight: bold;
-    width: 60px; /* Фіксована ширина для всіх місць */
+    width: 85px;
     text-align: right;
-    margin-left: auto; /* Вирівнювання місця справа */
+    margin-left: auto;
 }
 
 
