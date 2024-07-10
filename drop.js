@@ -80,16 +80,11 @@ document.addEventListener('DOMContentLoaded', function() {
                 leaderboardList.innerHTML = '';
                 users.forEach((user, index) => {
                     const listItem = document.createElement('li');
+                    listItem.className = 'leaderboard-item';
                     
                     const userDetails = document.createElement('div');
                     userDetails.className = 'user-details';
 
-                    // Додаємо місце
-                    const placeSpan = document.createElement('span');
-                    placeSpan.className = 'place';
-                    placeSpan.textContent = `${index + 1}.`;
-                    userDetails.appendChild(placeSpan);
-    
                     // Визначення аватарки, яка позначена як true, або аватарки за замовчуванням
                     let avatarPath = 'ava-img/ava1.jpg'; // аватарка за замовчуванням
                     for (let i = 1; i <= 8; i++) {
@@ -105,23 +100,28 @@ document.addEventListener('DOMContentLoaded', function() {
                     avatarImg.src = avatarPath;
                     avatarImg.alt = 'Avatar';
                     userDetails.appendChild(avatarImg);
-    
-                    const usernameSpan = document.createElement('span');
+
+                    const userInfo = document.createElement('div');
+                    userInfo.className = 'user-info';
+
+                    const usernameSpan = document.createElement('div');
                     usernameSpan.className = 'username';
                     usernameSpan.textContent = `${user.firstName}`;
+                    userInfo.appendChild(usernameSpan);
     
-                    const clicksSpan = document.createElement('span');
-                    clicksSpan.className = 'clicks';
-                    clicksSpan.textContent = `${user.clickCount}`;
-    
-                    const levelSpan = document.createElement('span');
-                    levelSpan.className = 'level';
-                    levelSpan.textContent = `${user.level}`;
-    
-                    userDetails.appendChild(usernameSpan);
-                    userDetails.appendChild(clicksSpan);
-                    userDetails.appendChild(levelSpan);
-    
+                    const clicksAndLevel = document.createElement('div');
+                    clicksAndLevel.className = 'clicks-level';
+                    clicksAndLevel.textContent = `${user.clickCount} кліків, ${user.level}`;
+                    userInfo.appendChild(clicksAndLevel);
+
+                    userDetails.appendChild(userInfo);
+
+                    // Додаємо місце
+                    const placeSpan = document.createElement('span');
+                    placeSpan.className = 'place';
+                    placeSpan.textContent = `${index + 1}`;
+                    userDetails.appendChild(placeSpan);
+
                     listItem.appendChild(userDetails);
                     leaderboardList.appendChild(listItem);
                 });
