@@ -69,35 +69,37 @@
     background-color: #e0e0e0;
 }
 
-.username {
-    flex: 2; /* Збільшує ширину для імені користувача */
-    text-align: left;
-}
-
-.clicks, .level {
-    flex: 1; /* Рівний простір для кліків та рівня */
-    text-align: right; /* Вирівнює текст вправо */
-}
-
-.level {
-    text-align: left; /* Вирівнює текст вліво */
-    margin-left: 10px; /* Додатковий відступ для відокремлення рівня */
-}
 
 .avatar-leaderboard {
-    width: 35px;
-    height: 35px;
+    width: 45px;
+    height: 45px;
     border-radius: 25%;
-    margin-left: 10px; /* Додає відступ між аватаркою та місцем */
+    margin-right: 10px; /* Відступ між аватаркою та інформацією про користувача */
 }
 
 .user-details {
     display: flex;
     align-items: center;
+    justify-content: space-between; /* Для розташування місця з правого боку */
+}
+
+.user-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.username {
+    font-weight: bold;
+}
+
+.clicks-level {
+    font-size: 0.9em;
+    color: gray;
 }
 
 .place {
-    margin-right: 10px; /* Додає відступ між місцем та аватаркою */
+    font-size: 45px;
+    font-weight: bold;
 }
 
 
