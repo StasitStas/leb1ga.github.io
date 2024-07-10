@@ -83,6 +83,12 @@ document.addEventListener('DOMContentLoaded', function() {
                     
                     const userDetails = document.createElement('div');
                     userDetails.className = 'user-details';
+
+                    // Додаємо місце
+                    const placeSpan = document.createElement('span');
+                    placeSpan.className = 'place';
+                    placeSpan.textContent = `${index + 1}.`;
+                    userDetails.appendChild(placeSpan);
     
                     // Визначення аватарки, яка позначена як true, або аватарки за замовчуванням
                     let avatarPath = 'ava-img/ava1.jpg'; // аватарка за замовчуванням
@@ -102,7 +108,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
                     const usernameSpan = document.createElement('span');
                     usernameSpan.className = 'username';
-                    usernameSpan.textContent = `${index + 1}. ${user.firstName}`;
+                    usernameSpan.textContent = `${user.firstName}`;
     
                     const clicksSpan = document.createElement('span');
                     clicksSpan.className = 'clicks';
