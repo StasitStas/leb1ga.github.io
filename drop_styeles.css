@@ -89,7 +89,8 @@
 }
 
 .username {
-    font-weight: bold;
+    flex: 2; /* Збільшує ширину для імені користувача */
+    text-align: left;
 }
 
 .clicks-level {
