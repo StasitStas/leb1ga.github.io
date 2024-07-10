@@ -43,11 +43,11 @@
 #leaderboardList li {
     margin: 5px 0;
     display: flex;
-    justify-content: flex-start; /* Вирівнювання елементів на початок */
     align-items: center;
     padding: 5px 10px;
     border-radius: 5px;
-    position: relative; /* Додано для позиціонування місця */
+    position: relative;
+    height: 60px; /* Фіксована висота для всіх елементів */
 }
 
 #leaderboardList li:nth-child(1) {
@@ -80,13 +80,12 @@
 .user-details {
     display: flex;
     align-items: center;
-    position: relative;
+    width: calc(100% - 70px); /* Ширина для всього блоку без врахування місця */
 }
 
 .user-info {
     display: flex;
     flex-direction: column;
-    margin-left: 10px; /* Додано відступ між аватаркою та інформацією */
 }
 
 .username {
@@ -101,10 +100,9 @@
 .place {
     font-size: 45px;
     font-weight: bold;
-    position: absolute;
-    right: -60px; /* Відступ місця вправо */
-    top: 50%;
-    transform: translateY(-50%); /* Вирівнювання місця по центру вертикально */
+    width: 60px; /* Фіксована ширина для всіх місць */
+    text-align: right;
+    margin-left: auto; /* Вирівнювання місця справа */
 }
 
 
