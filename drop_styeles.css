@@ -88,12 +88,16 @@
     width: 35px;
     height: 35px;
     border-radius: 25%;
-    margin-right: 10px; /* Додає відступ між аватаркою та іншими елементами */
+    margin-left: 10px; /* Додає відступ між аватаркою та місцем */
 }
 
 .user-details {
     display: flex;
     align-items: center;
+}
+
+.place {
+    margin-right: 10px; /* Додає відступ між місцем та аватаркою */
 }
 
 
