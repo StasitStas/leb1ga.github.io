@@ -69,12 +69,6 @@
     background-color: #e0e0e0;
 }
 
-.user-details {
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
-}
-
 .username {
     flex: 2; /* Збільшує ширину для імені користувача */
     text-align: left;
@@ -94,7 +88,14 @@
     width: 35px;
     height: 35px;
     border-radius: 25%;
+    margin-right: 10px; /* Додає відступ між аватаркою та іншими елементами */
 }
+
+.user-details {
+    display: flex;
+    align-items: center;
+}
+
 
 
 /* Стиль модального вікна для airdrop */
