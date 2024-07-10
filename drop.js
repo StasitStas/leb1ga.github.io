@@ -120,9 +120,9 @@ document.addEventListener('DOMContentLoaded', function() {
                     const placeSpan = document.createElement('span');
                     placeSpan.className = 'place';
                     placeSpan.textContent = `${index + 1}`;
-                    userDetails.appendChild(placeSpan);
-
                     listItem.appendChild(userDetails);
+                    listItem.appendChild(placeSpan);
+
                     leaderboardList.appendChild(listItem);
                 });
             } catch (error) {
