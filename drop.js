@@ -84,8 +84,8 @@ document.addEventListener('DOMContentLoaded', function() {
                     const userDetails = document.createElement('div');
                     userDetails.className = 'user-details';
     
-                    // Визначення аватарки, яка позначена як true
-                    let avatarPath = '';
+                    // Визначення аватарки, яка позначена як true, або аватарки за замовчуванням
+                    let avatarPath = 'ava-img/ava1.jpg'; // аватарка за замовчуванням
                     for (let i = 1; i <= 8; i++) {
                         if (user.avatar[`ava${i}`] === true) {
                             avatarPath = `ava-img/ava${i}.jpg`;
@@ -94,13 +94,11 @@ document.addEventListener('DOMContentLoaded', function() {
                     }
     
                     // Додаємо аватарку
-                    if (avatarPath) {
-                        const avatarImg = document.createElement('img');
-                        avatarImg.className = 'avatar-leaderboard'; // застосовуємо новий CSS клас
-                        avatarImg.src = avatarPath;
-                        avatarImg.alt = 'Avatar';
-                        userDetails.appendChild(avatarImg);
-                    }
+                    const avatarImg = document.createElement('img');
+                    avatarImg.className = 'avatar-leaderboard'; // застосовуємо новий CSS клас
+                    avatarImg.src = avatarPath;
+                    avatarImg.alt = 'Avatar';
+                    userDetails.appendChild(avatarImg);
     
                     const usernameSpan = document.createElement('span');
                     usernameSpan.className = 'username';
