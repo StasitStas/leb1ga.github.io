@@ -43,11 +43,10 @@
 #leaderboardList li {
     margin: 5px 0;
     display: flex;
+    justify-content: space-between;
     align-items: center;
     padding: 5px 10px;
     border-radius: 5px;
-    position: relative;
-    height: 60px; /* Фіксована висота для всіх елементів */
 }
 
 #leaderboardList li:nth-child(1) {
@@ -70,41 +69,33 @@
     background-color: #e0e0e0;
 }
 
-.avatar-leaderboard {
-    width: 45px;
-    height: 45px;
-    border-radius: 25%;
-    margin-right: 10px; /* Відступ між аватаркою та інформацією про користувача */
-}
-
-.user-details {
-    display: flex;
-    align-items: center;
-    width: calc(100% - 70px); /* Ширина для всього блоку без врахування місця */
-}
-
-.user-info {
-    display: flex;
-    flex-direction: column;
-}
-
 .username {
     flex: 2; /* Збільшує ширину для імені користувача */
     text-align: left;
 }
 
-.clicks-level {
-    font-size: 0.9em;
-    color: gray;
+.clicks, .level {
+    flex: 1; /* Рівний простір для кліків та рівня */
+    text-align: right; /* Вирівнює текст вправо */
 }
 
-.place {
-    font-size: 45px;
-    font-weight: bold;
-    width: 85px;
-    text-align: right;
-    margin-left: auto;
+.level {
+    text-align: left; /* Вирівнює текст вліво */
+    margin-left: 10px; /* Додатковий відступ для відокремлення рівня */
 }
+
+.avatar-leaderboard {
+    width: 35px;
+    height: 35px;
+    border-radius: 25%;
+    margin-right: 10px; /* Додає відступ між аватаркою та іншими елементами */
+}
+
+.user-details {
+    display: flex;
+    align-items: center;
+}
+
 
 
 /* Стиль модального вікна для airdrop */
