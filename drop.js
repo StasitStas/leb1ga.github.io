@@ -52,7 +52,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 firstName = userData.first_name;
                 userClickCount = userData.clickCount;
                 userClickCountMax = userData.clickCountMax;
-                updateLeaderboard(); // Оновити рейтинг при завантаженні
+                updateLeaderboard(userData); // Оновити рейтинг при завантаженні
             }).catch(error => {
                 console.error("Error getting user data:", error);
                 alert('Помилка: Не вдалося отримати дані користувача.');
@@ -62,7 +62,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    function updateLeaderboard() {
+    function updateLeaderboard(userData) {
         db.collection("clicks").orderBy("clickCount", "desc").limit(2)
         .onSnapshot(async (snapshot) => {
             const userPromises = snapshot.docs.map(doc => {
@@ -135,7 +135,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     }
                 });
 
-                // Додаємо поточного користувача, якщо він не в топ-20
+                // Додаємо поточного користувача, якщо він не в топ-2
                 if (!userIncluded) {
                     const userPlace = await getUserPlace(username);
                     const listItem = document.createElement('li');
