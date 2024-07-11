@@ -27,6 +27,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
     let username = '';
     let firstName = '';
+    let userClickCount = 0;
+    let userClickCountMax = 0;
 
     function getUsernameFromUrl() {
         const urlParams = new URLSearchParams(window.location.search);
@@ -48,6 +50,8 @@ document.addEventListener('DOMContentLoaded', function() {
         if (username) {
             getUserData(username).then(userData => {
                 firstName = userData.first_name;
+                userClickCount = userData.clickCount;
+                userClickCountMax = userData.clickCountMax;
                 updateLeaderboard(); // Оновити рейтинг при завантаженні
             }).catch(error => {
                 console.error("Error getting user data:", error);
@@ -78,6 +82,7 @@ document.addEventListener('DOMContentLoaded', function() {
             try {
                 const users = await Promise.all(userPromises);
                 leaderboardList.innerHTML = '';
+                let userIncluded = false;
                 users.forEach((user, index) => {
                     const listItem = document.createElement('li');
                     listItem.className = 'leaderboard-item';
@@ -124,13 +129,78 @@ document.addEventListener('DOMContentLoaded', function() {
                     listItem.appendChild(placeSpan);
 
                     leaderboardList.appendChild(listItem);
+
+                    if (user.userId === username) {
+                        userIncluded = true;
+                    }
                 });
+
+                // Додаємо поточного користувача, якщо він не в топ-20
+                if (!userIncluded) {
+                    const userPlace = await getUserPlace(username);
+                    const listItem = document.createElement('li');
+                    listItem.className = 'leaderboard-item';
+                    
+                    const userDetails = document.createElement('div');
+                    userDetails.className = 'user-details';
+
+                    // Визначення аватарки, яка позначена як true, або аватарки за замовчуванням
+                    let avatarPath = 'ava-img/ava1.jpg'; // аватарка за замовчуванням
+                    for (let i = 1; i <= 8; i++) {
+                        if (userData[`ava${i}`] === true) {
+                            avatarPath = `ava-img/ava${i}.jpg`;
+                            break;
+                        }
+                    }
+    
+                    // Додаємо аватарку
+                    const avatarImg = document.createElement('img');
+                    avatarImg.className = 'avatar-leaderboard'; // застосовуємо новий CSS клас
+                    avatarImg.src = avatarPath;
+                    avatarImg.alt = 'Avatar';
+                    userDetails.appendChild(avatarImg);
+
+                    const userInfo = document.createElement('div');
+                    userInfo.className = 'user-info';
+
+                    const usernameSpan = document.createElement('div');
+                    usernameSpan.className = 'username';
+                    usernameSpan.textContent = `${firstName}`;
+                    userInfo.appendChild(usernameSpan);
+    
+                    const clicksAndLevel = document.createElement('div');
+                    clicksAndLevel.className = 'clicks-level';
+                    clicksAndLevel.textContent = `${userClickCount.toLocaleString()} кліків, ${getLevel(userClickCountMax)}`;
+                    userInfo.appendChild(clicksAndLevel);
+
+                    userDetails.appendChild(userInfo);
+
+                    // Додаємо місце
+                    const placeSpan = document.createElement('span');
+                    placeSpan.className = 'place';
+                    placeSpan.textContent = `${userPlace}`;
+                    listItem.appendChild(userDetails);
+                    listItem.appendChild(placeSpan);
+
+                    leaderboardList.appendChild(listItem);
+                }
             } catch (error) {
                 console.error("Error updating leaderboard:", error);
             }
         }, error => {
             console.error("Помилка отримання документів: ", error);
         });
+    }
+
+    async function getUserPlace(userId) {
+        const snapshot = await db.collection("clicks").orderBy("clickCount", "desc").get();
+        let place = 0;
+        snapshot.forEach((doc, index) => {
+            if (doc.id === userId) {
+                place = index + 1;
+            }
+        });
+        return place;
     }
 
     navButtons.forEach(button => {
