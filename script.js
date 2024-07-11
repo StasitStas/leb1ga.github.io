@@ -304,11 +304,16 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function initialize() {
         username = getUsernameFromUrl();
+        
         if (username) {
             getUserData(username).then(userData => {
                 firstName = userData.first_name;
                 usernameDisplay.textContent = firstName;
     
+                // Завантаження кольору
+                loadColorFromDB();
+                
+                // Слухач для оновлення даних про кліки
                 db.collection("clicks").doc(username).onSnapshot(doc => {
                     if (doc.exists) {
                         const data = doc.data();
@@ -317,12 +322,15 @@ document.addEventListener('DOMContentLoaded', function() {
                         bonusClaimed = data.bonusClaimed || false;
                         enableAnimation = data.enableAnimation !== undefined ? data.enableAnimation : true;
                         enableVibration = data.enableVibration !== undefined ? data.enableVibration : true;
+                        
                         countDisplay.textContent = clickCount.toLocaleString();
                         animationToggle.checked = enableAnimation;
                         vibrationToggle.checked = enableVibration;
+                        
                         if (bonusClaimed) {
                             bonusButton.disabled = true;
                         }
+    
                         updateRank();
                         updateLevelBar(clickCount);
                         initializeAvatars(getCurrentLevel(clickCountMax));
@@ -362,6 +370,7 @@ document.addEventListener('DOMContentLoaded', function() {
             alert('Error: Username not specified.');
         }
     }
+
     
     // Функція для оновлення відображення аватарки
     function updateAvatarFromDatabase(userData) {
@@ -614,14 +623,52 @@ document.addEventListener('DOMContentLoaded', function() {
     subscribeButton.addEventListener('click', subscribeToChannel);
     bonusButton.addEventListener('click', claimBonus);
 
+    // Функція для завантаження кольору з бази даних
+    function loadColorFromDB() {
+        db.collection("users").doc(username).get().then(doc => {
+            if (doc.exists) {
+                const color = doc.data().color;
+                if (color) {
+                    // Встановлюємо колір для вибраного фону
+                    var styleElement = document.getElementById('dynamic-styles');
+                    styleElement.textContent = `
+                        body::before {
+                            content: '';
+                            position: absolute;
+                            top: 0;
+                            left: 0;
+                            right: 0;
+                            bottom: 0;
+                            background: radial-gradient(circle at center bottom, ${color}, black 70%);
+                            z-index: -1;
+                        }
+                    `;
+                    document.getElementById('colorDisplay').style.backgroundColor = color;
+                }
+            }
+        }).catch(error => {
+            console.error("Error loading color from database:", error);
+        });
+    }
+
+    // Функція для збереження кольору в базі даних
+    function saveColorToDB(color) {
+        db.collection("users").doc(username).update({
+            color: color
+        }).catch(error => {
+            console.error("Error updating color in database:", error);
+        });
+    }
+
+    // Обробник для вибору кольору
     document.getElementById('colorPicker').addEventListener('input', function() {
         var hue = this.value;
         var hslColor = 'hsl(' + hue + ', 100%, 50%)';
         document.getElementById('colorDisplay').style.backgroundColor = hslColor;
-
+    
         // Конвертуємо HSL у RGB для використання у стилі CSS
         var rgbColor = hslToRgb(hue / 360, 1, 0.5);
-
+    
         // Оновлюємо стиль для body::before
         var styleElement = document.getElementById('dynamic-styles');
         styleElement.textContent = `
@@ -636,7 +683,11 @@ document.addEventListener('DOMContentLoaded', function() {
                 z-index: -1;
             }
         `;
+    
+        // Зберігаємо вибраний колір у базі даних
+        saveColorToDB(hslColor);
     });
+
     
     initialize();
 });
