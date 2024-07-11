@@ -112,7 +112,7 @@
     top: 0;
     width: 100%;
     height: 100%;
-    background: radial-gradient(circle at center bottom, rgb(255 99 71), black 70%); /* Радіальний градієнт */
+    background: radial-gradient(circle at center bottom, hsl(360, 100%, 50%); /* Радіальний градієнт */
     background-size: cover;
     background-position: center;
     align-items: center;
