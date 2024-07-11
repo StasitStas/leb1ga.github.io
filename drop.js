@@ -111,7 +111,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
                     const clicksAndLevel = document.createElement('div');
                     clicksAndLevel.className = 'clicks-level';
-                    clicksAndLevel.textContent = `${user.clickCount} кліків, ${user.level}`;
+                    clicksAndLevel.textContent = `${user.clickCount.toLocaleString()} кліків, ${user.level}`;
                     userInfo.appendChild(clicksAndLevel);
 
                     userDetails.appendChild(userInfo);
