@@ -67,7 +67,10 @@ document.addEventListener('DOMContentLoaded', function() {
                 firstName = userData.first_name;
                 clickCount = clickData.clickCount || 0;
                 displayUserSkins(userData.skins || {});
-
+    
+                // Завантаження кольору фону
+                await loadColorFromDB();
+    
                 // Слухач змін для скинів користувача
                 db.collection("users").doc(username).onSnapshot(doc => {
                     if (doc.exists) {
@@ -75,7 +78,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         displayUserSkins(userData.skins || {});
                     }
                 });
-
+    
             } catch (error) {
                 console.error("Error getting user data:", error);
                 alert('Помилка: Не вдалося отримати дані користувача.');
@@ -84,6 +87,7 @@ document.addEventListener('DOMContentLoaded', function() {
             alert('Помилка: Ім\'я користувача не вказане.');
         }
     }
+
 
     navButtons.forEach(button => {
         button.addEventListener('click', function() {
@@ -260,6 +264,24 @@ document.addEventListener('DOMContentLoaded', function() {
         skinsModal.style.display = 'none';
         document.body.classList.remove('modal-open');
     });
+
+    async function loadColorFromDB() {
+        try {
+            const userDoc = await db.collection("users").doc(username).get();
+            if (userDoc.exists) {
+                const userData = userDoc.data();
+                const backgroundColor = userData.backgroundColor || 'rgb(255, 99, 71)'; // Колір за замовчуванням
+    
+                // Оновлюємо стилі модального вікна
+                const skinsModal = document.querySelector('.skins-modal');
+                skinsModal.style.background = `radial-gradient(circle at center bottom, ${backgroundColor}, black 70%)`;
+            } else {
+                console.log('User document does not exist');
+            }
+        } catch (error) {
+            console.error('Error loading color from DB:', error);
+        }
+    }
 
     initialize();
 });
