@@ -14,17 +14,6 @@ body * {
     user-select: none; /* Забороняємо виділення для всіх елементів */
 }
 
-body::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: radial-gradient(circle at center bottom, rgb(255, 99, 71), black 70%); /* Радіальний градієнт */
-    z-index: -1; /* Поміщаємо за контент */
-}
-
 body::after {
     content: '';
     position: absolute;
