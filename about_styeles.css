@@ -295,20 +295,6 @@
     background-color: #45a049; /* Darker green on hover */
 }
 
-.skins-modal {
-    display: none; /* Hidden by default */
-    position: fixed;
-    z-index: 3001;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    overflow: auto;
-    background: radial-gradient(circle at center bottom, rgb(255 99 71), black 70%); /* Радіальний градієнт */
-    align-items: center;
-    justify-content: center;
-}
-
 #skins-button-modal:hover {
     background-color: #45a049; /* Darker green on hover */
 }
