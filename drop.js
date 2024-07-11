@@ -123,6 +123,11 @@ document.addEventListener('DOMContentLoaded', function() {
                     listItem.appendChild(userDetails);
                     listItem.appendChild(placeSpan);
 
+                    // Виділення поточного користувача
+                    if (user.userId === username) {
+                        listItem.classList.add('highlight');
+                    }
+
                     leaderboardList.appendChild(listItem);
                 });
             } catch (error) {
