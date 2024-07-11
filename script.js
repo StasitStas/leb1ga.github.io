@@ -621,9 +621,22 @@ document.addEventListener('DOMContentLoaded', function() {
 
         // Конвертуємо HSL у RGB для використання у стилі CSS
         var rgbColor = hslToRgb(hue / 360, 1, 0.5);
-        document.querySelector('body::before').style.background = 'radial-gradient(circle at center bottom, rgb(' + rgbColor.join(', ') + '), black 70%)';
-    });
+        document.querySelector('body').style.setProperty('--custom-color', 'rgb(' + rgbColor.join(', ') + ')');
 
+        document.querySelector('style').textContent = `
+            body::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background: radial-gradient(circle at center bottom, rgb(${rgbColor.join(', ')}), black 70%);
+                z-index: -1;
+            }
+        `;
+    });
+    
     initialize();
 });
 
@@ -632,7 +645,7 @@ function hslToRgb(h, s, l) {
     var r, g, b;
 
     if (s == 0) {
-        r = g = b = l; // achromatic
+        r = g = b = l; // ахроматичний
     } else {
         var hue2rgb = function hue2rgb(p, q, t) {
             if (t < 0) t += 1;
