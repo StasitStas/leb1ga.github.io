@@ -272,9 +272,25 @@ document.addEventListener('DOMContentLoaded', function() {
                 const userData = userDoc.data();
                 const backgroundColor = userData.backgroundColor || 'rgb(255, 99, 71)'; // Колір за замовчуванням
     
-                // Оновлюємо стилі модального вікна
-                const skinsModal = document.querySelector('.skins-modal');
-                skinsModal.style.background = `radial-gradient(circle at center bottom, ${backgroundColor}, black 70%)`;
+                // Оновлюємо стиль у тегі <style id="dynamic-styles">
+                const dynamicStyles = document.getElementById('dynamic-styles');
+                dynamicStyles.textContent = `
+                    .modal-mine {
+                        display: none;
+                        position: fixed;
+                        z-index: 2999;
+                        left: 0;
+                        top: 0;
+                        width: 100%;
+                        height: 100%;
+                        overflow: auto;
+                        background: radial-gradient(circle at center bottom, ${backgroundColor}, black 70%); /* Радіальний градієнт */
+                        background-size: cover;
+                        background-position: center;
+                        align-items: center;
+                        justify-content: center;
+                    }
+                `;
             } else {
                 console.log('User document does not exist');
             }
