@@ -621,9 +621,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
         // Конвертуємо HSL у RGB для використання у стилі CSS
         var rgbColor = hslToRgb(hue / 360, 1, 0.5);
-        document.querySelector('body').style.setProperty('--custom-color', 'rgb(' + rgbColor.join(', ') + ')');
 
-        document.querySelector('style').textContent = `
+        // Оновлюємо стиль для body::before
+        var styleElement = document.getElementById('dynamic-styles');
+        styleElement.textContent = `
             body::before {
                 content: '';
                 position: absolute;
