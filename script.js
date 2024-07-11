@@ -614,5 +614,10 @@ document.addEventListener('DOMContentLoaded', function() {
     subscribeButton.addEventListener('click', subscribeToChannel);
     bonusButton.addEventListener('click', claimBonus);
 
+    document.getElementById('colorPicker').addEventListener('input', function() {
+        var hue = this.value;
+        document.getElementById('colorDisplay').style.backgroundColor = 'hsl(' + hue + ', 100%, 50%)';
+    });
+
     initialize();
 });
