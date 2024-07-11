@@ -69,6 +69,10 @@
     background-color: #e0e0e0;
 }
 
+#leaderboardList li.highlight {
+    background-color: lightblue; /* Виділення поточного користувача */
+}
+
 .username {
     font-weight: bold;
 }
@@ -97,6 +101,7 @@
     text-align: right;
     margin-left: auto; /* Вирівнювання місця справа */
 }
+
 
 /* Стиль модального вікна для airdrop */
 .modal-airdrop {
