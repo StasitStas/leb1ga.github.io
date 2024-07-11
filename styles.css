@@ -224,7 +224,7 @@ body::after {
     cursor: pointer;
 }
 
-.lfa-award {
+.fa-award {
     position: fixed;
     top: 10px;
     right: 60px;
