@@ -1,3 +1,4 @@
+
 document.addEventListener('DOMContentLoaded', function() {
     const navButtons = document.querySelectorAll('.nav-button');
     const shopItems = document.querySelectorAll('.shop-item');
@@ -67,10 +68,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 firstName = userData.first_name;
                 clickCount = clickData.clickCount || 0;
                 displayUserSkins(userData.skins || {});
-    
-                // Завантаження кольору фону
-                await loadColorFromDB();
-    
+
                 // Слухач змін для скинів користувача
                 db.collection("users").doc(username).onSnapshot(doc => {
                     if (doc.exists) {
@@ -78,7 +76,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         displayUserSkins(userData.skins || {});
                     }
                 });
-    
+
             } catch (error) {
                 console.error("Error getting user data:", error);
                 alert('Помилка: Не вдалося отримати дані користувача.');
@@ -87,7 +85,6 @@ document.addEventListener('DOMContentLoaded', function() {
             alert('Помилка: Ім\'я користувача не вказане.');
         }
     }
-
 
     navButtons.forEach(button => {
         button.addEventListener('click', function() {
@@ -264,40 +261,6 @@ document.addEventListener('DOMContentLoaded', function() {
         skinsModal.style.display = 'none';
         document.body.classList.remove('modal-open');
     });
-
-    async function loadColorFromDB() {
-        try {
-            const userDoc = await db.collection("users").doc(username).get();
-            if (userDoc.exists) {
-                const userData = userDoc.data();
-                const backgroundColor = userData.backgroundColor || 'rgb(255, 99, 71)'; // Колір за замовчуванням
-    
-                // Оновлюємо стиль у тегі <style id="dynamic-styles">
-                const dynamicStyles = document.getElementById('dynamic-styles');
-                dynamicStyles.textContent = `
-                    .modal-mine {
-                        display: none;
-                        position: fixed;
-                        z-index: 2999;
-                        left: 0;
-                        top: 0;
-                        width: 100%;
-                        height: 100%;
-                        overflow: auto;
-                        background: radial-gradient(circle at center bottom, ${backgroundColor}, black 70%); /* Радіальний градієнт */
-                        background-size: cover;
-                        background-position: center;
-                        align-items: center;
-                        justify-content: center;
-                    }
-                `;
-            } else {
-                console.log('User document does not exist');
-            }
-        } catch (error) {
-            console.error('Error loading color from DB:', error);
-        }
-    }
 
     initialize();
 });
