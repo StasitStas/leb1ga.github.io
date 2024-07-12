@@ -224,7 +224,7 @@ body::after {
     cursor: pointer;
 }
 
-.fa-award {
+.fas fa-award {
     position: fixed;
     top: 10px;
     right: 60px;
