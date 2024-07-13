@@ -230,12 +230,13 @@
                 </div>
             </div>
         </div>
+        <script src="about.js" defer></script>
     </div>
     <div id="friendsModal" class="modal-friends">
         <div class="container-friends" id="container-friends">
         <!-- Посилання буде динамічно додано через JavaScript -->
         </div>
-
+        <script src="friends.js" defer></script>
     </div>
     <div id="earnModal" class="modal-earn">
         <div class="container-earn">
@@ -251,7 +252,11 @@
                 <ol id="leaderboardList"></ol>
             </div>
         </div>
+        <script src="drop.js" defer></script>
     </div>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js" defer></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-analytics.js" defer></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js" defer></script>
     <script>
         // Firebase configuration
         const firebaseConfig = {
@@ -268,12 +273,6 @@
         const db = firebase.firestore();
     </script>
     <!-- Завантаження скриптів -->
-    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js" defer></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-analytics.js" defer></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js" defer></script>
     <script src="script.js" defer></script>
     <script src="load.js" defer></script>
-    <script src="about.js" defer></script>
-    <script src="friends.js" defer></script>
-    <script src="drop.js" defer></script>
 </html>
