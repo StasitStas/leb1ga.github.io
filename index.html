@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="friends_styeles.css">
     <link rel="stylesheet" href="earn_styeles.css">
     <link rel="stylesheet" href="drop_styeles.css">
-    <link rel="stylesheet" href="preloaderq.css">
+    <link rel="stylesheet" href="preloader.css">
     <link href="https://cdn.jsdelivr.net/npm/line-awesome/dist/line-awesome/css/line-awesome.min.css" rel="stylesheet">
 
     <style id="dynamic-styles">
@@ -28,6 +28,16 @@
     </style>
 </head>
 <body>
+    <div id="preloader" class="preloader">
+        <div class="preloader-inner">
+            <div class="text-effect-wrapper">
+                <h1 class="text">Lebiga Coin</h1>
+            </div>
+            <div class="loading-bar">
+                <div class="loading-progress"></div>
+            </div>
+        </div>
+    </div>
     <div class="container">
         <div class="header">
             <div class="user-container">
@@ -83,18 +93,6 @@
                         <input type="range" id="colorPicker" min="0" max="360" value="180">
                     </div>
                 </label>
-            </div>
-        </div>
-
-        <!-- Вікно загрузки -->
-        <div id="preloader" class="preloader">
-            <div class="preloader-inner">
-                <div class="text-effect-wrapper">
-                    <h1 class="text">Lebiga Coin</h1>
-                </div>
-                <div class="loading-bar">
-                    <div class="loading-progress"></div>
-                </div>
             </div>
         </div>
         
@@ -277,6 +275,6 @@
         const db = firebase.firestore();
     </script>
     <script src="script.js"></script>
-    <script src="loadq.js"></script>
+    <script src="load.js"></script>
 </body>
 </html>
