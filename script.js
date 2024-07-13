@@ -643,11 +643,22 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('modal-gifts').style.display = 'none';
     });
     
-    // Останній код з попереднього відповіді
     const daysContainer = document.getElementById('days-container');
     const claimRewardButton = document.getElementById('claimRewardButton');
+    let currentDay = 1; // Assume this is loaded from database
+    let nextClaimTime = Date.now(); // Assume this is loaded from database
     
-    // Ініціалізація днів з призами
+    // Initialize days in Firestore if not already done
+    const userDocRef = db.collection('clicks').doc(username);
+    const daysToUpdate = {};
+    for (let i = 1; i <= 10; i++) {
+        daysToUpdate[`day${i}`] = false;
+    }
+    
+    userDocRef.set(daysToUpdate, { merge: true })
+        .then(() => console.log("Days initialized in Firestore"))
+        .catch(error => console.error("Error initializing days in Firestore: ", error));
+    
     const rewards = [
         { day: 1, prize: 500 },
         { day: 2, prize: 1000 },
@@ -660,10 +671,6 @@ document.addEventListener('DOMContentLoaded', function() {
         { day: 9, prize: 4500 },
         { day: 10, prize: 5000 }
     ];
-    
-    // Припустимо, що username, currentDay та nextClaimTime завантажуються з вашої бази даних при запуску
-    let currentDay = 1; // замініть на поточний день з бази даних
-    let nextClaimTime = Date.now(); // замініть на nextClaimTime з бази даних
     
     function renderDays() {
         daysContainer.innerHTML = '';
@@ -685,15 +692,15 @@ document.addEventListener('DOMContentLoaded', function() {
     claimRewardButton.addEventListener('click', function() {
         if (Date.now() >= nextClaimTime) {
             alert(`Ви отримали ${rewards[currentDay - 1].prize} кліків!`);
-            
-            // Оновлення даних у Firestore
-            const userDocRef = db.collection('clicks').doc(username);
+    
+            // Update Firestore with claimed day
+            const dayToUpdate = `day${currentDay}`;
             userDocRef.update({
+                [dayToUpdate]: true,
                 currentDay: (currentDay % 10) + 1,
-                nextClaimTime: Date.now() + 24 * 60 * 60 * 1000, // Відлік 24 години
+                nextClaimTime: Date.now() + 24 * 60 * 60 * 1000,
                 clickCount: firebase.firestore.FieldValue.increment(rewards[currentDay - 1].prize)
             }).then(() => {
-                // Оновлення локальних змінних після успішного оновлення в Firestore
                 currentDay = (currentDay % 10) + 1;
                 nextClaimTime = Date.now() + 24 * 60 * 60 * 1000;
                 renderDays();
@@ -705,8 +712,9 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
     
-    // Виклик функції для первісного рендерингу днів
+    // Initial render of days
     renderDays();
+
 
 
     initialize();
