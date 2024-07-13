@@ -633,7 +633,21 @@ document.addEventListener('DOMContentLoaded', function() {
         saveColorToDB(hslColor);
     });
 
+    document.getElementById('giftsIcon').onclick = function() {
+        document.getElementById('modal-gifts').style.display = "block";
+    };
     
+    document.getElementById('closeModal-gifts').onclick = function() {
+        document.getElementById('modal-gifts').style.display = "none";
+    };
+    
+    // Закриває модальне вікно при натисканні за межами модального вікна
+    window.onclick = function(event) {
+        if (event.target == document.getElementById('modal-gifts')) {
+            document.getElementById('modal-gifts').style.display = "none";
+        }
+    };
+
     initialize();
 });
 
