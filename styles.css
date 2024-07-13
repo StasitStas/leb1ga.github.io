@@ -668,13 +668,15 @@ input[type="range"]::-webkit-slider-thumb {
 }
 
 #claimRewardButton {
-    display: block;
+    position: fixed;
+    bottom: 0;
+    left: 0;
     width: 100%;
     padding: 15px;
     background-color: yellow;
     border: none;
-    border-radius: 5px;
+    border-radius: 0 0 5px 5px;
     font-size: 20px;
     cursor: pointer;
-    margin-top: 20px;
+    z-index: 3002;
 }
