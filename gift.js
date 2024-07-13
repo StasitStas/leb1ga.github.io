@@ -29,6 +29,7 @@
     // Припустимо, що username, currentDay та nextClaimTime завантажуються з вашої бази даних при запуску
     let currentDay = 1; // замініть на поточний день з бази даних
     let nextClaimTime = Date.now(); // замініть на nextClaimTime з бази даних
+    let username = '';
     
     function renderDays() {
         daysContainer.innerHTML = '';
