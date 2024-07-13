@@ -1,17 +1,21 @@
-window.addEventListener('load', function() {
+window.addEventListener('load', () => {
     const preloader = document.getElementById('preloader');
-    const loadingProgress = document.querySelector('.loading-progress');
-    
-    // Показуємо вікно загрузки
-    preloader.style.display = 'flex';
+    const progress = document.querySelector('.loading-progress');
 
-    // Заповнюємо прогрес-бар за 2 секунди
-    setTimeout(function() {
-        loadingProgress.style.width = '100%';
-    }, 10); // Невелика затримка перед початком анімації
+    const scripts = document.querySelectorAll('script');
+    const totalScripts = scripts.length;
+    let loadedScripts = 0;
 
-    // Приховуємо вікно загрузки через 2 секунди
-    setTimeout(function() {
-        preloader.style.display = 'none';
-    }, 2000); // 2000 мілісекунд = 2 секунди
+    scripts.forEach(script => {
+        script.addEventListener('load', () => {
+            loadedScripts++;
+            progress.style.width = `${(loadedScripts / totalScripts) * 100}%`;
+            if (loadedScripts === totalScripts) {
+                setTimeout(() => {
+                    preloader.style.opacity = '0';
+                    preloader.style.visibility = 'hidden';
+                }, 500); // Затримка перед приховуванням завантажувального екрану
+            }
+        });
+    });
 });
