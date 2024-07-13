@@ -1,3 +1,4 @@
+
 document.addEventListener('DOMContentLoaded', function() {
     const airdropButton = document.getElementById('airdropButton');
     const exchangeButton = document.getElementById('exchangeButton');
@@ -15,12 +16,8 @@ document.addEventListener('DOMContentLoaded', function() {
     const settingsIcon = document.querySelector('.cog-icon');
     const settingsWindow = document.getElementById('settingsWindow');
     const closeIcon = document.querySelector('.close-icon');
-    const telegramIcon = document.querySelector('.telegram-icon');
-    const telegramWindow = document.getElementById('telegramWindow');
     const animationToggle = document.getElementById('animationToggle');
     const vibrationToggle = document.getElementById('vibrationToggle');
-    const subscribeButton = document.getElementById('subscribeButton');
-    const bonusButton = document.getElementById('bonusButton');
     const navButtons = document.querySelectorAll('.nav-button'); // Вибираємо всі навігаційні кнопки
     const rankDisplay = document.getElementById('rank'); // Елемент для відображення місця в рейтингу
     const levelBar = document.getElementById('levelBar');
@@ -52,7 +49,6 @@ document.addEventListener('DOMContentLoaded', function() {
     let clickCountMax = 0;
     let enableAnimation = true;
     let enableVibration = true;
-    let bonusClaimed = false;
 
     let settingsWindowOpen = false;
     let telegramWindowOpen = false;
@@ -252,20 +248,12 @@ document.addEventListener('DOMContentLoaded', function() {
         settingsWindowOpen = false;
     });
 
-    telegramIcon.addEventListener('click', function(event) {
-        event.stopPropagation();
-        telegramWindow.style.display = telegramWindowOpen ? 'none' : 'block';
-        telegramWindowOpen = !telegramWindowOpen;
-    });
+
 
     document.addEventListener('click', function() {
         if (settingsWindowOpen) {
             settingsWindow.style.display = 'none';
             settingsWindowOpen = false;
-        }
-        if (telegramWindowOpen) {
-            telegramWindow.style.display = 'none';
-            telegramWindowOpen = false;
         }
     });
 
@@ -273,9 +261,6 @@ document.addEventListener('DOMContentLoaded', function() {
         event.stopPropagation();
     });
     
-    telegramWindow.addEventListener('click', function(event) {
-        event.stopPropagation();
-    });
 
     animationToggle.addEventListener('change', function() {
         enableAnimation = animationToggle.checked;
@@ -319,7 +304,6 @@ document.addEventListener('DOMContentLoaded', function() {
                         const data = doc.data();
                         clickCount = data.clickCount || 0;
                         clickCountMax = data.clickCountMax || 0;
-                        bonusClaimed = data.bonusClaimed || false;
                         enableAnimation = data.enableAnimation !== undefined ? data.enableAnimation : true;
                         enableVibration = data.enableVibration !== undefined ? data.enableVibration : true;
                         
@@ -327,10 +311,6 @@ document.addEventListener('DOMContentLoaded', function() {
                         animationToggle.checked = enableAnimation;
                         vibrationToggle.checked = enableVibration;
                         
-                        if (bonusClaimed) {
-                            bonusButton.disabled = true;
-                        }
-    
                         updateRank();
                         updateLevelBar(clickCount);
                         initializeAvatars(getCurrentLevel(clickCountMax));
@@ -339,7 +319,6 @@ document.addEventListener('DOMContentLoaded', function() {
                         db.collection("clicks").doc(username).set({
                             clickCount: 0,
                             clickCountMax: 0,
-                            bonusClaimed: false,
                             enableAnimation: true,
                             enableVibration: true
                         });
@@ -388,7 +367,6 @@ document.addEventListener('DOMContentLoaded', function() {
     function saveSettings() {
         db.collection("clicks").doc(username).set({
             clickCount,
-            bonusClaimed,
             enableAnimation,
             enableVibration
         }).catch(error => {
@@ -442,7 +420,6 @@ document.addEventListener('DOMContentLoaded', function() {
             db.collection("clicks").doc(username).set({
                 clickCount,
                 clickCountMax,  // Збереження максимальної кількості кліків
-                bonusClaimed,
                 enableAnimation,
                 enableVibration
             }).then(() => {
@@ -490,7 +467,6 @@ document.addEventListener('DOMContentLoaded', function() {
             db.collection("clicks").doc(username).set({
                 clickCount,
                 clickCountMax,  // Збереження максимальної кількості кліків
-                bonusClaimed,
                 enableAnimation,
                 enableVibration
             }).then(() => {
@@ -546,34 +522,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    function subscribeToChannel() {
-        const telegramLink = "https://t.me/leb1gaa";
-        window.open(telegramLink, "_blank");
-    }
-
-    function claimBonus() {
-        if (!bonusClaimed) {
-            db.collection("clicks").doc(username).get().then(doc => {
-                if (doc.exists) {
-                    clickCount += 10000;
-                    bonusClaimed = true;
-                    countDisplay.textContent = clickCount;
-                    bonusButton.disabled = true;
-                    db.collection("clicks").doc(username).set({ clickCount, bonusClaimed, enableAnimation, enableVibration })
-                        .then(() => {
-                            updateLeaderboard();
-                            updateRank();
-                        })
-                        .catch(error => {
-                            console.error("Помилка оновлення документа:", error);
-                        });
-                }
-            }).catch(error => {
-                console.error("Error getting document:", error);
-            });
-        }
-    }
-
     navButtons.forEach(button => {
         button.addEventListener('click', function() {
             navButtons.forEach(btn => btn.classList.remove('active')); // Видаляємо клас active з усіх кнопок
@@ -619,9 +567,6 @@ document.addEventListener('DOMContentLoaded', function() {
     exchangeButton.addEventListener('click', function() {
         closeAllModals();
     });
-
-    subscribeButton.addEventListener('click', subscribeToChannel);
-    bonusButton.addEventListener('click', claimBonus);
 
     // Функція для завантаження кольору з бази даних
     function loadColorFromDB() {
