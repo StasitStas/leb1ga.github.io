@@ -638,10 +638,3 @@ input[type="range"]::-webkit-slider-thumb {
     font-weight: bold;
     cursor: pointer;
 }
-
-.close-gifts:hover,
-.close-gifts:focus {
-    color: black;
-    text-decoration: none;
-    cursor: pointer;
-}
