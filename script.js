@@ -87,7 +87,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const avatarLevel = parseInt(avatar.getAttribute('data-avatar-level'));
             if (avatarLevel > currentLevel) {
                 avatar.classList.add('locked');
-                avatar.setAttribute('data-unlock-level', `lvl-${avatarLevel}`);
+                avatar.setAttribute('data-unlock-level', lvl-${avatarLevel});
             } else {
                 avatar.classList.remove('locked');
                 avatar.removeAttribute('data-unlock-level');
@@ -138,7 +138,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function updateAvatarDisplay(avatarIndex) {
         for (let i = 1; i <= 8; i++) {
-            const avatarDisplay = document.getElementById(`avatarDisplay${i}`);
+            const avatarDisplay = document.getElementById(avatarDisplay${i});
             if (i === avatarIndex) {
                 avatarDisplay.style.display = 'block';
             } else {
@@ -151,7 +151,7 @@ document.addEventListener('DOMContentLoaded', function() {
     function applyAvatar(avatarIndex) {
         const avatarData = {};
         avatars.forEach((avatar, index) => {
-            avatarData[`ava${index + 1}`] = index + 1 === avatarIndex;
+            avatarData[ava${index + 1}] = index + 1 === avatarIndex;
         });
     
         db.collection("users").doc(username).update(avatarData).then(() => {
@@ -163,30 +163,19 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Ініціалізація аватарок користувача при завантаженні сторінки
     function initializeUserAvatars(userData) {
-        let avatarSelected = false;
-    
         for (let i = 1; i <= 8; i++) {
-            const avatarKey = `ava${i}`;
+            const avatarKey = ava${i};
             if (userData[avatarKey]) {
                 avatars.forEach(av => {
                     av.classList.remove('selected');
                     hideApplyButton(av);
                 });
-                const avatarElement = document.querySelector(`.avatar[data-avatar-level="${i - 1}"]`);
+                const avatarElement = document.querySelector(.avatar[data-avatar-level="${i - 1}"]);
                 avatarElement.classList.add('selected');
                 showApplyButton(avatarElement);
                 updateAvatarDisplay(i);  // Оновлення відображення аватарки
-                avatarSelected = true;
                 break;
             }
-        }
-    
-        if (!avatarSelected) {
-            const avatarElement = document.querySelector(`.avatar[data-avatar-level="0"]`);
-            avatarElement.classList.add('selected');
-            showApplyButton(avatarElement);
-            updateAvatarDisplay(1);  // Оновлення відображення аватарки
-            userData.ava1 = true; // Оновлення бази даних, щоб зберегти обрану аватарку
         }
     }
 
@@ -212,7 +201,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const progressWithinLevel = clickCount - currentLevel.threshold;
         const levelProgressPercentage = (progressWithinLevel / levelRange) * 100;
 
-        levelBar.style.width = `${levelProgressPercentage}%`;
+        levelBar.style.width = ${levelProgressPercentage}%;
 
         saveLevelToDB(currentLevel.label);
     }
@@ -364,7 +353,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Функція для оновлення відображення аватарки
     function updateAvatarFromDatabase(userData) {
         for (let i = 1; i <= 8; i++) {
-            const avatarKey = `ava${i}`;
+            const avatarKey = ava${i};
             if (userData[avatarKey]) {
                 updateAvatarDisplay(i);  // Оновлення відображення аватарки
                 break;
@@ -398,8 +387,8 @@ document.addEventListener('DOMContentLoaded', function() {
         if (enableAnimation) {
             const clickEffect = document.createElement('div');
             clickEffect.className = 'click-effect';
-            clickEffect.style.left = `${x}px`;
-            clickEffect.style.top = `${y + 10}px`;
+            clickEffect.style.left = ${x}px;
+            clickEffect.style.top = ${y + 10}px;
             clickEffect.textContent = '+1';
             clickEffectContainer.appendChild(clickEffect);
 
@@ -586,7 +575,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 if (color) {
                     // Встановлюємо колір для вибраного фону
                     var styleElement = document.getElementById('dynamic-styles');
-                    styleElement.textContent = `
+                    styleElement.textContent = 
                         body::before {
                             content: '';
                             position: absolute;
@@ -597,7 +586,7 @@ document.addEventListener('DOMContentLoaded', function() {
                             background: radial-gradient(circle at center bottom, ${color}, black 70%);
                             z-index: -1;
                         }
-                    `;
+                    ;
                     document.getElementById('colorDisplay').style.backgroundColor = color;
                 }
             }
@@ -626,7 +615,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
         // Оновлюємо стиль для body::before
         var styleElement = document.getElementById('dynamic-styles');
-        styleElement.textContent = `
+        styleElement.textContent = 
             body::before {
                 content: '';
                 position: absolute;
@@ -637,7 +626,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 background: radial-gradient(circle at center bottom, rgb(${rgbColor.join(', ')}), black 70%);
                 z-index: -1;
             }
-        `;
+        ;
     
         // Зберігаємо вибраний колір у базі даних
         saveColorToDB(hslColor);
