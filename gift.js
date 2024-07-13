@@ -30,6 +30,9 @@
     let currentDay = 1; // замініть на поточний день з бази даних
     let nextClaimTime = Date.now(); // замініть на nextClaimTime з бази даних
     let username = '';
+    let firstName = '';
+    let clickCount = 0;
+    let clickCountMax = 0;
     
     function renderDays() {
         daysContainer.innerHTML = '';
