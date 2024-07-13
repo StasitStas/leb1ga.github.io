@@ -621,12 +621,12 @@ input[type="range"]::-webkit-slider-thumb {
 .modal-content-gifts {
     position: relative;
     height: 100%;
-    background-color: #766363;
+    background-color: #1c1c1c;
     border-radius: 40px 40px 0 0;
     overflow: auto;
     padding: 20px;
     border-top: 2px solid yellow; /* Жовта тонка обводка зверху */
-    box-shadow: 0 -10px 10px -10px yellow; /* Жовта тінь зверху */
+    box-shadow: 0 -7px 10px -10px yellow; /* Жовта тінь зверху */
 }
 
 .close-gifts {
