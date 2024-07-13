@@ -633,20 +633,78 @@ document.addEventListener('DOMContentLoaded', function() {
         saveColorToDB(hslColor);
     });
 
-    document.getElementById('giftsIcon').onclick = function() {
-        document.getElementById('modal-gifts').style.display = "block";
-    };
+    document.getElementById('giftsIcon').addEventListener('click', function() {
+        document.getElementById('modal-gifts').style.display = 'block';
+    });
     
-    document.getElementById('closeModal-gifts').onclick = function() {
-        document.getElementById('modal-gifts').style.display = "none";
-    };
+    document.getElementById('closeModal-gifts').addEventListener('click', function() {
+        document.getElementById('modal-gifts').style.display = 'none';
+    });
+
+    const daysContainer = document.getElementById('days-container');
+    const claimRewardButton = document.getElementById('claimRewardButton');
     
-    // Закриває модальне вікно при натисканні за межами модального вікна
-    window.onclick = function(event) {
-        if (event.target == document.getElementById('modal-gifts')) {
-            document.getElementById('modal-gifts').style.display = "none";
+    // Ініціалізація днів з призами
+    const rewards = [
+        { day: 1, prize: 500 },
+        { day: 2, prize: 1000 },
+        { day: 3, prize: 1500 },
+        { day: 4, prize: 2000 },
+        { day: 5, prize: 2500 },
+        { day: 6, prize: 3000 },
+        { day: 7, prize: 3500 },
+        { day: 8, prize: 4000 },
+        { day: 9, prize: 4500 },
+        { day: 10, prize: 5000 }
+    ];
+    
+    let currentDay = 1; // Поточний день, замініть це значення з бази даних
+    let nextClaimTime = Date.now(); // Замініть це значення з бази даних
+    
+    function renderDays() {
+        daysContainer.innerHTML = '';
+        rewards.forEach(reward => {
+            const dayElement = document.createElement('div');
+            dayElement.className = 'day';
+            if (reward.day === currentDay) {
+                dayElement.classList.add('active');
+            }
+            dayElement.innerHTML = `
+                <div>День ${reward.day}</div>
+                <img src="coin.png" alt="Coin">
+                <div>${reward.prize} кліків</div>
+            `;
+            daysContainer.appendChild(dayElement);
+        });
+    }
+    
+    claimRewardButton.addEventListener('click', function() {
+        if (Date.now() >= nextClaimTime) {
+            alert(`Ви отримали ${rewards[currentDay - 1].prize} кліків!`);
+            currentDay = (currentDay % 10) + 1;
+            nextClaimTime = Date.now() + 24 * 60 * 60 * 1000; // Відлік 24 години
+    
+            // Оновлення даних в базі даних користувача
+            updateUserRewardData(currentDay, nextClaimTime);
+    
+            renderDays();
+        } else {
+            alert('Ви ще не можете забрати нагороду. Спробуйте пізніше.');
         }
-    };
+    });
+    
+    function updateUserRewardData(day, time) {
+        // Використовуйте Firebase SDK або інший метод для оновлення даних користувача
+        const userDocRef = db.collection('clicks').doc(username);
+        userDocRef.update({
+            currentDay: day,
+            nextClaimTime: time,
+            clickCount: firestore.FieldValue.increment(rewards[day - 1].prize)
+        });
+    }
+    
+    // Виклик функції для первісного рендерингу днів
+    renderDays();
 
     initialize();
 });
