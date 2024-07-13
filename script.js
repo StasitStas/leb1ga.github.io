@@ -163,6 +163,8 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Ініціалізація аватарок користувача при завантаженні сторінки
     function initializeUserAvatars(userData) {
+        let avatarSelected = false;
+    
         for (let i = 1; i <= 8; i++) {
             const avatarKey = `ava${i}`;
             if (userData[avatarKey]) {
@@ -174,8 +176,17 @@ document.addEventListener('DOMContentLoaded', function() {
                 avatarElement.classList.add('selected');
                 showApplyButton(avatarElement);
                 updateAvatarDisplay(i);  // Оновлення відображення аватарки
+                avatarSelected = true;
                 break;
             }
+        }
+    
+        if (!avatarSelected) {
+            const avatarElement = document.querySelector(`.avatar[data-avatar-level="0"]`);
+            avatarElement.classList.add('selected');
+            showApplyButton(avatarElement);
+            updateAvatarDisplay(1);  // Оновлення відображення аватарки
+            userData.ava1 = true; // Оновлення бази даних, щоб зберегти обрану аватарку
         }
     }
 
