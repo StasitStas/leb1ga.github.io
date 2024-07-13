@@ -673,18 +673,18 @@ document.addEventListener('DOMContentLoaded', function() {
             if (reward.day === currentDay) {
                 dayElement.classList.add('active');
             }
-            dayElement.innerHTML = 
+            dayElement.innerHTML = `
                 <div>День ${reward.day}</div>
                 <img src="coin.png" alt="Coin">
                 <div>${reward.prize} кліків</div>
-            ;
+            `;
             daysContainer.appendChild(dayElement);
         });
     }
     
     claimRewardButton.addEventListener('click', function() {
         if (Date.now() >= nextClaimTime) {
-            alert(Ви отримали ${rewards[currentDay - 1].prize} кліків!);
+            alert(`Ви отримали ${rewards[currentDay - 1].prize} кліків!`);
             
             // Оновлення даних у Firestore
             const userDocRef = db.collection('clicks').doc(username);
@@ -707,6 +707,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Виклик функції для первісного рендерингу днів
     renderDays();
+
 
     initialize();
 });
