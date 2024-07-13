@@ -633,14 +633,17 @@ document.addEventListener('DOMContentLoaded', function() {
         saveColorToDB(hslColor);
     });
 
+    // Функція для відкриття модального вікна "Подарунки"
     document.getElementById('giftsIcon').addEventListener('click', function() {
         document.getElementById('modal-gifts').style.display = 'block';
     });
     
+    // Функція для закриття модального вікна "Подарунки"
     document.getElementById('closeModal-gifts').addEventListener('click', function() {
         document.getElementById('modal-gifts').style.display = 'none';
     });
-
+    
+    // Останній код з попереднього відповіді
     const daysContainer = document.getElementById('days-container');
     const claimRewardButton = document.getElementById('claimRewardButton');
     
@@ -658,8 +661,9 @@ document.addEventListener('DOMContentLoaded', function() {
         { day: 10, prize: 5000 }
     ];
     
-    let currentDay = 1; // Поточний день, замініть це значення з бази даних
-    let nextClaimTime = Date.now(); // Замініть це значення з бази даних
+    // Припустимо, що username, currentDay та nextClaimTime завантажуються з вашої бази даних при запуску
+    let currentDay = 1; // замініть на поточний день з бази даних
+    let nextClaimTime = Date.now(); // замініть на nextClaimTime з бази даних
     
     function renderDays() {
         daysContainer.innerHTML = '';
@@ -681,30 +685,29 @@ document.addEventListener('DOMContentLoaded', function() {
     claimRewardButton.addEventListener('click', function() {
         if (Date.now() >= nextClaimTime) {
             alert(`Ви отримали ${rewards[currentDay - 1].prize} кліків!`);
-            currentDay = (currentDay % 10) + 1;
-            nextClaimTime = Date.now() + 24 * 60 * 60 * 1000; // Відлік 24 години
-    
-            // Оновлення даних в базі даних користувача
-            updateUserRewardData(currentDay, nextClaimTime);
-    
-            renderDays();
+            
+            // Оновлення даних у Firestore
+            const userDocRef = db.collection('clicks').doc(username);
+            userDocRef.update({
+                currentDay: (currentDay % 10) + 1,
+                nextClaimTime: Date.now() + 24 * 60 * 60 * 1000, // Відлік 24 години
+                clickCount: firebase.firestore.FieldValue.increment(rewards[currentDay - 1].prize)
+            }).then(() => {
+                // Оновлення локальних змінних після успішного оновлення в Firestore
+                currentDay = (currentDay % 10) + 1;
+                nextClaimTime = Date.now() + 24 * 60 * 60 * 1000;
+                renderDays();
+            }).catch((error) => {
+                console.error("Помилка при оновленні бази даних: ", error);
+            });
         } else {
             alert('Ви ще не можете забрати нагороду. Спробуйте пізніше.');
         }
     });
     
-    function updateUserRewardData(day, time) {
-        // Використовуйте Firebase SDK або інший метод для оновлення даних користувача
-        const userDocRef = db.collection('clicks').doc(username);
-        userDocRef.update({
-            currentDay: day,
-            nextClaimTime: time,
-            clickCount: firestore.FieldValue.increment(rewards[day - 1].prize)
-        });
-    }
-    
     // Виклик функції для первісного рендерингу днів
     renderDays();
+
 
     initialize();
 });
