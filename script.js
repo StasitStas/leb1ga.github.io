@@ -123,6 +123,40 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
+    // Function to apply the user's avatar or set default if none is chosen
+    function applyUserAvatar(userId) {
+        const userDocRef = firestore.collection('users').doc(userId);
+    
+        userDocRef.get().then((doc) => {
+            if (doc.exists) {
+                const userData = doc.data();
+                let avatarPath = 'ava-img/ava1.jpg'; // Default avatar
+    
+                // Check if any avatar is chosen
+                for (let i = 1; i <= 8; i++) {
+                    if (userData[`avatar${i}`] === true) {
+                        avatarPath = `ava-img/ava${i}.jpg`;
+                        break;
+                    }
+                }
+    
+                // Set the avatar display
+                const avatarElements = document.querySelectorAll('[id^="avatarDisplay"]');
+                avatarElements.forEach(element => {
+                    element.src = avatarPath;
+                });
+            } else {
+                console.log("No such document!");
+            }
+        }).catch((error) => {
+            console.log("Error getting document:", error);
+        });
+    }
+    
+    // Call the function with the user's ID
+    applyUserAvatar('USER_ID_HERE');
+
+
     function hideApplyButton(avatar) {
         const button = avatar.querySelector('.apply-button');
         if (button) {
