@@ -401,20 +401,26 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
-    claimRewardButton.addEventListener('click', function() {
-        if (Date.now() >= nextClaimTime) {
+    function claimReward() {
+        if (Date.now() >= nextClaimTime.getTime()) {
             alert(`Ви отримали ${rewards[currentDay - 1].prize} кліків!`);
-            
-            // Оновлення даних у Firestore
+    
             const userDocRef = db.collection('clicks').doc(username);
+            const currentTime = new Date();
+    
             userDocRef.update({
                 currentDay: (currentDay % 10) + 1,
-                nextClaimTime: Date.now() + 24 * 60 * 60 * 1000, // Відлік 24 години
-                clickCount: firebase.firestore.FieldValue.increment(rewards[currentDay - 1].prize)
+                nextClaimTime: firebase.firestore.Timestamp.fromDate(new Date(currentTime.getTime() + 24 * 60 * 60 * 1000)),
+                clickCount: firebase.firestore.FieldValue.increment(rewards[currentDay - 1].prize),
+                lastClaimed: {
+                    hour: currentTime.getHours(),
+                    day: currentTime.getDate(),
+                    month: currentTime.getMonth() + 1,
+                    year: currentTime.getFullYear()
+                }
             }).then(() => {
-                // Оновлення локальних змінних після успішного оновлення в Firestore
                 currentDay = (currentDay % 10) + 1;
-                nextClaimTime = Date.now() + 24 * 60 * 60 * 1000;
+                nextClaimTime = new Date(currentTime.getTime() + 24 * 60 * 60 * 1000);
                 renderDays();
             }).catch((error) => {
                 console.error("Помилка при оновленні бази даних: ", error);
@@ -422,10 +428,30 @@ document.addEventListener('DOMContentLoaded', function() {
         } else {
             alert('Ви ще не можете забрати нагороду. Спробуйте пізніше.');
         }
-    });
+    }
     
-    // Виклик функції для первісного рендерингу днів
-    renderDays();
-
+    claimRewardButton.addEventListener('click', claimReward);
+    
+    function initializeRewards() {
+        const userDocRef = db.collection('clicks').doc(username);
+        userDocRef.get().then(doc => {
+            if (doc.exists) {
+                const data = doc.data();
+                currentDay = data.currentDay || 1;
+                nextClaimTime = data.nextClaimTime ? data.nextClaimTime.toDate() : new Date();
+                renderDays();
+            } else {
+                userDocRef.set({
+                    currentDay: 1,
+                    nextClaimTime: firebase.firestore.Timestamp.fromDate(new Date())
+                });
+            }
+        }).catch(error => {
+            console.error("Помилка отримання документа: ", error);
+        });
+    }
+    
+    initializeRewards();
+    
     initialize();
 });
