@@ -646,7 +646,7 @@ input[type="range"]::-webkit-slider-thumb {
     flex-wrap: wrap;
     justify-content: space-between;
     gap: 10px;
-    max-height: calc(100vh - 200px); /* Задаємо максимальну висоту контейнера */
+    max-height: calc(100vh - 250px); /* Задаємо максимальну висоту контейнера з більшою дистанцією від кнопки */
     overflow-y: auto; /* Включаємо вертикальну прокрутку, якщо контент перевищує висоту */
 }
 
@@ -674,13 +674,13 @@ input[type="range"]::-webkit-slider-thumb {
 /* Кнопка для забору нагороди */
 #claimRewardButton {
     position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    padding: 15px; /* Зменшено для компактності на мобільних пристроях */
+    bottom: 20px; /* Збільшено відступ від нижнього краю */
+    left: 20px; /* Збільшено відступ від лівого краю */
+    right: 20px; /* Збільшено відступ від правого краю */
+    padding: 15px;
     background-color: yellow;
     border: none;
-    border-radius: 0;
+    border-radius: 10px; /* Зменшено радіус кутів для більшої компактності */
     font-size: 18px; /* Зменшено розмір шрифту */
     cursor: pointer;
     z-index: 3002;
