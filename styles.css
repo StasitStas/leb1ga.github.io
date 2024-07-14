@@ -237,7 +237,7 @@ body::after {
 .green-dot {
     width: 10px;
     height: 10px;
-    background-color: green;
+    background-color: red;
     border-radius: 50%;
     position: absolute;
     top: 0;
