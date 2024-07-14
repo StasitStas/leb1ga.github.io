@@ -423,6 +423,24 @@ document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('closeModal-gifts').addEventListener('click', function() {
         document.getElementById('modal-gifts').style.display = 'none';
     });
+
+    // Функція для оновлення відображення зеленого кружечка відповідно до nextClaimTime
+    function updateClaimIndicator() {
+        const claimIndicator = document.getElementById('claimIndicator');
+        const currentTime = new Date();
+    
+        if (nextClaimTime <= currentTime) {
+            claimIndicator.classList.add('active');
+        } else {
+            claimIndicator.classList.remove('active');
+        }
+    }
+    
+    // Викликаємо функцію для оновлення при завантаженні сторінки і після кожного оновлення часу
+    function initializeClaimIndicator() {
+        updateClaimIndicator();
+        setInterval(updateClaimIndicator, 1000); // Оновлюємо кожну секунду для точності
+    }
     
     function renderDays() {
         daysContainer.innerHTML = '';
@@ -499,6 +517,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     // Викликаємо initializeRewards тільки після того, як визначили username
     initializeRewards();
+    initializeClaimIndicator();
     
     initialize();
 });
