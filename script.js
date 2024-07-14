@@ -441,8 +441,6 @@ document.addEventListener('DOMContentLoaded', function() {
     
     function updateGreenDot() {
         const greenDot = document.getElementById('greenDot');
-        console.log('nextClaimTime:', nextClaimTime);
-        console.log('Current time:', Date.now());
         if (Date.now() >= nextClaimTime.getTime()) {
             greenDot.style.display = 'block';
         } else {
