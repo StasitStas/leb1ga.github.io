@@ -653,7 +653,6 @@ input[type="range"]::-webkit-slider-thumb {
     cursor: pointer;
 }
 
-
 /* Контейнер з днями */
 #days-container {
     display: flex;
@@ -688,14 +687,14 @@ input[type="range"]::-webkit-slider-thumb {
 /* Кнопка для забору нагороди */
 #claimRewardButton {
     position: fixed;
-    bottom: 20px; /* Збільшено відступ від нижнього краю */
-    left: 20px; /* Збільшено відступ від лівого краю */
-    right: 20px; /* Збільшено відступ від правого краю */
+    bottom: 20px; /* Відступ від нижнього краю */
+    left: 20px; /* Відступ від лівого краю */
+    right: 20px; /* Відступ від правого краю */
     padding: 15px;
     background-color: yellow;
     border: none;
-    border-radius: 10px; /* Зменшено радіус кутів для більшої компактності */
-    font-size: 18px; /* Зменшено розмір шрифту */
+    border-radius: 10px; /* Радіус кутів */
+    font-size: 18px; /* Розмір шрифту */
     cursor: pointer;
     z-index: 3002;
 }
