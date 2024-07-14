@@ -37,7 +37,6 @@ document.addEventListener('DOMContentLoaded', function() {
     const daysContainer = document.getElementById('days-container');
     const claimRewardButton = document.getElementById('claimRewardButton');
     
-    // Ініціалізація днів з призами
     const rewards = [
         { day: 1, prize: 500 },
         { day: 2, prize: 1000 },
@@ -62,8 +61,8 @@ document.addEventListener('DOMContentLoaded', function() {
     let telegramWindowOpen = false;
 
     let lastClickTime = 0;
-    let currentDay = 1; // замініть на поточний день з бази даних
-    let nextClaimTime = Date.now(); // замініть на nextClaimTime з бази даних
+    let currentDay = 1;
+    let nextClaimTime = new Date();
     
     settingsIcon.addEventListener('click', function(event) {
         event.stopPropagation();
@@ -433,6 +432,11 @@ document.addEventListener('DOMContentLoaded', function() {
     claimRewardButton.addEventListener('click', claimReward);
     
     function initializeRewards() {
+        if (!username) {
+            console.error("Помилка: username не визначено.");
+            return;
+        }
+        
         const userDocRef = db.collection('clicks').doc(username);
         userDocRef.get().then(doc => {
             if (doc.exists) {
@@ -451,6 +455,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
+    // Викликаємо initializeRewards тільки після того, як визначили username
     initializeRewards();
     
     initialize();
