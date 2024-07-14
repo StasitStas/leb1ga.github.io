@@ -20,6 +20,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const vibrationToggle = document.getElementById('vibrationToggle');
     const navButtons = document.querySelectorAll('.nav-button'); // Вибираємо всі навігаційні кнопки
     const rankDisplay = document.getElementById('rank'); // Елемент для відображення місця в рейтингу
+    const modalGifts = document.querySelector('.modal-gifts');
 
     const LEVELS = [
         { threshold: 0, label: 'lvl-0' },
@@ -63,6 +64,8 @@ document.addEventListener('DOMContentLoaded', function() {
     let lastClickTime = 0;
     let currentDay = 1;
     let nextClaimTime = new Date();
+
+    modalGifts.classList.add('open');
     
     settingsIcon.addEventListener('click', function(event) {
         event.stopPropagation();
