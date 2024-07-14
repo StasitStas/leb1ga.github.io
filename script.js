@@ -445,10 +445,14 @@ document.addEventListener('DOMContentLoaded', function() {
             const userDocRef = db.collection('clicks').doc(username);
             const currentTime = new Date();
     
+            // Оновлення currentDay локально перед оновленням у Firestore
+            currentDay = (currentDay % 10) + 1;
+            nextClaimTime = new Date(currentTime.getTime() + 24 * 60 * 60 * 1000);
+    
             userDocRef.update({
-                currentDay: (currentDay % 10) + 1,
-                nextClaimTime: firebase.firestore.Timestamp.fromDate(new Date(currentTime.getTime() + 24 * 60 * 60 * 1000)),
-                clickCount: firebase.firestore.FieldValue.increment(rewards[currentDay - 1].prize),
+                currentDay,
+                nextClaimTime: firebase.firestore.Timestamp.fromDate(nextClaimTime),
+                clickCount: firebase.firestore.FieldValue.increment(rewards[currentDay - 2].prize), // Використання currentDay - 2 для збереження правильного призу
                 lastClaimed: {
                     hour: currentTime.getHours(),
                     day: currentTime.getDate(),
@@ -456,8 +460,6 @@ document.addEventListener('DOMContentLoaded', function() {
                     year: currentTime.getFullYear()
                 }
             }).then(() => {
-                currentDay = (currentDay % 10) + 1;
-                nextClaimTime = new Date(currentTime.getTime() + 24 * 60 * 60 * 1000);
                 renderDays();
             }).catch((error) => {
                 console.error("Помилка при оновленні бази даних: ", error);
