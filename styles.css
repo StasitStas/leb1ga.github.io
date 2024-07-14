@@ -650,6 +650,17 @@ input[type="range"]::-webkit-slider-thumb {
     overflow-y: auto; /* Додано вертикальну прокрутку */
 }
 
+@media (max-width: 768px) {
+    .modal-content-gifts {
+        height: 70%; /* Приклад використання медіа-запитів для зміни розміру на менших екранах */
+    }
+
+    #days-container {
+        max-height: calc(100vh - 200px); /* Зміна максимальної висоти контейнера для менших екранів */
+    }
+}
+
+
 .modal-gifts.open {
     transform: translateY(0); /* Підняти вікно до видимої області */
 }
