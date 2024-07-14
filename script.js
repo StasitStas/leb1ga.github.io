@@ -446,13 +446,13 @@ document.addEventListener('DOMContentLoaded', function() {
             const currentTime = new Date();
     
             // Оновлення currentDay локально перед оновленням у Firestore
-            currentDay = (currentDay % 10) + 1;
+            currentDay = currentDay % 10 + 1; // Від 1 до 10, потім знову 1
             nextClaimTime = new Date(currentTime.getTime() + 24 * 60 * 60 * 1000);
     
             userDocRef.update({
                 currentDay,
                 nextClaimTime: firebase.firestore.Timestamp.fromDate(nextClaimTime),
-                clickCount: firebase.firestore.FieldValue.increment(rewards[currentDay - 2].prize), // Використання currentDay - 2 для збереження правильного призу
+                clickCount: firebase.firestore.FieldValue.increment(rewards[(currentDay - 2 + 10) % 10].prize), // Використання currentDay - 2 для збереження правильного призу
                 lastClaimed: {
                     hour: currentTime.getHours(),
                     day: currentTime.getDate(),
