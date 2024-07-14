@@ -515,5 +515,8 @@ document.addEventListener('DOMContentLoaded', function() {
     // Викликаємо initializeRewards тільки після того, як визначили username
     initializeRewards();
     
+    // Перевірка через певний інтервал часу
+    setInterval(updateGreenDot, 10000); // Перевірка кожні 10 секунд
+
     initialize();
 });
