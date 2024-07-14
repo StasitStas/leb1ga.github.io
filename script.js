@@ -449,32 +449,60 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     function claimReward() {
-        if (Date.now() >= nextClaimTime.getTime()) {
-            alert(`Ви отримали ${rewards[currentDay - 1].prize} кліків!`);
+        const currentTime = Date.now();
+        const nextClaimTimestamp = nextClaimTime.getTime();
     
-            const userDocRef = db.collection('clicks').doc(username);
-            const currentTime = new Date();
+        if (currentTime >= nextClaimTimestamp) {
+            if (currentTime >= nextClaimTimestamp + 24 * 60 * 60 * 1000) {
+                // Більше 24 годин пройшло
+                alert('Ви пропустили більше одного дня. Почніть заново з Дня 1.');
     
-            // Оновлення currentDay локально перед оновленням у Firestore
-            currentDay = currentDay % 10 + 1; // Від 1 до 10, потім знову 1
-            nextClaimTime = new Date(currentTime.getTime() + 24 * 60 * 60 * 1000);
+                const userDocRef = db.collection('clicks').doc(username);
+                nextClaimTime = new Date(currentTime + 24 * 60 * 60 * 1000);
+                currentDay = 1;
     
-            userDocRef.update({
-                currentDay,
-                nextClaimTime: firebase.firestore.Timestamp.fromDate(nextClaimTime),
-                clickCount: firebase.firestore.FieldValue.increment(rewards[(currentDay - 2 + 10) % 10].prize), // Використання currentDay - 2 для збереження правильного призу
-                lastClaimed: {
-                    hour: currentTime.getHours(),
-                    day: currentTime.getDate(),
-                    month: currentTime.getMonth() + 1,
-                    year: currentTime.getFullYear()
-                }
-            }).then(() => {
-                renderDays();
-                updateGreenDot(); // Оновлення відображення кружечка після отримання нагороди
-            }).catch((error) => {
-                console.error("Помилка при оновленні бази даних: ", error);
-            });
+                userDocRef.update({
+                    currentDay,
+                    nextClaimTime: firebase.firestore.Timestamp.fromDate(nextClaimTime),
+                    clickCount: firebase.firestore.FieldValue.increment(rewards[0].prize), // Приз за День 1
+                    lastClaimed: {
+                        hour: new Date(currentTime).getHours(),
+                        day: new Date(currentTime).getDate(),
+                        month: new Date(currentTime).getMonth() + 1,
+                        year: new Date(currentTime).getFullYear()
+                    }
+                }).then(() => {
+                    renderDays();
+                    updateGreenDot();
+                }).catch((error) => {
+                    console.error("Помилка при оновленні бази даних: ", error);
+                });
+            } else {
+                // Менше 24 годин пройшло
+                alert(`Ви отримали ${rewards[currentDay - 1].prize} кліків!`);
+    
+                const userDocRef = db.collection('clicks').doc(username);
+                const newNextClaimTime = new Date(currentTime + 24 * 60 * 60 * 1000);
+    
+                currentDay = currentDay % 10 + 1; // Від 1 до 10, потім знову 1
+    
+                userDocRef.update({
+                    currentDay,
+                    nextClaimTime: firebase.firestore.Timestamp.fromDate(newNextClaimTime),
+                    clickCount: firebase.firestore.FieldValue.increment(rewards[(currentDay - 2 + 10) % 10].prize), // Використання currentDay - 2 для збереження правильного призу
+                    lastClaimed: {
+                        hour: new Date(currentTime).getHours(),
+                        day: new Date(currentTime).getDate(),
+                        month: new Date(currentTime).getMonth() + 1,
+                        year: new Date(currentTime).getFullYear()
+                    }
+                }).then(() => {
+                    renderDays();
+                    updateGreenDot();
+                }).catch((error) => {
+                    console.error("Помилка при оновленні бази даних: ", error);
+                });
+            }
         } else {
             alert('Ви ще не можете забрати нагороду. Спробуйте пізніше.');
         }
