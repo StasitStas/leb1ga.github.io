@@ -116,13 +116,12 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function initialize() {
         username = getUsernameFromUrl();
-        
+    
         if (username) {
             getUserData(username).then(userData => {
                 firstName = userData.first_name;
                 usernameDisplay.textContent = firstName;
     
-                
                 // Слухач для оновлення даних про кліки
                 db.collection("clicks").doc(username).onSnapshot(doc => {
                     if (doc.exists) {
@@ -131,19 +130,26 @@ document.addEventListener('DOMContentLoaded', function() {
                         clickCountMax = data.clickCountMax || 0;
                         enableAnimation = data.enableAnimation !== undefined ? data.enableAnimation : true;
                         enableVibration = data.enableVibration !== undefined ? data.enableVibration : true;
-                        
+                        lastClaimed = data.lastClaimed || {}; 
+                        currentDay = data.currentDay || 1;
+                        nextClaimTime = data.nextClaimTime ? data.nextClaimTime.toDate() : new Date();
+    
                         countDisplay.textContent = clickCount.toLocaleString();
                         animationToggle.checked = enableAnimation;
                         vibrationToggle.checked = enableVibration;
-                        
+    
                         updateRank();
-
+                        renderDays();
+    
                     } else {
                         db.collection("clicks").doc(username).set({
                             clickCount: 0,
                             clickCountMax: 0,
                             enableAnimation: true,
-                            enableVibration: true
+                            enableVibration: true,
+                            lastClaimed: {},
+                            currentDay: 1,
+                            nextClaimTime: firebase.firestore.Timestamp.fromDate(new Date())
                         });
                     }
                     updateLeaderboard();
@@ -172,16 +178,27 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
 
+
     
     function saveSettings() {
-        db.collection("clicks").doc(username).set({
-            clickCount,
-            enableAnimation,
-            enableVibration
-        }).catch(error => {
-            console.error("Помилка оновлення документа:", error);
+        db.collection("clicks").doc(username).get().then(doc => {
+            if (doc.exists) {
+                const data = doc.data();
+                db.collection("clicks").doc(username).set({
+                    clickCount,
+                    clickCountMax,
+                    enableAnimation,
+                    enableVibration,
+                    lastClaimed: data.lastClaimed || {}, 
+                    currentDay: data.currentDay || 1,
+                    nextClaimTime: data.nextClaimTime || firebase.firestore.Timestamp.fromDate(new Date())
+                }).catch(error => {
+                    console.error("Помилка оновлення документа:", error);
+                });
+            }
         });
     }
+
 
     function vibrate() {
         if (enableVibration) {
@@ -436,7 +453,7 @@ document.addEventListener('DOMContentLoaded', function() {
             console.error("Помилка: username не визначено.");
             return;
         }
-        
+    
         const userDocRef = db.collection('clicks').doc(username);
         userDocRef.get().then(doc => {
             if (doc.exists) {
@@ -454,7 +471,6 @@ document.addEventListener('DOMContentLoaded', function() {
             console.error("Помилка отримання документа: ", error);
         });
     }
-    
     // Викликаємо initializeRewards тільки після того, як визначили username
     initializeRewards();
     
