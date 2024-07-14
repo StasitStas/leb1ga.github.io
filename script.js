@@ -41,14 +41,14 @@ document.addEventListener('DOMContentLoaded', function() {
     const rewards = [
         { day: 1, prize: 500 },
         { day: 2, prize: 1000 },
-        { day: 3, prize: 1500 },
-        { day: 4, prize: 2000 },
-        { day: 5, prize: 2500 },
-        { day: 6, prize: 3000 },
-        { day: 7, prize: 3500 },
-        { day: 8, prize: 4000 },
-        { day: 9, prize: 4500 },
-        { day: 10, prize: 5000 }
+        { day: 3, prize: 5000 },
+        { day: 4, prize: 10000 },
+        { day: 5, prize: 25000 },
+        { day: 6, prize: 50000 },
+        { day: 7, prize: 100000 },
+        { day: 8, prize: 250000 },
+        { day: 9, prize: 500000 },
+        { day: 10, prize: 1000000 }
     ];
 
     let username = '';
