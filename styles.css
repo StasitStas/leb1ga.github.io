@@ -234,6 +234,21 @@ body::after {
     cursor: pointer;
 }
 
+.claim-indicator {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    width: 15px;
+    height: 15px;
+    background-color: green;
+    border-radius: 50%;
+    display: none;
+}
+
+.claim-indicator.active {
+    display: block;
+}
+
 .globe-icon {
     position: fixed;
     top: 110px;
