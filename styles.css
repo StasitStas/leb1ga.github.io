@@ -234,19 +234,15 @@ body::after {
     cursor: pointer;
 }
 
-.claim-indicator {
-    position: absolute;
-    top: -5px;
-    right: -5px;
-    width: 15px;
-    height: 15px;
+.green-dot {
+    width: 10px;
+    height: 10px;
     background-color: green;
     border-radius: 50%;
-    display: none;
-}
-
-.claim-indicator.active {
-    display: block;
+    position: absolute;
+    top: 0;
+    right: 0;
+    display: none; /* За замовчуванням не відображається */
 }
 
 .globe-icon {
