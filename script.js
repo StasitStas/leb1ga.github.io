@@ -414,7 +414,6 @@ document.addEventListener('DOMContentLoaded', function() {
         closeAllModals();
     });
 
-    // Функція для відкриття модального вікна "Подарунки"
     document.getElementById('giftsIcon').addEventListener('click', function() {
         document.getElementById('modal-gifts').style.display = 'block';
     });
@@ -432,13 +431,21 @@ document.addEventListener('DOMContentLoaded', function() {
             if (reward.day === currentDay) {
                 dayElement.classList.add('active');
             }
-            dayElement.innerHTML = `
-                <div>День ${reward.day}</div>
+            dayElement.innerHTML = 
+                `<div>День ${reward.day}</div>
                 <img src="coin.png" alt="Coin">
-                <div>${reward.prize} кліків</div>
-            `;
+                <div>${reward.prize} кліків</div>`;
             daysContainer.appendChild(dayElement);
         });
+    }
+    
+    function updateGreenDot() {
+        const greenDot = document.getElementById('greenDot');
+        if (Date.now() >= nextClaimTime.getTime()) {
+            greenDot.style.display = 'block';
+        } else {
+            greenDot.style.display = 'none';
+        }
     }
     
     function claimReward() {
@@ -464,6 +471,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             }).then(() => {
                 renderDays();
+                updateGreenDot(); // Оновлення відображення кружечка після отримання нагороди
             }).catch((error) => {
                 console.error("Помилка при оновленні бази даних: ", error);
             });
@@ -487,6 +495,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 currentDay = data.currentDay || 1;
                 nextClaimTime = data.nextClaimTime ? data.nextClaimTime.toDate() : new Date();
                 renderDays();
+                updateGreenDot(); // Оновлення відображення кружечка при ініціалізації
             } else {
                 userDocRef.set({
                     currentDay: 1,
@@ -497,6 +506,7 @@ document.addEventListener('DOMContentLoaded', function() {
             console.error("Помилка отримання документа: ", error);
         });
     }
+    
     // Викликаємо initializeRewards тільки після того, як визначили username
     initializeRewards();
     
