@@ -449,7 +449,7 @@ document.addEventListener('DOMContentLoaded', function() {
             greenDot.style.display = 'none';
         }
     }
-
+    
     function claimReward() {
         if (Date.now() >= nextClaimTime.getTime()) {
             alert(`Ви отримали ${rewards[currentDay - 1].prize} кліків!`);
@@ -502,6 +502,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 userDocRef.set({
                     currentDay: 1,
                     nextClaimTime: firebase.firestore.Timestamp.fromDate(new Date())
+                }).then(() => {
+                    renderDays();
+                    updateGreenDot(); // Оновлення відображення кружечка при першому встановленні
                 });
             }
         }).catch(error => {
