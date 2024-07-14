@@ -607,6 +607,7 @@ input[type="range"]::-webkit-slider-thumb {
     cursor: pointer;
 }
 
+/* Модальне вікно з подарунками */
 .modal-gifts {
     display: none;
     position: fixed;
@@ -615,7 +616,7 @@ input[type="range"]::-webkit-slider-thumb {
     bottom: 0;
     width: 100%;
     height: 70%;
-    background-color: rgba(0, 0, 0);
+    background-color: rgba(0, 0, 0, 0.8); /* Змінено для прозорості */
 }
 
 .modal-content-gifts {
@@ -639,6 +640,7 @@ input[type="range"]::-webkit-slider-thumb {
     cursor: pointer;
 }
 
+/* Контейнер з днями */
 #days-container {
     display: flex;
     flex-wrap: wrap;
@@ -669,16 +671,17 @@ input[type="range"]::-webkit-slider-thumb {
     margin-bottom: 10px;
 }
 
+/* Кнопка для забору нагороди */
 #claimRewardButton {
     position: fixed;
     bottom: 0;
     left: 0;
     width: 100%;
-    padding: 25px;
+    padding: 15px; /* Зменшено для компактності на мобільних пристроях */
     background-color: yellow;
     border: none;
-    border-radius: 0 0 5px 5px;
-    font-size: 20px;
+    border-radius: 0;
+    font-size: 18px; /* Зменшено розмір шрифту */
     cursor: pointer;
     z-index: 3002;
 }
