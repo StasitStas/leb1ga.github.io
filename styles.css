@@ -650,16 +650,15 @@ input[type="range"]::-webkit-slider-thumb {
 
 /* Кнопка для закриття модального вікна */
 .close-gifts {
-    position: fixed;
+    position: absolute;
     top: 10px;
     right: 25px;
     color: #aaa;
     font-size: 40px;
     font-weight: bold;
     cursor: pointer;
-    z-index: 3003; /* Забезпечте, що кнопка буде вище, ніж контент модального вікна */
+    z-index: 3003; /* Переконайтеся, що кнопка завжди вище, ніж контент */
 }
-
 
 /* Контейнер з днями */
 #days-container {
