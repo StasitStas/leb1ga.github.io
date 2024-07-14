@@ -241,18 +241,29 @@ document.addEventListener('DOMContentLoaded', function() {
                 clickCountMax = clickCount;
             }
     
-    
-            db.collection("clicks").doc(username).set({
-                clickCount,
-                clickCountMax,  // Збереження максимальної кількості кліків
-                enableAnimation,
-                enableVibration
-            }).then(() => {
-                const currentLevel = LEVELS[getCurrentLevel(clickCountMax)].label;  // Використовуємо clickCountMax для рівня
-                saveLevelToDB(currentLevel);
-                updateLeaderboard();
+            db.collection("clicks").doc(username).get().then(doc => {
+                if (doc.exists) {
+                    const data = doc.data();
+                    db.collection("clicks").doc(username).set({
+                        clickCount,
+                        clickCountMax,  // Збереження максимальної кількості кліків
+                        enableAnimation,
+                        enableVibration,
+                        lastClaimed: data.lastClaimed || null,
+                        currentDay: data.currentDay || null,
+                        nextClaimTime: data.nextClaimTime || null
+                    }).then(() => {
+                        const currentLevel = LEVELS[getCurrentLevel(clickCountMax)].label;  // Використовуємо clickCountMax для рівня
+                        saveLevelToDB(currentLevel);
+                        updateLeaderboard();
+                    }).catch(error => {
+                        console.error("Error updating document:", error);
+                    });
+                } else {
+                    console.error("Document does not exist!");
+                }
             }).catch(error => {
-                console.error("Error updating document:", error);
+                console.error("Error getting document:", error);
             });
     
             vibrate();
@@ -287,16 +298,27 @@ document.addEventListener('DOMContentLoaded', function() {
                 clickCountMax = clickCount;
             }
     
-    
-            db.collection("clicks").doc(username).set({
-                clickCount,
-                clickCountMax,  // Збереження максимальної кількості кліків
-                enableAnimation,
-                enableVibration
-            }).then(() => {
-                updateLeaderboard();
+            db.collection("clicks").doc(username).get().then(doc => {
+                if (doc.exists) {
+                    const data = doc.data();
+                    db.collection("clicks").doc(username).set({
+                        clickCount,
+                        clickCountMax,  // Збереження максимальної кількості кліків
+                        enableAnimation,
+                        enableVibration,
+                        lastClaimed: data.lastClaimed || null,
+                        currentDay: data.currentDay || null,
+                        nextClaimTime: data.nextClaimTime || null
+                    }).then(() => {
+                        updateLeaderboard();
+                    }).catch(error => {
+                        console.error("Error updating document:", error);
+                    });
+                } else {
+                    console.error("Document does not exist!");
+                }
             }).catch(error => {
-                console.error("Error updating document:", error);
+                console.error("Error getting document:", error);
             });
     
             vibrate();
@@ -310,8 +332,7 @@ document.addEventListener('DOMContentLoaded', function() {
             alert('Error: Username is not specified.');
         }
     }
-
-
+    
     button.addEventListener('click', function(event) {
         handleClick(event);
         updateRank();
