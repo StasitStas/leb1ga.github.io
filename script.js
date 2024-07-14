@@ -328,10 +328,10 @@ document.addEventListener('DOMContentLoaded', function() {
                         vibrationToggle.checked = enableVibration;
     
                         updateRank();
-                        renderDays();
                         updateLevelBar(clickCount);
                         initializeAvatars(getCurrentLevel(clickCountMax));
                         initializeUserAvatars(userData);
+                        renderDays();
     
                     } else {
                         db.collection("clicks").doc(username).set({
@@ -360,8 +360,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 }, error => {
                     console.error("Error listening to document:", error);
                 });
+                
                 initializeLevels(userData);
-    
             }).catch(error => {
                 console.error("Error getting user data:", error);
                 alert('Error: Failed to retrieve user data.');
