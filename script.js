@@ -698,9 +698,6 @@ document.addEventListener('DOMContentLoaded', function() {
     
         setTimeout(() => {
             notification.classList.remove('show');
-            setTimeout(() => {
-                notification.style.display = 'none';
-            }, 500); // Затримка для плавного зникнення
         }, 2000); // Час відображення повідомлення в мілісекундах
     }
     
