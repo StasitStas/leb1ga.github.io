@@ -23,7 +23,7 @@
     text-align: left;
     border: 3px solid #000; /* Збільшено товщину бордюра */
     border-radius: 15px; /* Збільшено радіус кута */
-    padding: 20px; /* Збільшено відступи всередині блоку */
+    padding: 30px; /* Збільшено відступи всередині блоку */
     background: rgba(255, 255, 255, 0.8);
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* Збільшено тінь */
     max-height: calc(100vh - 100px); /* Обмежуємо висоту рейтингу */
@@ -101,7 +101,7 @@
 .place {
     font-size: 45px;
     font-weight: bold;
-    width: 60px; /* Фіксована ширина для всіх місць */
+    width: 100px; /* Фіксована ширина для всіх місць */
     text-align: right;
     margin-left: auto; /* Вирівнювання місця справа */
 }
