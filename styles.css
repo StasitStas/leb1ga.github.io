@@ -705,14 +705,13 @@ input[type="range"]::-webkit-slider-thumb {
 /* Кнопка для забору нагороди */
 #claimRewardButton {
     position: fixed;
-    bottom: 20px; /* Відступ від нижнього краю */
-    left: 20px; /* Відступ від лівого краю */
-    right: 20px; /* Відступ від правого краю */
-    padding: 15px;
-    background-color: yellow;
+    bottom: 50px;
+    left: 20px;
+    right: 20px;
+    padding: 30px;
+    background-color: #b2ff00;
     border: none;
-    border-radius: 10px; /* Радіус кутів */
-    font-size: 18px; /* Розмір шрифту */
+    border-radius: 10px;
+    font-size: 18px;
     cursor: pointer;
-    z-index: 3001;
 }
