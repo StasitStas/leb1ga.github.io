@@ -87,7 +87,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
                     // Визначення аватарки, яка позначена як true, або аватарки за замовчуванням
                     let avatarPath = 'ava-img/ava1.jpg'; // аватарка за замовчуванням
-                    for (let i = 1; i <= 8; i++) {
+                    for (let i = 1; i <= 15; i++) {
                         if (user.avatar[`ava${i}`] === true) {
                             avatarPath = `ava-img/ava${i}.jpg`;
                             break;
