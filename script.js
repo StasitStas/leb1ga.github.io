@@ -198,7 +198,6 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }
     }
-
   
     function getCurrentLevel(clickCount) {
         for (let i = LEVELS.length - 1; i >= 0; i--) {
@@ -390,11 +389,12 @@ document.addEventListener('DOMContentLoaded', function() {
     function saveSettings() {
         db.collection("clicks").doc(username).set({
             clickCount,
+            clickCountMax,
             enableAnimation,
             enableVibration,
-            lastClaimed: data.lastClaimed || {}, 
-            currentDay: data.currentDay || 1,
-            nextClaimTime: data.nextClaimTime || firebase.firestore.Timestamp.fromDate(new Date())
+            lastClaimed,
+            currentDay,
+            nextClaimTime: firebase.firestore.Timestamp.fromDate(nextClaimTime)
         }).catch(error => {
             console.error("Помилка оновлення документа:", error);
         });
@@ -436,23 +436,22 @@ document.addEventListener('DOMContentLoaded', function() {
             clickCount++;
             countDisplay.textContent = clickCount.toLocaleString();
     
-            // Оновлюємо максимальну кількість кліків, якщо потрібно
             if (clickCount > clickCountMax) {
                 clickCountMax = clickCount;
             }
     
-            updateLevelBar(clickCount);  // Оновлення рівня та зеленої смужки
+            updateLevelBar(clickCount);
     
             db.collection("clicks").doc(username).set({
                 clickCount,
-                clickCountMax,  // Збереження максимальної кількості кліків
+                clickCountMax,
                 enableAnimation,
                 enableVibration,
-                lastClaimed: data.lastClaimed || null,
-                currentDay: data.currentDay || null,
-                nextClaimTime: data.nextClaimTime || null
+                lastClaimed,
+                currentDay,
+                nextClaimTime
             }).then(() => {
-                const currentLevel = LEVELS[getCurrentLevel(clickCountMax)].label;  // Використовуємо clickCountMax для рівня
+                const currentLevel = LEVELS[getCurrentLevel(clickCountMax)].label;
                 saveLevelToDB(currentLevel);
                 updateLeaderboard();
             }).catch(error => {
@@ -469,7 +468,7 @@ document.addEventListener('DOMContentLoaded', function() {
             alert('Error: Username is not specified.');
         }
     }
-    
+
     function handleTouch(event) {
         const currentTime = new Date().getTime();
         if (currentTime - lastClickTime < 50) {
@@ -477,7 +476,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         lastClickTime = currentTime;
     
-        // Check if more than one touch is detected
         if (event.touches.length > 1) {
             return;
         }
@@ -486,23 +484,22 @@ document.addEventListener('DOMContentLoaded', function() {
             clickCount++;
             countDisplay.textContent = clickCount.toLocaleString();
     
-            // Оновлюємо максимальну кількість кліків, якщо потрібно
             if (clickCount > clickCountMax) {
                 clickCountMax = clickCount;
             }
     
-            updateLevelBar(clickCount);  // Оновлення рівня та зеленої смужки
+            updateLevelBar(clickCount);
     
             db.collection("clicks").doc(username).set({
                 clickCount,
-                clickCountMax,  // Збереження максимальної кількості кліків
+                clickCountMax,
                 enableAnimation,
                 enableVibration,
-                lastClaimed: data.lastClaimed || null,
-                currentDay: data.currentDay || null,
-                nextClaimTime: data.nextClaimTime || null
+                lastClaimed,
+                currentDay,
+                nextClaimTime
             }).then(() => {
-                const currentLevel = LEVELS[getCurrentLevel(clickCountMax)].label;  // Використовуємо clickCountMax для рівня
+                const currentLevel = LEVELS[getCurrentLevel(clickCountMax)].label;
                 saveLevelToDB(currentLevel);
                 updateLeaderboard();
             }).catch(error => {
@@ -520,7 +517,6 @@ document.addEventListener('DOMContentLoaded', function() {
             alert('Error: Username is not specified.');
         }
     }
-
 
     button.addEventListener('click', function(event) {
         handleClick(event);
