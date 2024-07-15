@@ -739,9 +739,10 @@ input[type="range"]::-webkit-slider-thumb {
     padding: 20px;
     border-radius: 10px;
     text-align: center;
-    z-index: 3004;
+    z-index: 9999;
     opacity: 0;
-    transition: opacity 0.5s ease-in-out;
+    transition: opacity 0.3s ease-in-out;
+    max-width: 80%;
 }
 
 .notification.show {
