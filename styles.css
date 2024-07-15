@@ -496,8 +496,8 @@ body::after {
     width: 90%;
     height: 14px;
     background-color: #f0f0f0;
-    margin-top: 5%;
-    margin-bottom: -10%;
+    margin-top: 20px; /* Стандартний верхній відступ */
+    margin-bottom: 20px; /* Стандартний нижній відступ */
     border-radius: 40px;
 }
 
@@ -523,6 +523,29 @@ body::after {
     right: 0;
     color: #fff;
 }
+
+/* Медіа-запити для адаптації відступів */
+@media (max-width: 600px) {
+    .level-bar-container {
+        margin-top: 30px; /* Збільшений верхній відступ для малих екранів */
+        margin-bottom: 30px; /* Збільшений нижній відступ для малих екранів */
+    }
+}
+
+@media (min-width: 601px) and (max-width: 1024px) {
+    .level-bar-container {
+        margin-top: 25px; /* Збільшений верхній відступ для середніх екранів */
+        margin-bottom: 25px; /* Збільшений нижній відступ для середніх екранів */
+    }
+}
+
+@media (min-width: 1025px) {
+    .level-bar-container {
+        margin-top: 20px; /* Стандартний верхній відступ для великих екранів */
+        margin-bottom: 20px; /* Стандартний нижній відступ для великих екранів */
+    }
+}
+
 
 #avatarsContent {
     display: flex;
