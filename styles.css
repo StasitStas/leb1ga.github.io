@@ -530,28 +530,6 @@ body::after {
     color: #fff;
 }
 
-/* Медіа-запити для адаптації відступів */
-@media (max-width: 600px) {
-    .level-bar-container {
-        margin-top: 30px; /* Збільшений верхній відступ для малих екранів */
-        margin-bottom: 30px; /* Збільшений нижній відступ для малих екранів */
-    }
-}
-
-@media (min-width: 601px) and (max-width: 1024px) {
-    .level-bar-container {
-        margin-top: 25px; /* Збільшений верхній відступ для середніх екранів */
-        margin-bottom: 25px; /* Збільшений нижній відступ для середніх екранів */
-    }
-}
-
-@media (min-width: 1025px) {
-    .level-bar-container {
-        margin-top: 20px; /* Стандартний верхній відступ для великих екранів */
-        margin-bottom: 20px; /* Стандартний нижній відступ для великих екранів */
-    }
-}
-
 
 #avatarsContent {
     display: flex;
@@ -666,9 +644,9 @@ input[type="range"]::-webkit-slider-thumb {
     background-color: #1c1c1c;
     border-radius: 40px 40px 0 0;
     padding: 20px;
-    border-top: 2px solid yellow;
-    box-shadow: 0 -7px 10px -10px yellow;
-    overflow-y: hidden; /* Вимикаємо прокрутку для всього контенту */
+    border-top: 3px solid #dbb24f;
+    box-shadow: 0 -7px 10px -10px #dbb24f;
+    overflow-y: hidden;
     transform: translateY(100%);
     animation: slideUp 0.1s ease-out forwards;
 }
