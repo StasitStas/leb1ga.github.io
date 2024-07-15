@@ -1,4 +1,3 @@
-
 document.addEventListener('DOMContentLoaded', function() {
     const airdropButton = document.getElementById('airdropButton');
     const exchangeButton = document.getElementById('exchangeButton');
@@ -20,8 +19,15 @@ document.addEventListener('DOMContentLoaded', function() {
     const vibrationToggle = document.getElementById('vibrationToggle');
     const navButtons = document.querySelectorAll('.nav-button'); // Вибираємо всі навігаційні кнопки
     const rankDisplay = document.getElementById('rank'); // Елемент для відображення місця в рейтингу
-    const modalGifts = document.querySelector('.modal-gifts');
-
+    const levelBar = document.getElementById('levelBar');
+    const levelTextLeft = document.getElementById('levelTextLeft');
+    const levelTextRight = document.getElementById('levelTextRight');
+    const avatarWindow = document.getElementById('avatarWindow');
+    const avatarCloseIcon = avatarWindow.querySelector('.close-icon');
+    const avatarToggleLabel = document.getElementById('avatarToggleLabel');
+    const avatarTOsettings = document.getElementById('avatarTOsettings');
+    const avatars = document.querySelectorAll('.avatar');
+    const applyButtons = document.querySelectorAll('.apply-button');
     const LEVELS = [
         { threshold: 0, label: 'lvl-0' },
         { threshold: 100, label: 'lvl-1' },
@@ -35,21 +41,6 @@ document.addEventListener('DOMContentLoaded', function() {
         { threshold: 2500000, label: 'lvl-9' },
         { threshold: 5000000, label: 'lvl-10' }
     ];
-    const daysContainer = document.getElementById('days-container');
-    const claimRewardButton = document.getElementById('claimRewardButton');
-    
-    const rewards = [
-        { day: 1, prize: 500 },
-        { day: 2, prize: 1000 },
-        { day: 3, prize: 5000 },
-        { day: 4, prize: 10000 },
-        { day: 5, prize: 25000 },
-        { day: 6, prize: 50000 },
-        { day: 7, prize: 100000 },
-        { day: 8, prize: 250000 },
-        { day: 9, prize: 500000 },
-        { day: 10, prize: 1000000 }
-    ];
 
     let username = '';
     let firstName = '';
@@ -62,10 +53,188 @@ document.addEventListener('DOMContentLoaded', function() {
     let telegramWindowOpen = false;
 
     let lastClickTime = 0;
-    let currentDay = 1;
-    let nextClaimTime = new Date();
 
-    modalGifts.classList.add('open');
+    avatarToggleLabel.addEventListener('click', function(event) {
+        event.stopPropagation();
+        settingsWindow.style.display = 'none';
+        settingsWindowOpen = false;
+        avatarWindow.style.display = 'block';
+    });
+
+    avatarCloseIcon.addEventListener('click', function() {
+        avatarWindow.style.display = 'none';
+    });
+
+    document.addEventListener('click', function() {
+        if (avatarWindow.style.display === 'block') {
+            avatarWindow.style.display = 'none';
+        }
+    });
+
+    avatarWindow.addEventListener('click', function(event) {
+        event.stopPropagation();
+    });
+
+    avatarTOsettings.addEventListener('click', function(event) {
+        event.stopPropagation();
+        avatarWindow.style.display = 'none';
+        settingsWindow.style.display = 'block';
+    });
+
+   // Initialize avatars
+    function initializeAvatars(currentLevel) {
+        avatars.forEach(avatar => {
+            const avatarLevel = parseInt(avatar.getAttribute('data-avatar-level'));
+            if (avatarLevel > currentLevel) {
+                avatar.classList.add('locked');
+                avatar.setAttribute('data-unlock-level', `lvl-${avatarLevel}`);
+            } else {
+                avatar.classList.remove('locked');
+                avatar.removeAttribute('data-unlock-level');
+            }
+        });
+    }
+
+    // Apply avatar selection logic
+    avatars.forEach(avatar => {
+        avatar.addEventListener('click', function() {
+            if (!avatar.classList.contains('locked')) {
+                avatars.forEach(av => {
+                    av.classList.remove('selected');
+                    hideApplyButton(av);
+                });
+                avatar.classList.add('selected');
+                showApplyButton(avatar);
+            }
+        });
+    });
+
+    applyButtons.forEach(button => {
+        button.addEventListener('click', function(event) {
+            event.stopPropagation();
+            const selectedAvatar = button.closest('.avatar');
+            if (selectedAvatar) {
+                const avatarIndex = Array.from(avatars).indexOf(selectedAvatar) + 1;
+                applyAvatar(avatarIndex);
+                button.style.display = 'none'; // Hide the button after applying the avatar
+                selectedAvatar.classList.remove('selected');
+            }
+        });
+    });
+
+    function hideApplyButton(avatar) {
+        const button = avatar.querySelector('.apply-button');
+        if (button) {
+            button.style.display = 'none';
+        }
+    }
+
+    function showApplyButton(avatar) {
+        const button = avatar.querySelector('.apply-button');
+        if (button) {
+            button.style.display = 'block';
+        }
+    }
+
+    function updateAvatarDisplay(avatarIndex) {
+        for (let i = 1; i <= 8; i++) {
+            const avatarDisplay = document.getElementById(`avatarDisplay${i}`);
+            if (i === avatarIndex) {
+                avatarDisplay.style.display = 'block';
+            } else {
+                avatarDisplay.style.display = 'none';
+            }
+        }
+    }
+
+
+    function applyAvatar(avatarIndex) {
+        const avatarData = {};
+        avatars.forEach((avatar, index) => {
+            avatarData[`ava${index + 1}`] = index + 1 === avatarIndex;
+        });
+    
+        db.collection("users").doc(username).update(avatarData).then(() => {
+            console.log('Avatar updated successfully');
+        }).catch(error => {
+            console.error('Error updating avatar:', error);
+        });
+    }
+    
+    // Ініціалізація аватарок користувача при завантаженні сторінки
+    function initializeUserAvatars(userData) {
+        for (let i = 1; i <= 8; i++) {
+            const avatarKey = `ava${i}`;
+            if (userData[avatarKey]) {
+                avatars.forEach(av => {
+                    av.classList.remove('selected');
+                    hideApplyButton(av);
+                });
+                const avatarElement = document.querySelector(`.avatar[data-avatar-level="${i - 1}"]`);
+                avatarElement.classList.add('selected');
+                showApplyButton(avatarElement);
+                updateAvatarDisplay(i);  // Оновлення відображення аватарки
+                break;
+            }
+        }
+    }
+
+  
+    function getCurrentLevel(clickCount) {
+        for (let i = LEVELS.length - 1; i >= 0; i--) {
+            if (clickCount >= LEVELS[i].threshold) {
+                return i;
+            }
+        }
+        return 0;
+    }
+
+    function updateLevelBar(clickCount) {
+        const currentLevelIndex = getCurrentLevel(clickCountMax);
+        const currentLevel = LEVELS[currentLevelIndex];
+        const nextLevel = LEVELS[currentLevelIndex + 1] || currentLevel;
+
+        levelTextLeft.textContent = currentLevel.label;
+        levelTextRight.textContent = nextLevel.label;
+
+        const levelRange = nextLevel.threshold - currentLevel.threshold;
+        const progressWithinLevel = clickCount - currentLevel.threshold;
+        const levelProgressPercentage = (progressWithinLevel / levelRange) * 100;
+
+        levelBar.style.width = `${levelProgressPercentage}%`;
+
+        saveLevelToDB(currentLevel.label);
+    }
+
+    function saveLevelToDB(currentLevel) {
+        const levelData = {};
+        LEVELS.forEach(level => {
+            levelData[level.label] = level.label === currentLevel;
+        });
+
+        db.collection("clicks").doc(username).update(levelData).catch(error => {
+            console.error("Error updating levels in database:", error);
+        });
+    }
+
+    function initializeLevels(userData) {
+        clickCountMax = userData.clickCountMax || 0;
+        const currentLevelIndex = getCurrentLevel(clickCountMax);
+        const currentLevel = LEVELS[currentLevelIndex].label;
+
+        db.collection("clicks").doc(username).get().then(doc => {
+            if (doc.exists) {
+                const data = doc.data();
+                if (!data[currentLevel]) {
+                    updateLevelBar(clickCountMax);
+                }
+            } else {
+                saveLevelToDB(currentLevel);
+            }
+        }).catch(error => {
+            console.error("Error initializing levels:", error);
+        });
+    }
     
     settingsIcon.addEventListener('click', function(event) {
         event.stopPropagation();
@@ -119,12 +288,15 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function initialize() {
         username = getUsernameFromUrl();
-    
+        
         if (username) {
             getUserData(username).then(userData => {
                 firstName = userData.first_name;
                 usernameDisplay.textContent = firstName;
     
+                // Завантаження кольору
+                loadColorFromDB();
+                
                 // Слухач для оновлення даних про кліки
                 db.collection("clicks").doc(username).onSnapshot(doc => {
                     if (doc.exists) {
@@ -133,26 +305,21 @@ document.addEventListener('DOMContentLoaded', function() {
                         clickCountMax = data.clickCountMax || 0;
                         enableAnimation = data.enableAnimation !== undefined ? data.enableAnimation : true;
                         enableVibration = data.enableVibration !== undefined ? data.enableVibration : true;
-                        lastClaimed = data.lastClaimed || {}; 
-                        currentDay = data.currentDay || 1;
-                        nextClaimTime = data.nextClaimTime ? data.nextClaimTime.toDate() : new Date();
-    
+                        
                         countDisplay.textContent = clickCount.toLocaleString();
                         animationToggle.checked = enableAnimation;
                         vibrationToggle.checked = enableVibration;
-    
+                        
                         updateRank();
-                        renderDays();
-    
+                        updateLevelBar(clickCount);
+                        initializeAvatars(getCurrentLevel(clickCountMax));
+                        initializeUserAvatars(userData);
                     } else {
                         db.collection("clicks").doc(username).set({
                             clickCount: 0,
                             clickCountMax: 0,
                             enableAnimation: true,
-                            enableVibration: true,
-                            lastClaimed: {},
-                            currentDay: 1,
-                            nextClaimTime: firebase.firestore.Timestamp.fromDate(new Date())
+                            enableVibration: true
                         });
                     }
                     updateLeaderboard();
@@ -164,6 +331,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 db.collection("users").doc(username).onSnapshot(doc => {
                     if (doc.exists) {
                         const data = doc.data();
+                        updateAvatarFromDatabase(data);
                     } else {
                         console.log('Document does not exist!');
                     }
@@ -171,6 +339,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     console.error("Error listening to document:", error);
                 });
     
+                initializeLevels(userData);
             }).catch(error => {
                 console.error("Error getting user data:", error);
                 alert('Error: Failed to retrieve user data.');
@@ -180,28 +349,29 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
+    
+    // Функція для оновлення відображення аватарки
+    function updateAvatarFromDatabase(userData) {
+        for (let i = 1; i <= 8; i++) {
+            const avatarKey = `ava${i}`;
+            if (userData[avatarKey]) {
+                updateAvatarDisplay(i);  // Оновлення відображення аватарки
+                break;
+            }
+        }
+    }
 
 
     
     function saveSettings() {
-        db.collection("clicks").doc(username).get().then(doc => {
-            if (doc.exists) {
-                const data = doc.data();
-                db.collection("clicks").doc(username).set({
-                    clickCount,
-                    clickCountMax,
-                    enableAnimation,
-                    enableVibration,
-                    lastClaimed: data.lastClaimed || {}, 
-                    currentDay: data.currentDay || 1,
-                    nextClaimTime: data.nextClaimTime || firebase.firestore.Timestamp.fromDate(new Date())
-                }).catch(error => {
-                    console.error("Помилка оновлення документа:", error);
-                });
-            }
+        db.collection("clicks").doc(username).set({
+            clickCount,
+            enableAnimation,
+            enableVibration
+        }).catch(error => {
+            console.error("Помилка оновлення документа:", error);
         });
     }
-
 
     function vibrate() {
         if (enableVibration) {
@@ -244,29 +414,19 @@ document.addEventListener('DOMContentLoaded', function() {
                 clickCountMax = clickCount;
             }
     
-            db.collection("clicks").doc(username).get().then(doc => {
-                if (doc.exists) {
-                    const data = doc.data();
-                    db.collection("clicks").doc(username).set({
-                        clickCount,
-                        clickCountMax,  // Збереження максимальної кількості кліків
-                        enableAnimation,
-                        enableVibration,
-                        lastClaimed: data.lastClaimed || null,
-                        currentDay: data.currentDay || null,
-                        nextClaimTime: data.nextClaimTime || null
-                    }).then(() => {
-                        const currentLevel = LEVELS[getCurrentLevel(clickCountMax)].label;  // Використовуємо clickCountMax для рівня
-                        saveLevelToDB(currentLevel);
-                        updateLeaderboard();
-                    }).catch(error => {
-                        console.error("Error updating document:", error);
-                    });
-                } else {
-                    console.error("Document does not exist!");
-                }
+            updateLevelBar(clickCount);  // Оновлення рівня та зеленої смужки
+    
+            db.collection("clicks").doc(username).set({
+                clickCount,
+                clickCountMax,  // Збереження максимальної кількості кліків
+                enableAnimation,
+                enableVibration
+            }).then(() => {
+                const currentLevel = LEVELS[getCurrentLevel(clickCountMax)].label;  // Використовуємо clickCountMax для рівня
+                saveLevelToDB(currentLevel);
+                updateLeaderboard();
             }).catch(error => {
-                console.error("Error getting document:", error);
+                console.error("Error updating document:", error);
             });
     
             vibrate();
@@ -301,27 +461,19 @@ document.addEventListener('DOMContentLoaded', function() {
                 clickCountMax = clickCount;
             }
     
-            db.collection("clicks").doc(username).get().then(doc => {
-                if (doc.exists) {
-                    const data = doc.data();
-                    db.collection("clicks").doc(username).set({
-                        clickCount,
-                        clickCountMax,  // Збереження максимальної кількості кліків
-                        enableAnimation,
-                        enableVibration,
-                        lastClaimed: data.lastClaimed || null,
-                        currentDay: data.currentDay || null,
-                        nextClaimTime: data.nextClaimTime || null
-                    }).then(() => {
-                        updateLeaderboard();
-                    }).catch(error => {
-                        console.error("Error updating document:", error);
-                    });
-                } else {
-                    console.error("Document does not exist!");
-                }
+            updateLevelBar(clickCount);  // Оновлення рівня та зеленої смужки
+    
+            db.collection("clicks").doc(username).set({
+                clickCount,
+                clickCountMax,  // Збереження максимальної кількості кліків
+                enableAnimation,
+                enableVibration
+            }).then(() => {
+                const currentLevel = LEVELS[getCurrentLevel(clickCountMax)].label;  // Використовуємо clickCountMax для рівня
+                saveLevelToDB(currentLevel);
+                updateLeaderboard();
             }).catch(error => {
-                console.error("Error getting document:", error);
+                console.error("Error updating document:", error);
             });
     
             vibrate();
@@ -335,7 +487,8 @@ document.addEventListener('DOMContentLoaded', function() {
             alert('Error: Username is not specified.');
         }
     }
-    
+
+
     button.addEventListener('click', function(event) {
         handleClick(event);
         updateRank();
@@ -414,135 +567,98 @@ document.addEventListener('DOMContentLoaded', function() {
         closeAllModals();
     });
 
-    document.getElementById('giftsIcon').addEventListener('click', function() {
-        document.getElementById('modal-gifts').style.display = 'block';
-    });
-    
-    // Функція для закриття модального вікна "Подарунки"
-    document.getElementById('closeModal-gifts').addEventListener('click', function() {
-        document.getElementById('modal-gifts').style.display = 'none';
-    });
-    
-    function renderDays() {
-        daysContainer.innerHTML = '';
-        rewards.forEach(reward => {
-            const dayElement = document.createElement('div');
-            dayElement.className = 'day';
-            if (reward.day === currentDay) {
-                dayElement.classList.add('active');
-            }
-            dayElement.innerHTML = 
-                `<div>День ${reward.day}</div>
-                <img src="coin.png" alt="Coin">
-                <div>${reward.prize} кліків</div>`;
-            daysContainer.appendChild(dayElement);
-        });
-    }
-    
-    function updateGreenDot() {
-        const greenDot = document.getElementById('greenDot');
-        if (Date.now() >= nextClaimTime.getTime()) {
-            greenDot.style.display = 'block';
-        } else {
-            greenDot.style.display = 'none';
-        }
-    }
-    
-    function claimReward() {
-        const currentTime = Date.now();
-        const nextClaimTimestamp = nextClaimTime.getTime();
-    
-        if (currentTime >= nextClaimTimestamp) {
-            if (currentTime >= nextClaimTimestamp + 24 * 60 * 60 * 1000) {
-                // Більше 24 годин пройшло
-                alert('Ви пропустили більше одного дня. Почніть заново з Дня 1.');
-    
-                const userDocRef = db.collection('clicks').doc(username);
-                nextClaimTime = new Date(currentTime + 24 * 60 * 60 * 1000);
-                currentDay = 1;
-    
-                userDocRef.update({
-                    currentDay,
-                    nextClaimTime: firebase.firestore.Timestamp.fromDate(nextClaimTime),
-                    clickCount: firebase.firestore.FieldValue.increment(rewards[0].prize), // Приз за День 1
-                    lastClaimed: {
-                        hour: new Date(currentTime).getHours(),
-                        day: new Date(currentTime).getDate(),
-                        month: new Date(currentTime).getMonth() + 1,
-                        year: new Date(currentTime).getFullYear()
-                    }
-                }).then(() => {
-                    renderDays();
-                    updateGreenDot();
-                }).catch((error) => {
-                    console.error("Помилка при оновленні бази даних: ", error);
-                });
-            } else {
-                // Менше 24 годин пройшло
-                alert(`Ви отримали ${rewards[currentDay - 1].prize} кліків!`);
-    
-                const userDocRef = db.collection('clicks').doc(username);
-                const newNextClaimTime = new Date(currentTime + 24 * 60 * 60 * 1000);
-    
-                currentDay = currentDay % 10 + 1; // Від 1 до 10, потім знову 1
-    
-                userDocRef.update({
-                    currentDay,
-                    nextClaimTime: firebase.firestore.Timestamp.fromDate(newNextClaimTime),
-                    clickCount: firebase.firestore.FieldValue.increment(rewards[(currentDay - 2 + 10) % 10].prize), // Використання currentDay - 2 для збереження правильного призу
-                    lastClaimed: {
-                        hour: new Date(currentTime).getHours(),
-                        day: new Date(currentTime).getDate(),
-                        month: new Date(currentTime).getMonth() + 1,
-                        year: new Date(currentTime).getFullYear()
-                    }
-                }).then(() => {
-                    renderDays();
-                    updateGreenDot();
-                }).catch((error) => {
-                    console.error("Помилка при оновленні бази даних: ", error);
-                });
-            }
-        } else {
-            alert('Ви ще не можете забрати нагороду. Спробуйте пізніше.');
-        }
-    }
-    
-    claimRewardButton.addEventListener('click', claimReward);
-    
-    function initializeRewards() {
-        if (!username) {
-            console.error("Помилка: username не визначено.");
-            return;
-        }
-    
-        const userDocRef = db.collection('clicks').doc(username);
-        userDocRef.get().then(doc => {
+    // Функція для завантаження кольору з бази даних
+    function loadColorFromDB() {
+        db.collection("users").doc(username).get().then(doc => {
             if (doc.exists) {
-                const data = doc.data();
-                currentDay = data.currentDay || 1;
-                nextClaimTime = data.nextClaimTime ? data.nextClaimTime.toDate() : new Date();
-                renderDays();
-                updateGreenDot(); // Оновлення відображення кружечка при ініціалізації
-            } else {
-                userDocRef.set({
-                    currentDay: 1,
-                    nextClaimTime: firebase.firestore.Timestamp.fromDate(new Date())
-                }).then(() => {
-                    renderDays();
-                    updateGreenDot(); // Оновлення відображення кружечка при першому встановленні
-                });
+                const color = doc.data().color;
+                if (color) {
+                    // Встановлюємо колір для вибраного фону
+                    var styleElement = document.getElementById('dynamic-styles');
+                    styleElement.textContent = `
+                        body::before {
+                            content: '';
+                            position: absolute;
+                            top: 0;
+                            left: 0;
+                            right: 0;
+                            bottom: 0;
+                            background: radial-gradient(circle at center bottom, ${color}, black 70%);
+                            z-index: -1;
+                        }
+                    `;
+                    document.getElementById('colorDisplay').style.backgroundColor = color;
+                }
             }
         }).catch(error => {
-            console.error("Помилка отримання документа: ", error);
+            console.error("Error loading color from database:", error);
         });
     }
+
+    // Функція для збереження кольору в базі даних
+    function saveColorToDB(color) {
+        db.collection("users").doc(username).update({
+            color: color
+        }).catch(error => {
+            console.error("Error updating color in database:", error);
+        });
+    }
+
+    // Обробник для вибору кольору
+    document.getElementById('colorPicker').addEventListener('input', function() {
+        var hue = this.value;
+        var hslColor = 'hsl(' + hue + ', 100%, 50%)';
+        document.getElementById('colorDisplay').style.backgroundColor = hslColor;
     
-    // Викликаємо initializeRewards тільки після того, як визначили username
-    initializeRewards();
+        // Конвертуємо HSL у RGB для використання у стилі CSS
+        var rgbColor = hslToRgb(hue / 360, 1, 0.5);
     
-    // Перевірка через певний інтервал часу
-    setInterval(updateGreenDot, 10000); // Перевірка кожні 10 секунд
+        // Оновлюємо стиль для body::before
+        var styleElement = document.getElementById('dynamic-styles');
+        styleElement.textContent = `
+            body::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background: radial-gradient(circle at center bottom, rgb(${rgbColor.join(', ')}), black 70%);
+                z-index: -1;
+            }
+        `;
+    
+        // Зберігаємо вибраний колір у базі даних
+        saveColorToDB(hslColor);
+    });
+
+
 
     initialize();
 });
+
+// Функція для конвертації HSL у RGB
+function hslToRgb(h, s, l) {
+    var r, g, b;
+
+    if (s == 0) {
+        r = g = b = l; // ахроматичний
+    } else {
+        var hue2rgb = function hue2rgb(p, q, t) {
+            if (t < 0) t += 1;
+            if (t > 1) t -= 1;
+            if (t < 1/6) return p + (q - p) * 6 * t;
+            if (t < 1/2) return q;
+            if (t < 2/3) return p + (q - p) * (2/3 - t) * 6;
+            return p;
+        };
+
+        var q = l < 0.5 ? l * (1 + s) : l + s - l * s;
+        var p = 2 * l - q;
+        r = hue2rgb(p, q, h + 1/3);
+        g = hue2rgb(p, q, h);
+        b = hue2rgb(p, q, h - 1/3);
+    }
+
+    return [Math.round(r * 255), Math.round(g * 255), Math.round(b * 255)];
+}
