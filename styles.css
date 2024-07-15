@@ -159,6 +159,15 @@ body::after {
     color: white;
 }
 
+@media (min-height: 751px) {
+    .circle-button {
+        top: 280px;
+    }
+    .coin-container {
+        top: 210px;
+    }
+}
+
 .circle-button {
     margin-bottom: 20px;
     width: 250px;
