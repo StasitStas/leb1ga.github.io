@@ -183,6 +183,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Ініціалізація аватарок користувача при завантаженні сторінки
     function initializeUserAvatars(userData) {
+        console.log('Initializing user avatars with data:', userData);
         for (let i = 1; i <= 8; i++) {
             const avatarKey = `ava${i}`;
             if (userData[avatarKey]) {
@@ -191,13 +192,19 @@ document.addEventListener('DOMContentLoaded', function() {
                     hideApplyButton(av);
                 });
                 const avatarElement = document.querySelector(`.avatar[data-avatar-level="${i - 1}"]`);
-                avatarElement.classList.add('selected');
-                showApplyButton(avatarElement);
-                updateAvatarDisplay(i);  // Оновлення відображення аватарки
+                if (avatarElement) {
+                    console.log(`Avatar element found for level ${i - 1}`);
+                    avatarElement.classList.add('selected');
+                    showApplyButton(avatarElement);
+                    updateAvatarDisplay(i);  // Оновлення відображення аватарки
+                } else {
+                    console.error(`Avatar element with data-avatar-level="${i - 1}" not found`);
+                }
                 break;
             }
         }
     }
+
   
     function getCurrentLevel(clickCount) {
         for (let i = LEVELS.length - 1; i >= 0; i--) {
