@@ -336,6 +336,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         updateLevelBar(clickCount);
                         initializeAvatars(getCurrentLevel(clickCountMax));
                         initializeUserAvatars(userData);
+                        updateAvatarDisplay(i);  
                         renderDays();
                     } else {
                         db.collection("clicks").doc(username).set({
