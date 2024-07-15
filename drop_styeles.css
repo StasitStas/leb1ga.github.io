@@ -26,6 +26,8 @@
     padding: 20px; /* Збільшено відступи всередині блоку */
     background: rgba(255, 255, 255, 0.8);
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* Збільшено тінь */
+    max-height: calc(100vh - 100px); /* Обмежуємо висоту рейтингу */
+    overflow-y: auto; /* Додаємо вертикальну прокрутку */
 }
 
 #leaderboard h2 {
@@ -38,6 +40,8 @@
     list-style: none;
     padding: 0;
     margin: 0;
+    max-height: 300px; /* Максимальна висота списку для 5 позицій */
+    overflow-y: auto; /* Додаємо вертикальну прокрутку для списку */
 }
 
 #leaderboardList li {
@@ -101,7 +105,6 @@
     text-align: right;
     margin-left: auto; /* Вирівнювання місця справа */
 }
-
 
 /* Стиль модального вікна для airdrop */
 .modal-airdrop {
