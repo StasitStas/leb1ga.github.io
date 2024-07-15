@@ -214,57 +214,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    function applySettings() {
-        const clickCount = document.getElementById('clickCountInput').value;
-        const clickCountMax = document.getElementById('clickCountMaxInput').value;
-        const enableAnimation = document.getElementById('enableAnimationCheckbox').checked;
-        const enableVibration = document.getElementById('enableVibrationCheckbox').checked;
-        
-        // Отримуємо поточний вибраний аватар
-        const selectedAvatar = document.querySelector('.avatar.selected');
-        const selectedAvatarLevel = selectedAvatar ? selectedAvatar.getAttribute('data-avatar-level') : null;
-        
-        const settings = {
-            clickCount: clickCount,
-            clickCountMax: clickCountMax,
-            enableAnimation: enableAnimation,
-            enableVibration: enableVibration,
-            avatar: selectedAvatarLevel // Зберігаємо рівень аватарки
-        };
-    
-        console.log('Applying settings:', settings);
-    
-        // Зберігаємо налаштування в базі даних
-        saveSettingsToDatabase(settings)
-            .then(() => {
-                // Оновлюємо відображення аватарки після успішного збереження
-                if (selectedAvatarLevel !== null) {
-                    updateAvatarDisplay(parseInt(selectedAvatarLevel) + 1);  // Оновлення відображення аватарки
-                }
-            })
-            .catch(error => {
-                console.error('Error saving settings:', error);
-            });
-    }
-    
-    function saveSettingsToDatabase(settings) {
-        return new Promise((resolve, reject) => {
-            // Тут код для збереження налаштувань у базі даних
-            // Використовуйте свій API або метод для збереження налаштувань
-            // Наприклад:
-            // api.saveSettings(settings)
-            //     .then(response => resolve(response))
-            //     .catch(error => reject(error));
-    
-            // Зараз це просто імітація успішного збереження
-            setTimeout(() => resolve(), 1000);
-        });
-    }
-    
-    // Виклик функції applySettings при натисканні кнопки "Застосувати"
-    document.getElementById('applyButton').addEventListener('click', applySettings);
-
-  
     function getCurrentLevel(clickCount) {
         for (let i = LEVELS.length - 1; i >= 0; i--) {
             if (clickCount >= LEVELS[i].threshold) {
