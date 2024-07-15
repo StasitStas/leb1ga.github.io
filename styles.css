@@ -160,7 +160,7 @@ body::after {
 }
 
 .circle-button {
-    margin-bottom: 20px; /* Adjust this value to move the button up */
+    margin-bottom: 20px;
     width: 250px;
     height: 250px;
     border: 4px solid #322c2c;
@@ -177,10 +177,12 @@ body::after {
     user-select: none;
     transition: transform 0.1s ease-out, box-shadow 0.5s;
     box-shadow: 0 0 10px 5px #333;
-    -webkit-tap-highlight-color: transparent; /* Prevents highlight on Android */
-    -webkit-user-select: none; /* Prevents text selection on iOS Safari */
-    -moz-user-select: none; /* Prevents text selection on Firefox */
-    -ms-user-select: none; /* Prevents text selection on Internet Explorer/Edge */
+    -webkit-tap-highlight-color: transparent;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    position: absolute;
+    top: 250px;
 }
 
 .circle-button::after {
@@ -498,9 +500,11 @@ body::after {
     width: 90%;
     height: 14px;
     background-color: #f0f0f0;
-    margin-top: 20px; /* Стандартний верхній відступ */
-    margin-bottom: 20px; /* Стандартний нижній відступ */
+    margin-top: 20px;
+    margin-bottom: 20px;
     border-radius: 40px;
+    position: absolute;
+    top: 550px;
 }
 
 .level-bar {
