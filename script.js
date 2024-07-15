@@ -415,7 +415,7 @@ document.addEventListener('DOMContentLoaded', function() {
         if (enableAnimation) {
             const clickEffect = document.createElement('div');
             clickEffect.className = 'click-effect';
-            clickEffect.style.left = `${x}px`;
+            clickEffect.style.left = `${x + 50}px`;
             clickEffect.style.top = `${y + 10}px`;
             clickEffect.textContent = '+1';
             clickEffectContainer.appendChild(clickEffect);
