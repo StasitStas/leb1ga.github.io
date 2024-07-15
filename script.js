@@ -640,7 +640,7 @@ document.addEventListener('DOMContentLoaded', function() {
         if (currentTime >= nextClaimTimestamp) {
             if (currentTime >= nextClaimTimestamp + 24 * 60 * 60 * 1000) {
                 // Більше 24 годин пройшло
-                alert('Ви пропустили більше одного дня. Почніть заново з Дня 1.');
+                showNotification('Ви пропустили більше одного дня. Почніть заново з Дня 1.');
     
                 const userDocRef = db.collection('clicks').doc(username);
                 nextClaimTime = new Date(currentTime + 24 * 60 * 60 * 1000);
@@ -664,7 +664,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 });
             } else {
                 // Менше 24 годин пройшло
-                alert(`Ви отримали ${rewards[currentDay - 1].prize} кліків!`);
+                showNotification(`Ви отримали ${rewards[currentDay - 1].prize} кліків!`);
     
                 const userDocRef = db.collection('clicks').doc(username);
                 const newNextClaimTime = new Date(currentTime + 24 * 60 * 60 * 1000);
@@ -689,8 +689,21 @@ document.addEventListener('DOMContentLoaded', function() {
                 });
             }
         } else {
-            alert('Ви ще не можете забрати нагороду. Спробуйте пізніше.');
+            showNotification('Ви ще не можете забрати нагороду. Спробуйте пізніше.');
         }
+    }
+
+    function showNotification(message) {
+        const notification = document.getElementById('notification');
+        notification.textContent = message;
+        notification.classList.add('show');
+    
+        setTimeout(() => {
+            notification.classList.remove('show');
+            setTimeout(() => {
+                notification.style.display = 'none';
+            }, 500); // Затримка для плавного зникнення
+        }, 3000); // Час відображення повідомлення в мілісекундах
     }
     
     claimRewardButton.addEventListener('click', claimReward);
