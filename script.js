@@ -639,7 +639,6 @@ document.addEventListener('DOMContentLoaded', function() {
     
         if (currentTime >= nextClaimTimestamp) {
             if (currentTime >= nextClaimTimestamp + 24 * 60 * 60 * 1000) {
-                // Більше 24 годин пройшло
                 showNotification('Ви пропустили більше одного дня. Почніть заново з Дня 1.');
     
                 const userDocRef = db.collection('clicks').doc(username);
@@ -663,7 +662,6 @@ document.addEventListener('DOMContentLoaded', function() {
                     console.error("Помилка при оновленні бази даних: ", error);
                 });
             } else {
-                // Менше 24 годин пройшло
                 showNotification(`Ви отримали ${rewards[currentDay - 1].prize} кліків!`);
     
                 const userDocRef = db.collection('clicks').doc(username);
@@ -692,7 +690,7 @@ document.addEventListener('DOMContentLoaded', function() {
             showNotification('Ви ще не можете забрати нагороду. Спробуйте пізніше.');
         }
     }
-
+    
     function showNotification(message) {
         const notification = document.getElementById('notification');
         notification.textContent = message;
@@ -700,9 +698,6 @@ document.addEventListener('DOMContentLoaded', function() {
     
         setTimeout(() => {
             notification.classList.remove('show');
-            setTimeout(() => {
-                notification.style.display = 'none';
-            }, 500); // Затримка для плавного зникнення
         }, 3000); // Час відображення повідомлення в мілісекундах
     }
     
