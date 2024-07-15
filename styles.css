@@ -143,6 +143,8 @@ body::after {
     align-items: center;
     justify-content: center;
     margin-bottom: 20px;
+    position: absolute;
+    top: 180px;
 }
 
 .coin-image {
