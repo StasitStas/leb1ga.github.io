@@ -345,7 +345,7 @@ document.addEventListener('DOMContentLoaded', function() {
                             enableVibration: true
                         });
                     }
-                    updateLeaderboard();
+                    updateLeaderboard(); // Виправлено розміщення цієї функції
                 }, error => {
                     console.error("Error getting document:", error);
                 });
