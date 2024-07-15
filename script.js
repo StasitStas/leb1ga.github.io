@@ -167,7 +167,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-
     function applyAvatar(avatarIndex) {
         const avatarData = {};
         avatars.forEach((avatar, index) => {
@@ -205,6 +204,15 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
+    function updateAvatarFromDatabase(userData) {
+        for (let i = 1; i <= 8; i++) {
+            const avatarKey = `ava${i}`;
+            if (userData[avatarKey]) {
+                updateAvatarDisplay(i);  // Оновлення відображення аватарки
+                break;
+            }
+        }
+    }
   
     function getCurrentLevel(clickCount) {
         for (let i = LEVELS.length - 1; i >= 0; i--) {
@@ -378,20 +386,6 @@ document.addEventListener('DOMContentLoaded', function() {
             alert('Error: Username not specified.');
         }
     }
-
-    
-    // Функція для оновлення відображення аватарки
-    function updateAvatarFromDatabase(userData) {
-        for (let i = 1; i <= 8; i++) {
-            const avatarKey = `ava${i}`;
-            if (userData[avatarKey]) {
-                updateAvatarDisplay(i);  // Оновлення відображення аватарки
-                break;
-            }
-        }
-    }
-
-
     
     function saveSettings() {
         db.collection("clicks").doc(username).set({
