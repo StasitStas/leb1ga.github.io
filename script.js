@@ -157,7 +157,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function updateAvatarDisplay(avatarIndex) {
-        for (let i = 1; i <= 8; i++) {
+        for (let i = 1; i <= 15; i++) {
             const avatarDisplay = document.getElementById(`avatarDisplay${i}`);
             if (i === avatarIndex) {
                 avatarDisplay.style.display = 'block';
@@ -183,7 +183,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Ініціалізація аватарок користувача при завантаженні сторінки
     function initializeUserAvatars(userData) {
         console.log('Initializing user avatars with data:', userData);
-        for (let i = 1; i <= 8; i++) {
+        for (let i = 1; i <= 15; i++) {
             const avatarKey = `ava${i}`;
             if (userData[avatarKey]) {
                 avatars.forEach(av => {
@@ -205,7 +205,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function updateAvatarFromDatabase(userData) {
-        for (let i = 1; i <= 8; i++) {
+        for (let i = 1; i <= 15; i++) {
             const avatarKey = `ava${i}`;
             if (userData[avatarKey]) {
                 updateAvatarDisplay(i);  // Оновлення відображення аватарки
