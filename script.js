@@ -454,6 +454,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 const currentLevel = LEVELS[getCurrentLevel(clickCountMax)].label;
                 saveLevelToDB(currentLevel);
                 updateLeaderboard();
+                initializeUserAvatars(userData); 
             }).catch(error => {
                 console.error("Error updating document:", error);
             });
@@ -502,6 +503,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 const currentLevel = LEVELS[getCurrentLevel(clickCountMax)].label;
                 saveLevelToDB(currentLevel);
                 updateLeaderboard();
+                initializeUserAvatars(userData); 
             }).catch(error => {
                 console.error("Error updating document:", error);
             });
