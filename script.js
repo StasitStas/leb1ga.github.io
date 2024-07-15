@@ -28,6 +28,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const avatarTOsettings = document.getElementById('avatarTOsettings');
     const avatars = document.querySelectorAll('.avatar');
     const applyButtons = document.querySelectorAll('.apply-button');
+    const modalGifts = document.querySelector('.modal-gifts');
     const LEVELS = [
         { threshold: 0, label: 'lvl-0' },
         { threshold: 100, label: 'lvl-1' },
@@ -42,6 +43,21 @@ document.addEventListener('DOMContentLoaded', function() {
         { threshold: 5000000, label: 'lvl-10' }
     ];
 
+    const daysContainer = document.getElementById('days-container');
+    const claimRewardButton = document.getElementById('claimRewardButton');
+    const rewards = [
+        { day: 1, prize: 500 },
+        { day: 2, prize: 1000 },
+        { day: 3, prize: 5000 },
+        { day: 4, prize: 10000 },
+        { day: 5, prize: 25000 },
+        { day: 6, prize: 50000 },
+        { day: 7, prize: 100000 },
+        { day: 8, prize: 250000 },
+        { day: 9, prize: 500000 },
+        { day: 10, prize: 1000000 }
+    ];
+
     let username = '';
     let firstName = '';
     let clickCount = 0;
@@ -53,6 +69,10 @@ document.addEventListener('DOMContentLoaded', function() {
     let telegramWindowOpen = false;
 
     let lastClickTime = 0;
+    let currentDay = 1;
+    let nextClaimTime = new Date();
+
+    modalGifts.classList.add('open');
 
     avatarToggleLabel.addEventListener('click', function(event) {
         event.stopPropagation();
@@ -305,6 +325,9 @@ document.addEventListener('DOMContentLoaded', function() {
                         clickCountMax = data.clickCountMax || 0;
                         enableAnimation = data.enableAnimation !== undefined ? data.enableAnimation : true;
                         enableVibration = data.enableVibration !== undefined ? data.enableVibration : true;
+                        lastClaimed = data.lastClaimed || {}; 
+                        currentDay = data.currentDay || 1;
+                        nextClaimTime = data.nextClaimTime ? data.nextClaimTime.toDate() : new Date();
                         
                         countDisplay.textContent = clickCount.toLocaleString();
                         animationToggle.checked = enableAnimation;
@@ -314,6 +337,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         updateLevelBar(clickCount);
                         initializeAvatars(getCurrentLevel(clickCountMax));
                         initializeUserAvatars(userData);
+                        renderDays();
                     } else {
                         db.collection("clicks").doc(username).set({
                             clickCount: 0,
@@ -367,7 +391,10 @@ document.addEventListener('DOMContentLoaded', function() {
         db.collection("clicks").doc(username).set({
             clickCount,
             enableAnimation,
-            enableVibration
+            enableVibration,
+            lastClaimed: data.lastClaimed || {}, 
+            currentDay: data.currentDay || 1,
+            nextClaimTime: data.nextClaimTime || firebase.firestore.Timestamp.fromDate(new Date())
         }).catch(error => {
             console.error("Помилка оновлення документа:", error);
         });
@@ -420,7 +447,10 @@ document.addEventListener('DOMContentLoaded', function() {
                 clickCount,
                 clickCountMax,  // Збереження максимальної кількості кліків
                 enableAnimation,
-                enableVibration
+                enableVibration,
+                lastClaimed: data.lastClaimed || null,
+                currentDay: data.currentDay || null,
+                nextClaimTime: data.nextClaimTime || null
             }).then(() => {
                 const currentLevel = LEVELS[getCurrentLevel(clickCountMax)].label;  // Використовуємо clickCountMax для рівня
                 saveLevelToDB(currentLevel);
@@ -467,7 +497,10 @@ document.addEventListener('DOMContentLoaded', function() {
                 clickCount,
                 clickCountMax,  // Збереження максимальної кількості кліків
                 enableAnimation,
-                enableVibration
+                enableVibration,
+                lastClaimed: data.lastClaimed || null,
+                currentDay: data.currentDay || null,
+                nextClaimTime: data.nextClaimTime || null
             }).then(() => {
                 const currentLevel = LEVELS[getCurrentLevel(clickCountMax)].label;  // Використовуємо clickCountMax для рівня
                 saveLevelToDB(currentLevel);
@@ -566,6 +599,136 @@ document.addEventListener('DOMContentLoaded', function() {
     exchangeButton.addEventListener('click', function() {
         closeAllModals();
     });
+
+    document.getElementById('giftsIcon').addEventListener('click', function() {
+        document.getElementById('modal-gifts').style.display = 'block';
+    });
+    
+    // Функція для закриття модального вікна "Подарунки"
+    document.getElementById('closeModal-gifts').addEventListener('click', function() {
+        document.getElementById('modal-gifts').style.display = 'none';
+    });
+    
+    function renderDays() {
+        daysContainer.innerHTML = '';
+        rewards.forEach(reward => {
+            const dayElement = document.createElement('div');
+            dayElement.className = 'day';
+            if (reward.day === currentDay) {
+                dayElement.classList.add('active');
+            }
+            dayElement.innerHTML = 
+                `<div>День ${reward.day}</div>
+                <img src="coin.png" alt="Coin">
+                <div>${reward.prize} кліків</div>`;
+            daysContainer.appendChild(dayElement);
+        });
+    }
+    
+    function updateGreenDot() {
+        const greenDot = document.getElementById('greenDot');
+        if (Date.now() >= nextClaimTime.getTime()) {
+            greenDot.style.display = 'block';
+        } else {
+            greenDot.style.display = 'none';
+        }
+    }
+    
+    function claimReward() {
+        const currentTime = Date.now();
+        const nextClaimTimestamp = nextClaimTime.getTime();
+    
+        if (currentTime >= nextClaimTimestamp) {
+            if (currentTime >= nextClaimTimestamp + 24 * 60 * 60 * 1000) {
+                // Більше 24 годин пройшло
+                alert('Ви пропустили більше одного дня. Почніть заново з Дня 1.');
+    
+                const userDocRef = db.collection('clicks').doc(username);
+                nextClaimTime = new Date(currentTime + 24 * 60 * 60 * 1000);
+                currentDay = 1;
+    
+                userDocRef.update({
+                    currentDay,
+                    nextClaimTime: firebase.firestore.Timestamp.fromDate(nextClaimTime),
+                    clickCount: firebase.firestore.FieldValue.increment(rewards[0].prize), // Приз за День 1
+                    lastClaimed: {
+                        hour: new Date(currentTime).getHours(),
+                        day: new Date(currentTime).getDate(),
+                        month: new Date(currentTime).getMonth() + 1,
+                        year: new Date(currentTime).getFullYear()
+                    }
+                }).then(() => {
+                    renderDays();
+                    updateGreenDot();
+                }).catch((error) => {
+                    console.error("Помилка при оновленні бази даних: ", error);
+                });
+            } else {
+                // Менше 24 годин пройшло
+                alert(`Ви отримали ${rewards[currentDay - 1].prize} кліків!`);
+    
+                const userDocRef = db.collection('clicks').doc(username);
+                const newNextClaimTime = new Date(currentTime + 24 * 60 * 60 * 1000);
+    
+                currentDay = currentDay % 10 + 1; // Від 1 до 10, потім знову 1
+    
+                userDocRef.update({
+                    currentDay,
+                    nextClaimTime: firebase.firestore.Timestamp.fromDate(newNextClaimTime),
+                    clickCount: firebase.firestore.FieldValue.increment(rewards[(currentDay - 2 + 10) % 10].prize), // Використання currentDay - 2 для збереження правильного призу
+                    lastClaimed: {
+                        hour: new Date(currentTime).getHours(),
+                        day: new Date(currentTime).getDate(),
+                        month: new Date(currentTime).getMonth() + 1,
+                        year: new Date(currentTime).getFullYear()
+                    }
+                }).then(() => {
+                    renderDays();
+                    updateGreenDot();
+                }).catch((error) => {
+                    console.error("Помилка при оновленні бази даних: ", error);
+                });
+            }
+        } else {
+            alert('Ви ще не можете забрати нагороду. Спробуйте пізніше.');
+        }
+    }
+    
+    claimRewardButton.addEventListener('click', claimReward);
+    
+    function initializeRewards() {
+        if (!username) {
+            console.error("Помилка: username не визначено.");
+            return;
+        }
+    
+        const userDocRef = db.collection('clicks').doc(username);
+        userDocRef.get().then(doc => {
+            if (doc.exists) {
+                const data = doc.data();
+                currentDay = data.currentDay || 1;
+                nextClaimTime = data.nextClaimTime ? data.nextClaimTime.toDate() : new Date();
+                renderDays();
+                updateGreenDot(); // Оновлення відображення кружечка при ініціалізації
+            } else {
+                userDocRef.set({
+                    currentDay: 1,
+                    nextClaimTime: firebase.firestore.Timestamp.fromDate(new Date())
+                }).then(() => {
+                    renderDays();
+                    updateGreenDot(); // Оновлення відображення кружечка при першому встановленні
+                });
+            }
+        }).catch(error => {
+            console.error("Помилка отримання документа: ", error);
+        });
+    }
+    
+    // Викликаємо initializeRewards тільки після того, як визначили username
+    initializeRewards();
+    
+    // Перевірка через певний інтервал часу
+    setInterval(updateGreenDot, 10000); // Перевірка кожні 10 секунд
 
     // Функція для завантаження кольору з бази даних
     function loadColorFromDB() {
