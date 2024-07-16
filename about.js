@@ -218,18 +218,32 @@ document.addEventListener('DOMContentLoaded', function() {
         const userRef = db.collection("users").doc(username);
         const userData = await userRef.get();
         const userSkins = userData.data().skins || {};
-
+    
         if (!userSkins[skinId]) {
             userSkins[skinId] = {
                 hasSkin: true,
                 count: 1,
-                applied: false
+                applied: false,
+                click: getSkinClickValue(skinId) // Додано значення click
             };
         } else {
             userSkins[skinId].count += 1;
         }
-
+    
         await userRef.update({ skins: userSkins });
+    }
+    
+    function getSkinClickValue(skinId) {
+        switch (skinId) {
+            case 'skin_1': return 1;
+            case 'skin_2': return 2;
+            case 'skin_3': return 3;
+            case 'skin_4': return 5;
+            case 'skin_5': return 5;
+            case 'skin_6': return 6;
+            case 'skin_7': return 8;
+            default: return 0; // За замовчуванням, якщо скіна не знайдено
+        }
     }
 
     async function applySkin(skinId) {
