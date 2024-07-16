@@ -76,7 +76,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
                 const applyButton = document.createElement('button');
                 applyButton.textContent = 'Застосувати';
-                applyButton.classList.add('apply-button');
+                applyButton.classList.add('apply-button-skin');
                 applyButton.addEventListener('click', () => applySkin(skinId));
                 skinInfo.appendChild(applyButton);
 
