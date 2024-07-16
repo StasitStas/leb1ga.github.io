@@ -1,3 +1,4 @@
+
 document.addEventListener('DOMContentLoaded', function() {
     const navButtons = document.querySelectorAll('.nav-button');
     const shopItems = document.querySelectorAll('.shop-item');
@@ -47,59 +48,51 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    async function getTotalSkinCount(skinId) {
-        const snapshot = await db.collection("users").get();
-        let totalCount = 0;
-        snapshot.forEach(doc => {
-            const skins = doc.data().skins || {};
-            if (skins[skinId]) {
-                totalCount += skins[skinId].count || 0;
-            }
-        });
-        return totalCount;
-    }
-
-    async function displayUserSkins(skins) {
+    function displayUserSkins(skins) {
         skinsContainer.innerHTML = ''; // Очистити контейнер перед додаванням нових елементів
         for (const skinId in skins) {
             if (skins[skinId].hasSkin) {
-                const skinDiv = document.createElement('div');
-                skinDiv.className = 'skin-item';
-
+                const skinWrapper = document.createElement('div');
                 const img = document.createElement('img');
                 img.src = `skin/${skinId}.png`;
+                skinWrapper.appendChild(img);
 
                 const skinInfo = document.createElement('div');
-                skinInfo.className = 'skin-info';
+                skinInfo.classList.add('skin-info');
 
                 const skinName = document.createElement('p');
-                skinName.textContent = skinId;
+                skinName.textContent = `Назва: ${skinId}`;
+                skinInfo.appendChild(skinName);
 
                 const skinCount = document.createElement('p');
                 skinCount.textContent = `Кількість: ${skins[skinId].count}`;
+                skinInfo.appendChild(skinCount);
 
-                const totalSkinCount = await getTotalSkinCount(skinId);
-                const totalCount = document.createElement('p');
-                totalCount.textContent = `Загальна кількість: ${totalSkinCount}`;
+                const totalSkinCount = document.createElement('p');
+                getTotalSkinCount(skinId).then(totalCount => {
+                    totalSkinCount.textContent = `Загальна кількість: ${totalCount}`;
+                    skinInfo.appendChild(totalSkinCount);
+                });
 
                 const applyButton = document.createElement('button');
                 applyButton.textContent = 'Застосувати';
-                applyButton.className = skins[skinId].applied ? 'applied' : '';
-                applyButton.addEventListener('click', async () => {
-                    await applySkin(skinId);
-                    displayUserSkins(skins);
-                });
-
-                skinInfo.appendChild(skinName);
-                skinInfo.appendChild(skinCount);
-                skinInfo.appendChild(totalCount);
+                applyButton.classList.add('apply-button');
+                applyButton.addEventListener('click', () => applySkin(skinId));
                 skinInfo.appendChild(applyButton);
 
-                skinDiv.appendChild(img);
-                skinDiv.appendChild(skinInfo);
-
-                skinsContainer.appendChild(skinDiv);
+                skinWrapper.appendChild(skinInfo);
+                skinsContainer.appendChild(skinWrapper);
             }
+        }
+    }
+
+    async function getTotalSkinCount(skinId) {
+        const skinsSnapshot = await db.collection("skins").doc(skinId).get();
+        if (skinsSnapshot.exists) {
+            const skinsData = skinsSnapshot.data();
+            return skinsData.totalCount || 0;
+        } else {
+            return 0;
         }
     }
 
@@ -281,17 +274,18 @@ document.addEventListener('DOMContentLoaded', function() {
         const userData = await userRef.get();
         const userSkins = userData.data().skins || {};
 
-        // Set all skins' applied to false
+        // Змінити значення applied на false для всіх скінів
         for (const skin in userSkins) {
             userSkins[skin].applied = false;
         }
 
-        // Set the selected skin's applied to true
+        // Змінити значення applied на true для обраного скіна
         if (userSkins[skinId]) {
             userSkins[skinId].applied = true;
         }
 
         await userRef.update({ skins: userSkins });
+        displayUserSkins(userSkins);
     }
 
     // Event listener for the Skins button to open the modal
