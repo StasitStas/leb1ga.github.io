@@ -22,10 +22,6 @@ document.addEventListener('DOMContentLoaded', function() {
     let firstName = '';
     let clickCount = 0;
     let currentCoffer = ''; // Track which coffer is opened
-
-    skinsContainer.addEventListener('touchstart', function(e) {
-        startX = e.touches[0].clientX;
-    });
       
     function getUsernameFromUrl() {
         const urlParams = new URLSearchParams(window.location.search);
