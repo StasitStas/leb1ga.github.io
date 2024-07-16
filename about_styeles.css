@@ -318,13 +318,13 @@
     margin: 10px auto;
     padding: 10px 40px;
     background: linear-gradient(135deg, #373737, #000000);
-    color: white; /* White text */
+    color: white;
     border: none;
     border-radius: 20px;
     cursor: pointer;
     font-size: 16px;
-    position: absolute;
-    top: 2%; 
+    position: fixed;
+    top: 2%;
     left: 35%;
 }
 
@@ -346,9 +346,9 @@
     margin: 0 10px;
     scroll-snap-align: center;
     position: relative;
-    background: radial-gradient(circle at center bottom, rgb(9 255 0), black 70%); /* Додано задній фон */
-    padding: 20px; /* Додано відступ, щоб було видно фон */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Додано тінь для краси */
+    background: radial-gradient(circle at center bottom, rgb(9 255 0), black 70%);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 0px 0px 190px 0px;
 }
 
 .modal-open {
