@@ -323,7 +323,7 @@
     border-radius: 20px;
     cursor: pointer;
     font-size: 16px;
-    position: fixed;
+    position: absolute;
     top: 2%;
     left: 35%;
 }
@@ -335,6 +335,7 @@
     scroll-snap-type: x mandatory;
     -webkit-overflow-scrolling: touch;
     justify-content: flex-start; /* Вирівнювання скінів зліва */
+    margin-top: -100px;
 }
 
 .skins-container img {
@@ -345,9 +346,6 @@
     margin: 0 10px;
     scroll-snap-align: center;
     position: relative;
-    background: radial-gradient(circle at center bottom, rgb(9 255 0), black 70%);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    padding: 0px 0px 190px 0px;
 }
 
 .modal-open {
