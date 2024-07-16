@@ -51,25 +51,9 @@ document.addEventListener('DOMContentLoaded', function() {
         skinsContainer.innerHTML = ''; // Очистити контейнер перед додаванням нових елементів
         for (const skinId in skins) {
             if (skins[skinId].hasSkin) {
-                const skinItem = document.createElement('div');
-                skinItem.classList.add('skin-item');
-
                 const img = document.createElement('img');
-                img.src = `skin/${skinId}.png`;
-
-                const skinLabel1 = document.createElement('div');
-                skinLabel1.classList.add('skin-label');
-                skinLabel1.textContent = 'Скін-Лебіга';
-
-                const skinLabel2 = document.createElement('div');
-                skinLabel2.classList.add('skin-label');
-                skinLabel2.textContent = 'Крутий';
-
-                skinItem.appendChild(img);
-                skinItem.appendChild(skinLabel1);
-                skinItem.appendChild(skinLabel2);
-
-                skinsContainer.appendChild(skinItem);
+                img.src = skin/${skinId}.png;
+                skinsContainer.appendChild(img);
             }
         }
     }
@@ -178,7 +162,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 const clicks = Math.floor(Math.random() * (150 - 30 + 1)) + 30;
                 clickCount += clicks;
                 await db.collection("clicks").doc(username).update({ clickCount: clickCount });
-                prizeDescriptionText = `Ваш приз: ${clicks} кліків`;
+                prizeDescriptionText = Ваш приз: ${clicks} кліків;
                 prizeImageSrc = 'coin.png';
             } else {
                 const skin = skins.find(skin => Math.random() < skin.probability);
@@ -206,7 +190,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 const clicks = Math.floor(Math.random() * (1400 - 200 + 1)) + 200;
                 clickCount += clicks;
                 await db.collection("clicks").doc(username).update({ clickCount: clickCount });
-                prizeDescriptionText = `Ваш приз: ${clicks} кліків`;
+                prizeDescriptionText = Ваш приз: ${clicks} кліків;
                 prizeImageSrc = 'coin.png';
             } else {
                 const skin = skins.find(skin => Math.random() < skin.probability);
