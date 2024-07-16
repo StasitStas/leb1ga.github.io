@@ -335,7 +335,6 @@
     scroll-snap-type: x mandatory;
     -webkit-overflow-scrolling: touch;
     justify-content: flex-start; /* Вирівнювання скінів зліва */
-    margin-top: -100px;
 }
 
 .skins-container img {
