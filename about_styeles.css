@@ -339,12 +339,24 @@
 }
 
 .skins-container img {
-    width: 80%;
+    width: 300px;
     height: 300px;
-    border-radius: 60px;
+    border-radius: 20px;
     object-fit: cover;
     margin: 0 10px;
     scroll-snap-align: center;
+    position: relative;
+}
+
+.skins-container img::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -40px;
+    background-color: rgba(255, 255, 255, 0.5); /* Колір заднього фону */
+    border-radius: 22px; /* Радіус закруглення заднього фону */
 }
 
 .modal-open {
