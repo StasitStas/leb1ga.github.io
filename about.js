@@ -54,30 +54,27 @@ document.addEventListener('DOMContentLoaded', function() {
             if (skins[skinId].hasSkin) {
                 const skinItem = document.createElement('div');
                 skinItem.classList.add('skin-item');
-                
-                const skinBackground = document.createElement('div');
-                skinBackground.classList.add('skin-item-background');
-                
+    
                 const img = document.createElement('img');
                 img.src = `skin/${skinId}.png`;
-                
+    
                 const skinLabel1 = document.createElement('div');
                 skinLabel1.classList.add('skin-label');
                 skinLabel1.textContent = 'Скін-Лебіга';
-                
+    
                 const skinLabel2 = document.createElement('div');
                 skinLabel2.classList.add('skin-label');
-                skinLabel2.textContent = 'Кількість: 0';
-
-                skinBackground.appendChild(img);
-                skinItem.appendChild(skinBackground);
+                skinLabel2.textContent = 'Крутий';
+    
+                skinItem.appendChild(img);
                 skinItem.appendChild(skinLabel1);
                 skinItem.appendChild(skinLabel2);
-                
+    
                 skinsContainer.appendChild(skinItem);
             }
         }
     }
+
 
     async function initialize() {
         username = getUsernameFromUrl();
