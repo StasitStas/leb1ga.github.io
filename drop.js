@@ -4,16 +4,16 @@ document.addEventListener('DOMContentLoaded', function() {
 
     const LEVELS = [
         { threshold: 0, label: 'lvl-0' },
-        { threshold: 100, label: 'lvl-1' },
-        { threshold: 1000, label: 'lvl-2' },
-        { threshold: 10000, label: 'lvl-3' },
-        { threshold: 25000, label: 'lvl-4' },
-        { threshold: 75000, label: 'lvl-5' },
-        { threshold: 250000, label: 'lvl-6' },
-        { threshold: 500000, label: 'lvl-7' },
-        { threshold: 1000000, label: 'lvl-8' },
-        { threshold: 2500000, label: 'lvl-9' },
-        { threshold: 5000000, label: 'lvl-10' }
+        { threshold: 1000, label: 'lvl-1' },
+        { threshold: 5000, label: 'lvl-2' },
+        { threshold: 25000, label: 'lvl-3' },
+        { threshold: 100000, label: 'lvl-4' },
+        { threshold: 250000, label: 'lvl-5' },
+        { threshold: 500000, label: 'lvl-6' },
+        { threshold: 1000000, label: 'lvl-7' },
+        { threshold: 5000000, label: 'lvl-8' },
+        { threshold: 25000000, label: 'lvl-9' },
+        { threshold: 125000000, label: 'lvl-10' }
     ];
 
     function getLevel(clickCountMax) {
