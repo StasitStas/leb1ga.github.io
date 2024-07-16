@@ -335,7 +335,6 @@
     scroll-snap-type: x mandatory;
     -webkit-overflow-scrolling: touch;
     justify-content: flex-start; /* Вирівнювання скінів зліва */
-    margin-top: -100px;
 }
 
 .skins-container img {
@@ -346,7 +345,11 @@
     margin: 0 10px;
     scroll-snap-align: center;
     position: relative;
+    background: radial-gradient(circle at center bottom, rgb(9 255 0), black 70%);
+    padding: 0px 0px 180px 0px; /* Додано додатковий відступ знизу */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
+
 
 .modal-open {
     overflow: hidden;
