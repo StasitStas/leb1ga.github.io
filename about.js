@@ -1,4 +1,3 @@
-
 document.addEventListener('DOMContentLoaded', function() {
     const navButtons = document.querySelectorAll('.nav-button');
     const shopItems = document.querySelectorAll('.shop-item');
@@ -48,13 +47,58 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    function displayUserSkins(skins) {
+    async function getTotalSkinCount(skinId) {
+        const snapshot = await db.collection("users").get();
+        let totalCount = 0;
+        snapshot.forEach(doc => {
+            const skins = doc.data().skins || {};
+            if (skins[skinId]) {
+                totalCount += skins[skinId].count || 0;
+            }
+        });
+        return totalCount;
+    }
+
+    async function displayUserSkins(skins) {
         skinsContainer.innerHTML = ''; // Очистити контейнер перед додаванням нових елементів
         for (const skinId in skins) {
             if (skins[skinId].hasSkin) {
+                const skinDiv = document.createElement('div');
+                skinDiv.className = 'skin-item';
+
                 const img = document.createElement('img');
                 img.src = `skin/${skinId}.png`;
-                skinsContainer.appendChild(img);
+
+                const skinInfo = document.createElement('div');
+                skinInfo.className = 'skin-info';
+
+                const skinName = document.createElement('p');
+                skinName.textContent = skinId;
+
+                const skinCount = document.createElement('p');
+                skinCount.textContent = `Кількість: ${skins[skinId].count}`;
+
+                const totalSkinCount = await getTotalSkinCount(skinId);
+                const totalCount = document.createElement('p');
+                totalCount.textContent = `Загальна кількість: ${totalSkinCount}`;
+
+                const applyButton = document.createElement('button');
+                applyButton.textContent = 'Застосувати';
+                applyButton.className = skins[skinId].applied ? 'applied' : '';
+                applyButton.addEventListener('click', async () => {
+                    await applySkin(skinId);
+                    displayUserSkins(skins);
+                });
+
+                skinInfo.appendChild(skinName);
+                skinInfo.appendChild(skinCount);
+                skinInfo.appendChild(totalCount);
+                skinInfo.appendChild(applyButton);
+
+                skinDiv.appendChild(img);
+                skinDiv.appendChild(skinInfo);
+
+                skinsContainer.appendChild(skinDiv);
             }
         }
     }
