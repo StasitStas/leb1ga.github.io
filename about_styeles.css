@@ -330,20 +330,21 @@
 
 .skins-container {
     display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
+    overflow-x: auto;
     padding: 12px;
+    scroll-snap-type: x mandatory; /* Snap scroll */
+    -webkit-overflow-scrolling: touch;
 }
 
 .skins-container img {
-    width: 150px;
-    height: 150px;
+    width: 80%; /* Width reduced for mobile view */
+    height: auto;
     border-radius: 60px;
     object-fit: cover;
-    margin-top: 15px;
+    margin: 0 10px; /* Margin for spacing between skins */
+    scroll-snap-align: center; /* Center the skin on scroll */
 }
 
 .modal-open {
     overflow: hidden;
 }
-
