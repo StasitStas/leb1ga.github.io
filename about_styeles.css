@@ -337,19 +337,35 @@
     justify-content: flex-start; /* Вирівнювання скінів зліва */
 }
 
-.skins-container img {
-    width: 80%;
-    height: 300px;
-    border-radius: 60px;
-    object-fit: cover;
+.skin-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     margin: 0 10px;
     scroll-snap-align: center;
     position: relative;
     background: radial-gradient(circle at center bottom, rgb(9 255 0), black 70%);
     padding: 0px 0px 180px 0px; /* Додано додатковий відступ знизу */
+    border-radius: 60px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
+.skin-image {
+    width: 80%;
+    height: 300px;
+    border-radius: 60px;
+    object-fit: cover;
+}
+
+.skin-info {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: white;
+    font-size: 18px;
+    text-align: center;
+}
 
 .modal-open {
     overflow: hidden;
