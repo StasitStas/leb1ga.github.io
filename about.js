@@ -23,46 +23,34 @@ document.addEventListener('DOMContentLoaded', function() {
     let clickCount = 0;
     let currentCoffer = ''; // Track which coffer is opened
     let isScrolling = false;
+    let startX;
 
-    skinsContainer.addEventListener('scroll', function() {
+    skinsContainer.addEventListener('touchstart', function(e) {
+        startX = e.touches[0].clientX;
+    });
+    
+    skinsContainer.addEventListener('touchmove', function(e) {
         if (!isScrolling) {
             isScrolling = true;
     
-            // Отримати контейнер та розміри
-            const container = skinsContainer;
-            const containerWidth = container.clientWidth;
-            const containerScrollLeft = container.scrollLeft;
+            const moveX = e.touches[0].clientX;
+            const diffX = startX - moveX;
     
-            // Знайти ближній доцільний елемент
-            let closestElement = null;
-            let minDistance = Infinity;
-    
-            container.querySelectorAll('.skins-container img').forEach(img => {
-                const rect = img.getBoundingClientRect();
-                const distance = Math.abs(rect.left - containerWidth / 2 + containerScrollLeft);
-    
-                if (distance < minDistance) {
-                    minDistance = distance;
-                    closestElement = img;
-                }
-            });
-    
-            // Прокрутити до найближчого елемента
-            if (closestElement) {
-                const elementLeft = closestElement.offsetLeft - containerScrollLeft;
-                container.scrollTo({
-                    left: elementLeft,
-                    behavior: 'smooth'
-                });
+            // Прокрутка лише якщо рух більше за певний поріг
+            if (Math.abs(diffX) > 30) {
+                skinsContainer.scrollLeft += diffX;
+                startX = moveX;
             }
+    
+            e.preventDefault();
     
             // Зупинити виконання подальших подій прокрутки на короткий час
             setTimeout(() => {
                 isScrolling = false;
-            }, 300);
+            }, 50);
         }
     });
-    
+        
     function getUsernameFromUrl() {
         const urlParams = new URLSearchParams(window.location.search);
         return urlParams.get('username');
