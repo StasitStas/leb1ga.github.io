@@ -339,7 +339,7 @@
 }
 
 .skins-container img {
-    width: 300px;
+    width: 80%;
     height: 300px;
     border-radius: 60px;
     object-fit: cover;
