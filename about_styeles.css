@@ -340,37 +340,34 @@
 }
 
 .skin-item {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin: 0 10px;
-    scroll-snap-align: center;
-    transition: transform 0.3s;
-}
-
-.skins-container img {
     width: 60%; /* Width reduced for mobile view */
     height: auto;
+    background: rgba(0, 0, 0, 0.7); /* Background for skin and text */
     border-radius: 60px;
     object-fit: cover;
+    margin: 0 10px; /* Margin for spacing between skins */
+    scroll-snap-align: center; /* Center the skin on scroll */
     box-shadow: inset 0 4px 8px rgba(0, 0, 0, 0.6), inset 0 -4px 8px rgba(255, 255, 255, 0.2); /* Depth effect */
+    transition: transform 0.3s;
+    text-align: center;
+    color: white; /* White text for the labels */
+    padding-bottom: 10px;
+}
+
+.skin-item img {
+    width: 100%;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
 }
 
 .skins-container img:hover {
     transform: scale(1.05);
 }
 
-.skin-item-background {
-    background: #1f1f1f;
-    border-radius: 60px;
-    padding: 10px;
-}
-
 .skin-label {
-    color: white;
-    text-align: center;
     margin-top: 10px;
     font-size: 14px;
+    font-weight: bold;
 }
 
 .modal-open {
