@@ -357,25 +357,3 @@
 .modal-open {
     overflow: hidden;
 }
-
-.skin-info {
-    color: white;
-    text-align: center;
-    margin-top: 10px;
-}
-
-.apply-button-skin {
-    display: block;
-    margin: 10px auto;
-    padding: 5px 20px;
-    background: linear-gradient(135deg, #373737, #000000);
-    color: white;
-    border: none;
-    border-radius: 10px;
-    cursor: pointer;
-    font-size: 14px;
-}
-
-.apply-button-skin:hover {
-    background-color: #45a049;
-}
