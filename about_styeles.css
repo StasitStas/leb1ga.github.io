@@ -346,18 +346,9 @@
     margin: 0 10px;
     scroll-snap-align: center;
     position: relative;
-}
-
-.skins-container img::after {
-    content: '';
-    position: absolute;
-    top: -2px;
-    left: -2px;
-    right: -2px;
-    bottom: -40px;
-    background-color: rgba(0, 0, 0, 0.8); /* Чорний фон з прозорістю 0.8 */
-    border-radius: 60px; /* Закруглені кути */
-    z-index: -1; /* Розташувати під зображенням */
+    background: radial-gradient(circle at center bottom, rgb(9 255 0), black 70%); /* Додано задній фон */
+    padding: 20px; /* Додано відступ, щоб було видно фон */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Додано тінь для краси */
 }
 
 .modal-open {
