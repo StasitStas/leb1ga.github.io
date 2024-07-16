@@ -22,35 +22,11 @@ document.addEventListener('DOMContentLoaded', function() {
     let firstName = '';
     let clickCount = 0;
     let currentCoffer = ''; // Track which coffer is opened
-    let isScrolling = false;
-    let startX;
 
     skinsContainer.addEventListener('touchstart', function(e) {
         startX = e.touches[0].clientX;
     });
-    
-    skinsContainer.addEventListener('touchmove', function(e) {
-        if (!isScrolling) {
-            isScrolling = true;
-    
-            const moveX = e.touches[0].clientX;
-            const diffX = startX - moveX;
-    
-            // Прокрутка лише якщо рух більше за певний поріг
-            if (Math.abs(diffX) > 30) {
-                skinsContainer.scrollLeft += diffX;
-                startX = moveX;
-            }
-    
-            e.preventDefault();
-    
-            // Зупинити виконання подальших подій прокрутки на короткий час
-            setTimeout(() => {
-                isScrolling = false;
-            }, 50);
-        }
-    });
-        
+      
     function getUsernameFromUrl() {
         const urlParams = new URLSearchParams(window.location.search);
         return urlParams.get('username');
