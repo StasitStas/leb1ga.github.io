@@ -356,9 +356,9 @@
     right: -2px;
     bottom: -40px;
     background-color: rgba(0, 0, 0, 0.8); /* Чорний фон з прозорістю 0.8 */
-    border-radius: 62px; /* Закруглені кути */
+    border-radius: 60px; /* Закруглені кути */
+    z-index: -1; /* Розташувати під зображенням */
 }
-
 
 .modal-open {
     overflow: hidden;
