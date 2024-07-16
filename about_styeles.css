@@ -339,9 +339,9 @@
 }
 
 .skins-container img {
-    width: 300px;
+    width: 80%;
     height: 300px;
-    border-radius: 20px;
+    border-radius: 60px;
     object-fit: cover;
     margin: 0 10px;
     scroll-snap-align: center;
@@ -355,9 +355,10 @@
     left: -2px;
     right: -2px;
     bottom: -40px;
-    background-color: rgba(255, 255, 255, 0.5); /* Колір заднього фону */
-    border-radius: 22px; /* Радіус закруглення заднього фону */
+    background-color: rgba(0, 0, 0, 0.8); /* Чорний фон з прозорістю 0.8 */
+    border-radius: 62px; /* Закруглені кути */
 }
+
 
 .modal-open {
     overflow: hidden;
