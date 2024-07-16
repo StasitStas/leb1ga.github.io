@@ -348,7 +348,7 @@
     position: relative;
 }
 
-.skins-container img::before {
+.skins-container img::after {
     content: '';
     position: absolute;
     top: -2px;
