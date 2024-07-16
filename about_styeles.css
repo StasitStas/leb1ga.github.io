@@ -332,11 +332,11 @@
     display: flex;
     overflow-x: auto;
     padding: 12px;
-    scroll-snap-type: x mandatory; /* Snap scroll */
+    scroll-snap-type: x mandatory;
     -webkit-overflow-scrolling: touch;
-    background: #141414; /* Background for contrast */
-    border-radius: 10px;
+    background: #141414;
     width: 100%;
+    margin-top: -180px;
 }
 
 .skins-container img {
