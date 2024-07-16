@@ -52,9 +52,29 @@ document.addEventListener('DOMContentLoaded', function() {
         skinsContainer.innerHTML = ''; // Очистити контейнер перед додаванням нових елементів
         for (const skinId in skins) {
             if (skins[skinId].hasSkin) {
+                const skinItem = document.createElement('div');
+                skinItem.classList.add('skin-item');
+                
+                const skinBackground = document.createElement('div');
+                skinBackground.classList.add('skin-item-background');
+                
                 const img = document.createElement('img');
                 img.src = `skin/${skinId}.png`;
-                skinsContainer.appendChild(img);
+                
+                const skinLabel1 = document.createElement('div');
+                skinLabel1.classList.add('skin-label');
+                skinLabel1.textContent = 'Скін-Лебіга';
+                
+                const skinLabel2 = document.createElement('div');
+                skinLabel2.classList.add('skin-label');
+                skinLabel2.textContent = 'Кількість: 0';
+
+                skinBackground.appendChild(img);
+                skinItem.appendChild(skinBackground);
+                skinItem.appendChild(skinLabel1);
+                skinItem.appendChild(skinLabel2);
+                
+                skinsContainer.appendChild(skinItem);
             }
         }
     }
