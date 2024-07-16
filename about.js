@@ -52,47 +52,10 @@ document.addEventListener('DOMContentLoaded', function() {
         skinsContainer.innerHTML = ''; // Очистити контейнер перед додаванням нових елементів
         for (const skinId in skins) {
             if (skins[skinId].hasSkin) {
-                const skinWrapper = document.createElement('div');
                 const img = document.createElement('img');
                 img.src = `skin/${skinId}.png`;
-                skinWrapper.appendChild(img);
-
-                const skinInfo = document.createElement('div');
-                skinInfo.classList.add('skin-info');
-
-                const skinName = document.createElement('p');
-                skinName.textContent = `Назва: ${skinId}`;
-                skinInfo.appendChild(skinName);
-
-                const skinCount = document.createElement('p');
-                skinCount.textContent = `Кількість: ${skins[skinId].count}`;
-                skinInfo.appendChild(skinCount);
-
-                const totalSkinCount = document.createElement('p');
-                getTotalSkinCount(skinId).then(totalCount => {
-                    totalSkinCount.textContent = `Загальна кількість: ${totalCount}`;
-                    skinInfo.appendChild(totalSkinCount);
-                });
-
-                const applyButton = document.createElement('button');
-                applyButton.textContent = 'Застосувати';
-                applyButton.classList.add('apply-button-skin');
-                applyButton.addEventListener('click', () => applySkin(skinId));
-                skinInfo.appendChild(applyButton);
-
-                skinWrapper.appendChild(skinInfo);
-                skinsContainer.appendChild(skinWrapper);
+                skinsContainer.appendChild(img);
             }
-        }
-    }
-
-    async function getTotalSkinCount(skinId) {
-        const skinsSnapshot = await db.collection("skins").doc(skinId).get();
-        if (skinsSnapshot.exists) {
-            const skinsData = skinsSnapshot.data();
-            return skinsData.totalCount || 0;
-        } else {
-            return 0;
         }
     }
 
@@ -274,18 +237,17 @@ document.addEventListener('DOMContentLoaded', function() {
         const userData = await userRef.get();
         const userSkins = userData.data().skins || {};
 
-        // Змінити значення applied на false для всіх скінів
+        // Set all skins' applied to false
         for (const skin in userSkins) {
             userSkins[skin].applied = false;
         }
 
-        // Змінити значення applied на true для обраного скіна
+        // Set the selected skin's applied to true
         if (userSkins[skinId]) {
             userSkins[skinId].applied = true;
         }
 
         await userRef.update({ skins: userSkins });
-        displayUserSkins(userSkins);
     }
 
     // Event listener for the Skins button to open the modal
