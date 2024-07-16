@@ -17,8 +17,6 @@ document.addEventListener('DOMContentLoaded', function() {
     const skinsModal = document.getElementById('skins-modal');
     const skinsButtonModal = document.getElementById('skins-button-modal');
     const skinsContainer = document.getElementById('skins-container');
-    const scrollThreshold = 100; // Поріг прокрутки, після якого буде прокрутка до наступного елемента
-
     
     let username = '';
     let firstName = '';
@@ -30,17 +28,18 @@ document.addEventListener('DOMContentLoaded', function() {
         if (!isScrolling) {
             isScrolling = true;
     
-            // Отримати поточне положення прокрутки
-            const scrollLeft = skinsContainer.scrollLeft;
-            const containerWidth = skinsContainer.clientWidth;
+            // Отримати контейнер та розміри
+            const container = skinsContainer;
+            const containerWidth = container.clientWidth;
+            const containerScrollLeft = container.scrollLeft;
     
             // Знайти ближній доцільний елемент
             let closestElement = null;
             let minDistance = Infinity;
     
-            skinsContainer.querySelectorAll('.skins-container img').forEach(img => {
+            container.querySelectorAll('.skins-container img').forEach(img => {
                 const rect = img.getBoundingClientRect();
-                const distance = Math.abs(rect.left - containerWidth / 2); // Відстань до центра контейнера
+                const distance = Math.abs(rect.left - containerWidth / 2 + containerScrollLeft);
     
                 if (distance < minDistance) {
                     minDistance = distance;
@@ -50,9 +49,9 @@ document.addEventListener('DOMContentLoaded', function() {
     
             // Прокрутити до найближчого елемента
             if (closestElement) {
-                const elementLeft = closestElement.offsetLeft;
-                skinsContainer.scrollTo({
-                    left: elementLeft - containerWidth / 2,
+                const elementLeft = closestElement.offsetLeft - containerScrollLeft;
+                container.scrollTo({
+                    left: elementLeft,
                     behavior: 'smooth'
                 });
             }
