@@ -337,7 +337,7 @@
 }
 
 .skins-container img {
-    width: 80%; /* Width reduced for mobile view */
+    width: 60%; /* Width reduced for mobile view */
     height: auto;
     border-radius: 60px;
     object-fit: cover;
