@@ -17,12 +17,53 @@ document.addEventListener('DOMContentLoaded', function() {
     const skinsModal = document.getElementById('skins-modal');
     const skinsButtonModal = document.getElementById('skins-button-modal');
     const skinsContainer = document.getElementById('skins-container');
+    const scrollThreshold = 100; // Поріг прокрутки, після якого буде прокрутка до наступного елемента
+
     
     let username = '';
     let firstName = '';
     let clickCount = 0;
     let currentCoffer = ''; // Track which coffer is opened
+    let isScrolling = false;
 
+    skinsContainer.addEventListener('scroll', function() {
+        if (!isScrolling) {
+            isScrolling = true;
+    
+            // Отримати поточне положення прокрутки
+            const scrollLeft = skinsContainer.scrollLeft;
+            const containerWidth = skinsContainer.clientWidth;
+    
+            // Знайти ближній доцільний елемент
+            let closestElement = null;
+            let minDistance = Infinity;
+    
+            skinsContainer.querySelectorAll('.skins-container img').forEach(img => {
+                const rect = img.getBoundingClientRect();
+                const distance = Math.abs(rect.left - containerWidth / 2); // Відстань до центра контейнера
+    
+                if (distance < minDistance) {
+                    minDistance = distance;
+                    closestElement = img;
+                }
+            });
+    
+            // Прокрутити до найближчого елемента
+            if (closestElement) {
+                const elementLeft = closestElement.offsetLeft;
+                skinsContainer.scrollTo({
+                    left: elementLeft - containerWidth / 2,
+                    behavior: 'smooth'
+                });
+            }
+    
+            // Зупинити виконання подальших подій прокрутки на короткий час
+            setTimeout(() => {
+                isScrolling = false;
+            }, 300);
+        }
+    });
+    
     function getUsernameFromUrl() {
         const urlParams = new URLSearchParams(window.location.search);
         return urlParams.get('username');
