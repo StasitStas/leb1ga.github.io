@@ -332,17 +332,18 @@
     display: flex;
     overflow-x: auto;
     padding: 12px;
-    scroll-snap-type: x mandatory; /* Snap scroll */
+    scroll-snap-type: x mandatory;
     -webkit-overflow-scrolling: touch;
+    justify-content: flex-start; /* Вирівнювання скінів зліва */
 }
 
 .skins-container img {
-    width: 60%; /* Width reduced for mobile view */
+    width: 80%;
     height: auto;
     border-radius: 60px;
     object-fit: cover;
-    margin: 0 10px; /* Margin for spacing between skins */
-    scroll-snap-align: center; /* Center the skin on scroll */
+    margin: 0 10px;
+    scroll-snap-align: center;
 }
 
 .modal-open {
