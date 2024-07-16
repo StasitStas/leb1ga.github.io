@@ -304,7 +304,7 @@
     width: 100%;
     height: 100%;
     overflow: auto;
-    background: radial-gradient(circle at center bottom, rgb(9 255 0), black 70%); /* Радіальний градієнт */
+    background: radial-gradient(circle at center bottom, rgb(9 255 0), black 70%); /* Radіальний градієнт */
     align-items: center;
     justify-content: center;
 }
@@ -328,12 +328,29 @@
     left: 35%;
 }
 
+.modal-content-mine-skin {
+    position: relative;
+    width: 90%;
+    height: 70%;
+    background: linear-gradient(to bottom, #232323, #0f0f0f);
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 .skins-container {
     display: flex;
     overflow-x: auto;
     padding: 12px;
     scroll-snap-type: x mandatory; /* Snap scroll */
     -webkit-overflow-scrolling: touch;
+    background: radial-gradient(circle at center, #141414, #000000 60%);
+    border-radius: 10px;
+    box-shadow: inset 0 5px 10px rgba(0, 0, 0, 0.6);
+    width: 100%;
 }
 
 .skins-container img {
@@ -343,6 +360,12 @@
     object-fit: cover;
     margin: 0 10px; /* Margin for spacing between skins */
     scroll-snap-align: center; /* Center the skin on scroll */
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+    transition: transform 0.3s;
+}
+
+.skins-container img:hover {
+    transform: scale(1.05);
 }
 
 .modal-open {
