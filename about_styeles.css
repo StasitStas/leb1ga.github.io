@@ -331,7 +331,7 @@
 
 .skins-container {
     display: flex;
-    overflow-x: scroll; /* Забезпечує горизонтальне прокручування */
+    overflow-x: auto; /* Забезпечує горизонтальне прокручування */
     padding: 12px;
     scroll-snap-type: x mandatory;
     -webkit-overflow-scrolling: touch;
@@ -344,6 +344,7 @@
     align-items: center;
     scroll-snap-align: center;
     margin: 0 10px;
+    flex: 0 0 auto; /* Додаємо, щоб елементи не стиснулись */
 }
 
 .skin-item img {
