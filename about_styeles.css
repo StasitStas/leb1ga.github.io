@@ -284,7 +284,7 @@
     margin: 10px auto;
     padding: 10px 40px;
     background: linear-gradient(135deg, #373737, #000000);
-    color: white; /* White text */
+    color: white;
     border: none;
     border-radius: 20px;
     cursor: pointer;
@@ -292,11 +292,11 @@
 }
 
 #skins-button:hover {
-    background-color: #45a049; /* Darker green on hover */
+    background-color: #45a049;
 }
 
 .skins-modal {
-    display: none; /* Hidden by default */
+    display: none;
     position: fixed;
     z-index: 3001;
     left: 0;
@@ -304,13 +304,13 @@
     width: 100%;
     height: 100%;
     overflow: auto;
-    background: radial-gradient(circle at center bottom, rgb(9 255 0), black 70%); /* Радіальний градієнт */
+    background: radial-gradient(circle at center bottom, rgb(9 255 0), black 70%);
     align-items: center;
     justify-content: center;
 }
 
 #skins-button-modal:hover {
-    background-color: #45a049; /* Darker green on hover */
+    background-color: #45a049;
 }
 
 #skins-button-modal {
@@ -334,7 +334,7 @@
     padding: 12px;
     scroll-snap-type: x mandatory;
     -webkit-overflow-scrolling: touch;
-    justify-content: flex-start; /* Вирівнювання скінів зліва */
+    justify-content: flex-start;
 }
 
 .skins-container img {
@@ -345,8 +345,25 @@
     margin: 0 10px;
     scroll-snap-align: center;
     position: relative;
+    transition: 0.3s;
+    cursor: pointer;
 }
 
-.modal-open {
-    overflow: hidden;
+.skins-container img.selected {
+    filter: brightness(50%);
+}
+
+.skins-container .skin-info {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: white;
+    font-size: 20px;
+    text-align: center;
+    display: none;
+}
+
+.skins-container img.selected + .skin-info {
+    display: block;
 }
