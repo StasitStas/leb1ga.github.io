@@ -50,27 +50,14 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function displayUserSkins(skins) {
         skinsContainer.innerHTML = ''; // Очистити контейнер перед додаванням нових елементів
-        console.log('User Skins:', skins); // Додано для журналування
-    
         for (const skinId in skins) {
             if (skins[skinId].hasSkin) {
-                const skinItem = document.createElement('div');
-                skinItem.classList.add('skin-item');
-                
                 const img = document.createElement('img');
                 img.src = `skin/${skinId}.png`;
-                
-                const skinInfo = document.createElement('div');
-                skinInfo.classList.add('skin-info');
-                skinInfo.textContent = `Кількість: ${skins[skinId].count}`;
-        
-                skinItem.appendChild(img);
-                skinItem.appendChild(skinInfo);
-                skinsContainer.appendChild(skinItem);
+                skinsContainer.appendChild(img);
             }
         }
     }
-
 
     async function initialize() {
         username = getUsernameFromUrl();
