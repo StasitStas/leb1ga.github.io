@@ -52,7 +52,7 @@ document.addEventListener('DOMContentLoaded', function() {
         for (const skinId in skins) {
             if (skins[skinId].hasSkin) {
                 const img = document.createElement('img');
-                img.src = skin/${skinId}.png;
+                img.src = `skin/${skinId}.png`;
                 skinsContainer.appendChild(img);
             }
         }
