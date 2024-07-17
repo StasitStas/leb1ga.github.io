@@ -10,18 +10,19 @@ document.addEventListener('DOMContentLoaded', function() {
     const prizeDescription = document.getElementById('prize-description');
     const prizeImage = document.getElementById('prize-image');
     const claimPrizeButton = document.getElementById('claim-prize');
-    const cofferPrice = document.getElementById('coffer-price'); // Додано для роботи з ціною скарбнички
+    const cofferPrice = document.getElementById('coffer-price');
 
     const skinsButton = document.getElementById('skins-button');
     const skinsModal = document.getElementById('skins-modal');
     const skinsButtonModal = document.getElementById('skins-button-modal');
     const skinsContainer = document.getElementById('skins-container');
-    
+
     let username = '';
     let firstName = '';
     let clickCount = 0;
-    let currentCoffer = ''; // Track which coffer is opened
-      
+    let currentCoffer = '';
+    let activeSkin = null;
+
     function getUsernameFromUrl() {
         const urlParams = new URLSearchParams(window.location.search);
         return urlParams.get('username');
@@ -48,15 +49,14 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function displayUserSkins(skins) {
-        skinsContainer.innerHTML = ''; // Очистити контейнер перед додаванням нових елементів
-    
-        // Сортування скінів за їх ID від 1 до 10
+        skinsContainer.innerHTML = '';
+
         const sortedSkins = Object.keys(skins).sort((a, b) => {
             const numA = parseInt(a.split('_')[1], 10);
             const numB = parseInt(b.split('_')[1], 10);
             return numA - numB;
         });
-    
+
         for (const skinId of sortedSkins) {
             if (skins[skinId].hasSkin) {
                 const skinContainer = document.createElement('div');
@@ -70,19 +70,27 @@ document.addEventListener('DOMContentLoaded', function() {
                 overlay.innerHTML = `
                     <div>Кількість: ${skins[skinId].count}</div>
                     <div>Клік: +${skins[skinId].click}</div>
+                    <button class="apply-skin-btn" data-skin-id="${skinId}">Застосувати</button>
                 `;
                 
                 skinContainer.appendChild(img);
                 skinContainer.appendChild(overlay);
                 skinsContainer.appendChild(skinContainer);
-                
+
+                if (skins[skinId].applied) {
+                    activeSkin = skinContainer;
+                    skinContainer.classList.add('active');
+                }
+
+                const applySkinButton = overlay.querySelector('.apply-skin-btn');
+                applySkinButton.addEventListener('click', () => {
+                    applySkin(skinId);
+                });
+
                 skinContainer.addEventListener('click', () => {
-                    // Зняти попередній активний стан
                     if (activeSkin) {
                         activeSkin.classList.remove('active');
                     }
-                    
-                    // Позначити поточний елемент як активний
                     skinContainer.classList.add('active');
                     activeSkin = skinContainer;
                 });
@@ -100,7 +108,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 clickCount = clickData.clickCount || 0;
                 displayUserSkins(userData.skins || {});
 
-                // Слухач змін для скинів користувача
                 db.collection("users").doc(username).onSnapshot(doc => {
                     if (doc.exists) {
                         const userData = doc.data();
@@ -130,9 +137,8 @@ document.addEventListener('DOMContentLoaded', function() {
             cofferImage.src = cofferImageSrc;
             cofferModal.style.display = 'flex';
             document.body.classList.add('modal-open');
-            currentCoffer = item.id; // Set the current coffer
+            currentCoffer = item.id;
 
-            // Update the price in the modal based on the coffer
             if (currentCoffer === 'coffer1') {
                 cofferPrice.textContent = '100';
             } else if (currentCoffer === 'coffer2') {
@@ -280,21 +286,21 @@ document.addEventListener('DOMContentLoaded', function() {
         const userRef = db.collection("users").doc(username);
         const userData = await userRef.get();
         const userSkins = userData.data().skins || {};
-    
+
         if (!userSkins[skinId]) {
             userSkins[skinId] = {
                 hasSkin: true,
                 count: 1,
                 applied: false,
-                click: getSkinClickValue(skinId) // Додано значення click
+                click: getSkinClickValue(skinId)
             };
         } else {
             userSkins[skinId].count += 1;
         }
-    
+
         await userRef.update({ skins: userSkins });
     }
-    
+
     function getSkinClickValue(skinId) {
         switch (skinId) {
             case 'skin_1': return 1;
@@ -307,7 +313,7 @@ document.addEventListener('DOMContentLoaded', function() {
             case 'skin_8': return 10;
             case 'skin_9': return 15;
             case 'skin_10': return 20;
-            default: return 0; // За замовчуванням, якщо скіна не знайдено
+            default: return 0;
         }
     }
 
@@ -316,26 +322,23 @@ document.addEventListener('DOMContentLoaded', function() {
         const userData = await userRef.get();
         const userSkins = userData.data().skins || {};
 
-        // Set all skins' applied to false
         for (const skin in userSkins) {
             userSkins[skin].applied = false;
         }
 
-        // Set the selected skin's applied to true
         if (userSkins[skinId]) {
             userSkins[skinId].applied = true;
         }
 
         await userRef.update({ skins: userSkins });
+        displayUserSkins(userSkins);
     }
 
-    // Event listener for the Skins button to open the modal
     skinsButton.addEventListener('click', function() {
         skinsModal.style.display = 'flex';
         document.body.classList.add('modal-open');
     });
 
-    // Event listener to close the Skins modal from the button inside the modal
     skinsButtonModal.addEventListener('click', function() {
         skinsModal.style.display = 'none';
         document.body.classList.remove('modal-open');
