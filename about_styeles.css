@@ -307,7 +307,6 @@
     background: radial-gradient(circle at center bottom, rgb(9 255 0), black 70%); /* Радіальний градієнт */
     align-items: center;
     justify-content: center;
-    padding: 20px; /* Додаємо відступи всередині модального вікна */
 }
 
 #skins-button-modal:hover {
@@ -334,9 +333,6 @@
     grid-template-columns: repeat(2, 1fr); /* Дві колонки */
     gap: 10px; /* Відстань між скінами */
     padding: 12px;
-    max-height: 80vh; /* Максимальна висота контейнера */
-    overflow-y: auto; /* Вертикальний скролінг */
-    margin: 20px; /* Відступи з усіх боків */
 }
 
 .skins-container img {
