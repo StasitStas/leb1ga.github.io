@@ -53,23 +53,25 @@ document.addEventListener('DOMContentLoaded', function() {
             if (skins[skinId].hasSkin) {
                 const skinContainer = document.createElement('div');
                 skinContainer.classList.add('skin-container');
-                skinContainer.addEventListener('click', function() {
-                    // Зняти active клас з усіх інших елементів
-                    document.querySelectorAll('.skins-container .skin-container').forEach(el => el.classList.remove('active'));
-                    // Додати active клас поточному елементу
-                    skinContainer.classList.add('active');
-                });
-    
+                
                 const img = document.createElement('img');
                 img.src = `skin/${skinId}.png`;
-    
+                
                 const overlay = document.createElement('div');
                 overlay.classList.add('skin-overlay');
-                overlay.textContent = `Кількість: ${skins[skinId].count}`;
-    
+                overlay.innerHTML = `
+                    <div>Кількість: ${skins[skinId].count}</div>
+                    <div>Клік: ${skins[skinId].click}</div>
+                `;
+                
                 skinContainer.appendChild(img);
                 skinContainer.appendChild(overlay);
                 skinsContainer.appendChild(skinContainer);
+                
+                skinContainer.addEventListener('click', () => {
+                    // Logika dla natisnennia na skin
+                    skinContainer.classList.toggle('active');
+                });
             }
         }
     }
