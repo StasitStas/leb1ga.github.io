@@ -332,14 +332,14 @@
     display: flex;
     overflow-x: auto;
     padding: 12px;
-    scroll-snap-type: x mandatory;
-    -webkit-overflow-scrolling: touch;
-    justify-content: flex-start;
+    scroll-snap-type: x mandatory; /* Залишаємо, але виправимо */
+    -webkit-overflow-scrolling: touch; /* Залишаємо, але виправимо */
+    justify-content: center; /* Змінюємо з flex-start на center */
 }
 
 .skins-container img {
-    width: 80%;
-    height: 300px;
+    min-width: 300px; /* Зберігаємо мінімальну ширину */
+    height: 300px; /* Додамо висоту */
     border-radius: 60px;
     object-fit: cover;
     margin: 0 10px;
@@ -347,10 +347,6 @@
     position: relative;
     transition: 0.3s;
     cursor: pointer;
-}
-
-.skins-container img.selected {
-    filter: brightness(50%);
 }
 
 .skins-container .skin-info {
@@ -361,9 +357,5 @@
     color: white;
     font-size: 20px;
     text-align: center;
-    display: none;
-}
-
-.skins-container img.selected + .skin-info {
-    display: block;
+    display: none; /* Залишаємо прихованим для початку */
 }
