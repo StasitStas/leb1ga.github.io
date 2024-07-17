@@ -348,6 +348,7 @@
     background: rgba(0, 0, 0, 0.6); /* Чорний напівпрозорий фон */
     color: white; /* Білий текст */
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
     border-radius: 20px;
