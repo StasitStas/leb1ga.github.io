@@ -1,4 +1,3 @@
-
 document.addEventListener('DOMContentLoaded', function() {
     const navButtons = document.querySelectorAll('.nav-button');
     const shopItems = document.querySelectorAll('.shop-item');
@@ -106,6 +105,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 cofferPrice.textContent = '100';
             } else if (currentCoffer === 'coffer2') {
                 cofferPrice.textContent = '800';
+            } else if (currentCoffer === 'coffer3') {
+                cofferPrice.textContent = '5000';
             }
         });
     });
@@ -121,6 +122,8 @@ document.addEventListener('DOMContentLoaded', function() {
             cofferCost = 100;
         } else if (currentCoffer === 'coffer2') {
             cofferCost = 800;
+        } else if (currentCoffer === 'coffer3') {
+            cofferCost = 5000;
         }
 
         if (clickCount >= cofferCost) {
@@ -206,6 +209,33 @@ document.addEventListener('DOMContentLoaded', function() {
                     prizeImageSrc = defaultSkin.src;
                 }
             }
+        } else if (cofferType === 'coffer3') {
+            const clickPrizeProbability = 0.5;
+            const skins = [
+                { src: 'skin/skin_8.png', id: 'skin_8', probability: 0.5 },
+                { src: 'skin/skin_9.png', id: 'skin_9', probability: 0.3 },
+                { src: 'skin/skin_10.png', id: 'skin_10', probability: 0.1 }
+            ];
+
+            if (Math.random() < clickPrizeProbability) {
+                const clicks = Math.floor(Math.random() * (10000 - 1000 + 1)) + 1000;
+                clickCount += clicks;
+                await db.collection("clicks").doc(username).update({ clickCount: clickCount });
+                prizeDescriptionText = `Ваш приз: ${clicks} кліків`;
+                prizeImageSrc = 'coin.png';
+            } else {
+                const skin = skins.find(skin => Math.random() < skin.probability);
+                if (skin) {
+                    await updateSkin(skin.id);
+                    prizeDescriptionText = 'Ваш приз: Скін';
+                    prizeImageSrc = skin.src;
+                } else {
+                    const defaultSkin = skins[2];
+                    await updateSkin(defaultSkin.id);
+                    prizeDescriptionText = 'Ваш приз: Скін';
+                    prizeImageSrc = defaultSkin.src;
+                }
+            }
         }
 
         prizeDescription.textContent = prizeDescriptionText;
@@ -242,6 +272,9 @@ document.addEventListener('DOMContentLoaded', function() {
             case 'skin_5': return 5;
             case 'skin_6': return 6;
             case 'skin_7': return 8;
+            case 'skin_8': return 10;
+            case 'skin_9': return 15;
+            case 'skin_10': return 20;
             default: return 0; // За замовчуванням, якщо скіна не знайдено
         }
     }
