@@ -50,6 +50,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function displayUserSkins(skins) {
         skinsContainer.innerHTML = ''; // Очистити контейнер перед додаванням нових елементів
+        console.log('User Skins:', skins); // Додано для журналування
+    
         for (const skinId in skins) {
             if (skins[skinId].hasSkin) {
                 const skinItem = document.createElement('div');
@@ -67,7 +69,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 skinsContainer.appendChild(skinItem);
             }
         }
-}
+    }
+
 
     async function initialize() {
         username = getUsernameFromUrl();
