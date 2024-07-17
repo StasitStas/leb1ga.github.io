@@ -331,11 +331,11 @@
 
 .skins-container {
     display: flex;
-    overflow-x: auto;
+    overflow-x: scroll; /* Забезпечує горизонтальне прокручування */
     padding: 12px;
     scroll-snap-type: x mandatory;
     -webkit-overflow-scrolling: touch;
-    justify-content: center; /* Центрування контейнера */
+    justify-content: flex-start; /* Вирівнювання скінів зліва */
 }
 
 .skin-item {
