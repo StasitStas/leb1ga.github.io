@@ -61,7 +61,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 overlay.classList.add('skin-overlay');
                 overlay.innerHTML = `
                     <div>Кількість: ${skins[skinId].count}</div>
-                    <div>Клік: ${skins[skinId].click}</div>
+                    <div>Клік: +${skins[skinId].click}</div>
                 `;
                 
                 skinContainer.appendChild(img);
