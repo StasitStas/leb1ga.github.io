@@ -329,21 +329,18 @@
 }
 
 .skins-container {
-    display: flex;
-    overflow-x: auto;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* Дві колонки */
+    gap: 10px; /* Відстань між скінами */
     padding: 12px;
-    scroll-snap-type: x mandatory;
-    -webkit-overflow-scrolling: touch;
-    justify-content: flex-start; /* Вирівнювання скінів зліва */
 }
 
 .skins-container img {
-    width: 80%;
-    height: 300px;
-    border-radius: 60px;
+    width: 100%; /* Повна ширина колонки */
+    height: 150px; /* Висота картинки */
+    border-radius: 20px;
     object-fit: cover;
-    margin: 0 10px;
-    scroll-snap-align: center;
+    margin: 0;
     position: relative;
 }
 
