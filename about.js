@@ -49,12 +49,31 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function displayUserSkins(skins) {
-        skinsContainer.innerHTML = ''; // Очистити контейнер перед додаванням нових елементів
+        skinsContainer.innerHTML = ''; 
         for (const skinId in skins) {
             if (skins[skinId].hasSkin) {
+                const imgWrapper = document.createElement('div');
+                imgWrapper.style.position = 'relative';
+                
                 const img = document.createElement('img');
                 img.src = `skin/${skinId}.png`;
-                skinsContainer.appendChild(img);
+                img.dataset.skinId = skinId;
+    
+                const skinInfo = document.createElement('div');
+                skinInfo.className = 'skin-info';
+                skinInfo.textContent = `Кількість: ${skins[skinId].count}`;
+    
+                imgWrapper.appendChild(img);
+                imgWrapper.appendChild(skinInfo);
+                skinsContainer.appendChild(imgWrapper);
+    
+                img.addEventListener('click', function() {
+                    const selected = skinsContainer.querySelector('img.selected');
+                    if (selected) {
+                        selected.classList.remove('selected');
+                    }
+                    img.classList.add('selected');
+                });
             }
         }
     }
