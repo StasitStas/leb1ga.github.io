@@ -52,15 +52,19 @@ document.addEventListener('DOMContentLoaded', function() {
         skinsContainer.innerHTML = ''; // Очистити контейнер перед додаванням нових елементів
         for (const skinId in skins) {
             if (skins[skinId].hasSkin) {
+                const skinItem = document.createElement('div');
+                skinItem.classList.add('skin-item');
+    
                 const img = document.createElement('img');
                 img.src = `skin/${skinId}.png`;
-                
+    
                 const skinInfo = document.createElement('div');
                 skinInfo.classList.add('skin-info');
                 skinInfo.textContent = `Кількість: ${skins[skinId].count}`;
     
-                skinsContainer.appendChild(img);
-                skinsContainer.appendChild(skinInfo);
+                skinItem.appendChild(img);
+                skinItem.appendChild(skinInfo);
+                skinsContainer.appendChild(skinItem);
             }
         }
     }
