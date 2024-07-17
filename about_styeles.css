@@ -331,9 +331,12 @@
 
 .skins-container {
     display: grid;
-    grid-template-columns: repeat(2, 1fr); /* Дві колонки */
-    gap: 10px; /* Відстань між скінами */
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
     padding: 12px;
+    max-height: 75vh;
+    overflow-y: auto;
+    margin-top: -20px;
 }
 
 .skins-container img {
