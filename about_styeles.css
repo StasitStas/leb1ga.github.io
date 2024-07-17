@@ -339,13 +339,45 @@
     margin-top: -20px;
 }
 
+.skins-container .skin-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6); /* Чорний напівпрозорий фон */
+    color: white; /* Білий текст */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 20px;
+    font-size: 16px;
+    opacity: 0; /* Спочатку приховано */
+    transition: opacity 0.3s ease; /* Плавний перехід */
+}
+
 .skins-container img {
-    width: 100%; /* Повна ширина колонки */
-    height: 150px; /* Висота картинки */
+    position: relative;
+    width: 100%;
+    height: 150px;
     border-radius: 20px;
     object-fit: cover;
     margin: 0;
+}
+
+.skins-container .skin-container {
     position: relative;
+    width: 100%;
+    height: 150px;
+    cursor: pointer;
+}
+
+.skins-container .skin-container:hover .skin-overlay {
+    opacity: 1; /* Показати overlay при наведенні */
+}
+
+.skins-container .skin-container.active .skin-overlay {
+    opacity: 1; /* Показати overlay, коли елемент активний */
 }
 
 .modal-open {
