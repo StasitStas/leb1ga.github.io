@@ -69,12 +69,19 @@ document.addEventListener('DOMContentLoaded', function() {
                 skinsContainer.appendChild(skinContainer);
                 
                 skinContainer.addEventListener('click', () => {
-                    // Logika dla natisnennia na skin
-                    skinContainer.classList.toggle('active');
+                    // Зняти попередній активний стан
+                    if (activeSkin) {
+                        activeSkin.classList.remove('active');
+                    }
+                    
+                    // Позначити поточний елемент як активний
+                    skinContainer.classList.add('active');
+                    activeSkin = skinContainer;
                 });
             }
         }
     }
+
 
     async function initialize() {
         username = getUsernameFromUrl();
