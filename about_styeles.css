@@ -329,22 +329,18 @@
     z-index: 3002; /* Зробимо, щоб кнопка була над іншими елементами */
 }
 
-.skins-container {
+#skins-container {
     display: flex;
-    overflow-x: auto; /* Забезпечує горизонтальне прокручування */
-    padding: 12px;
+    overflow-x: auto;
+    white-space: nowrap;
     scroll-snap-type: x mandatory;
-    -webkit-overflow-scrolling: touch;
-    justify-content: flex-start; /* Вирівнювання скінів зліва */
+    padding: 10px;
 }
 
 .skin-item {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    display: inline-block;
+    margin-right: 10px;
     scroll-snap-align: center;
-    margin: 0 10px;
-    flex: 0 0 auto; /* Додаємо, щоб елементи не стиснулись */
 }
 
 .skin-item img {
