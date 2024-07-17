@@ -54,20 +54,20 @@ document.addEventListener('DOMContentLoaded', function() {
             if (skins[skinId].hasSkin) {
                 const skinItem = document.createElement('div');
                 skinItem.classList.add('skin-item');
-    
+                
                 const img = document.createElement('img');
                 img.src = `skin/${skinId}.png`;
-    
+                
                 const skinInfo = document.createElement('div');
                 skinInfo.classList.add('skin-info');
                 skinInfo.textContent = `Кількість: ${skins[skinId].count}`;
-    
+        
                 skinItem.appendChild(img);
                 skinItem.appendChild(skinInfo);
                 skinsContainer.appendChild(skinItem);
             }
         }
-    }
+}
 
     async function initialize() {
         username = getUsernameFromUrl();
