@@ -1,4 +1,3 @@
-
 document.addEventListener('DOMContentLoaded', function() {
     const navButtons = document.querySelectorAll('.nav-button');
     const shopItems = document.querySelectorAll('.shop-item');
@@ -49,31 +48,12 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function displayUserSkins(skins) {
-        skinsContainer.innerHTML = ''; 
+        skinsContainer.innerHTML = ''; // Очистити контейнер перед додаванням нових елементів
         for (const skinId in skins) {
             if (skins[skinId].hasSkin) {
-                const imgWrapper = document.createElement('div');
-                imgWrapper.style.position = 'relative';
-                
                 const img = document.createElement('img');
-                img.src = `skin/${skinId}.png`;
-                img.dataset.skinId = skinId;
-    
-                const skinInfo = document.createElement('div');
-                skinInfo.className = 'skin-info';
-                skinInfo.textContent = `Кількість: ${skins[skinId].count}`;
-    
-                imgWrapper.appendChild(img);
-                imgWrapper.appendChild(skinInfo);
-                skinsContainer.appendChild(imgWrapper);
-    
-                img.addEventListener('click', function() {
-                    const selected = skinsContainer.querySelector('img.selected');
-                    if (selected) {
-                        selected.classList.remove('selected');
-                    }
-                    img.classList.add('selected');
-                });
+                img.src = skin/${skinId}.png;
+                skinsContainer.appendChild(img);
             }
         }
     }
@@ -182,7 +162,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 const clicks = Math.floor(Math.random() * (150 - 30 + 1)) + 30;
                 clickCount += clicks;
                 await db.collection("clicks").doc(username).update({ clickCount: clickCount });
-                prizeDescriptionText = `Ваш приз: ${clicks} кліків`;
+                prizeDescriptionText = Ваш приз: ${clicks} кліків;
                 prizeImageSrc = 'coin.png';
             } else {
                 const skin = skins.find(skin => Math.random() < skin.probability);
@@ -210,7 +190,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 const clicks = Math.floor(Math.random() * (1400 - 200 + 1)) + 200;
                 clickCount += clicks;
                 await db.collection("clicks").doc(username).update({ clickCount: clickCount });
-                prizeDescriptionText = `Ваш приз: ${clicks} кліків`;
+                prizeDescriptionText = Ваш приз: ${clicks} кліків;
                 prizeImageSrc = 'coin.png';
             } else {
                 const skin = skins.find(skin => Math.random() < skin.probability);
