@@ -336,8 +336,7 @@
     padding: 12px;
     max-height: 80vh; /* Максимальна висота контейнера */
     overflow-y: auto; /* Вертикальний скролінг */
-    margin-top: 20px; /* Відступ зверху */
-    margin-bottom: 20px; /* Відступ знизу */
+    margin: 20px; /* Відступи з усіх боків */
 }
 
 .skins-container img {
