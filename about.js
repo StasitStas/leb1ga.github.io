@@ -51,9 +51,25 @@ document.addEventListener('DOMContentLoaded', function() {
         skinsContainer.innerHTML = ''; // Очистити контейнер перед додаванням нових елементів
         for (const skinId in skins) {
             if (skins[skinId].hasSkin) {
+                const skinContainer = document.createElement('div');
+                skinContainer.classList.add('skin-container');
+                skinContainer.addEventListener('click', function() {
+                    // Зняти active клас з усіх інших елементів
+                    document.querySelectorAll('.skins-container .skin-container').forEach(el => el.classList.remove('active'));
+                    // Додати active клас поточному елементу
+                    skinContainer.classList.add('active');
+                });
+    
                 const img = document.createElement('img');
                 img.src = `skin/${skinId}.png`;
-                skinsContainer.appendChild(img);
+    
+                const overlay = document.createElement('div');
+                overlay.classList.add('skin-overlay');
+                overlay.textContent = `Кількість: ${skins[skinId].count}`;
+    
+                skinContainer.appendChild(img);
+                skinContainer.appendChild(overlay);
+                skinsContainer.appendChild(skinContainer);
             }
         }
     }
