@@ -49,7 +49,15 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function displayUserSkins(skins) {
         skinsContainer.innerHTML = ''; // Очистити контейнер перед додаванням нових елементів
-        for (const skinId in skins) {
+    
+        // Сортування скінів за їх ID від 1 до 10
+        const sortedSkins = Object.keys(skins).sort((a, b) => {
+            const numA = parseInt(a.split('_')[1], 10);
+            const numB = parseInt(b.split('_')[1], 10);
+            return numA - numB;
+        });
+    
+        for (const skinId of sortedSkins) {
             if (skins[skinId].hasSkin) {
                 const skinContainer = document.createElement('div');
                 skinContainer.classList.add('skin-container');
@@ -81,7 +89,6 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }
     }
-
 
     async function initialize() {
         username = getUsernameFromUrl();
