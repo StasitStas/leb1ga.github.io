@@ -50,13 +50,13 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function displayUserSkins(skins) {
         skinsContainer.innerHTML = '';
-    
+        
         const sortedSkins = Object.keys(skins).sort((a, b) => {
             const numA = parseInt(a.split('_')[1], 10);
             const numB = parseInt(b.split('_')[1], 10);
             return numA - numB;
         });
-    
+        
         for (const skinId of sortedSkins) {
             if (skins[skinId].hasSkin) {
                 const skinContainer = document.createElement('div');
@@ -85,7 +85,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
     
                 const applySkinButton = overlay.querySelector('.apply-skin-btn');
-                applySkinButton.addEventListener('click', () => {
+                applySkinButton.addEventListener('click', (event) => {
+                    event.stopPropagation(); // Зупиняємо розповсюдження події
                     applySkin(skinId);
                 });
     
