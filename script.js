@@ -458,13 +458,13 @@ document.addEventListener('DOMContentLoaded', function() {
         lastClickTime = currentTime;
     
         if (username) {
-            clickCount++;
+            clickCount += clickValue;
             countDisplay.textContent = clickCount.toLocaleString();
     
             if (clickCount > clickCountMax) {
                 clickCountMax = clickCount;
             }
-    
+            
             updateLevelBar(clickCount);
     
             db.collection("clicks").doc(username).set({
@@ -489,13 +489,12 @@ document.addEventListener('DOMContentLoaded', function() {
             const rect = button.getBoundingClientRect();
             const x = event.clientX - rect.left;
             const y = event.clientY - rect.top;
-            // Викликаємо createClickEffect з поточним значенням clickCount
             createClickEffect(x, y);
         } else {
             alert('Error: Username is not specified.');
         }
     }
-
+    
     function handleTouch(event) {
         const currentTime = new Date().getTime();
         if (currentTime - lastClickTime < 50) {
@@ -508,7 +507,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     
         if (username) {
-            clickCount++;
+            clickCount += clickValue;
             countDisplay.textContent = clickCount.toLocaleString();
     
             if (clickCount > clickCountMax) {
@@ -540,12 +539,12 @@ document.addEventListener('DOMContentLoaded', function() {
             const touch = event.touches[0];
             const x = touch.clientX - rect.left;
             const y = touch.clientY - rect.top;
-            // Викликаємо createClickEffect з поточним значенням clickCount
             createClickEffect(x, y);
         } else {
             alert('Error: Username is not specified.');
         }
     }
+
 
     button.addEventListener('click', function(event) {
         handleClick(event);
