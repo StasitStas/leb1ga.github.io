@@ -129,7 +129,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 db.collection("users").doc(username).onSnapshot(doc => {
                     if (doc.exists) {
                         const userData = doc.data();
-                        await displayUserSkins(userData.skins || {});
+                        displayUserSkins(userData.skins || {});
                     }
                 });
 
