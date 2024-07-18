@@ -329,7 +329,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 const skins = doc.data().skins;
                 for (const skinId in skins) {
                     if (skins[skinId].applied === true) {
-                        return { skinId, skinData: skins[skinId] };
+                        return skins[skinId];
                     }
                 }
                 throw new Error('No applied skin found');
@@ -338,7 +338,22 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     }
-
+    
+    function getAppliedSkinId(username) {
+        return db.collection("users").doc(username).get().then(doc => {
+            if (doc.exists) {
+                const skins = doc.data().skins;
+                for (const skinId in skins) {
+                    if (skins[skinId].applied === true) {
+                        return skinId;
+                    }
+                }
+                throw new Error('No applied skin found');
+            } else {
+                throw new Error('User document not found');
+            }
+        });
+    }
 
     function initialize() {
         username = getUsernameFromUrl();
@@ -352,14 +367,18 @@ document.addEventListener('DOMContentLoaded', function() {
                 loadColorFromDB();
 
                 // Отримання значення click зі скіна, який має applied: true
-                getSkinWithAppliedTrue(username).then(({ skinId, skinData }) => {
+                getSkinWithAppliedTrue(username).then(skinData => {
                     const clickValue = parseInt(skinData.click, 10); // Перетворюємо на число
                     clickValueDisplay.textContent = clickValue; // Відображення значення click
-                    
-                    // Оновлення src для кнопки
-                    document.getElementById("clickButton").querySelector("img").src = `skin/${skinId}.png`;
                 }).catch(error => {
                     console.error("Error getting skin data:", error);
+                });
+    
+                // Оновлення src для кнопки
+                getAppliedSkinId(username).then(skinId => {
+                    document.getElementById("clickButton").querySelector("img").src = `skin/${skinId}.png`;
+                }).catch(error => {
+                    console.error("Error getting applied skin ID:", error);
                 });
 
                 // Слухач для оновлення даних про кліки
