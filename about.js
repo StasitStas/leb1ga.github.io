@@ -50,21 +50,21 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function displayUserSkins(skins) {
         skinsContainer.innerHTML = '';
-        
+    
         const sortedSkins = Object.keys(skins).sort((a, b) => {
             const numA = parseInt(a.split('_')[1], 10);
             const numB = parseInt(b.split('_')[1], 10);
             return numA - numB;
         });
-        
+    
         for (const skinId of sortedSkins) {
             if (skins[skinId].hasSkin) {
                 const skinContainer = document.createElement('div');
                 skinContainer.classList.add('skin-container');
-                
+    
                 const img = document.createElement('img');
                 img.src = `skin/${skinId}.png`;
-                
+    
                 const overlay = document.createElement('div');
                 overlay.classList.add('skin-overlay');
                 const buttonText = skins[skinId].applied ? 'Застосовано' : 'Застосувати';
@@ -72,9 +72,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 overlay.innerHTML = `
                     <div>Кількість: ${skins[skinId].count}</div>
                     <div>Клік: +${skins[skinId].click}</div>
-                    <button class="${buttonClass}" data-skin-id="${skinId}">${buttonText}</button>
+                    <button class="${buttonClass}" data-skin-id="${skinId}" style="display: none;">${buttonText}</button>
                 `;
-                
+    
                 skinContainer.appendChild(img);
                 skinContainer.appendChild(overlay);
                 skinsContainer.appendChild(skinContainer);
@@ -95,9 +95,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     const applySkinButton = overlay.querySelector('.apply-skin-btn');
                     const isButtonVisible = applySkinButton.style.display !== 'none';
                     
-                    if (isButtonVisible) {
-                        applySkinButton.style.display = 'none';
-                    } else {
+                    if (!isButtonVisible) {
                         if (activeSkin && activeSkin !== skinContainer) {
                             activeSkin.querySelector('.apply-skin-btn').style.display = 'none';
                             activeSkin.classList.remove('active');
