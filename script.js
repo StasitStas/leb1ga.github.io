@@ -368,7 +368,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
                 // Отримання значення click зі скіна, який має applied: true
                 getSkinWithAppliedTrue(username).then(skinData => {
-                    const clickValue = parseInt(skinData.click, 10); // Перетворюємо на число
+                    clickValue = parseInt(skinData.click, 10); // Перетворюємо на число
                     clickValueDisplay.textContent = clickValue; // Відображення значення click
                 }).catch(error => {
                     console.error("Error getting skin data:", error);
