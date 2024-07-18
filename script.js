@@ -336,6 +336,8 @@ document.addEventListener('DOMContentLoaded', function() {
             clickValueDisplay.textContent = `+${skinData.click}`;
         }).catch(error => {
             console.error("Error getting skin data:", error);
+            // Якщо немає застосованого скіна, можна встановити значення за замовчуванням або відобразити певне повідомлення
+            clickValueDisplay.textContent = '+1'; // Наприклад, встановлюємо +1 за замовчуванням
         });
     }
     
@@ -345,6 +347,7 @@ document.addEventListener('DOMContentLoaded', function() {
         if (username) {
             getUserData(username).then(userData => {
                 firstName = userData.first_name;
+                usernameDisplay = document.getElementById('usernameDisplay');
                 usernameDisplay.textContent = firstName;
 
                 // Завантаження кольору
