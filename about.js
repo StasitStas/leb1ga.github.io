@@ -50,13 +50,13 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function displayUserSkins(skins) {
         skinsContainer.innerHTML = '';
-
+    
         const sortedSkins = Object.keys(skins).sort((a, b) => {
             const numA = parseInt(a.split('_')[1], 10);
             const numB = parseInt(b.split('_')[1], 10);
             return numA - numB;
         });
-
+    
         for (const skinId of sortedSkins) {
             if (skins[skinId].hasSkin) {
                 const skinContainer = document.createElement('div');
@@ -67,26 +67,28 @@ document.addEventListener('DOMContentLoaded', function() {
                 
                 const overlay = document.createElement('div');
                 overlay.classList.add('skin-overlay');
+                const buttonText = skins[skinId].applied ? 'Застосовано' : 'Застосувати';
+                const buttonClass = skins[skinId].applied ? 'apply-skin-btn applied' : 'apply-skin-btn';
                 overlay.innerHTML = `
                     <div>Кількість: ${skins[skinId].count}</div>
                     <div>Клік: +${skins[skinId].click}</div>
-                    <button class="apply-skin-btn" data-skin-id="${skinId}">Застосувати</button>
+                    <button class="${buttonClass}" data-skin-id="${skinId}">${buttonText}</button>
                 `;
                 
                 skinContainer.appendChild(img);
                 skinContainer.appendChild(overlay);
                 skinsContainer.appendChild(skinContainer);
-
+    
                 if (skins[skinId].applied) {
                     activeSkin = skinContainer;
                     skinContainer.classList.add('active');
                 }
-
+    
                 const applySkinButton = overlay.querySelector('.apply-skin-btn');
                 applySkinButton.addEventListener('click', () => {
                     applySkin(skinId);
                 });
-
+    
                 skinContainer.addEventListener('click', () => {
                     if (activeSkin) {
                         activeSkin.classList.remove('active');
@@ -321,17 +323,28 @@ document.addEventListener('DOMContentLoaded', function() {
         const userRef = db.collection("users").doc(username);
         const userData = await userRef.get();
         const userSkins = userData.data().skins || {};
-
+    
         for (const skin in userSkins) {
             userSkins[skin].applied = false;
         }
-
+    
         if (userSkins[skinId]) {
             userSkins[skinId].applied = true;
         }
-
+    
         await userRef.update({ skins: userSkins });
         displayUserSkins(userSkins);
+    
+        const applyButtons = document.querySelectorAll('.apply-skin-btn');
+        applyButtons.forEach(button => {
+            if (button.dataset.skinId === skinId) {
+                button.classList.add('applied');
+                button.textContent = 'Застосовано';
+            } else {
+                button.classList.remove('applied');
+                button.textContent = 'Застосувати';
+            }
+        });
     }
 
     skinsButton.addEventListener('click', function() {
