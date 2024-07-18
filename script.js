@@ -336,16 +336,15 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     }
-    
+
     function initialize() {
         username = getUsernameFromUrl();
-
+        
         if (username) {
             getUserData(username).then(userData => {
                 firstName = userData.first_name;
-                usernameDisplay = document.getElementById('usernameDisplay');
                 usernameDisplay.textContent = firstName;
-
+    
                 // Завантаження кольору
                 loadColorFromDB();
 
@@ -355,8 +354,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 }).catch(error => {
                     console.error("Error getting skin data:", error);
                 });
-
-                // Інші існуючі слухачі...
+                
+                // Слухач для оновлення даних про кліки
                 db.collection("clicks").doc(username).onSnapshot(doc => {
                     if (doc.exists) {
                         const data = doc.data();
@@ -367,11 +366,11 @@ document.addEventListener('DOMContentLoaded', function() {
                         lastClaimed = data.lastClaimed || {}; 
                         currentDay = data.currentDay || 1;
                         nextClaimTime = data.nextClaimTime ? data.nextClaimTime.toDate() : new Date();
-
+                        
                         countDisplay.textContent = clickCount.toLocaleString();
                         animationToggle.checked = enableAnimation;
                         vibrationToggle.checked = enableVibration;
-
+                        
                         updateRank();
                         updateLevelBar(clickCount);
                         initializeAvatars(getCurrentLevel(clickCountMax));
@@ -385,11 +384,12 @@ document.addEventListener('DOMContentLoaded', function() {
                             enableVibration: true
                         });
                     }
-                    updateLeaderboard();
+                    updateLeaderboard(); // Виправлено розміщення цієї функції
                 }, error => {
                     console.error("Error getting document:", error);
                 });
-
+    
+                // Прослуховувач змін в документі користувача
                 db.collection("users").doc(username).onSnapshot(doc => {
                     if (doc.exists) {
                         const data = doc.data();
@@ -400,7 +400,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 }, error => {
                     console.error("Error listening to document:", error);
                 });
-                
+    
                 initializeLevels(userData);
             }).catch(error => {
                 console.error("Error getting user data:", error);
