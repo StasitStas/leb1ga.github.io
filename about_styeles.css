@@ -398,6 +398,9 @@
     cursor: pointer;
 }
 
+.apply-skin-btn:active {
+    background-color: #1e7e34;
+}
 
 .modal-open {
     overflow: hidden;
