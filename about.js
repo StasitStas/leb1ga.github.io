@@ -86,16 +86,26 @@ document.addEventListener('DOMContentLoaded', function() {
     
                 const applySkinButton = overlay.querySelector('.apply-skin-btn');
                 applySkinButton.addEventListener('click', (event) => {
-                    event.stopPropagation(); // Зупиняємо розповсюдження події
+                    event.stopPropagation();
                     applySkin(skinId);
                 });
     
-                skinContainer.addEventListener('click', () => {
-                    if (activeSkin) {
-                        activeSkin.classList.remove('active');
+                skinContainer.addEventListener('click', (event) => {
+                    event.stopPropagation();
+                    const applySkinButton = overlay.querySelector('.apply-skin-btn');
+                    const isButtonVisible = applySkinButton.style.display !== 'none';
+                    
+                    if (isButtonVisible) {
+                        applySkinButton.style.display = 'none';
+                    } else {
+                        if (activeSkin && activeSkin !== skinContainer) {
+                            activeSkin.querySelector('.apply-skin-btn').style.display = 'none';
+                            activeSkin.classList.remove('active');
+                        }
+                        applySkinButton.style.display = 'block';
+                        skinContainer.classList.add('active');
+                        activeSkin = skinContainer;
                     }
-                    skinContainer.classList.add('active');
-                    activeSkin = skinContainer;
                 });
             }
         }
