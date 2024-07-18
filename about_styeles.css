@@ -401,6 +401,11 @@
     border-radius: 0 0 20px 20px;
 }
 
+.apply-skin-btn.applied {
+    background-color: red;
+    color: white;
+}
+
 .modal-open {
     overflow: hidden;
 }
