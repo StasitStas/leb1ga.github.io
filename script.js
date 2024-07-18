@@ -490,7 +490,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const x = event.clientX - rect.left;
             const y = event.clientY - rect.top;
             // Викликаємо createClickEffect з поточним значенням clickCount
-            createClickEffect(x, y, clickCount);
+            createClickEffect(x, y);
         } else {
             alert('Error: Username is not specified.');
         }
@@ -541,7 +541,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const x = touch.clientX - rect.left;
             const y = touch.clientY - rect.top;
             // Викликаємо createClickEffect з поточним значенням clickCount
-            createClickEffect(x, y, clickCount);
+            createClickEffect(x, y);
         } else {
             alert('Error: Username is not specified.');
         }
