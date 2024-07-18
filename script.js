@@ -482,6 +482,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 const currentLevel = LEVELS[getCurrentLevel(clickCountMax)].label;
                 saveLevelToDB(currentLevel);
                 updateLeaderboard();
+                // Якщо використовується userData, передайте його функції initializeUserAvatars
                 initializeUserAvatars(userData); 
             }).catch(error => {
                 console.error("Error updating document:", error);
@@ -492,7 +493,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const rect = button.getBoundingClientRect();
             const x = event.clientX - rect.left;
             const y = event.clientY - rect.top;
-            createClickEffect(x, y);
+            createClickEffect(x, y, clickValue); // Передаємо clickValue для відображення ефекту кліку
         } else {
             alert('Error: Username is not specified.');
         }
@@ -531,6 +532,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 const currentLevel = LEVELS[getCurrentLevel(clickCountMax)].label;
                 saveLevelToDB(currentLevel);
                 updateLeaderboard();
+                // Якщо використовується userData, передайте його функції initializeUserAvatars
                 initializeUserAvatars(userData); 
             }).catch(error => {
                 console.error("Error updating document:", error);
@@ -542,12 +544,12 @@ document.addEventListener('DOMContentLoaded', function() {
             const touch = event.touches[0];
             const x = touch.clientX - rect.left;
             const y = touch.clientY - rect.top;
-            createClickEffect(x, y);
+            createClickEffect(x, y, clickValue); // Передаємо clickValue для відображення ефекту кліку
         } else {
             alert('Error: Username is not specified.');
         }
     }
-
+    
     button.addEventListener('click', function(event) {
         handleClick(event);
         updateRank();
