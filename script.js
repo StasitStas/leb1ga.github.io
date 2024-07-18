@@ -329,7 +329,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 const skins = doc.data().skins;
                 for (const skinId in skins) {
                     if (skins[skinId].applied === true) {
-                        return skins[skinId];
+                        return { skinId, skinData: skins[skinId] };
                     }
                 }
                 throw new Error('No applied skin found');
@@ -338,6 +338,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     }
+
 
     function initialize() {
         username = getUsernameFromUrl();
@@ -350,19 +351,13 @@ document.addEventListener('DOMContentLoaded', function() {
                 // Завантаження кольору
                 loadColorFromDB();
 
-                // Отримання і встановлення зображення для скіна, який має applied: true
-                getSkinWithAppliedTrue(username).then(skinData => {
-                    const skinImage = document.getElementById('skinImage');
-                    skinImage.src = `skin/${skinData.skinId}.png`; // Припускається, що ваші файли скінів мають ідентифікатори як skin_1.png, skin_2.png, тощо
-                    skinImage.alt = `Клікніть мене!`;
-                }).catch(error => {
-                    console.error("Помилка отримання даних про скін:", error);
-                });
-
                 // Отримання значення click зі скіна, який має applied: true
-                getSkinWithAppliedTrue(username).then(skinData => {
-                    clickValue = parseInt(skinData.click, 10); // Перетворюємо на число
+                getSkinWithAppliedTrue(username).then(({ skinId, skinData }) => {
+                    const clickValue = parseInt(skinData.click, 10); // Перетворюємо на число
                     clickValueDisplay.textContent = clickValue; // Відображення значення click
+                    
+                    // Оновлення src для кнопки
+                    document.getElementById("clickButton").querySelector("img").src = `skin/${skinId}.png`;
                 }).catch(error => {
                     console.error("Error getting skin data:", error);
                 });
@@ -461,7 +456,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }, 1000);
         }
     }
-
+    
     function handleClick(event) {
         const currentTime = new Date().getTime();
         if (currentTime - lastClickTime < 300) {
