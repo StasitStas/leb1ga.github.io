@@ -350,11 +350,12 @@ document.addEventListener('DOMContentLoaded', function() {
 
                 // Отримання значення click зі скіна, який має applied: true
                 getSkinWithAppliedTrue(username).then(skinData => {
-                    clickValueDisplay.textContent = `+${skinData.click}`;
+                    clickValue = parseInt(skinData.click, 10); // Перетворюємо на число
+                    clickValueDisplay.textContent = clickValue; // Відображення значення click
                 }).catch(error => {
                     console.error("Error getting skin data:", error);
                 });
-                
+
                 // Слухач для оновлення даних про кліки
                 db.collection("clicks").doc(username).onSnapshot(doc => {
                     if (doc.exists) {
@@ -458,13 +459,13 @@ document.addEventListener('DOMContentLoaded', function() {
         lastClickTime = currentTime;
     
         if (username) {
-            clickCount += clickValue;
+            clickCount += clickValue; // Додавання clickValue до clickCount
             countDisplay.textContent = clickCount.toLocaleString();
     
             if (clickCount > clickCountMax) {
                 clickCountMax = clickCount;
             }
-            
+    
             updateLevelBar(clickCount);
     
             db.collection("clicks").doc(username).set({
@@ -507,7 +508,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     
         if (username) {
-            clickCount += clickValue;
+            clickCount += clickValue; // Додавання clickValue до clickCount
             countDisplay.textContent = clickCount.toLocaleString();
     
             if (clickCount > clickCountMax) {
@@ -544,7 +545,6 @@ document.addEventListener('DOMContentLoaded', function() {
             alert('Error: Username is not specified.');
         }
     }
-
 
     button.addEventListener('click', function(event) {
         handleClick(event);
