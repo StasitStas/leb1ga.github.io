@@ -29,6 +29,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const avatars = document.querySelectorAll('.avatar');
     const applyButtons = document.querySelectorAll('.apply-button');
     const modalGifts = document.querySelector('.modal-gifts');
+    const clickValueDisplay = document.getElementById('clickValue');
     const LEVELS = [
         { threshold: 0, label: 'lvl-0' },
         { threshold: 1000, label: 'lvl-1' },
@@ -322,16 +323,27 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function initialize() {
         username = getUsernameFromUrl();
-        
+
         if (username) {
             getUserData(username).then(userData => {
                 firstName = userData.first_name;
                 usernameDisplay.textContent = firstName;
-    
+
                 // Завантаження кольору
                 loadColorFromDB();
-                
-                // Слухач для оновлення даних про кліки
+
+                // Отримання значення click зі скіна, який має applied: true
+                db.collection("users").doc(username).collection("skins").where("applied", "==", true).get().then(querySnapshot => {
+                    if (!querySnapshot.empty) {
+                        const skinDoc = querySnapshot.docs[0];
+                        const skinData = skinDoc.data();
+                        clickValueDisplay.textContent = `+${skinData.click}`;
+                    }
+                }).catch(error => {
+                    console.error("Error getting skin data:", error);
+                });
+
+                // Інші існуючі слухачі...
                 db.collection("clicks").doc(username).onSnapshot(doc => {
                     if (doc.exists) {
                         const data = doc.data();
@@ -342,11 +354,11 @@ document.addEventListener('DOMContentLoaded', function() {
                         lastClaimed = data.lastClaimed || {}; 
                         currentDay = data.currentDay || 1;
                         nextClaimTime = data.nextClaimTime ? data.nextClaimTime.toDate() : new Date();
-                        
+
                         countDisplay.textContent = clickCount.toLocaleString();
                         animationToggle.checked = enableAnimation;
                         vibrationToggle.checked = enableVibration;
-                        
+
                         updateRank();
                         updateLevelBar(clickCount);
                         initializeAvatars(getCurrentLevel(clickCountMax));
@@ -360,12 +372,11 @@ document.addEventListener('DOMContentLoaded', function() {
                             enableVibration: true
                         });
                     }
-                    updateLeaderboard(); // Виправлено розміщення цієї функції
+                    updateLeaderboard();
                 }, error => {
                     console.error("Error getting document:", error);
                 });
-    
-                // Прослуховувач змін в документі користувача
+
                 db.collection("users").doc(username).onSnapshot(doc => {
                     if (doc.exists) {
                         const data = doc.data();
@@ -376,7 +387,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 }, error => {
                     console.error("Error listening to document:", error);
                 });
-    
+                
                 initializeLevels(userData);
             }).catch(error => {
                 console.error("Error getting user data:", error);
