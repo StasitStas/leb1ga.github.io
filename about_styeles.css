@@ -385,21 +385,19 @@
     background-color: #28a745;
     border: none;
     color: white;
-    padding: 5px 10px;
+    padding: 10px 20px;
     text-align: center;
     text-decoration: none;
-    display: block;
-    font-size: 12px;
-    border-radius: 3px;
+    display: inline-block;
+    font-size: 14px;
+    margin-top: 10px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s, transform 0.3s;
     position: absolute;
     bottom: 10px;
     left: 50%;
     transform: translateX(-50%);
-    cursor: pointer;
-}
-
-.apply-skin-btn:active {
-    background-color: #1e7e34;
 }
 
 .modal-open {
