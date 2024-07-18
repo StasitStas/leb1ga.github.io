@@ -124,7 +124,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 const clickData = await getUserClicks(username);
                 firstName = userData.first_name;
                 clickCount = clickData.clickCount || 0;
-                await displayUserSkins(userData.skins || {});
+                displayUserSkins(userData.skins || {});
 
                 db.collection("users").doc(username).onSnapshot(doc => {
                     if (doc.exists) {
