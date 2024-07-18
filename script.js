@@ -350,6 +350,15 @@ document.addEventListener('DOMContentLoaded', function() {
                 // Завантаження кольору
                 loadColorFromDB();
 
+                // Отримання і встановлення зображення для скіна, який має applied: true
+                getSkinWithAppliedTrue(username).then(skinData => {
+                    const skinImage = document.getElementById('skinImage');
+                    skinImage.src = `skin/${skinData.skinId}.png`; // Припускається, що ваші файли скінів мають ідентифікатори як skin_1.png, skin_2.png, тощо
+                    skinImage.alt = `Клікніть мене!`;
+                }).catch(error => {
+                    console.error("Помилка отримання даних про скін:", error);
+                });
+
                 // Отримання значення click зі скіна, який має applied: true
                 getSkinWithAppliedTrue(username).then(skinData => {
                     clickValue = parseInt(skinData.click, 10); // Перетворюємо на число
