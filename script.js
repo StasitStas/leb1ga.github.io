@@ -72,6 +72,8 @@ document.addEventListener('DOMContentLoaded', function() {
     let lastClickTime = 0;
     let currentDay = 1;
     let nextClaimTime = new Date();
+    let clickValue = 1; // Переконайтеся, що це значення правильно ініціалізовано
+
 
     modalGifts.classList.add('open');
 
