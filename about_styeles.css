@@ -385,21 +385,19 @@
     background-color: #28a745;
     border: none;
     color: white;
-    padding: 10px 0; /* Відступи для кращого вигляду */
+    padding: 5px 10px;
     text-align: center;
     text-decoration: none;
-    font-size: 14px;
-    border-radius: 0 0 20px 20px; /* Згладжені кути знизу */
+    display: block;
+    font-size: 12px;
+    border-radius: 3px;
     position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%; /* Займає всю ширину контейнера */
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
     cursor: pointer;
 }
 
-.apply-skin-btn:hover {
-    background-color: #218838;
-}
 
 .modal-open {
     overflow: hidden;
