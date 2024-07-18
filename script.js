@@ -322,22 +322,18 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function getSkinWithAppliedTrue(username) {
-        return db.collection("users").doc(username).collection("skins").where("applied", "==", true).get().then(querySnapshot => {
-            if (!querySnapshot.empty) {
-                return querySnapshot.docs[0].data();
-            } else {
+        return db.collection("users").doc(username).get().then(doc => {
+            if (doc.exists) {
+                const skins = doc.data().skins;
+                for (const skinId in skins) {
+                    if (skins[skinId].applied === true) {
+                        return skins[skinId];
+                    }
+                }
                 throw new Error('No applied skin found');
+            } else {
+                throw new Error('User document not found');
             }
-        });
-    }
-
-    function updateClickValue(username) {
-        getSkinWithAppliedTrue(username).then(skinData => {
-            clickValueDisplay.textContent = `+${skinData.click}`;
-        }).catch(error => {
-            console.error("Error getting skin data:", error);
-            // Якщо немає застосованого скіна, можна встановити значення за замовчуванням або відобразити певне повідомлення
-            clickValueDisplay.textContent = '+1'; // Наприклад, встановлюємо +1 за замовчуванням
         });
     }
     
@@ -353,12 +349,11 @@ document.addEventListener('DOMContentLoaded', function() {
                 // Завантаження кольору
                 loadColorFromDB();
 
-                // Початкове встановлення значення click
-                updateClickValue(username);
-
-                // Слухач для змін в документі skins
-                db.collection("users").doc(username).collection("skins").onSnapshot(snapshot => {
-                    updateClickValue(username);
+                // Отримання значення click зі скіна, який має applied: true
+                getSkinWithAppliedTrue(username).then(skinData => {
+                    clickValueDisplay.textContent = `+${skinData.click}`;
+                }).catch(error => {
+                    console.error("Error getting skin data:", error);
                 });
 
                 // Інші існуючі слухачі...
