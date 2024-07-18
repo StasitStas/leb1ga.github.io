@@ -435,15 +435,15 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    function createClickEffect(x, y) {
+    function createClickEffect(x, y, clickValue) {
         if (enableAnimation) {
             const clickEffect = document.createElement('div');
             clickEffect.className = 'click-effect';
             clickEffect.style.left = `${x}px`;
             clickEffect.style.top = `${y + 10}px`;
-            clickEffect.textContent = '+1';
+            clickEffect.textContent = `+${clickValue}`;
             clickEffectContainer.appendChild(clickEffect);
-
+    
             setTimeout(() => {
                 clickEffect.remove();
             }, 1000);
@@ -489,7 +489,8 @@ document.addEventListener('DOMContentLoaded', function() {
             const rect = button.getBoundingClientRect();
             const x = event.clientX - rect.left;
             const y = event.clientY - rect.top;
-            createClickEffect(x, y);
+            // Викликаємо createClickEffect з поточним значенням clickCount
+            createClickEffect(x, y, clickCount);
         } else {
             alert('Error: Username is not specified.');
         }
@@ -539,7 +540,8 @@ document.addEventListener('DOMContentLoaded', function() {
             const touch = event.touches[0];
             const x = touch.clientX - rect.left;
             const y = touch.clientY - rect.top;
-            createClickEffect(x, y);
+            // Викликаємо createClickEffect з поточним значенням clickCount
+            createClickEffect(x, y, clickCount);
         } else {
             alert('Error: Username is not specified.');
         }
