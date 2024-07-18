@@ -48,21 +48,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    async function getTotalSkinCount(skinId) {
-        const usersSnapshot = await db.collection("users").get();
-        let totalCount = 0;
-    
-        usersSnapshot.forEach(doc => {
-            const userSkins = doc.data().skins || {};
-            if (userSkins[skinId]) {
-                totalCount += userSkins[skinId].count;
-            }
-        });
-    
-        return totalCount;
-    }
-    
-    async function displayUserSkins(skins) {
+    function displayUserSkins(skins) {
         skinsContainer.innerHTML = '';
     
         const sortedSkins = Object.keys(skins).sort((a, b) => {
@@ -83,11 +69,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 overlay.classList.add('skin-overlay');
                 const buttonText = skins[skinId].applied ? 'Застосовано' : 'Застосувати';
                 const buttonClass = skins[skinId].applied ? 'apply-skin-btn applied' : 'apply-skin-btn';
-                const totalSkinCount = await getTotalSkinCount(skinId);
                 overlay.innerHTML = `
                     <div>Кількість: ${skins[skinId].count}</div>
                     <div>Клік: +${skins[skinId].click}</div>
-                    <div>Вся кількість: ${totalSkinCount}</div>
                     <button class="${buttonClass}" data-skin-id="${skinId}">${buttonText}</button>
                 `;
                 
