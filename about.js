@@ -235,8 +235,8 @@ document.addEventListener('DOMContentLoaded', function() {
                     const clicks = Math.floor(Math.random() * (100 - 10 + 1)) + 10;
                     clickCount += clicks;
                     await db.collection("clicks").doc(username).update({ clickCount: clickCount });
-                    prizeDescriptionText = `Ваш приз: ${clicks} кліків`;
-                    prizeImageSrc = 'coin.png';
+                    prizeDescriptionText = `Ваш приз: ${clicks} leb.coin`;
+                    prizeImageSrc = 'coffer-coin.png';
                 } else {
                     const skins = [
                         { src: 'skin/skin_1.png', id: 'skin_1', probability: 0.5 },
@@ -255,8 +255,8 @@ document.addEventListener('DOMContentLoaded', function() {
                     const clicks = Math.floor(Math.random() * (800 - 100 + 1)) + 100;
                     clickCount += clicks;
                     await db.collection("clicks").doc(username).update({ clickCount: clickCount });
-                    prizeDescriptionText = `Ваш приз: ${clicks} кліків`;
-                    prizeImageSrc = 'coin.png';
+                    prizeDescriptionText = `Ваш приз: ${clicks} leb.coin`;
+                    prizeImageSrc = 'coffer-coin.png';
                 } else {
                     const skins = [
                         { src: 'skin/skin_5.png', id: 'skin_5', probability: 0.5 },
@@ -275,8 +275,8 @@ document.addEventListener('DOMContentLoaded', function() {
                     const clicks = Math.floor(Math.random() * (8000 - 2000 + 1)) + 2000;
                     clickCount += clicks;
                     await db.collection("clicks").doc(username).update({ clickCount: clickCount });
-                    prizeDescriptionText = `Ваш приз: ${clicks} кліків`;
-                    prizeImageSrc = 'coin.png';
+                    prizeDescriptionText = `Ваш приз: ${clicks} leb.coin`;
+                    prizeImageSrc = 'coffer-coin.png';
                 } else {
                     const skins = [
                         { src: 'skin/skin_9.png', id: 'skin_9', probability: 0.5 },
@@ -294,8 +294,8 @@ document.addEventListener('DOMContentLoaded', function() {
                     const clicks = Math.floor(Math.random() * (15000 - 2000 + 1)) + 2000;
                     clickCount += clicks;
                     await db.collection("clicks").doc(username).update({ clickCount: clickCount });
-                    prizeDescriptionText = `Ваш приз: ${clicks} кліків`;
-                    prizeImageSrc = 'coin.png';
+                    prizeDescriptionText = `Ваш приз: ${clicks} leb.coin`;
+                    prizeImageSrc = 'coffer-coin.png';
                 } else {
                     const skins = [
                         { src: 'skin/skin_12.png', id: 'skin_12', probability: 0.5 },
@@ -313,8 +313,8 @@ document.addEventListener('DOMContentLoaded', function() {
                     const clicks = Math.floor(Math.random() * (70000 - 30000 + 1)) + 30000;
                     clickCount += clicks;
                     await db.collection("clicks").doc(username).update({ clickCount: clickCount });
-                    prizeDescriptionText = `Ваш приз: ${clicks} кліків`;
-                    prizeImageSrc = 'coin.png';
+                    prizeDescriptionText = `Ваш приз: ${clicks} leb.coin`;
+                    prizeImageSrc = 'coffer-coin.png';
                 } else {
                     const skins = [
                         { src: 'skin/skin_15.png', id: 'skin_15', probability: 0.5 },
@@ -332,8 +332,8 @@ document.addEventListener('DOMContentLoaded', function() {
                     const clicks = Math.floor(Math.random() * (500000 - 100000 + 1)) + 100000;
                     clickCount += clicks;
                     await db.collection("clicks").doc(username).update({ clickCount: clickCount });
-                    prizeDescriptionText = `Ваш приз: ${clicks} кліків`;
-                    prizeImageSrc = 'coin.png';
+                    prizeDescriptionText = `Ваш приз: ${clicks} leb.coin`;
+                    prizeImageSrc = 'coffer-coin.png';
                 } else {
                     const skins = [
                         { src: 'skin/skin_18.png', id: 'skin_18', probability: 0.5 },
