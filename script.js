@@ -323,38 +323,24 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    function getSkinWithAppliedTrue(username) {
-        return db.collection("users").doc(username).get().then(doc => {
-            if (doc.exists) {
-                const skins = doc.data().skins;
-                for (const skinId in skins) {
-                    if (skins[skinId].applied === true) {
-                        return skins[skinId];
-                    }
-                }
-                throw new Error('No applied skin found');
-            } else {
-                throw new Error('User document not found');
+    function getSkinWithAppliedTrue(skins) {
+        for (const skinId in skins) {
+            if (skins[skinId].applied === true) {
+                return skins[skinId];
             }
-        });
+        }
+        throw new Error('No applied skin found');
     }
     
-    function getAppliedSkinId(username) {
-        return db.collection("users").doc(username).get().then(doc => {
-            if (doc.exists) {
-                const skins = doc.data().skins;
-                for (const skinId in skins) {
-                    if (skins[skinId].applied === true) {
-                        return skinId;
-                    }
-                }
-                throw new Error('No applied skin found');
-            } else {
-                throw new Error('User document not found');
+    function getAppliedSkinId(skins) {
+        for (const skinId in skins) {
+            if (skins[skinId].applied === true) {
+                return skinId;
             }
-        });
+        }
+        throw new Error('No applied skin found');
     }
-
+    
     function initialize() {
         username = getUsernameFromUrl();
         
@@ -365,9 +351,9 @@ document.addEventListener('DOMContentLoaded', function() {
     
                 // Завантаження кольору
                 loadColorFromDB();
-
+    
                 // Отримання значення click зі скіна, який має applied: true
-                getSkinWithAppliedTrue(username).then(skinData => {
+                getSkinWithAppliedTrue(userData.skins).then(skinData => {
                     clickValue = parseInt(skinData.click, 10); // Перетворюємо на число
                     clickValueDisplay.textContent = clickValue; // Відображення значення click
                 }).catch(error => {
@@ -375,12 +361,12 @@ document.addEventListener('DOMContentLoaded', function() {
                 });
     
                 // Оновлення src для кнопки
-                getAppliedSkinId(username).then(skinId => {
+                getAppliedSkinId(userData.skins).then(skinId => {
                     document.getElementById("clickButton").querySelector("img").src = `skin/${skinId}.png`;
                 }).catch(error => {
                     console.error("Error getting applied skin ID:", error);
                 });
-
+    
                 // Слухач для оновлення даних про кліки
                 db.collection("clicks").doc(username).onSnapshot(doc => {
                     if (doc.exists) {
@@ -420,6 +406,18 @@ document.addEventListener('DOMContentLoaded', function() {
                     if (doc.exists) {
                         const data = doc.data();
                         updateAvatarFromDatabase(data);
+    
+                        // Перевірка зміни значення applied
+                        try {
+                            const skinData = getSkinWithAppliedTrue(data.skins);
+                            clickValue = parseInt(skinData.click, 10);
+                            clickValueDisplay.textContent = clickValue;
+    
+                            const skinId = getAppliedSkinId(data.skins);
+                            document.getElementById("clickButton").querySelector("img").src = `skin/${skinId}.png`;
+                        } catch (error) {
+                            console.error("Error processing applied skin:", error);
+                        }
                     } else {
                         console.log('Document does not exist!');
                     }
