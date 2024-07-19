@@ -352,20 +352,18 @@ document.addEventListener('DOMContentLoaded', function() {
                 // Завантаження кольору
                 loadColorFromDB();
     
-                // Отримання значення click зі скіна, який має applied: true
-                getSkinWithAppliedTrue(userData.skins).then(skinData => {
+                try {
+                    // Отримання значення click зі скіна, який має applied: true
+                    const skinData = getSkinWithAppliedTrue(userData.skins);
                     clickValue = parseInt(skinData.click, 10); // Перетворюємо на число
                     clickValueDisplay.textContent = clickValue; // Відображення значення click
-                }).catch(error => {
-                    console.error("Error getting skin data:", error);
-                });
     
-                // Оновлення src для кнопки
-                getAppliedSkinId(userData.skins).then(skinId => {
+                    // Оновлення src для кнопки
+                    const skinId = getAppliedSkinId(userData.skins);
                     document.getElementById("clickButton").querySelector("img").src = `skin/${skinId}.png`;
-                }).catch(error => {
-                    console.error("Error getting applied skin ID:", error);
-                });
+                } catch (error) {
+                    console.error("Error processing applied skin:", error);
+                }
     
                 // Слухач для оновлення даних про кліки
                 db.collection("clicks").doc(username).onSnapshot(doc => {
