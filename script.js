@@ -613,12 +613,26 @@ document.addEventListener('DOMContentLoaded', function() {
         mineModal.style.display = 'none';
         friendsModal.style.display = 'none';
         earnModal.style.display = 'none';
+        exchangeButton.style.background = 'black'; // Set exchangeButton background when all modals are closed
+        navButtons.forEach(btn => {
+            if (btn !== exchangeButton) {
+                btn.style.background = 'rgba(51, 51, 51, 0.8)'; // Reset background for other buttons
+            }
+        });
+    }
+
+    function resetButtonBackgrounds() {
+        navButtons.forEach(btn => {
+            btn.style.background = 'rgba(51, 51, 51, 0.8)';
+        });
     }
 
     airdropButton.addEventListener('click', function() {
         if (airdropModal.style.display === 'none' || airdropModal.style.display === '') {
             closeAllModals();
             airdropModal.style.display = 'flex';
+            resetButtonBackgrounds();
+            airdropButton.style.background = 'black';
         }
     });
 
@@ -626,6 +640,8 @@ document.addEventListener('DOMContentLoaded', function() {
         if (mineModal.style.display === 'none' || mineModal.style.display === '') {
             closeAllModals();
             mineModal.style.display = 'flex';
+            resetButtonBackgrounds();
+            mineButton.style.background = 'black';
         }
     });
 
@@ -633,6 +649,8 @@ document.addEventListener('DOMContentLoaded', function() {
         if (friendsModal.style.display === 'none' || friendsModal.style.display === '') {
             closeAllModals();
             friendsModal.style.display = 'flex';
+            resetButtonBackgrounds();
+            friendsButton.style.background = 'black';
         }
     });
 
@@ -640,13 +658,20 @@ document.addEventListener('DOMContentLoaded', function() {
         if (earnModal.style.display === 'none' || earnModal.style.display === '') {
             closeAllModals();
             earnModal.style.display = 'flex';
+            resetButtonBackgrounds();
+            earnButton.style.background = 'black';
         }
     });
 
     exchangeButton.addEventListener('click', function() {
         closeAllModals();
+        resetButtonBackgrounds();
+        exchangeButton.style.background = 'black';
     });
 
+    // Initial state
+    exchangeButton.style.background = 'black';
+    
     document.getElementById('giftsIcon').addEventListener('click', function() {
         document.getElementById('modal-gifts').style.display = 'block';
     });
