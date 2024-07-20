@@ -185,7 +185,7 @@ body::after {
     justify-content: center;
     user-select: none;
     transition: transform 0.1s ease-out, box-shadow 0.5s;
-    box-shadow: 0 0 10px 5px #333;
+    box-shadow: 0 0 30px 5px #333;
     -webkit-tap-highlight-color: transparent;
     -webkit-user-select: none;
     -moz-user-select: none;
@@ -223,7 +223,7 @@ body::after {
 
 .circle-button:active {
     transform: scale(0.99);
-    box-shadow: 0 0 10px 5px rgba(0, 123, 255, 0.5);
+    box-shadow: 0 0 30px 5px rgba(0, 123, 255, 0.5);
 }
 
 .cog-icon {
