@@ -450,7 +450,7 @@ document.addEventListener('DOMContentLoaded', function() {
     function vibrate() {
         if (enableVibration) {
             try {
-                window.navigator.vibrate(50);
+                window.navigator.vibrate(20);
             } catch (error) {
                 console.error("Помилка вібрації:", error);
             }
