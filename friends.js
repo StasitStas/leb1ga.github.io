@@ -1,3 +1,6 @@
+let username = '';
+let firstName = '';
+let clickCount = 0;
 // Функція для отримання та відображення рефералів
 function displayReferrals() {
     const container = document.getElementById('container-friends');
