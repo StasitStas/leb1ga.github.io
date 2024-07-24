@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', async function() {
     const referralsContainer = document.getElementById('referrals-container');
 
     let username = '';
@@ -17,16 +17,22 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     async function getReferrals(username) {
-        const referralsSnapshot = await db.collection("referrals")
-            .where("referrer", "==", username)
-            .get();
+        try {
+            const referralsSnapshot = await db.collection("referrals")
+                .where("referrer", "==", username)
+                .get();
     
-        const referrals = [];
-        referralsSnapshot.forEach(doc => {
-            referrals.push(doc.data());
-        });
-    
-        return referrals;
+            const referrals = [];
+            referralsSnapshot.forEach(doc => {
+                referrals.push(doc.data());
+            });
+
+            console.log('Referrals:', referrals); // Додано логування
+            return referrals;
+        } catch (error) {
+            console.error("Error getting referrals:", error);
+            return [];
+        }
     }
     
     async function initialize() {
@@ -34,7 +40,9 @@ document.addEventListener('DOMContentLoaded', function() {
         if (username) {
             try {
                 const userData = await getUserData(username);
+                console.log('User Data:', userData); // Додано логування
                 const clickData = await getUserClicks(username);
+                console.log('Click Data:', clickData); // Додано логування
                 const referrals = await getReferrals(username);
     
                 firstName = userData.first_name;
@@ -58,4 +66,5 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
+    await initialize(); // Додано очікування ініціалізації
 });
