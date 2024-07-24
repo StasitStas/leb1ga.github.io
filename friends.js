@@ -1,29 +1,61 @@
-let username = '';
-let firstName = '';
-let clickCount = 0;
-// Функція для отримання та відображення рефералів
-function displayReferrals() {
-    const container = document.getElementById('container-friends');
-    db.collection('users').doc(currentUser).get().then((doc) => {
-        if (doc.exists) {
-            const data = doc.data();
-            if (data.referrals && data.referrals.length > 0) {
-                data.referrals.forEach((referral) => {
-                    const referralElement = document.createElement('div');
-                    referralElement.classList.add('referral');
-                    referralElement.textContent = referral;
-                    container.appendChild(referralElement);
+document.addEventListener('DOMContentLoaded', function() {
+    const referralsContainer = document.getElementById('referrals-container');
+
+    let username = '';
+    let firstName = '';
+    let clickCount = 0;
+    
+    function displayReferrals(referrals) {
+        referralsContainer.innerHTML = '';
+    
+        referrals.forEach(referral => {
+            const referralItem = document.createElement('div');
+            referralItem.classList.add('referral-item');
+            referralItem.textContent = referral.username;
+            referralsContainer.appendChild(referralItem);
+        });
+    }
+    
+    async function getReferrals(username) {
+        const referralsSnapshot = await db.collection("referrals")
+            .where("referrer", "==", username)
+            .get();
+    
+        const referrals = [];
+        referralsSnapshot.forEach(doc => {
+            referrals.push(doc.data());
+        });
+    
+        return referrals;
+    }
+    
+    async function initialize() {
+        username = getUsernameFromUrl();
+        if (username) {
+            try {
+                const userData = await getUserData(username);
+                const clickData = await getUserClicks(username);
+                const referrals = await getReferrals(username);
+    
+                firstName = userData.first_name;
+                clickCount = clickData.clickCount || 0;
+                displayUserSkins(userData.skins || {});
+                displayReferrals(referrals);
+    
+                db.collection("users").doc(username).onSnapshot(doc => {
+                    if (doc.exists) {
+                        const userData = doc.data();
+                        displayUserSkins(userData.skins || {});
+                    }
                 });
-            } else {
-                container.textContent = 'Немає рефералів.';
+    
+            } catch (error) {
+                console.error("Error getting user data:", error);
+                alert('Помилка: Не вдалося отримати дані користувача.');
             }
         } else {
-            container.textContent = 'Користувача не знайдено.';
+            alert('Помилка: Ім\'я користувача не вказане.');
         }
-    }).catch((error) => {
-        console.error("Помилка отримання рефералів: ", error);
-    });
-}
+    }
 
-// Виклик функції для відображення рефералів
-displayReferrals();
+});
