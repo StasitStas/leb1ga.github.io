@@ -41,17 +41,17 @@ document.addEventListener('DOMContentLoaded', function() {
                 const referralItem = document.createElement('div');
                 referralItem.className = 'referral-item';
                 
-                // Створюємо елемент для імені реферала
+                // Припускаємо, що referral є об'єктом з полями name та coins
                 const referralName = document.createElement('span');
-                referralName.textContent = referral.name; // Припускаємо, що є поле name для рефералів
-                referralItem.appendChild(referralName);
-    
-                // Створюємо елемент для монет
+                referralName.textContent = referral.name; // Виводимо ім'я реферала
+                
                 const coins = document.createElement('span');
                 coins.className = 'coins';
-                coins.textContent = `+15 000 💸`; // Змініть текст за потреби
+                coins.textContent = `+15 000 💸`; // Виводимо кількість монет
+                
+                referralItem.appendChild(referralName);
                 referralItem.appendChild(coins);
-    
+
                 referralsContainer.appendChild(referralItem);
             });
         } else {
@@ -88,7 +88,7 @@ document.addEventListener('DOMContentLoaded', function() {
         textarea.select();
         document.execCommand('copy');
         document.body.removeChild(textarea);
-        // Видаляємо повідомлення про успішне копіювання
+        // Не виводимо повідомлення про успішне копіювання
     }
 
     function shareReferral(referralLink) {
