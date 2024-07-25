@@ -77,7 +77,7 @@ document.addEventListener('DOMContentLoaded', function() {
         textarea.select();
         document.execCommand('copy');
         document.body.removeChild(textarea);
-        alert('Посилання скопійовано');
+        // Видаляємо повідомлення про успішне копіювання
     }
 
     function shareReferral(referralLink) {
