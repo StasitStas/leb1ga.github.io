@@ -37,26 +37,36 @@
     margin: 0;
     max-height: 200px;
     overflow-y: auto;
+    background: #1e1e1e; /* Додаємо фон для контейнера */
+    border-radius: 8px; /* Закруглення кутів контейнера */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Тінь для контейнера */
 }
 
 .referral-item {
-    margin: 5px 0;
-    padding: 10px;
-    background-color: #292929;
-    border-radius: 5px;
+    margin: 10px 0; /* Трохи більше відступів між елементами */
+    padding: 12px 15px; /* Трохи більше внутрішнього відступу */
+    background-color: #2c2c2c; /* Трохи світліший фон */
+    border-radius: 8px; /* Закруглення кутів для елементів */
     max-width: 500px;
     text-align: center;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15); /* Легка тінь для елементів */
     display: flex;
     justify-content: space-between;
     align-items: center;
+    transition: background-color 0.3s, box-shadow 0.3s; /* Анімація змін */
 }
 
+.referral-item:hover {
+    background-color: #3a3a3a; /* Зміна фону при наведенні */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Зміна тіні при наведенні */
+}
 
 .referral-item .bonus {
-    font-size: 16px; /* Розмір шрифту для бонусу */
-    color: #14ff00; /* Колір тексту бонусу */
+    font-size: 18px; /* Збільшений розмір шрифту для бонусу */
+    color: #00ff00; /* Яскравіший колір тексту бонусу */
+    font-weight: bold; /* Текст бонусу жирним шрифтом */
 }
+
 
 #link-container {
     display: flex;
