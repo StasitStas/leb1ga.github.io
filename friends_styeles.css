@@ -34,92 +34,22 @@
     padding: 20px; /* Падінг для контейнера, щоб не було впливу інших елементів */
 }
 
-.referral-button {
-    display: inline-block;
-    margin-top: 10px;
-    padding: 20px 60px;
-    border: 3px solid #fff;
-    border-radius: 15px;
-    background-color: #c20000;
-    color: #ffffff;
-    font-weight: bold;
-    cursor: pointer;
-    transition: background-color 0.3s, transform 0.3s;
-    user-select: none;
-    position: relative;
-    font-size: 18px;
+.referral-item {
+    margin-bottom: 10px;
+    font-size: 16px;
+}
+
+#link-container {
+    margin-top: 20px;
     text-align: center;
-    animation: pulse 1.5s infinite;
-    margin-top: auto;
-    margin-bottom: 100px;
-    right: 70px;
-}
-
-.copy-button {
-    display: inline-block;
-    left: auto;
-    margin-top: auto;
-    padding: 15px;
-    border: 3px solid #fff;
-    border-radius: 25%;
-    color: #fff;
-    background-color: #c20000;
-    font-size: 24px;
-    cursor: pointer;
-    transition: background-color 0.3s, transform 0.3s;
-    user-select: none;
-    position: absolute;
-    right: 20px;
-    bottom: 20px;
-    margin-bottom: 100px;
-}
-
-.copy-button:hover {
-    background-color: #ff0000;
-    transform: scale(1.1);
 }
 
 .copy-icon {
-    position: absolute;
-    right: 10px;
-    top: 50%;
-    transform: translateY(-50%);
-    color: green;
-    font-size: 18px;
-    font-weight: bold;
-    animation: fadeOut 6s forwards;
+    font-size: 24px;
+    cursor: pointer;
+    color: #007bff; /* Blue color for the icon */
 }
 
-@keyframes pulse {
-    0% {
-        transform: scale(1);
-    }
-    50% {
-        transform: scale(1.05);
-    }
-    100% {
-        transform: scale(1);
-    }
-}
-
-@keyframes fadeOut {
-    0% {
-        opacity: 1;
-    }
-    100% {
-        opacity: 0;
-    }
-}
-
-/* Додаткові стилі для адаптації на малих екранах */
-@media (max-width: 768px) {
-    .referral-button {
-        font-size: 16px;
-        padding: 15px 40px;
-    }
-
-    .copy-button {
-        font-size: 20px;
-        padding: 10px;
-    }
+.copy-icon:hover {
+    color: #0056b3; /* Darker blue on hover */
 }
