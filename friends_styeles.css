@@ -44,6 +44,14 @@
     width: 80%;
     text-align: center;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: space-between; /* Додаємо для вирівнювання тексту і іконки */
+    align-items: center;
+}
+
+.referral-item .bonus {
+    font-size: 16px; /* Розмір шрифту для бонусу */
+    color: #007bff; /* Колір тексту бонусу */
 }
 
 #link-container {
