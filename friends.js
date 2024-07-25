@@ -1,7 +1,10 @@
 document.addEventListener('DOMContentLoaded', function() {
     const referralsContainer = document.getElementById('referrals-container');
     const linkContainer = document.getElementById('link-container');
+    const copyIcon = document.querySelector('.copy-icon');
+    const shareButton = document.getElementById('shareButton');
     let username = '';
+    let referralLink = '';
 
     function getUsernameFromUrl() {
         const urlParams = new URLSearchParams(window.location.search);
@@ -22,8 +25,9 @@ document.addEventListener('DOMContentLoaded', function() {
         username = getUsernameFromUrl();
         if (username) {
             getUserData(username).then(userData => {
+                referralLink = userData.referal_link;
                 displayReferrals(userData.referrals);
-                displayCopyIcon(userData.referal_link);
+                displayCopyIcon();
             }).catch(error => {
                 console.error("Error getting user data:", error);
                 alert('Помилка: Не вдалося отримати дані користувача.');
@@ -46,14 +50,14 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    function displayCopyIcon(referralLink) {
-        const copyIcon = document.createElement('i');
-        copyIcon.className = 'la la-copy copy-icon'; // Line Awesome copy icon class
+    function displayCopyIcon() {
         copyIcon.addEventListener('click', () => {
             copyToClipboard(referralLink);
         });
 
-        linkContainer.appendChild(copyIcon);
+        shareButton.addEventListener('click', () => {
+            shareLink();
+        });
     }
 
     function copyToClipboard(text) {
@@ -64,6 +68,12 @@ document.addEventListener('DOMContentLoaded', function() {
         document.execCommand('copy');
         document.body.removeChild(textarea);
         alert('Посилання скопійовано');
+    }
+
+    function shareLink() {
+        const message = `🔥 +2000 монет, якщо ти зареєструєшся по моєму посиланню!\n${referralLink}`;
+        const url = `https://t.me/share/url?url=${encodeURIComponent(message)}`;
+        window.open(url, '_blank');
     }
 
     initialize();
