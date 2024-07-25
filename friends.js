@@ -23,8 +23,8 @@ document.addEventListener('DOMContentLoaded', function() {
         if (username) {
             getUserData(username).then(userData => {
                 displayReferrals(userData.referrals);
-                displayCopyIcon(userData.referal_link);
                 displayShareButton(userData.referal_link);
+                displayCopyIcon(userData.referal_link);
             }).catch(error => {
                 console.error("Error getting user data:", error);
                 alert('Помилка: Не вдалося отримати дані користувача.');
@@ -66,7 +66,8 @@ document.addEventListener('DOMContentLoaded', function() {
             shareReferral(referralLink);
         });
 
-        linkContainer.appendChild(shareButton);
+        // Додаємо кнопку на початок контейнера
+        linkContainer.insertBefore(shareButton, linkContainer.firstChild);
     }
 
     function copyToClipboard(text) {
