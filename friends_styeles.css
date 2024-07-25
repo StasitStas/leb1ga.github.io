@@ -55,6 +55,9 @@
     bottom: 90px;
     left: 50%;
     transform: translateX(-50%);
+    width: 100%; /* Додаємо ширину контейнера */
+    padding: 0 20px; /* Додаємо відступи для контейнера */
+    box-sizing: border-box; /* Забезпечуємо, що відступи враховуються в розмірах контейнера */
 }
 
 .copy-icon, .share-button {
@@ -74,8 +77,7 @@
     border-radius: 5px;
     cursor: pointer;
     font-size: 16px;
-    width: 80%; /* Довга кнопка */
-    max-width: 300px; /* Максимальна ширина */
+    width: 100%; /* Довга кнопка */
 }
 
 .share-button:hover {
