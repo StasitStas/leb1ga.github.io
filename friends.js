@@ -23,7 +23,7 @@ document.addEventListener('DOMContentLoaded', function() {
         if (username) {
             getUserData(username).then(userData => {
                 displayReferrals(userData.referrals);
-                displayReferralLink(userData.referal_link);
+                displayCopyIcon(userData.referal_link);
             }).catch(error => {
                 console.error("Error getting user data:", error);
                 alert('Помилка: Не вдалося отримати дані користувача.');
@@ -46,22 +46,14 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    function displayReferralLink(referralLink) {
-        const linkItem = document.createElement('div');
-        linkItem.className = 'link-item';
-
-        const linkText = document.createElement('span');
-        linkText.textContent = referralLink;
-
+    function displayCopyIcon(referralLink) {
         const copyIcon = document.createElement('i');
         copyIcon.className = 'la la-copy copy-icon'; // Line Awesome copy icon class
         copyIcon.addEventListener('click', () => {
             copyToClipboard(referralLink);
         });
 
-        linkItem.appendChild(linkText);
-        linkItem.appendChild(copyIcon);
-        linkContainer.appendChild(linkItem);
+        linkContainer.appendChild(copyIcon);
     }
 
     function copyToClipboard(text) {
