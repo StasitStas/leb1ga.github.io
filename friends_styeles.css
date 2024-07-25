@@ -6,7 +6,7 @@
     top: 0;
     width: 100%;
     height: 100%;
-    background: radial-gradient(circle at center bottom, rgb(255 39 0), black 70%); /* Радіальний градієнт */
+    background: radial-gradient(circle at center bottom, rgb(39 39 39), black 70%); /* Радіальний градієнт */
     background-size: cover;
     background-position: center;
     align-items: center;
@@ -31,15 +31,16 @@
     justify-content: center;
     color: #fff;
     margin-bottom: 20px;
-    width: 70%;
+    width: 80%;
     list-style: none;
-    padding: 0;
+    padding: 5px 20px 5px 20px;
     margin: 0;
     max-height: 200px;
     overflow-y: auto;
-    background: #1e1e1e; /* Додаємо фон для контейнера */
-    border-radius: 8px; /* Закруглення кутів контейнера */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Тінь для контейнера */
+    background: #1e1e1e;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    margin-top: 280px;
 }
 
 .referral-item {
@@ -54,6 +55,7 @@
     justify-content: space-between;
     align-items: center;
     transition: background-color 0.3s, box-shadow 0.3s; /* Анімація змін */
+    font-weight: bold;
 }
 
 .referral-item:hover {
@@ -64,7 +66,6 @@
 .referral-item .bonus {
     font-size: 18px; /* Збільшений розмір шрифту для бонусу */
     color: #00ff00; /* Яскравіший колір тексту бонусу */
-    font-weight: bold; /* Текст бонусу жирним шрифтом */
 }
 
 
