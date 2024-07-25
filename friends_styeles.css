@@ -66,20 +66,25 @@
 }
 
 .copy-icon {
-    color: #007bff;
+    padding: 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
 }
 
 .share-button {
-    padding: 10px 20px;
+    padding: 20px;
     background-color: #007bff;
     color: white;
     border: none;
     border-radius: 5px;
     cursor: pointer;
     font-size: 16px;
-    width: 100%; /* Довга кнопка */
+    width: 80%;
 }
 
-.share-button:hover {
+.share-button:hover, .copy-icon:hover {
     background-color: #0056b3;
 }
