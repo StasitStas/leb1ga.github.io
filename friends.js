@@ -1,10 +1,7 @@
 document.addEventListener('DOMContentLoaded', function() {
     const referralsContainer = document.getElementById('referrals-container');
     const linkContainer = document.getElementById('link-container');
-    const copyIcon = document.querySelector('.copy-icon');
-    const shareButton = document.getElementById('shareButton');
     let username = '';
-    let referralLink = '';
 
     function getUsernameFromUrl() {
         const urlParams = new URLSearchParams(window.location.search);
@@ -25,9 +22,9 @@ document.addEventListener('DOMContentLoaded', function() {
         username = getUsernameFromUrl();
         if (username) {
             getUserData(username).then(userData => {
-                referralLink = userData.referal_link;
                 displayReferrals(userData.referrals);
-                displayCopyIcon();
+                displayCopyIcon(userData.referal_link);
+                displayShareButton(userData.referal_link);
             }).catch(error => {
                 console.error("Error getting user data:", error);
                 alert('Помилка: Не вдалося отримати дані користувача.');
@@ -38,6 +35,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function displayReferrals(referrals) {
+        referralsContainer.innerHTML = '';
         if (referrals && referrals.length > 0) {
             referrals.forEach(referral => {
                 const referralItem = document.createElement('div');
@@ -50,14 +48,25 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    function displayCopyIcon() {
+    function displayCopyIcon(referralLink) {
+        const copyIcon = document.createElement('i');
+        copyIcon.className = 'la la-copy copy-icon'; // Line Awesome copy icon class
         copyIcon.addEventListener('click', () => {
             copyToClipboard(referralLink);
         });
 
+        linkContainer.appendChild(copyIcon);
+    }
+
+    function displayShareButton(referralLink) {
+        const shareButton = document.createElement('button');
+        shareButton.className = 'share-button';
+        shareButton.textContent = 'Поділитись з другом!';
         shareButton.addEventListener('click', () => {
-            shareLink();
+            shareReferral(referralLink);
         });
+
+        linkContainer.appendChild(shareButton);
     }
 
     function copyToClipboard(text) {
@@ -70,10 +79,10 @@ document.addEventListener('DOMContentLoaded', function() {
         alert('Посилання скопійовано');
     }
 
-    function shareLink() {
-        const message = `🔥 +2000 монет, якщо ти зареєструєшся по моєму посиланню!\n${referralLink}`;
-        const url = `https://t.me/share/url?url=${encodeURIComponent(message)}`;
-        window.open(url, '_blank');
+    function shareReferral(referralLink) {
+        const shareText = `🔥 +2000 монет, якщо ти зареєструєшся по моєму посиланню!\n${referralLink}`;
+        const shareUrl = `https://t.me/share/url?url=${encodeURIComponent(shareText)}`;
+        window.open(shareUrl, '_blank');
     }
 
     initialize();
