@@ -40,7 +40,18 @@ document.addEventListener('DOMContentLoaded', function() {
             referrals.forEach(referral => {
                 const referralItem = document.createElement('div');
                 referralItem.className = 'referral-item';
-                referralItem.textContent = referral;
+                
+                // Створюємо елемент для імені реферала
+                const referralName = document.createElement('span');
+                referralName.textContent = referral.name; // Припускаємо, що є поле name для рефералів
+                referralItem.appendChild(referralName);
+    
+                // Створюємо елемент для монет
+                const coins = document.createElement('span');
+                coins.className = 'coins';
+                coins.textContent = `+15 000 💸`; // Змініть текст за потреби
+                referralItem.appendChild(coins);
+    
                 referralsContainer.appendChild(referralItem);
             });
         } else {
