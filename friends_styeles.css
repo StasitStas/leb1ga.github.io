@@ -24,47 +24,55 @@
     border-radius: 10px;
 }
 
-.container-friends {
-    position: relative;
-    height: 100vh; /* Займати весь висоту екрану */
+#referrals-container {
+    flex: 1;
     display: flex;
     flex-direction: column;
-    justify-content: flex-end; /* Вирівнювати всі елементи до низу контейнера */
-    align-items: flex-start; /* Вирівнювати всі елементи до лівого краю контейнера */
-    padding: 20px; /* Падінг для контейнера, щоб не було впливу інших елементів */
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    font-size: 18px;
+    color: #333;
 }
 
 .referral-item {
-    margin-bottom: 10px;
-    font-size: 16px;
+    margin: 10px 0;
+    padding: 10px;
+    background-color: #f0f0f0;
+    border-radius: 5px;
+    width: 80%;
+    text-align: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 #link-container {
-    margin-top: 20px;
-    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 10px;
+    padding: 10px;
+}
+
+.copy-icon, .share-button {
+    font-size: 24px;
+    cursor: pointer;
 }
 
 .copy-icon {
-    font-size: 24px;
-    cursor: pointer;
-    color: #007bff; /* Blue color for the icon */
-}
-
-.copy-icon:hover {
-    color: #0056b3; /* Darker blue on hover */
+    color: #007bff;
 }
 
 .share-button {
-    margin-top: 10px;
     padding: 10px 20px;
-    font-size: 16px;
     background-color: #007bff;
-    color: #fff;
+    color: white;
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    font-size: 16px;
 }
 
 .share-button:hover {
-    background-color: #0056b3; /* Darker blue on hover */
+    background-color: #0056b3;
 }
