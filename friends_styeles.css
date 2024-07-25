@@ -51,9 +51,8 @@
     justify-content: center;
     align-items: center;
     gap: 10px;
-    padding: 10px;
     position: absolute;
-    bottom: 20px; /* Відступ від нижнього краю екрану */
+    bottom: 90px;
     left: 50%;
     transform: translateX(-50%);
 }
