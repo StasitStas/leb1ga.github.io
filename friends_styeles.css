@@ -26,37 +26,36 @@
 
 #referrals-container {
     flex: 1;
-    display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    text-align: center;
-    font-size: 18px;
-    color: #333;
-    margin-bottom: 20px; /* Відступ від кнопки внизу */
-    max-height: calc(4 * 60px + 20px); /* Висота для 4 елементів плюс деякі відступи */
-    overflow-y: auto; /* Додаємо вертикальну прокрутку при переповненні */
-    overflow-x: hidden; /* Вимикаємо горизонтальну прокрутку */
-    width: 80%; /* Ширина контейнера */
-    box-sizing: border-box; /* Включає відступи і межі в загальні розміри */
+    color: #fff;
+    margin-bottom: 20px;
+    width: 70%;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    max-height: 200px;
+    overflow-y: auto;
 }
 
 .referral-item {
     margin: 5px 0;
     padding: 10px;
-    background-color: #f0f0f0;
+    background-color: #292929;
     border-radius: 5px;
-    width: 100%; /* Змінюємо ширину на 100% для контейнера */
-    max-width: 500px; /* Можемо задати максимальну ширину, якщо потрібно */
+    max-width: 500px;
     text-align: center;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    box-sizing: border-box; /* Включає відступи і межі в загальні розміри */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 
 .referral-item .bonus {
     font-size: 16px; /* Розмір шрифту для бонусу */
-    color: #007bff; /* Колір тексту бонусу */
+    color: #14ff00; /* Колір тексту бонусу */
 }
 
 #link-container {
