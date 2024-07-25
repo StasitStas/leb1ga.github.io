@@ -1,6 +1,7 @@
 document.addEventListener('DOMContentLoaded', function() {
     const leaderboardList = document.getElementById('leaderboardList');
     const navButtons = document.querySelectorAll('.nav-button');
+    const referralsContainer = document.getElementById('referrals-container'); // Get the referrals container
 
     const LEVELS = [
         { threshold: 0, label: 'lvl-0' },
@@ -48,6 +49,7 @@ document.addEventListener('DOMContentLoaded', function() {
         if (username) {
             getUserData(username).then(userData => {
                 firstName = userData.first_name;
+                displayReferrals(userData.referrals || []); // Display referrals
                 updateLeaderboard(); // Оновити рейтинг при завантаженні
             }).catch(error => {
                 console.error("Error getting user data:", error);
@@ -136,6 +138,20 @@ document.addEventListener('DOMContentLoaded', function() {
         }, error => {
             console.error("Помилка отримання документів: ", error);
         });
+    }
+
+    function displayReferrals(referrals) {
+        if (referrals.length === 0) {
+            referralsContainer.textContent = 'У вас поки відсутні реферали';
+        } else {
+            referralsContainer.innerHTML = '';
+            referrals.forEach(referral => {
+                const referralItem = document.createElement('div');
+                referralItem.className = 'referral-item';
+                referralItem.textContent = referral;
+                referralsContainer.appendChild(referralItem);
+            });
+        }
     }
 
     navButtons.forEach(button => {
