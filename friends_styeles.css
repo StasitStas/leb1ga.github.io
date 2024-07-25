@@ -56,7 +56,7 @@
     left: 50%;
     transform: translateX(-50%);
     width: 100%; /* Додаємо ширину контейнера */
-    padding: 0 20px; /* Додаємо відступи для контейнера */
+    padding: 0 5px; /* Додаємо відступи для контейнера */
     box-sizing: border-box; /* Забезпечуємо, що відступи враховуються в розмірах контейнера */
 }
 
@@ -71,7 +71,7 @@
     color: white;
     border: none;
     border-radius: 5px;
-    font-size: 16px;
+    font-size: 20px;
 }
 
 .share-button {
@@ -81,7 +81,7 @@
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    font-size: 16px;
+    font-size: 20px;
     width: 80%;
 }
 
