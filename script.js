@@ -177,9 +177,8 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     
         db.collection("users").doc(username).update(avatarData).then(() => {
-            console.log('Avatar updated successfully');
         }).catch(error => {
-            console.error('Error updating avatar:', error);
+
         });
     }
     
@@ -198,7 +197,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     showApplyButton(avatarElement);
                     updateAvatarDisplay(i);  // Оновлення відображення аватарки
                 } else {
-                    console.error(`Avatar element with data-avatar-level="${i - 1}" not found`);
+
                 }
                 break;
             }
@@ -248,7 +247,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
 
         db.collection("clicks").doc(username).update(levelData).catch(error => {
-            console.error("Error updating levels in database:", error);
+
         });
     }
 
@@ -267,7 +266,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 saveLevelToDB(currentLevel);
             }
         }).catch(error => {
-            console.error("Error initializing levels:", error);
+
         });
     }
     
@@ -776,7 +775,6 @@ document.addEventListener('DOMContentLoaded', function() {
     
     function initializeRewards() {
         if (!username) {
-            console.error("Помилка: username не визначено.");
             return;
         }
     
