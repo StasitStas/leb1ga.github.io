@@ -185,7 +185,6 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Ініціалізація аватарок користувача при завантаженні сторінки
     function initializeUserAvatars(userData) {
-        console.log('Initializing user avatars with data:', userData);
         for (let i = 1; i <= 15; i++) {
             const avatarKey = `ava${i}`;
             if (userData[avatarKey]) {
@@ -195,7 +194,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 });
                 const avatarElement = document.querySelector(`.avatar[data-avatar-level="${i - 1}"]`);
                 if (avatarElement) {
-                    console.log(`Avatar element found for level ${i - 1}`);
                     avatarElement.classList.add('selected');
                     showApplyButton(avatarElement);
                     updateAvatarDisplay(i);  // Оновлення відображення аватарки
@@ -394,7 +392,7 @@ document.addEventListener('DOMContentLoaded', function() {
                             enableVibration: true
                         });
                     }
-                    updateLeaderboard(); // Виправлено розміщення цієї функції
+
                 }, error => {
                     console.error("Error getting document:", error);
                 });
@@ -554,7 +552,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 // Якщо використовується userData, передайте його функції initializeUserAvatars
                 initializeUserAvatars(userData); 
             }).catch(error => {
-                console.error("Error updating document:", error);
+
             });
     
             vibrate();
