@@ -26,6 +26,23 @@
     justify-content: center;
 }
 
+.Not {
+    flex: 1;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    font-size: 28px;
+    font-weight: bolder;
+    top: 10px;
+    background: #1e1e1e;
+    border-radius: 20px;
+    padding: 12px 12px 24px;
+}
+
 .modal-earn .modal-content {
     background-color: white;
     margin: auto;
