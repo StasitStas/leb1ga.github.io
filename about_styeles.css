@@ -1,4 +1,3 @@
-
 .container-mine {
     text-align: center;
     display: flex;
@@ -349,6 +348,9 @@
     overflow-y: auto;
     margin-top: -20px;
     scrollbar-width: none;
+    background: #272727;
+    padding: 15px;
+    border-radius: 20px;
 }
 
 .skins-container::-webkit-scrollbar {
