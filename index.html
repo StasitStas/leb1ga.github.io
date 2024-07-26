@@ -14,6 +14,10 @@
     <link href="https://cdn.jsdelivr.net/npm/line-awesome/dist/line-awesome/css/line-awesome.min.css" rel="stylesheet">
 
     <style id="dynamic-styles">
+        body {
+            position: relative;
+        }
+
         /* Початкові стилі для body::before */
         body::before {
             content: '';
@@ -42,6 +46,10 @@
 
         #black-overlay img {
             width: 50%;
+        }
+
+        .no-scroll {
+            overflow: hidden;
         }
 
     </style>
@@ -344,6 +352,18 @@
         </div>
         <script src="drop.js"></script> <!-- Підключення drop.js тут -->
     </div>
+    <div class="background">
+            <div class="text-wrapper">
+                <h1 class="text"></h1>
+            </div>
+            <div class="phone-text">
+                <div class="circle-phone">
+                    <i class="las la-gamepad"></i>
+                </div>
+                <p class="phone-text">Phone text content...</p>
+            </div>
+        </div>
+    </div>
     <script>
         // Функція для перевірки, чи пристрій є мобільним
         function isMobile() {
@@ -353,7 +373,7 @@
         // Функція для заміни вмісту на чорний фон з QR
         function showQRCodeOverlay() {
             document.getElementById('black-overlay').style.display = 'flex';
-            document.body.style.overflow = 'hidden'; // Заборона прокрутки
+            document.body.classList.add('no-scroll'); // Заборона прокрутки
         }
 
         // Перевірка платформи під час завантаження сторінки
