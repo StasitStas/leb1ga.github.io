@@ -21,28 +21,32 @@
 #leaderboard {
     margin-top: 20px;
     text-align: left;
-    border: 3px solid #000;
-    border-radius: 15px;
-    padding: 30px;
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.8), rgba(240, 240, 240, 0.9));
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
-    max-height: calc(100vh - 100px);
-    overflow-y: auto;
+    border: 3px solid #000; /* Збільшено товщину бордюра */
+    border-radius: 15px; /* Збільшено радіус кута */
+    padding: 30px; /* Збільшено відступи всередині блоку */
+    background: rgba(255, 255, 255, 0.8);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* Збільшено тінь */
+    max-height: calc(100vh - 100px); /* Обмежуємо висоту рейтингу */
+    overflow-y: auto; /* Додаємо вертикальну прокрутку */
 }
 
 #leaderboard h2 {
     font-size: 1.5em;
     margin-top: 0;
     text-align: center;
-    color: #333;
 }
 
 #leaderboardList {
     list-style: none;
     padding: 0;
     margin: 0;
-    max-height: 300px;
-    overflow-y: auto;
+    max-height: 300px; /* Максимальна висота списку для 5 позицій */
+    overflow-y: auto; /* Додаємо вертикальну прокрутку для списку */
+    scrollbar-width: none; /* Для приховування смуги прокрутки в Firefox */
+}
+
+#leaderboardList::-webkit-scrollbar {
+    display: none; /* Для приховування смуги прокрутки в Webkit-браузерах (Chrome, Safari) */
 }
 
 #leaderboardList li {
@@ -50,58 +54,48 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 10px 15px; /* Збільшуємо відступи для більшого простору */
-    border-radius: 10px; /* Збільшуємо радіус кута */
-    transition: background-color 0.3s, transform 0.3s; /* Додаємо плавні переходи */
+    padding: 5px 10px;
+    border-radius: 5px;
 }
 
 #leaderboardList li:nth-child(1) {
     background-color: #ffd700;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 #leaderboardList li:nth-child(2) {
     background-color: #c0c0c0;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 #leaderboardList li:nth-child(3) {
     background-color: #cd7f32;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 #leaderboardList li:nth-child(odd) {
-    background-color: #f8f8f8;
+    background-color: #f0f0f0;
 }
 
 #leaderboardList li:nth-child(even) {
-    background-color: #e8e8e8;
+    background-color: #e0e0e0;
 }
 
 #leaderboardList li.highlight {
-    background-color: #add8e6; /* Виділення поточного користувача */
-}
-
-#leaderboardList li:hover {
-    transform: scale(1.02); /* Додаємо ефект збільшення при наведенні */
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* Додаємо тінь при наведенні */
+    background-color: lightblue; /* Виділення поточного користувача */
 }
 
 .username {
     font-weight: bold;
-    color: #333;
 }
 
 .clicks-level {
     font-size: 0.9em;
-    color: #666;
+    color: gray;
 }
 
 .avatar-leaderboard {
     width: 45px;
     height: 45px;
     border-radius: 25%;
-    margin-right: 10px;
+    margin-right: 10px; /* Додає відступ між аватаркою та іншими елементами */
 }
 
 .user-details {
@@ -110,13 +104,13 @@
 }
 
 .place {
-    font-size: 1.5em;
+    font-size: 45px;
     font-weight: bold;
-    width: 100px;
+    width: 100px; /* Фіксована ширина для всіх місць */
     text-align: right;
-    color: #333;
-    margin-left: auto;
+    margin-left: auto; /* Вирівнювання місця справа */
 }
+
 /* Стиль модального вікна для airdrop */
 .modal-airdrop {
     display: none;
