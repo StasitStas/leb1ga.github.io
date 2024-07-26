@@ -320,28 +320,6 @@
             Тапай і заробляй!</p>
             </div>
     </div>
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            const progressBar = document.querySelector("#progressBar div");
-            let progress = 0;
-
-            const interval = setInterval(() => {
-                if (progress < 100) {
-                    progress += 1;
-                    progressBar.style.width = progress + "%";
-                } else {
-                    clearInterval(interval);
-                }
-            }, 50);
-
-            window.addEventListener("load", function() {
-                setTimeout(() => {
-                    document.getElementById("loadingScreen").style.display = "none";
-                    document.body.style.overflow = "auto";
-                }, 500);
-            });
-        });
-    </script>
 
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-analytics.js"></script>
