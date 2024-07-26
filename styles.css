@@ -154,6 +154,7 @@ body::after {
 }
 
 .click-count {
+    font-family: 'Anton', sans-serif;
     font-size: 3em;
     font-weight: bold;
     color: white;
