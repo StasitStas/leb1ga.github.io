@@ -170,6 +170,20 @@ body::after {
     }
 }
 
+@media (max-height: 670px) {
+    .coin-container {
+        top: 150px;
+    }
+
+    .circle-button {
+        top: 200px;
+    }
+
+    .level-bar-container {
+        top: 480px;
+    }
+}
+
 .circle-button {
     margin-bottom: 20px;
     width: 250px;
