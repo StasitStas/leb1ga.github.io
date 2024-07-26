@@ -1,6 +1,9 @@
 document.addEventListener('DOMContentLoaded', function() {
     const leaderboardList = document.getElementById('leaderboardList');
     const navButtons = document.querySelectorAll('.nav-button');
+    const infoIcon = document.getElementById('info-circleIcon');
+    const modalInfo = document.getElementById('modalInfo');
+    const closeInfo = document.querySelector('.close-info');
 
     const LEVELS = [
         { threshold: 0, label: 'lvl-0' },
@@ -143,6 +146,20 @@ document.addEventListener('DOMContentLoaded', function() {
             navButtons.forEach(btn => btn.classList.remove('active'));
             button.classList.add('active');
         });
+    });
+
+    infoIcon.addEventListener('click', function() {
+        modalInfo.style.display = 'block';
+    });
+
+    closeInfo.addEventListener('click', function() {
+        modalInfo.style.display = 'none';
+    });
+
+    window.addEventListener('click', function(event) {
+        if (event.target == modalInfo) {
+            modalInfo.style.display = 'none';
+        }
     });
 
     initialize();
