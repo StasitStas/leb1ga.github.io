@@ -154,6 +154,9 @@
     cursor: pointer;
 }
 
+.text-infoo{
+    margin-top: 20px;
+}
 
 /* Стиль модального вікна для airdrop */
 .modal-airdrop {
