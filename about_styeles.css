@@ -19,7 +19,13 @@
     padding: 12px;
     max-height: 75vh;
     overflow-y: auto;
+    scrollbar-width: none;
 }
+
+.shop-section::-webkit-scrollbar {
+    display: none;
+}
+
 
 .shop-item {
     background-color: #1f1e1e8f;
@@ -340,6 +346,11 @@
     max-height: 75vh;
     overflow-y: auto;
     margin-top: -20px;
+    scrollbar-width: none;
+}
+
+.skins-container::-webkit-scrollbar {
+    display: none;
 }
 
 .skins-container .skin-overlay {
