@@ -92,7 +92,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function shareReferral(referralLink) {
-        const shareText = `🔥 +2000 монет, якщо ти зареєструєшся по моєму посиланню!\n${referralLink}`;
+        const shareText = `🔥 +2000 монет за Лебыговича, якщо ти зареєструєшся по моєму посиланню)\n${referralLink}`;
         const shareUrl = `https://t.me/share/url?url=${encodeURIComponent(shareText)}`;
         window.open(shareUrl, '_blank');
     }
