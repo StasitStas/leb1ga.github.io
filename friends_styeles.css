@@ -129,6 +129,11 @@
     gap: 10px;
     position: absolute;
     bottom: 170px;
+    scrollbar-width: none; /* Приховуємо смугу прокрутки у Firefox */
+}
+
+#referrals-container::-webkit-scrollbar {
+    display: none; /* Приховуємо смугу прокрутки у Webkit-браузерах (Chrome, Safari) */
 }
 
 .referral-item {
@@ -155,7 +160,6 @@
     font-size: 18px; /* Збільшений розмір шрифту для бонусу */
     color: #00ff00; /* Яскравіший колір тексту бонусу */
 }
-
 
 #link-container {
     display: flex;
