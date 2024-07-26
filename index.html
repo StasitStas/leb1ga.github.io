@@ -9,7 +9,6 @@
     <link rel="stylesheet" href="friends_styeles.css">
     <link rel="stylesheet" href="earn_styeles.css">
     <link rel="stylesheet" href="drop_styeles.css">
-    <link rel="stylesheet" href="preloaderq.css">
     <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:ital,wght@1,700&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/line-awesome/dist/line-awesome/css/line-awesome.min.css" rel="stylesheet">
 
@@ -107,7 +106,6 @@
             <div class="modal-content-gifts">
                 <span class="close-gifts" id="closeModal-gifts">&times;</span>
                 <div id="days-container">
-                    <!-- Дні будуть генеруватися динамічно за допомогою JS -->
                 </div>
                 <button id="claimRewardButton">Забрати</button>
             </div>
@@ -202,8 +200,7 @@
         <button id="clickButton" class="circle-button">
             <img id="skinImage" src="" alt="Клікніть мене!">
         </button>
-        <div id="clickEffectContainer"></div> <!-- Контейнер для анімації натискань -->
-        <!-- Рівень відображення -->
+        <div id="clickEffectContainer"></div> 
         <div class="level-bar-container">
             <div id="levelBar" class="level-bar"></div>
             <span id="levelTextLeft" class="level-text-left">lvl-0</span>
@@ -234,7 +231,6 @@
     </div>
     <div id="mineModal" class="modal-mine">
         <div class="container-mine">
-            <!-- Додаємо кнопку Скіни -->
             <button id="skins-button">Обрати скін  <i class="las la-hand-point-up"></i></button>
             <div class="shop-section">
         
@@ -317,7 +313,7 @@
                 </div>
             </div>
         </div>
-        <script src="about.js"></script> <!-- Підключення drop.js тут -->
+        <script src="about.js"></script> 
     </div>
     <div id="friendsModal" class="modal-friends">
         <p class="text-friends1">Запросіть друзів!</p>
@@ -339,7 +335,6 @@
         </ul>
         <div id="referrals-container"></div>
         <div id="link-container"></div>
-            <!-- Посилання буде динамічно додано через JavaScript -->
         </div>
         <script src="friends.js"></script>
     </div>
@@ -358,13 +353,13 @@
             </div>
             <i class="las la-info-circle info-circle" id="info-circleIcon"></i>
         </div>
-        <script src="drop.js"></script> <!-- Підключення drop.js тут -->
+        <script src="drop.js"></script> 
     </div>
     <div id="modalInfo" class="modal-info">
         <div class="modal-content-info">
             <span class="close-info">&times;</span>
             <p class="text-infoo">Міша Лебіга не причетний до створення цього продукту.
-            Проект створений Лебіговичем.
+            Проект створений Лебіговичем))ні.
             Тапай і заробляй!</p>
             </div>
     </div>
@@ -386,7 +381,7 @@
                 setTimeout(() => {
                     document.getElementById("loadingScreen").style.display = "none";
                     document.body.style.overflow = "auto";
-                }, 500); // Затримка в 500 мілісекунд після повного завантаження сторінки
+                }, 500);
             });
         });
     </script>
@@ -395,7 +390,7 @@
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-analytics.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
     <script>
-        // Firebase configuration
+        // Firebase configuration І ШО ТИ ЗРОБИШ ? аххаха
         const firebaseConfig = {
           apiKey: "AIzaSyAsF7gij6UPtXbiUkcGKcVIPxPQQLERCEU",
           authDomain: "milky-clik.firebaseapp.com",
