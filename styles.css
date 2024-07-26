@@ -118,6 +118,7 @@ body::after {
 
 .golden-text {
     color: #ffffff8f;
+    font-family: 'Chakra Petch', sans-serif;
     font-weight: bold;
     font-size: 1.2em;
     padding: 8px 20px;
