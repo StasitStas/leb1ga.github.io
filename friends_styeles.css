@@ -51,6 +51,48 @@
     top: 70px;
 }
 
+.friends-invite li {
+    align-items: flex-start;
+    background: #272a2f;
+    border-radius: 20px;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 6px;
+    padding: 12px 12px 24px;
+}
+
+.friends-invite-image {
+    flex: 0 0 60px;
+    margin-right: 12px;
+    position: relative;
+}
+
+.img-responsive {
+    display: block;
+    height: auto;
+    max-width: 100%;
+}
+
+.friends-invite-info {
+    flex: 1 1 auto;
+}
+
+.friends-invite-info-title {
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 20px;
+    margin-bottom: 12px;
+    margin-top: 4px;
+}
+
+.friends-invite-info-item {
+    align-items: flex-start;
+    display: flex;
+    font-size: 14px;
+    position: relative;
+}
+
 #referrals-container {
     flex: 1;
     flex-direction: column;
