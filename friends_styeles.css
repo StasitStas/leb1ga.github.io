@@ -34,8 +34,8 @@
     align-items: center;
     position: absolute;
     font-size: 28px;
-    font-weight: bold;
-    top: 30px;
+    font-weight: bolder;
+    top: 10px;
 }
 
 .text-friends2 {
@@ -48,7 +48,7 @@
     align-items: center;
     position: absolute;
     font-size: 18px;
-    top: 100px;
+    top: 70px;
 }
 
 #referrals-container {
