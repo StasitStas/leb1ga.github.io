@@ -137,7 +137,7 @@ document.addEventListener('DOMContentLoaded', function() {
             event.stopPropagation();
             const selectedAvatar = button.closest('.avatar');
             if (selectedAvatar) {
-                const avatarIndex = Array.from(avatars).indexOf(selectedAvatar) + 1;
+                const avatarIndex = Array.from(avatars).indexOf(selectedAvatar) + 0;
                 applyAvatar(avatarIndex);
                 button.style.display = 'none'; // Hide the button after applying the avatar
                 selectedAvatar.classList.remove('selected');
@@ -176,56 +176,43 @@ document.addEventListener('DOMContentLoaded', function() {
             avatarData[`ava${index + 1}`] = index + 1 === avatarIndex;
         });
     
-        // Зберегти дані про аватар у базі даних
         db.collection("users").doc(username).update(avatarData).then(() => {
-            // Оновити відображення аватара
-            updateAvatarDisplay(avatarIndex);
         }).catch(error => {
-            console.error("Error updating avatar:", error);
+
         });
     }
-
+    
     // Ініціалізація аватарок користувача при завантаженні сторінки
     function initializeUserAvatars(userData) {
-        let appliedAvatarIndex = 0;
         for (let i = 1; i <= 15; i++) {
             const avatarKey = `ava${i}`;
             if (userData[avatarKey]) {
-                appliedAvatarIndex = i;
+                avatars.forEach(av => {
+                    av.classList.remove('selected');
+                    hideApplyButton(av);
+                });
+                const avatarElement = document.querySelector(`.avatar[data-avatar-level="${i - 1}"]`);
+                if (avatarElement) {
+                    avatarElement.classList.add('selected');
+                    showApplyButton(avatarElement);
+                    updateAvatarDisplay(i);  // Оновлення відображення аватарки
+                } else {
+
+                }
                 break;
-            }
-        }
-        
-        // Встановлюємо вибраний аватар
-        if (appliedAvatarIndex > 0) {
-            avatars.forEach(av => {
-                av.classList.remove('selected');
-                hideApplyButton(av);
-            });
-            const avatarElement = document.querySelector(`.avatar[data-avatar-level="${appliedAvatarIndex - 1}"]`);
-            if (avatarElement) {
-                avatarElement.classList.add('selected');
-                showApplyButton(avatarElement);
-                updateAvatarDisplay(appliedAvatarIndex);
             }
         }
     }
 
     function updateAvatarFromDatabase(userData) {
-        let appliedAvatarIndex = 0;
         for (let i = 1; i <= 15; i++) {
             const avatarKey = `ava${i}`;
             if (userData[avatarKey]) {
-                appliedAvatarIndex = i;
+                updateAvatarDisplay(i);  // Оновлення відображення аватарки
                 break;
             }
         }
-        
-        if (appliedAvatarIndex > 0) {
-            updateAvatarDisplay(appliedAvatarIndex);
-        }
     }
-
 
     function getCurrentLevel(clickCount) {
         for (let i = LEVELS.length - 1; i >= 0; i--) {
@@ -404,7 +391,7 @@ document.addEventListener('DOMContentLoaded', function() {
                             enableVibration: true
                         });
                     }
-    
+
                 }, error => {
                     console.error("Error getting document:", error);
                 });
@@ -414,7 +401,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     if (doc.exists) {
                         const data = doc.data();
                         updateAvatarFromDatabase(data);
-        
+    
                         // Перевірка зміни значення applied
                         try {
                             const skinData = getSkinWithAppliedTrue(data.skins);
