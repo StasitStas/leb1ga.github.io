@@ -300,10 +300,6 @@
     font-weight: bold;
 }
 
-#skins-button:hover {
-    background-color: #45a049; /* Darker green on hover */
-}
-
 .skins-modal {
     display: none; /* Hidden by default */
     position: fixed;
@@ -316,10 +312,6 @@
     background: radial-gradient(circle at center bottom, rgb(39 39 39), black 70%);
     align-items: center;
     justify-content: center;
-}
-
-#skins-button-modal:hover {
-    background-color: #45a049; /* Darker green on hover */
 }
 
 #skins-button-modal {
