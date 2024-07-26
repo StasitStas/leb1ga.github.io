@@ -154,10 +154,11 @@ body::after {
 }
 
 .click-count {
-    font-family: 'Anton', sans-serif;
     font-size: 3em;
-    font-weight: bold;
     color: white;
+    font-family: 'Chakra Petch', sans-serif;
+    font-weight: 600;
+    font-style: italic;
 }
 
 @media (min-height: 751px) {
