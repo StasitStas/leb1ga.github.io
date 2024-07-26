@@ -318,6 +318,11 @@ body::after {
     color: white;
     z-index: 3002; /* Ensure it's above the settings window */
     overflow: auto;
+    scrollbar-width: none; 
+}
+
+#referrals-container::-webkit-scrollbar {
+    display: none; 
 }
 
 .avatar-window .close-icon {
@@ -689,6 +694,11 @@ input[type="range"]::-webkit-slider-thumb {
     gap: 10px;
     max-height: calc(100% - 140px); /* Максимальна висота контейнера з урахуванням відступів для кнопок */
     overflow-y: auto; /* Включаємо вертикальну прокрутку для контейнера */
+    scrollbar-width: none;
+}
+
+#days-container::-webkit-scrollbar {
+    display: none; 
 }
 
 .day {
