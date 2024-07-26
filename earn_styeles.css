@@ -18,7 +18,6 @@
     top: 0;
     width: 100%;
     height: 100%;
-    overflow: auto;
     background: radial-gradient(circle at center bottom, rgb(39 39 39), black 70%);
     background-size: cover;
     background-position: center;
