@@ -232,7 +232,7 @@ document.addEventListener('DOMContentLoaded', function() {
         switch (cofferType) {
             case 'coffer1':
                 if (Math.random() < 0.5) {
-                    const clicks = Math.floor(Math.random() * (100 - 10 + 1)) + 10;
+                    const clicks = Math.round((Math.random() * (100 - 10) + 10) * 10) / 10; // Округлюємо до десятих
                     clickCount += clicks;
                     await db.collection("clicks").doc(username).update({ clickCount: clickCount });
                     prizeDescriptionText = `Ваш приз: ${clicks} coin`;
@@ -252,7 +252,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 break;
             case 'coffer2':
                 if (Math.random() < 0.5) {
-                    const clicks = Math.floor(Math.random() * (800 - 100 + 1)) + 100;
+                    const clicks = Math.round((Math.random() * (800 - 100) + 100) * 10) / 10; // Округлюємо до десятих
                     clickCount += clicks;
                     await db.collection("clicks").doc(username).update({ clickCount: clickCount });
                     prizeDescriptionText = `Ваш приз: ${clicks} coin`;
@@ -272,7 +272,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 break;
             case 'coffer3':
                 if (Math.random() < 0.4) {
-                    const clicks = Math.floor(Math.random() * (8000 - 2000 + 1)) + 2000;
+                    const clicks = Math.round((Math.random() * (8000 - 2000) + 2000) * 10) / 10; // Округлюємо до десятих
                     clickCount += clicks;
                     await db.collection("clicks").doc(username).update({ clickCount: clickCount });
                     prizeDescriptionText = `Ваш приз: ${clicks} coin`;
@@ -291,7 +291,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 break;
             case 'coffer4':
                 if (Math.random() < 0.6) {
-                    const clicks = Math.floor(Math.random() * (15000 - 2000 + 1)) + 2000;
+                    const clicks = Math.round((Math.random() * (15000 - 2000) + 2000) * 10) / 10; // Округлюємо до десятих
                     clickCount += clicks;
                     await db.collection("clicks").doc(username).update({ clickCount: clickCount });
                     prizeDescriptionText = `Ваш приз: ${clicks} coin`;
@@ -310,7 +310,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 break;
             case 'coffer5':
                 if (Math.random() < 0.4) {
-                    const clicks = Math.floor(Math.random() * (70000 - 30000 + 1)) + 30000;
+                    const clicks = Math.round((Math.random() * (70000 - 30000) + 30000) * 10) / 10; // Округлюємо до десятих
                     clickCount += clicks;
                     await db.collection("clicks").doc(username).update({ clickCount: clickCount });
                     prizeDescriptionText = `Ваш приз: ${clicks} coin`;
@@ -329,7 +329,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 break;
             case 'coffer6':
                 if (Math.random() < 0.4) {
-                    const clicks = Math.floor(Math.random() * (500000 - 100000 + 1)) + 100000;
+                    const clicks = Math.round((Math.random() * (500000 - 100000) + 100000) * 10) / 10; // Округлюємо до десятих
                     clickCount += clicks;
                     await db.collection("clicks").doc(username).update({ clickCount: clickCount });
                     prizeDescriptionText = `Ваш приз: ${clicks} coin`;
