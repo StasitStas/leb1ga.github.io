@@ -82,13 +82,13 @@
     display: none;
     justify-content: center;
     align-items: flex-end;
-    z-index: 3001;
+    z-index: 9999; /* Збільшено значення z-index */
     animation: fadeIn 0.3s ease-out;
 }
 
 .coffer-modal.show {
     display: flex;
-    z-index: 3001;
+    z-index: 9999; /* Збільшено значення z-index */
 }
 
 .modal-content-mine {
