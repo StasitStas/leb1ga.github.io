@@ -649,16 +649,37 @@ input[type="range"] {
     border-radius: 5px;
     overflow: hidden;
     cursor: pointer;
+    position: relative; /* Додаємо позицію для псевдоелементів */
 }
 
 input[type="range"]::-webkit-slider-thumb {
     -webkit-appearance: none;
-    width: 25px;  /* збільшений розмір */
-    height: 25px;  /* збільшений розмір */
+    width: 25px;  /* Розмір повзунка */
+    height: 25px;  /* Розмір повзунка */
     background: white;
     border-radius: 50%;
     cursor: pointer;
+    position: relative; /* Додаємо позицію для псевдоелементів */
+    z-index: 1; /* Забезпечує, щоб повзунок був поверх псевдоелементів */
 }
+
+input[type="range"]::-webkit-slider-runnable-track {
+    height: 5px;
+    border-radius: 5px;
+}
+
+input[type="range"]::before {
+    content: '';
+    position: absolute;
+    top: -10px; /* Відступ від верхньої частини повзунка */
+    left: -10px; /* Відступ від лівої частини повзунка */
+    width: calc(100% + 20px); /* Розширюємо область для захоплення */
+    height: 25px; /* Розмір області захоплення */
+    cursor: pointer;
+    background: transparent;
+    z-index: 0; /* Поміщаємо псевдоелемент під повзунок */
+}
+
 
 /* Модальне вікно з подарунками */
 .modal-gifts {
