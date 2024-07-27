@@ -235,7 +235,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     const clicks = Math.floor(Math.random() * (100 - 10 + 1)) + 10;
                     clickCount += clicks;
                     await db.collection("clicks").doc(username).update({ clickCount: clickCount });
-                    prizeDescriptionText = `Ваш приз: ${clicks} leb.coin`;
+                    prizeDescriptionText = `Ваш приз: ${clicks} coin`;
                     prizeImageSrc = 'coffer-coin.png';
                 } else {
                     const skins = [
@@ -255,7 +255,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     const clicks = Math.floor(Math.random() * (800 - 100 + 1)) + 100;
                     clickCount += clicks;
                     await db.collection("clicks").doc(username).update({ clickCount: clickCount });
-                    prizeDescriptionText = `Ваш приз: ${clicks} leb.coin`;
+                    prizeDescriptionText = `Ваш приз: ${clicks} coin`;
                     prizeImageSrc = 'coffer-coin.png';
                 } else {
                     const skins = [
@@ -275,7 +275,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     const clicks = Math.floor(Math.random() * (8000 - 2000 + 1)) + 2000;
                     clickCount += clicks;
                     await db.collection("clicks").doc(username).update({ clickCount: clickCount });
-                    prizeDescriptionText = `Ваш приз: ${clicks} leb.coin`;
+                    prizeDescriptionText = `Ваш приз: ${clicks} coin`;
                     prizeImageSrc = 'coffer-coin.png';
                 } else {
                     const skins = [
@@ -294,7 +294,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     const clicks = Math.floor(Math.random() * (15000 - 2000 + 1)) + 2000;
                     clickCount += clicks;
                     await db.collection("clicks").doc(username).update({ clickCount: clickCount });
-                    prizeDescriptionText = `Ваш приз: ${clicks} leb.coin`;
+                    prizeDescriptionText = `Ваш приз: ${clicks} coin`;
                     prizeImageSrc = 'coffer-coin.png';
                 } else {
                     const skins = [
@@ -313,7 +313,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     const clicks = Math.floor(Math.random() * (70000 - 30000 + 1)) + 30000;
                     clickCount += clicks;
                     await db.collection("clicks").doc(username).update({ clickCount: clickCount });
-                    prizeDescriptionText = `Ваш приз: ${clicks} leb.coin`;
+                    prizeDescriptionText = `Ваш приз: ${clicks} coin`;
                     prizeImageSrc = 'coffer-coin.png';
                 } else {
                     const skins = [
@@ -332,7 +332,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     const clicks = Math.floor(Math.random() * (500000 - 100000 + 1)) + 100000;
                     clickCount += clicks;
                     await db.collection("clicks").doc(username).update({ clickCount: clickCount });
-                    prizeDescriptionText = `Ваш приз: ${clicks} leb.coin`;
+                    prizeDescriptionText = `Ваш приз: ${clicks} coin`;
                     prizeImageSrc = 'coffer-coin.png';
                 } else {
                     const skins = [
