@@ -137,7 +137,7 @@ document.addEventListener('DOMContentLoaded', function() {
             event.stopPropagation();
             const selectedAvatar = button.closest('.avatar');
             if (selectedAvatar) {
-                const avatarIndex = Array.from(avatars).indexOf(selectedAvatar) + 0;
+                const avatarIndex = Array.from(avatars).indexOf(selectedAvatar) + 1;
                 applyAvatar(avatarIndex);
                 button.style.display = 'none'; // Hide the button after applying the avatar
                 selectedAvatar.classList.remove('selected');
