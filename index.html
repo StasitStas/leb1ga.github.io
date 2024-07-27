@@ -360,43 +360,6 @@
     </div>
     <script>
         document.addEventListener("DOMContentLoaded", function() {
-            const userAgent = navigator.userAgent.toLowerCase();
-            const isAndroid = userAgent.includes("android");
-            const isIOS = /iPad|iPhone|iPod/.test(userAgent) && !window.MSStream;
-    
-            if (!isAndroid && !isIOS) {
-                // Якщо це не Android або iOS, показати чорний екран
-                document.body.style.backgroundColor = "#000";
-                document.body.innerHTML = ''; // Очистити вміст сторінки
-            } else {
-                // Якщо це Android або iOS, продовжити завантаження сторінки
-                const progressBar = document.querySelector("#progressBar div");
-                let progress = 0;
-    
-                // Блокування прокрутки під час завантаження
-                document.body.classList.add("no-scroll");
-    
-                const interval = setInterval(() => {
-                    if (progress < 100) {
-                        progress += 1;
-                        progressBar.style.width = progress + "%";
-                    } else {
-                        clearInterval(interval);
-                    }
-                }, 50);
-    
-                window.addEventListener("load", function() {
-                    setTimeout(() => {
-                        document.getElementById("loadingScreen").style.display = "none";
-                        // Відновлення прокрутки
-                        document.body.classList.remove("no-scroll");
-                    }, 500);
-                });
-            }
-        });
-    </script>
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
             const progressBar = document.querySelector("#progressBar div");
             let progress = 0;
         
