@@ -265,7 +265,7 @@
 .modal-mine {
     display: none;
     position: fixed;
-    z-index: 3000;
+    z-index: 2999;
     left: 0;
     top: 0;
     width: 100%;
