@@ -111,7 +111,7 @@
 .modal-content-mine-prize {
     background: #a32526;
     width: 95%;
-    height: 55%;
+    height: 50%;
     padding: 20px;
     border-radius: 20px 20px 20px 20px;
     display: flex;
@@ -249,9 +249,9 @@
     border: none;
     border-radius: 10px;
     color: #fff;
-    padding: 10px 20px;
+    padding: 10px 25px;
     cursor: pointer;
-    margin-top: 10px;
+    margin-top: 30px;
     font-size: 18px;
     font-weight: bold;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
