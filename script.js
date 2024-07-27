@@ -108,12 +108,16 @@ document.addEventListener('DOMContentLoaded', function() {
     function initializeAvatars(currentLevel) {
         avatars.forEach(avatar => {
             const avatarLevel = parseInt(avatar.getAttribute('data-avatar-level'));
+            const applyButton = avatar.querySelector('.apply-button');
+            
             if (avatarLevel > currentLevel) {
                 avatar.classList.add('locked');
                 avatar.setAttribute('data-unlock-level', `lvl-${avatarLevel}`);
+                applyButton.style.display = 'none'; // Приховати кнопку "Застосувати"
             } else {
                 avatar.classList.remove('locked');
                 avatar.removeAttribute('data-unlock-level');
+                applyButton.style.display = 'none'; // Приховати кнопку "Застосувати", поки аватарка не вибрана
             }
         });
     }
@@ -153,9 +157,14 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function showApplyButton(avatar) {
-        const button = avatar.querySelector('.apply-button');
-        if (button) {
-            button.style.display = 'block';
+        const currentLevel = getCurrentLevel(clickCountMax);
+        const avatarLevel = parseInt(avatar.getAttribute('data-avatar-level'));
+        
+        if (avatarLevel <= currentLevel) {
+            const button = avatar.querySelector('.apply-button');
+            if (button) {
+                button.style.display = 'block';
+            }
         }
     }
 
@@ -183,6 +192,8 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Ініціалізація аватарок користувача при завантаженні сторінки
     function initializeUserAvatars(userData) {
+        const currentLevel = getCurrentLevel(clickCountMax);
+    
         for (let i = 1; i <= 15; i++) {
             const avatarKey = `ava${i}`;
             if (userData[avatarKey]) {
@@ -191,10 +202,10 @@ document.addEventListener('DOMContentLoaded', function() {
                     hideApplyButton(av);
                 });
                 const avatarElement = document.querySelector(`.avatar[data-avatar-level="${i - 1}"]`);
-                if (avatarElement) {
+                if (avatarElement && parseInt(avatarElement.getAttribute('data-avatar-level')) <= currentLevel) {
                     avatarElement.classList.add('selected');
                     showApplyButton(avatarElement);
-                    updateAvatarDisplay(i);
+                    updateAvatarDisplay(i);  // Оновлення відображення аватарки
                 }
                 break;
             }
