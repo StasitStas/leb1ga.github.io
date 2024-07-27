@@ -82,13 +82,13 @@
     display: none;
     justify-content: center;
     align-items: flex-end;
-    z-index: 3001;
+    z-index: 2999;
     animation: fadeIn 0.3s ease-out;
 }
 
 .coffer-modal.show {
     display: flex;
-    z-index: 3001;
+    z-index: 2999;
 }
 
 .modal-content-mine {
@@ -265,7 +265,7 @@
 .modal-mine {
     display: none;
     position: fixed;
-    z-index: 2999;
+    z-index: 2997;
     left: 0;
     top: 0;
     width: 100%;
