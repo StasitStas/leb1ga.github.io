@@ -630,7 +630,6 @@ body::after {
 .color-picker-container {
     display: flex;
     align-items: center;
-    position: relative; /* Додаємо позицію для псевдоелементів */
 }
 
 .color-display {
@@ -641,51 +640,25 @@ body::after {
     background-color: hsl(180, 100%, 50%);
 }
 
-.range-wrapper {
-    position: relative; /* Додаємо позицію для псевдоелементів */
-    width: 100px; /* Ширина контейнера для повзунка */
-}
-
 input[type="range"] {
     -webkit-appearance: none;
-    width: 100%; /* Робимо ширину 100% від контейнера */
+    width: 100px;
     height: 5px;
     background: linear-gradient(to right, red, orange, yellow, green, cyan, blue, violet);
     outline: none;
     border-radius: 5px;
+    overflow: hidden;
     cursor: pointer;
-    position: relative; /* Додаємо позицію для псевдоелементів */
 }
 
 input[type="range"]::-webkit-slider-thumb {
     -webkit-appearance: none;
-    width: 25px; /* Розмір повзунка */
-    height: 25px; /* Розмір повзунка */
+    width: 25px;  /* збільшений розмір */
+    height: 25px;  /* збільшений розмір */
     background: white;
     border-radius: 50%;
     cursor: pointer;
-    position: relative; /* Додаємо позицію для псевдоелементів */
-    z-index: 1; /* Забезпечує, щоб повзунок був поверх псевдоелементів */
 }
-
-input[type="range"]::-webkit-slider-runnable-track {
-    height: 5px;
-    border-radius: 5px;
-}
-
-input[type="range"]::before {
-    content: '';
-    position: absolute;
-    top: -10px; /* Відступ від верхньої частини повзунка */
-    left: -10px; /* Відступ від лівої частини повзунка */
-    width: calc(100% + 20px); /* Розширюємо область для захоплення */
-    height: 25px; /* Розмір області захоплення */
-    cursor: pointer;
-    background: transparent;
-    z-index: 0; /* Поміщаємо псевдоелемент під повзунок */
-}
-
-
 
 /* Модальне вікно з подарунками */
 .modal-gifts {
