@@ -599,10 +599,11 @@ body::after {
     background-color: #28a745;
     color: white;
     border: none;
-    border-radius: 0 0 25px 25px;
+    border-radius: 0 0 25px 25px; /* Match the border radius of the image */
+    padding: 10px 0;
+    text-align: center;
     cursor: pointer;
 }
-
 
 .avatar.selected .apply-button {
     display: block;
