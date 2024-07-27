@@ -104,7 +104,7 @@ document.addEventListener('DOMContentLoaded', function() {
         settingsWindow.style.display = 'block';
     });
 
-   // Initialize avatars
+   // Ініціалізація аватарок
     function initializeAvatars(currentLevel) {
         avatars.forEach(avatar => {
             const avatarLevel = parseInt(avatar.getAttribute('data-avatar-level'));
@@ -118,7 +118,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Apply avatar selection logic
+    // Логіка вибору аватарки
     avatars.forEach(avatar => {
         avatar.addEventListener('click', function() {
             if (!avatar.classList.contains('locked')) {
@@ -139,7 +139,7 @@ document.addEventListener('DOMContentLoaded', function() {
             if (selectedAvatar) {
                 const avatarIndex = Array.from(avatars).indexOf(selectedAvatar) + 1;
                 applyAvatar(avatarIndex);
-                button.style.display = 'none'; // Hide the button after applying the avatar
+                button.style.display = 'none'; // Сховати кнопку після застосування аватарки
                 selectedAvatar.classList.remove('selected');
             }
         });
@@ -178,7 +178,6 @@ document.addEventListener('DOMContentLoaded', function() {
     
         db.collection("users").doc(username).update(avatarData).then(() => {
         }).catch(error => {
-
         });
     }
     
@@ -195,9 +194,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 if (avatarElement) {
                     avatarElement.classList.add('selected');
                     showApplyButton(avatarElement);
-                    updateAvatarDisplay(i);  // Оновлення відображення аватарки
-                } else {
-
+                    updateAvatarDisplay(i);
                 }
                 break;
             }
@@ -208,7 +205,7 @@ document.addEventListener('DOMContentLoaded', function() {
         for (let i = 1; i <= 15; i++) {
             const avatarKey = `ava${i}`;
             if (userData[avatarKey]) {
-                updateAvatarDisplay(i);  // Оновлення відображення аватарки
+                updateAvatarDisplay(i);
                 break;
             }
         }
@@ -247,7 +244,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
 
         db.collection("clicks").doc(username).update(levelData).catch(error => {
-
         });
     }
 
@@ -266,7 +262,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 saveLevelToDB(currentLevel);
             }
         }).catch(error => {
-
         });
     }
     
