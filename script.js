@@ -372,7 +372,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 db.collection("clicks").doc(username).onSnapshot(doc => {
                     if (doc.exists) {
                         const data = doc.data();
-                        clickCount = data.clickCount || 0;
+                        
                         clickCountMax = data.clickCountMax || 0;
                         enableAnimation = data.enableAnimation !== undefined ? data.enableAnimation : true;
                         enableVibration = data.enableVibration !== undefined ? data.enableVibration : true;
@@ -474,6 +474,31 @@ document.addEventListener('DOMContentLoaded', function() {
             }, 1000);
         }
     }
+
+    const updateButton = document.getElementById('updateButton');
+
+    updateButton.addEventListener('click', function() {
+        if (username) {
+            // Оновлення кліків в базі даних після натискання на кнопку
+            db.collection("clicks").doc(username).set({
+                clickCount,
+                clickCountMax,
+                enableAnimation,
+                enableVibration,
+                lastClaimed,
+                currentDay,
+                nextClaimTime
+            }).then(() => {
+                console.log("Click count updated in DB");
+                // Якщо потрібно, додаткові дії після оновлення бази
+            }).catch(error => {
+                console.error("Error updating document:", error);
+            });
+        } else {
+            alert('Error: Username is not specified.');
+        }
+    });
+
     
     function handleClick(event) {
         const currentTime = new Date().getTime();
@@ -484,7 +509,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
         if (username) {
             clickCount += clickValue; // Додавання clickValue до clickCount
-            countDisplay.textContent = clickCount.toLocaleString();
+            countDisplay.textContent = clickCount.toLocaleString();  // Оновлення локально
     
             if (clickCount > clickCountMax) {
                 clickCountMax = clickCount;
